@@ -1,0 +1,149 @@
+﻿/* src/styles/components/WorkCard.module.css */
+
+.workCard {
+  position: relative;
+  background: rgb(250, 250, 250); /* Light gray background */
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(49, 175, 180, 0.1);
+  transition: all var(--duration-normal) var(--ease-out);
+  cursor: pointer;
+}
+
+.workCard:hover {
+  border-color: rgba(49, 175, 180, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); /* Lighter shadow for white theme */
+  transform: translateY(-4px);
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  background: rgb(240, 240, 240);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.workCard:hover .overlay {
+  opacity: 1;
+}
+
+.viewButton {
+  background: var(--color-primary);
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: 6px;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.viewButton:hover {
+  background: rgb(39, 155, 160);
+  transform: translateY(-2px);
+}
+
+.content {
+  padding: var(--space-lg);
+  background: rgb(255, 255, 255);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+  font-size: 0.85rem;
+}
+
+.category {
+  color: var(--color-primary);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.duration {
+  color: rgb(120, 120, 120); /* Muted gray */
+  font-family: var(--font-ui);
+  font-weight: 500;
+}
+
+.title {
+  font-family: var(--font-headline);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: rgb(0, 0, 0); /* Black text */
+  margin-bottom: var(--space-xs);
+  line-height: 1.3;
+}
+
+.client {
+  color: rgb(120, 120, 120); /* Muted gray */
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 809px) {
+  .imageContainer {
+    height: 200px;
+  }
+  
+  .content {
+    padding: var(--space-md);
+  }
+  
+  .title {
+    font-size: 1.125rem;
+  }
+  
+  .meta {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .imageContainer {
+    height: 180px;
+  }
+  
+  .content {
+    padding: var(--space-md) var(--space-md) var(--space-lg);
+  }
+  
+  .viewButton {
+    padding: var(--space-sm) var(--space-lg);
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,33 @@
+/* src/styles/components/Layout.module.css */
+
+.mainContent {
+  min-height: 100vh;
+  padding: 0; /* No sidebar padding - full width layout like Agentic */
+  background: rgb(255, 255, 255);
+  position: relative;
+}
+
+/* Ensure sections flow naturally without sidebar constraints */
+.mainContent > * {
+  width: 100%;
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 809px) {
+  .mainContent {
+    padding: 0;
+  }
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .mainContent {
+    transition: none;
+  }
+}

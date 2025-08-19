@@ -1,0 +1,161 @@
+﻿/* src/styles/components/Header.module.css */
+
+/* ================================
+   TOP HEADER (Simple like Agentic)
+   ================================ */
+
+.topHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  padding: 48px 48px 0 48px;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: none; /* Allow clicks through except on specific elements */
+}
+
+.topHeader * {
+  pointer-events: auto; /* Re-enable clicks on child elements */
+}
+
+.fixed {
+  position: fixed;
+}
+
+/* Logo/HOME Section (top-left) */
+.logoContainer {
+  position: relative;
+}
+
+.homeLink {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.homeLink:hover {
+  color: var(--color-primary);
+}
+
+/* QR Code / Logo Area (top-right) */
+.qrCode {
+  position: relative;
+}
+
+.qrPlaceholder {
+  width: 120px;
+  height: 120px;
+  border: 2px solid rgb(0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(255, 255, 255);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 24px;
+  color: rgb(0, 0, 0);
+}
+
+/* ================================
+   MOBILE NAVIGATION
+   ================================ */
+
+.mobileNav {
+  display: none;
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1001;
+}
+
+.mobileMenuButton {
+  display: flex;
+  flex-direction: column;
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(0, 0, 0);
+  padding: 12px;
+  cursor: pointer;
+  gap: 4px;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileMenuButton span {
+  width: 20px;
+  height: 2px;
+  background: rgb(0, 0, 0);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.mobileMenuButton:hover span {
+  background: var(--color-primary);
+}
+
+/* ================================
+   RESPONSIVE BREAKPOINTS
+   ================================ */
+
+@media (max-width: 809px) {
+  .topHeader {
+    padding: 24px 24px 0 24px;
+  }
+  
+  .qrPlaceholder {
+    width: 80px;
+    height: 80px;
+    font-size: 16px;
+  }
+  
+  .mobileNav {
+    display: block;
+  }
+}
+
+@media (max-width: 390px) {
+  .topHeader {
+    padding: 16px 16px 0 16px;
+  }
+  
+  .homeLink {
+    font-size: 14px;
+  }
+  
+  .qrPlaceholder {
+    width: 60px;
+    height: 60px;
+    font-size: 14px;
+  }
+}
+
+/* ================================
+   ACCESSIBILITY & MOTION
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .topHeader,
+  .homeLink,
+  .mobileMenuButton span {
+    transition: none;
+  }
+}
+
+/* Focus states for accessibility */
+.homeLink:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+.mobileMenuButton:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}

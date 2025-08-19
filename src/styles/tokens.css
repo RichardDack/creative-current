@@ -1,0 +1,37 @@
+﻿:root {
+  /* Colors - Based on original Framer tokens */
+  --color-primary: rgb(49, 175, 180);
+  --color-background-dark: rgb(14, 26, 36);
+  --color-background-light: rgb(20, 33, 45);
+  --color-text-primary: rgb(255, 255, 255);
+  --color-text-muted: rgb(186, 189, 198);
+  --color-border-light: rgb(230, 230, 230);
+  --color-accent-red: rgb(180, 54, 49);
+  
+  /* Typography */
+  --font-display: "Clash Display", "Clash Display Placeholder", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-ui: "Inter Tight", sans-serif;
+  --font-headline: "Wix Madefor Display", sans-serif;
+  --font-mono: "Clash Grotesk", monospace;
+  
+  /* Spacing Scale */
+  --space-xs: 0.25rem;    /* 4px */
+  --space-sm: 0.5rem;     /* 8px */
+  --space-md: 1rem;       /* 16px */
+  --space-lg: 1.5rem;     /* 24px */
+  --space-xl: 2rem;       /* 32px */
+  --space-2xl: 3rem;      /* 48px */
+  --space-3xl: 4rem;      /* 64px */
+  
+  /* Breakpoints */
+  --breakpoint-mobile: 390px;
+  --breakpoint-tablet: 810px;
+  --breakpoint-desktop: 1200px;
+  
+  /* Animation */
+  --duration-fast: 0.2s;
+  --duration-normal: 0.3s;
+  --duration-slow: 0.6s;
+  --ease-out: cubic-bezier(0.44, 0, 0.56, 1);
+}

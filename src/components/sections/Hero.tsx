@@ -8,9 +8,12 @@ import styles from '@/styles/components/Hero.module.css';
 const navigationItems = [
   { name: 'WORK', href: '#work', active: true },
   { name: 'ABOUT', href: '#about', active: false },
+  { name: 'SERVICES', href: '#services', active: false },
+  { name: 'CONTACT', href: '#contact', active: false },
 ];
 
 export const Hero = () => {
+  // Only WORK is active, others are inactive
   const [activeNav, setActiveNav] = useState('WORK');
 
   const navVariants = {
@@ -68,18 +71,16 @@ export const Hero = () => {
         {navigationItems.map((item, index) => (
           <motion.div
             key={item.name}
-            className={`${styles.navItem} ${activeNav === item.name ? styles.active : ''}`}
+            className={`${styles.navItem} ${item.active ? styles.active : ''}`}
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 + (index * 0.1), duration: 0.6 }}
-            onMouseEnter={() => setActiveNav(item.name)}
           >
             <a href={item.href} className={styles.navLink}>
-              {/* Active state background bar */}
-              {activeNav === item.name && (
+              {/* Active state background bar - only for WORK */}
+              {item.active && (
                 <motion.div 
                   className={styles.activeBar}
-                  layoutId="activeBar"
                   initial={{ width: 0 }}
                   animate={{ width: '100%' }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
@@ -88,17 +89,10 @@ export const Hero = () => {
               
               <span className={styles.navText}>{item.name}</span>
               
-              {/* Down arrow for active item */}
-              {activeNav === item.name && (
-                <motion.div 
-                  className={styles.downArrow}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.4 }}
-                >
-                  ↓
-                </motion.div>
-              )}
+              {/* Down arrow shows on hover for ALL items */}
+              <div className={styles.downArrow}>
+                ↓
+              </div>
             </a>
           </motion.div>
         ))}
@@ -126,7 +120,6 @@ export const Hero = () => {
       >
         <h2 className={styles.brandTitle}>
           <span className={styles.creative}>CREATIVE</span>
-          <span className={styles.current}>CURRENT</span>
         </h2>
       </motion.div>
 

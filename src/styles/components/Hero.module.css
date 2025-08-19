@@ -10,8 +10,8 @@
     ". . ."
     "nav content ."
     "brand brand brand";
-  grid-template-rows: 120px 1fr auto;
-  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 180px 1fr auto;
+  grid-template-columns: 1fr 1fr 1fr;
   padding: 0 48px 0 48px;
 }
 
@@ -23,15 +23,16 @@
   grid-area: nav;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* Center vertically in the grid area */
   align-self: center;
   z-index: 10;
-  margin-right: 80px; /* Space between nav and content */
+  margin-left: auto; /* Push to right side of nav area */
+  margin-right: 60px; /* Space from content area */
 }
 
 .navItem {
   position: relative;
-  margin-bottom: 32px; /* Reduced from 48px */
+  margin-bottom: 8px; /* Much tighter spacing - items almost touching */
 }
 
 .navLink {
@@ -43,7 +44,6 @@
 
 .navText {
   font-family: var(--font-headline);
-  font-size: clamp(2rem, 4vw, 3rem); /* Reduced from 4rem max */
   font-weight: 700;
   color: rgb(0, 0, 0);
   transition: all var(--duration-normal) var(--ease-out);
@@ -51,6 +51,15 @@
   line-height: 1;
   letter-spacing: -0.02em;
   white-space: nowrap;
+}
+
+/* Different sizes for active vs inactive items */
+.navItem.active .navText {
+  font-size: clamp(3rem, 6vw, 5rem); /* Larger for WORK */
+}
+
+.navItem:not(.active) .navText {
+  font-size: clamp(2rem, 4vw, 3.5rem); /* Smaller for others */
 }
 
 /* Active State */
@@ -71,21 +80,33 @@
   border-radius: 0;
 }
 
-/* Down Arrow for Active Item */
+/* Down Arrow for Hover (all items) */
 .downArrow {
   position: absolute;
-  right: -40px; /* Reduced from -60px */
+  right: -40px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1.5rem; /* Reduced from 2rem */
+  font-size: 1.5rem;
   color: var(--color-primary);
   font-weight: bold;
+  opacity: 0; /* Hidden by default */
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+/* Show arrow on hover for any navigation item */
+.navLink:hover .downArrow {
+  opacity: 1;
 }
 
 /* Hover Effects */
 .navItem:not(.active):hover .navText {
   color: var(--color-primary);
-  transform: translateX(10px); /* Reduced from 20px */
+  transform: translateX(10px);
+}
+
+.navItem.active:hover .navText {
+  /* No transform for active item */
+  color: rgb(255, 255, 255);
 }
 
 /* ================================
@@ -96,11 +117,11 @@
   grid-area: content;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* Center vertically like navigation */
   align-self: center;
   max-width: 500px;
   z-index: 10;
-  margin-left: auto; /* Push to right side */
+  margin-left: 0;
   margin-right: 48px;
 }
 
@@ -134,7 +155,7 @@
   grid-area: brand;
   z-index: 5;
   overflow: hidden;
-  padding-bottom: 24px; /* Add some bottom padding */
+  padding-bottom: 0; /* Remove bottom padding to let text fill more space */
 }
 
 .brandTitle {
@@ -142,21 +163,14 @@
   font-weight: 900;
   line-height: 0.8;
   margin: 0;
-  display: flex;
-  flex-direction: column;
+  text-align: center; /* Center the single word */
   letter-spacing: -0.05em;
 }
 
 .creative {
-  font-size: clamp(2.5rem, 8vw, 6rem); /* Reduced from 8rem max */
+  font-size: clamp(4rem, 20vw, 16rem); /* Much larger to match AGENTIC scale */
   color: var(--color-primary);
-  margin-left: 0;
-}
-
-.current {
-  font-size: clamp(2.5rem, 8vw, 6rem); /* Reduced from 8rem max */
-  color: var(--color-primary);
-  margin-left: clamp(60px, 15vw, 200px); /* Responsive margin */
+  display: block;
 }
 
 /* ================================
@@ -218,14 +232,19 @@
 @media (max-width: 1199px) {
   .hero {
     padding: 0 32px 0 32px;
+    grid-template-columns: 1fr 1fr 1fr;
   }
   
   .contentArea {
     margin-right: 32px;
   }
   
-  .navText {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  .navItem.active .navText {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+  }
+  
+  .navItem:not(.active) .navText {
+    font-size: clamp(1.75rem, 4vw, 3rem);
   }
   
   .downArrow {
@@ -234,7 +253,11 @@
   }
   
   .typographicNav {
-    margin-right: 60px;
+    margin-right: 40px;
+  }
+  
+  .creative {
+    font-size: clamp(3rem, 16vw, 12rem);
   }
 }
 
@@ -256,10 +279,14 @@
   }
   
   .navItem {
-    margin-bottom: 20px;
+    margin-bottom: 6px; /* Even tighter on mobile */
   }
   
-  .navText {
+  .navItem.active .navText {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  
+  .navItem:not(.active) .navText {
     font-size: clamp(1.5rem, 6vw, 2.5rem);
   }
   
@@ -289,11 +316,7 @@
   }
   
   .creative {
-    margin-left: 0;
-  }
-  
-  .current {
-    margin-left: clamp(40px, 10vw, 80px);
+    font-size: clamp(3rem, 15vw, 8rem);
   }
 }
 
@@ -302,7 +325,11 @@
     padding: 80px 16px 16px 16px;
   }
   
-  .navText {
+  .navItem.active .navText {
+    font-size: clamp(1.5rem, 10vw, 2.5rem);
+  }
+  
+  .navItem:not(.active) .navText {
     font-size: clamp(1.25rem, 8vw, 2rem);
   }
   
@@ -314,13 +341,8 @@
     font-size: 0.9rem;
   }
   
-  .creative,
-  .current {
-    font-size: clamp(2rem, 10vw, 4rem);
-  }
-  
-  .current {
-    margin-left: clamp(30px, 8vw, 60px);
+  .creative {
+    font-size: clamp(2.5rem, 15vw, 6rem);
   }
 }
 

@@ -1,0 +1,2019 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.gitattributes
+.gitignore
+eslint.config.mjs
+next.config.ts
+package.json
+postcss.config.mjs
+public/file.svg
+public/globe.svg
+public/next.svg
+public/vercel.svg
+public/window.svg
+README.md
+src/app/globals.css
+src/app/layout.tsx
+src/app/page.tsx
+src/components/global/Header.tsx
+src/components/global/Layout.tsx
+src/components/sections/Hero.tsx
+src/components/sections/WorkSection.tsx
+src/components/ui/WorkCard.tsx
+src/lib/animations/variants.ts
+src/lib/data/work-projects.ts
+src/lib/utils/cn.ts
+src/styles/components/Header.module.css
+src/styles/components/Hero.module.css
+src/styles/components/Layout.module.css
+src/styles/components/WorkCard.module.css
+src/styles/components/WorkSection.module.css
+src/styles/tokens.css
+src/types/components.ts
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".gitattributes">
+# Auto detect text files and perform LF normalization
+* text=auto
+</file>
+
+<file path=".gitignore">
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+</file>
+
+<file path="eslint.config.mjs">
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+import { FlatCompat } from "@eslint/eslintrc";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
+
+const eslintConfig = [
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
+];
+
+export default eslintConfig;
+</file>
+
+<file path="next.config.ts">
+// next.config.ts
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  images: {
+    domains: ['framerusercontent.com', 'images.unsplash.com'],
+    formats: ['image/webp', 'image/avif'],
+  },
+  experimental: {
+    optimizePackageImports: ['framer-motion'],
+  },
+  // Enable compression
+  compress: true,
+  // Configure headers for better caching
+  async headers() {
+    return [
+      {
+        source: '/images/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
+};
+
+export default nextConfig;
+</file>
+
+<file path="package.json">
+{
+  "name": "creative-current-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.12",
+    "next": "15.4.7",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20.19.11",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.7",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+</file>
+
+<file path="postcss.config.mjs">
+const config = {
+  plugins: ["@tailwindcss/postcss"],
+};
+
+export default config;
+</file>
+
+<file path="public/file.svg">
+<svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z" clip-rule="evenodd" fill="#666" fill-rule="evenodd"/></svg>
+</file>
+
+<file path="public/globe.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1" fill="#666"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
+</file>
+
+<file path="public/next.svg">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
+</file>
+
+<file path="public/vercel.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1155 1000"><path d="m577.3 0 577.4 1000H0z" fill="#fff"/></svg>
+</file>
+
+<file path="public/window.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" fill="#666"/></svg>
+</file>
+
+<file path="README.md">
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</file>
+
+<file path="src/app/globals.css">
+@import '../styles/tokens.css';
+
+/* Reset and base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: rgb(255, 255, 255); /* White background like Agentic */
+  color: rgb(0, 0, 0); /* Black text like Agentic */
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Typography utilities */
+.h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: rgb(0, 0, 0); /* Black text */
+}
+
+.h2 {
+  font-family: var(--font-headline);
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: rgb(0, 0, 0); /* Black text */
+}
+
+.body-lg {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: rgb(0, 0, 0); /* Black text */
+}
+
+/* Layout utilities */
+.container {
+  width: 100%;
+  max-width: var(--breakpoint-desktop);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+@media (max-width: 809px) {
+  .container {
+    max-width: var(--breakpoint-mobile);
+    padding: 0 var(--space-md);
+  }
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Scroll behavior */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</file>
+
+<file path="src/app/layout.tsx">
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Create Next App",
+  description: "Generated by create next app",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}
+</file>
+
+<file path="src/app/page.tsx">
+// src/app/page.tsx
+import { Layout } from '@/components/global/Layout';
+import { Hero } from '@/components/sections/Hero';
+import { WorkSection } from '@/components/sections/WorkSection';
+
+export default function Home() {
+  return (
+    <Layout>
+      <Hero />
+      <WorkSection />
+    </Layout>
+  );
+}
+</file>
+
+<file path="src/components/global/Header.tsx">
+// src/components/global/Header.tsx
+'use client';
+
+import { motion } from 'framer-motion';
+import styles from '@/styles/components/Header.module.css';
+
+interface HeaderProps {
+  fixed?: boolean;
+  variant?: 'light' | 'dark';
+}
+
+export const Header: React.FC<HeaderProps> = ({ 
+  fixed = true, 
+  variant = 'dark' 
+}) => {
+  return (
+    <>
+      {/* Small Logo/HOME in top-left corner (like Agentic) */}
+      <motion.header 
+        className={`${styles.topHeader} ${fixed ? styles.fixed : ''}`}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <motion.div 
+          className={styles.logoContainer}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          <a href="#hero" className={styles.homeLink}>
+            HOME
+          </a>
+        </motion.div>
+
+        {/* QR Code placeholder (top-right like Agentic) */}
+        <motion.div 
+          className={styles.qrCode}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+        >
+          <div className={styles.qrPlaceholder}>
+            {/* Your logo or QR code here */}
+            <span>CC</span>
+          </div>
+        </motion.div>
+      </motion.header>
+
+      {/* Mobile Navigation */}
+      <motion.div 
+        className={styles.mobileNav}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 }}
+      >
+        {/* Mobile menu implementation */}
+        <button className={styles.mobileMenuButton}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </motion.div>
+    </>
+  );
+};
+</file>
+
+<file path="src/components/global/Layout.tsx">
+// src/components/global/Layout.tsx
+import { Header } from './Header';
+import styles from '@/styles/components/Layout.module.css';
+
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
+  return (
+    <>
+      <Header fixed={true} variant="dark" />
+      <main className={styles.mainContent}>
+        {children}
+      </main>
+    </>
+  );
+};
+</file>
+
+<file path="src/components/sections/Hero.tsx">
+// src/components/sections/Hero.tsx
+'use client';
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import styles from '@/styles/components/Hero.module.css';
+
+const navigationItems = [
+  { name: 'WORK', href: '#work', active: true },
+  { name: 'ABOUT', href: '#about', active: false },
+];
+
+export const Hero = () => {
+  const [activeNav, setActiveNav] = useState('WORK');
+
+  const navVariants = {
+    initial: { x: -100, opacity: 0 },
+    animate: { 
+      x: 0, 
+      opacity: 1,
+      transition: { 
+        type: "spring", 
+        stiffness: 200, 
+        damping: 30 
+      }
+    }
+  };
+
+  const brandVariants = {
+    initial: { scale: 0.8, opacity: 0 },
+    animate: { 
+      scale: 1, 
+      opacity: 1,
+      transition: { 
+        delay: 0.3,
+        type: "spring", 
+        stiffness: 150, 
+        damping: 40 
+      }
+    }
+  };
+
+  const contentVariants = {
+    initial: { x: 50, opacity: 0 },
+    animate: { 
+      x: 0, 
+      opacity: 1,
+      transition: { 
+        delay: 0.5,
+        type: "spring", 
+        stiffness: 200, 
+        damping: 30 
+      }
+    }
+  };
+
+  return (
+    <motion.section 
+      className={styles.hero}
+      initial="initial"
+      animate="animate"
+    >
+      {/* Large Typographic Navigation (left side) */}
+      <motion.nav 
+        className={styles.typographicNav}
+        variants={navVariants}
+      >
+        {navigationItems.map((item, index) => (
+          <motion.div
+            key={item.name}
+            className={`${styles.navItem} ${activeNav === item.name ? styles.active : ''}`}
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 + (index * 0.1), duration: 0.6 }}
+            onMouseEnter={() => setActiveNav(item.name)}
+          >
+            <a href={item.href} className={styles.navLink}>
+              {/* Active state background bar */}
+              {activeNav === item.name && (
+                <motion.div 
+                  className={styles.activeBar}
+                  layoutId="activeBar"
+                  initial={{ width: 0 }}
+                  animate={{ width: '100%' }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                />
+              )}
+              
+              <span className={styles.navText}>{item.name}</span>
+              
+              {/* Down arrow for active item */}
+              {activeNav === item.name && (
+                <motion.div 
+                  className={styles.downArrow}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.4 }}
+                >
+                  ↓
+                </motion.div>
+              )}
+            </a>
+          </motion.div>
+        ))}
+      </motion.nav>
+
+      {/* Main Content Area */}
+      <motion.div 
+        className={styles.contentArea}
+        variants={contentVariants}
+      >
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroTitle}>
+            Elevating Digital Excellence.
+          </h1>
+          <p className={styles.heroDescription}>
+            We specialize in web design, development, UI/UX, and product design.
+          </p>
+        </div>
+      </motion.div>
+
+      {/* Massive Brand Typography (bottom) */}
+      <motion.div 
+        className={styles.brandSection}
+        variants={brandVariants}
+      >
+        <h2 className={styles.brandTitle}>
+          <span className={styles.creative}>CREATIVE</span>
+          <span className={styles.current}>CURRENT</span>
+        </h2>
+      </motion.div>
+
+      {/* Decorative elements */}
+      <motion.div 
+        className={styles.decorativeElements}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8, duration: 1 }}
+      >
+        <div className={styles.blurElement1}></div>
+        <div className={styles.blurElement2}></div>
+        <div className={styles.blurElement3}></div>
+      </motion.div>
+    </motion.section>
+  );
+};
+</file>
+
+<file path="src/components/sections/WorkSection.tsx">
+// src/components/sections/WorkSection.tsx
+'use client';
+
+import { motion } from 'framer-motion';
+import { WorkCard } from '@/components/ui/WorkCard';
+import { workProjects } from '@/lib/data/work-projects';
+import { staggerContainer, slideInUp } from '@/lib/animations/variants';
+import styles from '@/styles/components/WorkSection.module.css';
+
+const sectionVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1
+    }
+  }
+};
+
+export const WorkSection = () => {
+  return (
+    <motion.section 
+      id="work"
+      className={styles.workSection}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={sectionVariants}
+    >
+      <div className="container">
+        <motion.div 
+          className={styles.header}
+          variants={slideInUp}
+        >
+          <motion.span 
+            className={styles.label}
+            variants={slideInUp}
+          >
+            Our Portfolio
+          </motion.span>
+          <motion.h2 
+            className={styles.title}
+            variants={slideInUp}
+          >
+            Featured Work
+          </motion.h2>
+          <motion.p 
+            className={styles.description}
+            variants={slideInUp}
+          >
+            Discover our latest projects where creativity meets functionality. 
+            Each piece represents our commitment to delivering exceptional digital experiences.
+          </motion.p>
+        </motion.div>
+
+        <motion.div 
+          className={styles.projectGrid}
+          variants={staggerContainer}
+        >
+          {workProjects.map((project, index) => (
+            <WorkCard 
+              key={project.id}
+              project={project}
+              index={index}
+            />
+          ))}
+        </motion.div>
+
+        <motion.div 
+          className={styles.footer}
+          variants={slideInUp}
+        >
+          <motion.button 
+            className={styles.viewAllButton}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            View All Projects
+          </motion.button>
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+};
+</file>
+
+<file path="src/components/ui/WorkCard.tsx">
+// src/components/ui/WorkCard.tsx
+'use client';
+
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { WorkProject } from '@/types/components';
+import styles from '@/styles/components/WorkCard.module.css';
+
+interface WorkCardProps {
+  project: WorkProject;
+  index: number;
+}
+
+const cardVariants = {
+  initial: { scale: 0.9, opacity: 0, y: 60 },
+  animate: (index: number) => ({
+    scale: 1,
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 400,
+      damping: 90,
+      delay: index * 0.1
+    }
+  }),
+  hover: {
+    scale: 1.02,
+    y: -8,
+    transition: { duration: 0.3 }
+  }
+};
+
+const imageVariants = {
+  initial: { scale: 1.2 },
+  animate: { scale: 1 },
+  hover: { scale: 1.1 }
+};
+
+export const WorkCard: React.FC<WorkCardProps> = ({ project, index }) => {
+  return (
+    <motion.article 
+      className={styles.workCard}
+      variants={cardVariants}
+      initial="initial"
+      whileInView="animate"
+      whileHover="hover"
+      viewport={{ once: true, margin: "-50px" }}
+      custom={index}
+    >
+      <div className={styles.imageContainer}>
+        <motion.div 
+          className={styles.imageWrapper}
+          variants={imageVariants}
+        >
+          <Image 
+            src={project.image}
+            alt={project.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className={styles.image}
+          />
+        </motion.div>
+        <div className={styles.overlay}>
+          <motion.button 
+            className={styles.viewButton}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            View Project
+          </motion.button>
+        </div>
+      </div>
+      
+      <div className={styles.content}>
+        <div className={styles.meta}>
+          <span className={styles.category}>{project.category}</span>
+          <span className={styles.duration}>{project.duration}</span>
+        </div>
+        <h3 className={styles.title}>{project.title}</h3>
+        <p className={styles.client}>{project.client}</p>
+      </div>
+    </motion.article>
+  );
+};
+</file>
+
+<file path="src/lib/animations/variants.ts">
+import { Variants } from 'framer-motion';
+
+// Hero animations (based on original Framer data)
+export const slideInLeft: Variants = {
+  initial: { x: -192, opacity: 0 },
+  animate: { 
+    x: 0, 
+    opacity: 1,
+    transition: { 
+      type: "spring", 
+      stiffness: 200, 
+      damping: 30 
+    }
+  }
+};
+
+export const slideInRight: Variants = {
+  initial: { x: 192, opacity: 0 },
+  animate: { 
+    x: 0, 
+    opacity: 1,
+    transition: { 
+      type: "spring", 
+      stiffness: 200, 
+      damping: 30 
+    }
+  }
+};
+
+export const fadeIn: Variants = {
+  initial: { opacity: 0 },
+  animate: { 
+    opacity: 1,
+    transition: { duration: 0.6 }
+  }
+};
+
+export const slideInUp: Variants = {
+  initial: { y: 40, opacity: 0 },
+  animate: { 
+    y: 0, 
+    opacity: 1,
+    transition: { 
+      type: "spring", 
+      stiffness: 150, 
+      damping: 40 
+    }
+  }
+};
+
+// Section stagger animations
+export const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1
+    }
+  }
+};
+
+// Work card animations
+export const cardVariants: Variants = {
+  initial: { scale: 0.9, opacity: 0 },
+  animate: (index: number) => ({
+    scale: 1,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 450,
+      damping: 90,
+      delay: index * 0.1
+    }
+  }),
+  hover: {
+    scale: 1.02,
+    transition: { duration: 0.2 }
+  }
+};
+</file>
+
+<file path="src/lib/data/work-projects.ts">
+// src/lib/data/work-projects.ts
+import { WorkProject } from '@/types/components';
+
+export const workProjects: WorkProject[] = [
+  {
+    id: '1',
+    title: 'E-commerce Platform',
+    category: 'Web Development',
+    client: 'TechStart Inc.',
+    duration: '3 months',
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop&auto=format',
+    link: 'https://example.com'
+  },
+  {
+    id: '2',
+    title: 'Mobile Banking App',
+    category: 'Mobile Development',
+    client: 'FinanceFlow',
+    duration: '4 months',
+    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop&auto=format',
+    link: 'https://example.com'
+  },
+  {
+    id: '3',
+    title: 'Brand Identity Design',
+    category: 'Branding',
+    client: 'Creative Agency',
+    duration: '2 months',
+    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop&auto=format',
+    link: 'https://example.com'
+  },
+  {
+    id: '4',
+    title: 'SaaS Dashboard',
+    category: 'UI/UX Design',
+    client: 'DataFlow Corp',
+    duration: '5 months',
+    image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop&auto=format',
+    link: 'https://example.com'
+  },
+  {
+    id: '5',
+    title: 'Portfolio Website',
+    category: 'Web Development',
+    client: 'Artist Collective',
+    duration: '6 weeks',
+    image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=600&fit=crop&auto=format',
+    link: 'https://example.com'
+  },
+  {
+    id: '6',
+    title: 'Restaurant App',
+    category: 'Mobile Development',
+    client: 'Foodie Express',
+    duration: '3 months',
+    image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop&auto=format',
+    link: 'https://example.com'
+  }
+];
+</file>
+
+<file path="src/lib/utils/cn.ts">
+import { clsx, type ClassValue } from 'clsx';
+
+export function cn(...inputs: ClassValue[]) {
+  return clsx(inputs);
+}
+</file>
+
+<file path="src/styles/components/Header.module.css">
+/* src/styles/components/Header.module.css */
+
+/* ================================
+   TOP HEADER (Simple like Agentic)
+   ================================ */
+
+.topHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  padding: 48px 48px 0 48px;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: none; /* Allow clicks through except on specific elements */
+}
+
+.topHeader * {
+  pointer-events: auto; /* Re-enable clicks on child elements */
+}
+
+.fixed {
+  position: fixed;
+}
+
+/* Logo/HOME Section (top-left) */
+.logoContainer {
+  position: relative;
+}
+
+.homeLink {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.homeLink:hover {
+  color: var(--color-primary);
+}
+
+/* QR Code / Logo Area (top-right) */
+.qrCode {
+  position: relative;
+}
+
+.qrPlaceholder {
+  width: 120px;
+  height: 120px;
+  border: 2px solid rgb(0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(255, 255, 255);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 24px;
+  color: rgb(0, 0, 0);
+}
+
+/* ================================
+   MOBILE NAVIGATION
+   ================================ */
+
+.mobileNav {
+  display: none;
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1001;
+}
+
+.mobileMenuButton {
+  display: flex;
+  flex-direction: column;
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(0, 0, 0);
+  padding: 12px;
+  cursor: pointer;
+  gap: 4px;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileMenuButton span {
+  width: 20px;
+  height: 2px;
+  background: rgb(0, 0, 0);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.mobileMenuButton:hover span {
+  background: var(--color-primary);
+}
+
+/* ================================
+   RESPONSIVE BREAKPOINTS
+   ================================ */
+
+@media (max-width: 809px) {
+  .topHeader {
+    padding: 24px 24px 0 24px;
+  }
+  
+  .qrPlaceholder {
+    width: 80px;
+    height: 80px;
+    font-size: 16px;
+  }
+  
+  .mobileNav {
+    display: block;
+  }
+}
+
+@media (max-width: 390px) {
+  .topHeader {
+    padding: 16px 16px 0 16px;
+  }
+  
+  .homeLink {
+    font-size: 14px;
+  }
+  
+  .qrPlaceholder {
+    width: 60px;
+    height: 60px;
+    font-size: 14px;
+  }
+}
+
+/* ================================
+   ACCESSIBILITY & MOTION
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .topHeader,
+  .homeLink,
+  .mobileMenuButton span {
+    transition: none;
+  }
+}
+
+/* Focus states for accessibility */
+.homeLink:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+.mobileMenuButton:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+</file>
+
+<file path="src/styles/components/Hero.module.css">
+/* src/styles/components/Hero.module.css */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background: rgb(255, 255, 255);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 120px 0 0 0;
+}
+
+/* ================================
+   TYPOGRAPHIC NAVIGATION (Left Side)
+   ================================ */
+
+.typographicNav {
+  position: absolute;
+  left: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.navItem {
+  position: relative;
+  margin-bottom: 48px;
+}
+
+.navLink {
+  position: relative;
+  text-decoration: none;
+  display: block;
+  overflow: hidden;
+}
+
+.navText {
+  font-family: var(--font-headline);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  color: rgb(0, 0, 0);
+  transition: all var(--duration-normal) var(--ease-out);
+  display: block;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* Active State */
+.navItem.active .navText {
+  color: rgb(255, 255, 255);
+  position: relative;
+  z-index: 2;
+}
+
+/* Active Background Bar */
+.activeBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--color-primary);
+  z-index: 1;
+  border-radius: 0;
+}
+
+/* Down Arrow for Active Item */
+.downArrow {
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+/* Hover Effects */
+.navItem:not(.active):hover .navText {
+  color: var(--color-primary);
+  transform: translateX(20px);
+}
+
+/* ================================
+   CONTENT AREA (Right Side)
+   ================================ */
+
+.contentArea {
+  position: absolute;
+  right: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 500px;
+  z-index: 10;
+}
+
+.heroContent {
+  text-align: left;
+}
+
+.heroTitle {
+  font-family: var(--font-headline);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: rgb(0, 0, 0);
+  line-height: 1.2;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+.heroDescription {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: rgb(120, 120, 120);
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+/* ================================
+   MASSIVE BRAND TYPOGRAPHY (Bottom)
+   ================================ */
+
+.brandSection {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.brandTitle {
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 0.8;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  letter-spacing: -0.05em;
+}
+
+.creative {
+  font-size: clamp(3rem, 12vw, 8rem);
+  color: var(--color-primary);
+  margin-left: 48px;
+}
+
+.current {
+  font-size: clamp(3rem, 12vw, 8rem);
+  color: var(--color-primary);
+  margin-left: 200px;
+}
+
+/* ================================
+   DECORATIVE ELEMENTS
+   ================================ */
+
+.decorativeElements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.blurElement1 {
+  position: absolute;
+  top: 20%;
+  right: 15%;
+  width: 200px;
+  height: 200px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.1;
+}
+
+.blurElement2 {
+  position: absolute;
+  bottom: 30%;
+  left: 20%;
+  width: 150px;
+  height: 150px;
+  background: var(--color-primary);
+  border-radius: 20px;
+  filter: blur(40px);
+  opacity: 0.08;
+  transform: rotate(45deg);
+}
+
+.blurElement3 {
+  position: absolute;
+  top: 60%;
+  right: 30%;
+  width: 100px;
+  height: 300px;
+  background: var(--color-primary);
+  border-radius: 10px;
+  filter: blur(30px);
+  opacity: 0.06;
+  transform: rotate(-20deg);
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 1199px) {
+  .typographicNav {
+    left: 32px;
+  }
+  
+  .contentArea {
+    right: 32px;
+    max-width: 400px;
+  }
+  
+  .creative {
+    margin-left: 32px;
+  }
+  
+  .current {
+    margin-left: 120px;
+  }
+  
+  .downArrow {
+    right: -40px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 809px) {
+  .hero {
+    padding: 100px 0 0 0;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* Stack navigation vertically on mobile */
+  .typographicNav {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    margin-bottom: 48px;
+    padding: 0 24px;
+  }
+  
+  .navItem {
+    margin-bottom: 24px;
+  }
+  
+  .navText {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  
+  .downArrow {
+    right: -30px;
+    font-size: 1.25rem;
+  }
+  
+  /* Center content on mobile */
+  .contentArea {
+    position: relative;
+    right: 0;
+    top: 0;
+    transform: none;
+    max-width: none;
+    padding: 0 24px;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  
+  .heroDescription {
+    max-width: none;
+  }
+  
+  /* Adjust brand typography for mobile */
+  .brandSection {
+    position: relative;
+    margin-top: auto;
+  }
+  
+  .creative {
+    margin-left: 24px;
+  }
+  
+  .current {
+    margin-left: 80px;
+  }
+}
+
+@media (max-width: 390px) {
+  .hero {
+    padding: 80px 0 0 0;
+  }
+  
+  .typographicNav {
+    padding: 0 16px;
+  }
+  
+  .contentArea {
+    padding: 0 16px;
+  }
+  
+  .creative {
+    margin-left: 16px;
+  }
+  
+  .current {
+    margin-left: 60px;
+  }
+  
+  .navText {
+    font-size: clamp(1.5rem, 10vw, 2.5rem);
+  }
+  
+  .heroTitle {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+  
+  .heroDescription {
+    font-size: 1rem;
+  }
+}
+
+/* ================================
+   ACCESSIBILITY & MOTION
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .navText,
+  .activeBar,
+  .downArrow {
+    transition: none;
+  }
+}
+
+/* Focus states for accessibility */
+.navLink:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+.navLink:focus .navText {
+  color: var(--color-primary);
+}
+</file>
+
+<file path="src/styles/components/Layout.module.css">
+/* src/styles/components/Layout.module.css */
+
+.mainContent {
+  min-height: 100vh;
+  padding: 0; /* No sidebar padding - full width layout like Agentic */
+  background: rgb(255, 255, 255);
+  position: relative;
+}
+
+/* Ensure sections flow naturally without sidebar constraints */
+.mainContent > * {
+  width: 100%;
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 809px) {
+  .mainContent {
+    padding: 0;
+  }
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .mainContent {
+    transition: none;
+  }
+}
+</file>
+
+<file path="src/styles/components/WorkCard.module.css">
+/* src/styles/components/WorkCard.module.css */
+
+.workCard {
+  position: relative;
+  background: rgb(250, 250, 250); /* Light gray background */
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(49, 175, 180, 0.1);
+  transition: all var(--duration-normal) var(--ease-out);
+  cursor: pointer;
+}
+
+.workCard:hover {
+  border-color: rgba(49, 175, 180, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); /* Lighter shadow for white theme */
+  transform: translateY(-4px);
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  background: rgb(240, 240, 240);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.workCard:hover .overlay {
+  opacity: 1;
+}
+
+.viewButton {
+  background: var(--color-primary);
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: 6px;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.viewButton:hover {
+  background: rgb(39, 155, 160);
+  transform: translateY(-2px);
+}
+
+.content {
+  padding: var(--space-lg);
+  background: rgb(255, 255, 255);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+  font-size: 0.85rem;
+}
+
+.category {
+  color: var(--color-primary);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.duration {
+  color: rgb(120, 120, 120); /* Muted gray */
+  font-family: var(--font-ui);
+  font-weight: 500;
+}
+
+.title {
+  font-family: var(--font-headline);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: rgb(0, 0, 0); /* Black text */
+  margin-bottom: var(--space-xs);
+  line-height: 1.3;
+}
+
+.client {
+  color: rgb(120, 120, 120); /* Muted gray */
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 809px) {
+  .imageContainer {
+    height: 200px;
+  }
+  
+  .content {
+    padding: var(--space-md);
+  }
+  
+  .title {
+    font-size: 1.125rem;
+  }
+  
+  .meta {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .imageContainer {
+    height: 180px;
+  }
+  
+  .content {
+    padding: var(--space-md) var(--space-md) var(--space-lg);
+  }
+  
+  .viewButton {
+    padding: var(--space-sm) var(--space-lg);
+    font-size: 0.9rem;
+  }
+}
+</file>
+
+<file path="src/styles/components/WorkSection.module.css">
+/* src/styles/components/WorkSection.module.css */
+
+.workSection {
+  padding: 120px 48px;
+  background: rgb(255, 255, 255);
+  position: relative;
+  margin-top: 100vh; /* Push below the full-height hero */
+}
+
+.workSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 48px;
+  right: 48px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-primary),
+    transparent
+  );
+  opacity: 0.3;
+}
+
+.header {
+  margin-bottom: 80px;
+  max-width: 1000px;
+}
+
+.label {
+  display: inline-block;
+  color: var(--color-primary);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 24px;
+  padding: 8px 16px;
+  border: 1px solid rgba(49, 175, 180, 0.3);
+  border-radius: 20px;
+  background: rgba(49, 175, 180, 0.05);
+}
+
+.title {
+  font-family: var(--font-headline);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  color: rgb(0, 0, 0);
+  margin-bottom: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  color: rgb(120, 120, 120);
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 48px;
+  margin-bottom: 80px;
+}
+
+.footer {
+  text-align: center;
+}
+
+.viewAllButton {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  padding: 16px 48px;
+  border-radius: 0;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.viewAllButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--color-primary);
+  transition: left var(--duration-normal) var(--ease-out);
+  z-index: -1;
+}
+
+.viewAllButton:hover::before {
+  left: 0;
+}
+
+.viewAllButton:hover {
+  color: rgb(255, 255, 255);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(49, 175, 180, 0.3);
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 1199px) {
+  .workSection {
+    padding: 80px 32px;
+  }
+  
+  .workSection::before {
+    left: 32px;
+    right: 32px;
+  }
+}
+
+@media (max-width: 809px) {
+  .workSection {
+    padding: 60px 24px;
+    margin-top: 0; /* Remove margin on mobile */
+  }
+  
+  .workSection::before {
+    left: 24px;
+    right: 24px;
+  }
+  
+  .header {
+    margin-bottom: 60px;
+  }
+  
+  .projectGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 60px;
+  }
+  
+  .title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  
+  .description {
+    font-size: 1.125rem;
+  }
+  
+  .viewAllButton {
+    padding: 14px 32px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .workSection {
+    padding: 40px 16px;
+  }
+  
+  .workSection::before {
+    left: 16px;
+    right: 16px;
+  }
+  
+  .label {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+  
+  .viewAllButton {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ================================
+   ACCESSIBILITY & MOTION
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .viewAllButton,
+  .viewAllButton::before {
+    transition: none;
+  }
+}
+
+/* Focus states for accessibility */
+.viewAllButton:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+</file>
+
+<file path="src/styles/tokens.css">
+:root {
+  /* Colors - Based on original Framer tokens */
+  --color-primary: rgb(49, 175, 180);
+  --color-background-dark: rgb(14, 26, 36);
+  --color-background-light: rgb(20, 33, 45);
+  --color-text-primary: rgb(255, 255, 255);
+  --color-text-muted: rgb(186, 189, 198);
+  --color-border-light: rgb(230, 230, 230);
+  --color-accent-red: rgb(180, 54, 49);
+  
+  /* Typography */
+  --font-display: "Clash Display", "Clash Display Placeholder", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-ui: "Inter Tight", sans-serif;
+  --font-headline: "Wix Madefor Display", sans-serif;
+  --font-mono: "Clash Grotesk", monospace;
+  
+  /* Spacing Scale */
+  --space-xs: 0.25rem;    /* 4px */
+  --space-sm: 0.5rem;     /* 8px */
+  --space-md: 1rem;       /* 16px */
+  --space-lg: 1.5rem;     /* 24px */
+  --space-xl: 2rem;       /* 32px */
+  --space-2xl: 3rem;      /* 48px */
+  --space-3xl: 4rem;      /* 64px */
+  
+  /* Breakpoints */
+  --breakpoint-mobile: 390px;
+  --breakpoint-tablet: 810px;
+  --breakpoint-desktop: 1200px;
+  
+  /* Animation */
+  --duration-fast: 0.2s;
+  --duration-normal: 0.3s;
+  --duration-slow: 0.6s;
+  --ease-out: cubic-bezier(0.44, 0, 0.56, 1);
+}
+</file>
+
+<file path="src/types/components.ts">
+export interface BaseComponentProps {
+  className?: string;
+  children?: React.ReactNode;
+}
+
+export interface WorkProject {
+  id: string;
+  title: string;
+  category: string;
+  client: string;
+  duration: string;
+  image: string;
+  link?: string;
+}
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  title: string;
+  quote: string;
+  image: string;
+  socialLinks: {
+    linkedin?: string;
+    twitter?: string;
+    portfolio?: string;
+  };
+}
+
+export interface PricingPlan {
+  id: string;
+  name: string;
+  price: number;
+  period: 'month' | 'year';
+  features: string[];
+  popular?: boolean;
+  ctaText: string;
+  ctaLink: string;
+}
+</file>
+
+<file path="tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/styles/*": ["./src/styles/*"],
+      "@/types/*": ["./src/types/*"],
+      "@/public/*": ["./public/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+</file>
+
+</files>

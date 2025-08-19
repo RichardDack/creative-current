@@ -1,0 +1,200 @@
+﻿/* src/styles/components/WorkSection.module.css */
+
+.workSection {
+  padding: 120px 48px;
+  background: rgb(255, 255, 255);
+  position: relative;
+  margin-top: 100vh; /* Push below the full-height hero */
+}
+
+.workSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 48px;
+  right: 48px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-primary),
+    transparent
+  );
+  opacity: 0.3;
+}
+
+.header {
+  margin-bottom: 80px;
+  max-width: 1000px;
+}
+
+.label {
+  display: inline-block;
+  color: var(--color-primary);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 24px;
+  padding: 8px 16px;
+  border: 1px solid rgba(49, 175, 180, 0.3);
+  border-radius: 20px;
+  background: rgba(49, 175, 180, 0.05);
+}
+
+.title {
+  font-family: var(--font-headline);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  color: rgb(0, 0, 0);
+  margin-bottom: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  color: rgb(120, 120, 120);
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 48px;
+  margin-bottom: 80px;
+}
+
+.footer {
+  text-align: center;
+}
+
+.viewAllButton {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  padding: 16px 48px;
+  border-radius: 0;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.viewAllButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--color-primary);
+  transition: left var(--duration-normal) var(--ease-out);
+  z-index: -1;
+}
+
+.viewAllButton:hover::before {
+  left: 0;
+}
+
+.viewAllButton:hover {
+  color: rgb(255, 255, 255);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(49, 175, 180, 0.3);
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 1199px) {
+  .workSection {
+    padding: 80px 32px;
+  }
+  
+  .workSection::before {
+    left: 32px;
+    right: 32px;
+  }
+}
+
+@media (max-width: 809px) {
+  .workSection {
+    padding: 60px 24px;
+    margin-top: 0; /* Remove margin on mobile */
+  }
+  
+  .workSection::before {
+    left: 24px;
+    right: 24px;
+  }
+  
+  .header {
+    margin-bottom: 60px;
+  }
+  
+  .projectGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 60px;
+  }
+  
+  .title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  
+  .description {
+    font-size: 1.125rem;
+  }
+  
+  .viewAllButton {
+    padding: 14px 32px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .workSection {
+    padding: 40px 16px;
+  }
+  
+  .workSection::before {
+    left: 16px;
+    right: 16px;
+  }
+  
+  .label {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+  
+  .viewAllButton {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ================================
+   ACCESSIBILITY & MOTION
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .viewAllButton,
+  .viewAllButton::before {
+    transition: none;
+  }
+}
+
+/* Focus states for accessibility */
+.viewAllButton:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}

@@ -1,369 +1,382 @@
-﻿/* src/styles/components/Hero.module.css */
+﻿/* src/styles/components/Hero.module.css - EXACT FRAMER MATCH */
 
-.hero {
+.heroSection {
   position: relative;
   min-height: 100vh;
-  background: rgb(255, 255, 255);
+  background: rgb(20, 33, 45); /* Exact Framer background */
   overflow: hidden;
-  display: grid;
-  grid-template-areas: 
-    ". . ."
-    "nav content ."
-    "brand brand brand";
-  grid-template-rows: 180px 1fr auto;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 0 48px 0 48px;
-}
-
-/* ================================
-   TYPOGRAPHIC NAVIGATION (Left Side)
-   ================================ */
-
-.typographicNav {
-  grid-area: nav;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center vertically in the grid area */
-  align-self: center;
-  z-index: 10;
-  margin-left: auto; /* Push to right side of nav area */
-  margin-right: 60px; /* Space from content area */
+  padding: 0;
 }
 
-.navItem {
+/* Header Top - HOME only */
+.headerTop {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  z-index: 100;
+}
+
+.homeLink {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.homeLink:hover {
+  color: var(--color-primary);
+}
+
+/* Main Content Layout */
+.mainContent {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: 120px 60px 200px;
+  gap: 0;
+}
+
+/* Left Navigation Menu - LARGER like Framer */
+.navigationMenu {
+  display: flex;
+  flex-direction: column;
+  gap: -10px; /* Tighter spacing like Framer */
+  flex: 0 0 auto;
+  margin-right: auto;
+}
+
+.navItemContainer {
   position: relative;
-  margin-bottom: 8px; /* Much tighter spacing - items almost touching */
+  margin: -5px 0; /* Overlap slightly for tighter spacing */
+  min-height: 100px; /* Ensure consistent height for animations */
 }
 
 .navLink {
-  position: relative;
+  display: block;
   text-decoration: none;
-  display: block;
-  overflow: hidden;
-}
-
-.navText {
-  font-family: var(--font-headline);
-  font-weight: 700;
-  color: rgb(0, 0, 0);
-  transition: all var(--duration-normal) var(--ease-out);
-  display: block;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-}
-
-/* Different sizes for active vs inactive items */
-.navItem.active .navText {
-  font-size: clamp(3rem, 6vw, 5rem); /* Larger for WORK */
-}
-
-.navItem:not(.active) .navText {
-  font-size: clamp(2rem, 4vw, 3.5rem); /* Smaller for others */
-}
-
-/* Active State */
-.navItem.active .navText {
-  color: rgb(255, 255, 255);
   position: relative;
-  z-index: 2;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  min-height: 100px; /* Ensure proper hover area */
 }
 
-/* Active Background Bar */
-.activeBar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: var(--color-primary);
-  z-index: 1;
-  border-radius: 0;
-}
-
-/* Down Arrow for Hover (all items) */
-.downArrow {
-  position: absolute;
-  right: -40px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.5rem;
-  color: var(--color-primary);
-  font-weight: bold;
-  opacity: 0; /* Hidden by default */
-  transition: all var(--duration-fast) var(--ease-out);
-}
-
-/* Show arrow on hover for any navigation item */
-.navLink:hover .downArrow {
-  opacity: 1;
-}
-
-/* Hover Effects */
-.navItem:not(.active):hover .navText {
-  color: var(--color-primary);
-  transform: translateX(10px);
-}
-
-.navItem.active:hover .navText {
-  /* No transform for active item */
-  color: rgb(255, 255, 255);
-}
-
-/* ================================
-   CONTENT AREA (Right Side)
-   ================================ */
-
-.contentArea {
-  grid-area: content;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Center vertically like navigation */
-  align-self: center;
-  max-width: 500px;
-  z-index: 10;
-  margin-left: 0;
-  margin-right: 48px;
-}
-
-.heroContent {
-  text-align: left;
-}
-
-.heroTitle {
-  font-family: var(--font-headline);
-  font-size: clamp(1.75rem, 3vw, 2.5rem); /* Slightly reduced */
-  font-weight: 700;
-  color: rgb(0, 0, 0);
-  line-height: 1.2;
-  margin-bottom: 24px;
-  letter-spacing: -0.01em;
-}
-
-.heroDescription {
-  font-family: var(--font-body);
-  font-size: 1rem; /* Slightly reduced */
-  color: rgb(120, 120, 120);
-  line-height: 1.6;
-  max-width: 400px;
-}
-
-/* ================================
-   MASSIVE BRAND TYPOGRAPHY (Bottom)
-   ================================ */
-
-.brandSection {
-  grid-area: brand;
-  z-index: 5;
-  overflow: hidden;
-  padding-bottom: 0; /* Remove bottom padding to let text fill more space */
-}
-
-.brandTitle {
-  font-family: var(--font-display);
-  font-weight: 900;
-  line-height: 0.8;
-  margin: 0;
-  text-align: center; /* Center the single word */
-  letter-spacing: -0.05em;
-}
-
-.creative {
-  font-size: clamp(4rem, 20vw, 16rem); /* Much larger to match AGENTIC scale */
-  color: var(--color-primary);
-  display: block;
-}
-
-/* ================================
-   DECORATIVE ELEMENTS
-   ================================ */
-
-.decorativeElements {
+/* Teal Background - Slides in from left on hover/active */
+.tealBackground {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  pointer-events: none;
+  background: rgb(49, 175, 180); /* Explicit teal color */
+  border-radius: 8px;
   z-index: 1;
+  transform-origin: left center;
 }
 
-.blurElement1 {
-  position: absolute;
-  top: 20%;
-  right: 15%;
-  width: 150px; /* Reduced from 200px */
-  height: 150px;
-  background: var(--color-primary);
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.1;
+/* Navigation Text - WHITE by default */
+.navText {
+  position: relative;
+  z-index: 2;
+  font-family: 'Clash Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(60px, 8vw, 120px); /* Massive text like Framer */
+  font-weight: 400;
+  line-height: 0.85;
+  color: rgb(255, 255, 255); /* WHITE for all items */
+  transition: all 0.3s ease;
+  display: block;
+  padding: 12px 32px 12px 32px; /* Always have padding for consistent sizing */
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
 }
 
-.blurElement2 {
+/* Active Navigation Text - slightly bolder */
+.navText.active {
+  font-weight: 500; /* Slightly bolder for active state */
+}
+
+/* Down Arrow - Appears at end of teal background */
+.downArrow {
   position: absolute;
-  bottom: 35%; /* Moved up from 30% */
-  left: 25%; /* Moved right from 20% */
-  width: 100px; /* Reduced from 150px */
-  height: 100px;
-  background: var(--color-primary);
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrowIcon {
+  width: 100%;
+  height: 100%;
+  fill: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+}
+
+/* Right Content Area */
+.rightContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 60px;
+  margin-left: auto;
+  max-width: 600px;
+  position: relative;
+}
+
+/* Hero Content */
+.heroContent {
+  text-align: right;
+  max-width: 500px;
+}
+
+.heroTitle {
+  font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: rgb(255, 255, 255);
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+
+.heroDescription {
+  font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: 300;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: -0.2px;
+}
+
+/* Red Decorative Square - Exact Framer Position */
+.redSquare {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  background: rgb(180, 54, 49); /* Exact red from Framer */
   border-radius: 20px;
-  filter: blur(40px);
-  opacity: 0.08;
-  transform: rotate(45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(15deg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.blurElement3 {
+.arrowContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  transform: rotate(-15deg); /* Counter-rotate arrows */
+}
+
+.arrow {
+  width: 24px;
+  height: 24px;
+  fill: rgba(255, 255, 255, 0.9);
+  opacity: 0.8;
+}
+
+.arrow:nth-child(1) { opacity: 1; }
+.arrow:nth-child(2) { opacity: 0.8; }
+.arrow:nth-child(3) { opacity: 0.6; }
+.arrow:nth-child(4) { opacity: 0.4; }
+.arrow:nth-child(5) { opacity: 0.2; }
+
+/* Brand Text with Blue-to-Teal Gradient */
+.brandContainer {
   position: absolute;
-  top: 60%;
-  right: 30%;
-  width: 80px; /* Reduced from 100px */
-  height: 200px; /* Reduced from 300px */
-  background: var(--color-primary);
-  border-radius: 10px;
-  filter: blur(30px);
-  opacity: 0.06;
-  transform: rotate(-20deg);
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 10;
+  padding: 0 60px;
 }
 
-/* ================================
-   RESPONSIVE DESIGN
-   ================================ */
+.brandText {
+  font-family: 'Clash Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(60px, 12vw, 180px); /* Massive brand text */
+  font-weight: 600;
+  line-height: 0.8;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  
+  /* Blue to Teal Gradient like Framer */
+  background: linear-gradient(90deg, 
+    rgb(59, 130, 246) 0%,     /* Blue start */
+    rgb(14, 165, 233) 30%,    /* Sky blue */
+    rgb(6, 182, 212) 60%,     /* Cyan */
+    rgb(49, 175, 180) 100%    /* Creative Current teal */
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
+/* Framer Badge */
+.framerBadge {
+  position: absolute;
+  bottom: 40px;
+  right: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Design */
 @media (max-width: 1199px) {
-  .hero {
-    padding: 0 32px 0 32px;
-    grid-template-columns: 1fr 1fr 1fr;
+  .mainContent {
+    padding: 100px 40px 180px;
+    gap: 40px;
   }
   
-  .contentArea {
-    margin-right: 32px;
+  .headerTop {
+    top: 30px;
+    left: 40px;
   }
   
-  .navItem.active .navText {
-    font-size: clamp(2.5rem, 6vw, 4rem);
+  .navText {
+    font-size: clamp(50px, 7vw, 100px);
   }
   
-  .navItem:not(.active) .navText {
-    font-size: clamp(1.75rem, 4vw, 3rem);
+  .brandText {
+    font-size: clamp(50px, 10vw, 140px);
   }
   
-  .downArrow {
-    right: -30px;
-    font-size: 1.25rem;
+  .brandContainer,
+  .framerBadge {
+    padding: 0 40px;
   }
   
-  .typographicNav {
-    margin-right: 40px;
-  }
-  
-  .creative {
-    font-size: clamp(3rem, 16vw, 12rem);
+  .framerBadge {
+    right: 40px;
   }
 }
 
 @media (max-width: 809px) {
-  .hero {
-    display: flex;
+  .mainContent {
     flex-direction: column;
-    justify-content: space-between;
-    padding: 100px 24px 24px 24px;
-    min-height: 100vh;
+    align-items: center;
+    text-align: center;
+    padding: 80px 30px 140px;
+    gap: 60px;
   }
   
-  /* Stack navigation vertically on mobile */
-  .typographicNav {
-    position: relative;
-    margin-bottom: 48px;
-    margin-right: 0;
+  .headerTop {
+    top: 20px;
+    left: 30px;
+  }
+  
+  .navigationMenu {
+    order: 2;
+    align-items: center;
+  }
+  
+  .rightContent {
     order: 1;
+    align-items: center;
+    max-width: 100%;
   }
   
-  .navItem {
-    margin-bottom: 6px; /* Even tighter on mobile */
+  .heroContent {
+    text-align: center;
   }
   
-  .navItem.active .navText {
-    font-size: clamp(2rem, 8vw, 3rem);
+  .navText {
+    font-size: clamp(40px, 8vw, 70px);
+    text-align: center;
   }
   
-  .navItem:not(.active) .navText {
-    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  .navText.active {
+    padding: 8px 20px;
   }
   
   .downArrow {
-    right: -25px;
-    font-size: 1rem;
+    right: 12px;
+    width: 20px;
+    height: 20px;
   }
   
-  /* Center content on mobile */
-  .contentArea {
-    position: relative;
-    max-width: none;
-    text-align: center;
-    margin: 0;
-    order: 2;
-    margin-bottom: 48px;
+  .brandContainer {
+    bottom: 30px;
+    padding: 0 30px;
   }
   
-  .heroDescription {
-    max-width: none;
+  .brandText {
+    font-size: clamp(40px, 12vw, 100px);
   }
   
-  /* Adjust brand typography for mobile */
-  .brandSection {
-    order: 3;
-    margin-top: auto;
+  .framerBadge {
+    bottom: 30px;
+    right: 30px;
   }
   
-  .creative {
-    font-size: clamp(3rem, 15vw, 8rem);
+  .redSquare {
+    width: 100px;
+    height: 100px;
+    margin-top: 30px;
   }
 }
 
-@media (max-width: 390px) {
-  .hero {
-    padding: 80px 16px 16px 16px;
+@media (max-width: 480px) {
+  .mainContent {
+    padding: 60px 20px 120px;
   }
   
-  .navItem.active .navText {
-    font-size: clamp(1.5rem, 10vw, 2.5rem);
+  .headerTop {
+    top: 16px;
+    left: 20px;
   }
   
-  .navItem:not(.active) .navText {
-    font-size: clamp(1.25rem, 8vw, 2rem);
+  .navText {
+    font-size: clamp(32px, 9vw, 50px);
+  }
+  
+  .navText.active {
+    padding: 6px 16px;
+  }
+  
+  .downArrow {
+    right: 10px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .brandText {
+    font-size: clamp(28px, 11vw, 60px);
   }
   
   .heroTitle {
-    font-size: clamp(1.25rem, 5vw, 1.75rem);
+    font-size: clamp(20px, 5vw, 32px);
   }
   
   .heroDescription {
-    font-size: 0.9rem;
+    font-size: clamp(14px, 3vw, 20px);
   }
   
-  .creative {
-    font-size: clamp(2.5rem, 15vw, 6rem);
+  .brandContainer,
+  .framerBadge {
+    padding: 0 20px;
   }
-}
-
-/* ================================
-   ACCESSIBILITY & MOTION
-   ================================ */
-
-@media (prefers-reduced-motion: reduce) {
-  .navText,
-  .activeBar,
-  .downArrow {
-    transition: none;
+  
+  .framerBadge {
+    right: 20px;
+    bottom: 20px;
   }
-}
-
-/* Focus states for accessibility */
-.navLink:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 4px;
-}
-
-.navLink:focus .navText {
-  color: var(--color-primary);
 }

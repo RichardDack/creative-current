@@ -1,4 +1,4 @@
-﻿// src/components/sections/Hero.tsx
+﻿// src/components/sections/Hero.tsx - EXACT FRAMER MATCH
 'use client';
 
 import { useState } from 'react';
@@ -6,134 +6,204 @@ import { motion } from 'framer-motion';
 import styles from '@/styles/components/Hero.module.css';
 
 const navigationItems = [
-  { name: 'WORK', href: '#work', active: true },
-  { name: 'ABOUT', href: '#about', active: false },
-  { name: 'SERVICES', href: '#services', active: false },
-  { name: 'CONTACT', href: '#contact', active: false },
+  { name: 'WORK', href: '#work-section' },
+  { name: 'ABOUT', href: '#about-section' },
+  { name: 'SERVICES', href: '#services' },
+  { name: 'SERVICES', href: '#services-2' }, // Duplicate as shown in Framer
+  { name: 'CONTACT', href: '#footer-background' },
 ];
 
 export const Hero = () => {
-  // Only WORK is active, others are inactive
   const [activeNav, setActiveNav] = useState('WORK');
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
-  const navVariants = {
-    initial: { x: -100, opacity: 0 },
-    animate: { 
-      x: 0, 
-      opacity: 1,
-      transition: { 
-        type: "spring", 
-        stiffness: 200, 
-        damping: 30 
-      }
-    }
+  const handleNavClick = (navName: string) => {
+    setActiveNav(navName);
   };
 
-  const brandVariants = {
-    initial: { scale: 0.8, opacity: 0 },
-    animate: { 
-      scale: 1, 
-      opacity: 1,
-      transition: { 
-        delay: 0.3,
-        type: "spring", 
-        stiffness: 150, 
-        damping: 40 
-      }
-    }
-  };
-
-  const contentVariants = {
-    initial: { x: 50, opacity: 0 },
-    animate: { 
-      x: 0, 
-      opacity: 1,
-      transition: { 
-        delay: 0.5,
-        type: "spring", 
-        stiffness: 200, 
-        damping: 30 
-      }
-    }
+  const isActive = (itemName: string, index: number) => {
+    // Only the first WORK item should be active initially
+    return itemName === 'WORK' && index === 0;
   };
 
   return (
-    <motion.section 
-      className={styles.hero}
-      initial="initial"
-      animate="animate"
+    <motion.header 
+      className={styles.heroSection}
+      id="hero-section"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
     >
-      {/* Large Typographic Navigation (left side) */}
-      <motion.nav 
-        className={styles.typographicNav}
-        variants={navVariants}
+      {/* Header - HOME only */}
+      <motion.div 
+        className={styles.headerTop}
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.6 }}
       >
-        {navigationItems.map((item, index) => (
-          <motion.div
-            key={item.name}
-            className={`${styles.navItem} ${item.active ? styles.active : ''}`}
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 + (index * 0.1), duration: 0.6 }}
+        <motion.a 
+          href="#hero-section" 
+          className={styles.homeLink}
+          whileHover={{ color: 'var(--color-primary)' }}
+        >
+          HOME
+        </motion.a>
+      </motion.div>
+
+      {/* Main Content Container */}
+      <div className={styles.mainContent}>
+        {/* Left Navigation Menu */}
+        <motion.nav 
+          className={styles.navigationMenu}
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.8, type: "spring", stiffness: 200 }}
+        >
+          {navigationItems.map((item, index) => {
+            const itemIsActive = isActive(item.name, index);
+            const isHovered = hoveredItem === `${item.name}-${index}`;
+            
+            return (
+              <motion.div
+                key={`${item.name}-${index}`}
+                className={styles.navItemContainer}
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ 
+                  delay: 0.6 + (index * 0.1), 
+                  duration: 0.6,
+                  type: "spring",
+                  stiffness: 150
+                }}
+              >
+                <motion.a 
+                  href={item.href} 
+                  className={styles.navLink}
+                  onClick={() => handleNavClick(item.name)}
+                  onMouseEnter={() => setHoveredItem(`${item.name}-${index}`)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                  animate={{
+                    scale: isHovered ? 1.05 : 1,
+                  }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                >
+                  {/* Teal Background - Active or Hover */}
+                  <motion.div 
+                    className={styles.tealBackground}
+                    initial={{ scaleX: itemIsActive ? 1 : 0 }}
+                    animate={{ 
+                      scaleX: (itemIsActive || isHovered) ? 1 : 0 
+                    }}
+                    transition={{ 
+                      duration: 0.4, 
+                      ease: "easeOut"
+                    }}
+                    style={{
+                      transformOrigin: 'left center'
+                    }}
+                  />
+                  
+                  {/* Navigation Text */}
+                  <span className={`${styles.navText} ${itemIsActive ? styles.active : ''}`}>
+                    {item.name}
+                  </span>
+
+                  {/* Down Arrow - Appears on hover or active */}
+                  <motion.div 
+                    className={styles.downArrow}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ 
+                      opacity: (isHovered || itemIsActive) ? 1 : 0,
+                      x: (isHovered || itemIsActive) ? 0 : -20
+                    }}
+                    transition={{ 
+                      duration: 0.3, 
+                      ease: "easeOut",
+                      delay: (isHovered || itemIsActive) ? 0.2 : 0
+                    }}
+                  >
+                    <svg viewBox="0 0 256 256" className={styles.arrowIcon}>
+                      <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/>
+                    </svg>
+                  </motion.div>
+                </motion.a>
+              </motion.div>
+            );
+          })}
+        </motion.nav>
+
+        {/* Right Content Area */}
+        <motion.div 
+          className={styles.rightContent}
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.8, type: "spring", stiffness: 200 }}
+        >
+          {/* Hero Content */}
+          <div className={styles.heroContent}>
+            <motion.h1 
+              className={styles.heroTitle}
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.0, duration: 0.6 }}
+            >
+              Elevating Digital Excellence.
+            </motion.h1>
+            
+            <motion.p 
+              className={styles.heroDescription}
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.2, duration: 0.6 }}
+            >
+              We specialize in web design, development, UI/UX, and product design. Transform your online presence with our creative expertise.
+            </motion.p>
+          </div>
+
+          {/* Red Decorative Square with Arrows */}
+          <motion.div 
+            className={styles.redSquare}
+            initial={{ opacity: 0, scale: 0.8, rotate: 15 }}
+            animate={{ opacity: 1, scale: 1, rotate: 15 }}
+            transition={{ delay: 1.4, duration: 0.8, type: "spring" }}
           >
-            <a href={item.href} className={styles.navLink}>
-              {/* Active state background bar - only for WORK */}
-              {item.active && (
-                <motion.div 
-                  className={styles.activeBar}
-                  initial={{ width: 0 }}
-                  animate={{ width: '100%' }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                />
-              )}
-              
-              <span className={styles.navText}>{item.name}</span>
-              
-              {/* Down arrow shows on hover for ALL items */}
-              <div className={styles.downArrow}>
-                ↓
-              </div>
-            </a>
+            <motion.div 
+              className={styles.arrowContainer}
+              animate={{ y: [-5, 5] }}
+              transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+            >
+              {/* Multiple arrows stacked */}
+              {[...Array(5)].map((_, i) => (
+                <svg key={i} viewBox="0 0 256 256" className={styles.arrow}>
+                  <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/>
+                </svg>
+              ))}
+            </motion.div>
           </motion.div>
-        ))}
-      </motion.nav>
+        </motion.div>
+      </div>
 
-      {/* Main Content Area */}
+      {/* Bottom Brand Text with Gradient */}
       <motion.div 
-        className={styles.contentArea}
-        variants={contentVariants}
+        className={styles.brandContainer}
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 1.6, duration: 0.8, type: "spring" }}
       >
-        <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>
-            Elevating Digital Excellence.
-          </h1>
-          <p className={styles.heroDescription}>
-            We specialize in web design, development, UI/UX, and product design.
-          </p>
-        </div>
+        <h1 className={styles.brandText}>
+          CREATIVE CURRENT
+        </h1>
       </motion.div>
 
-      {/* Massive Brand Typography (bottom) */}
+      {/* Framer "Made in Framer" Badge */}
       <motion.div 
-        className={styles.brandSection}
-        variants={brandVariants}
-      >
-        <h2 className={styles.brandTitle}>
-          <span className={styles.creative}>CREATIVE</span>
-        </h2>
-      </motion.div>
-
-      {/* Decorative elements */}
-      <motion.div 
-        className={styles.decorativeElements}
+        className={styles.framerBadge}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.8, duration: 1 }}
+        transition={{ delay: 2, duration: 0.5 }}
       >
-        <div className={styles.blurElement1}></div>
-        <div className={styles.blurElement2}></div>
-        <div className={styles.blurElement3}></div>
+        <span>F Made in Framer</span>
       </motion.div>
-    </motion.section>
+    </motion.header>
   );
 };

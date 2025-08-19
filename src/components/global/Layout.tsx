@@ -1,5 +1,4 @@
-﻿// src/components/global/Layout.tsx
-import { Header } from './Header';
+﻿// src/components/global/Layout.tsx - UPDATED
 import styles from '@/styles/components/Layout.module.css';
 
 interface LayoutProps {
@@ -8,11 +7,8 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <>
-      <Header fixed={true} variant="dark" />
-      <main className={styles.mainContent}>
-        {children}
-      </main>
-    </>
+    <main className={styles.mainContent}>
+      {children}
+    </main>
   );
 };

@@ -2,7 +2,7 @@
 
 .workSection {
   padding: 120px 48px;
-  background: rgb(255, 255, 255);
+  background: rgb(255, 255, 255); /* White background for contrast */
   position: relative;
   margin-top: 100vh; /* Push below the full-height hero */
 }
@@ -11,52 +11,30 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 48px;
-  right: 48px;
+  left: 0;
+  right: 0;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--color-primary),
-    transparent
-  );
-  opacity: 0.3;
+  background: linear-gradient(90deg, transparent, rgba(20, 33, 45, 0.1), transparent);
 }
 
-.header {
+.sectionHeader {
   margin-bottom: 80px;
-  max-width: 1000px;
+  text-align: left;
 }
 
-.label {
-  display: inline-block;
-  color: var(--color-primary);
-  font-family: var(--font-ui);
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  margin-bottom: 24px;
-  padding: 8px 16px;
-  border: 1px solid rgba(49, 175, 180, 0.3);
-  border-radius: 20px;
-  background: rgba(49, 175, 180, 0.05);
-}
-
-.title {
-  font-family: var(--font-headline);
-  font-size: clamp(2.5rem, 6vw, 4rem);
+.sectionTitle {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
-  color: rgb(0, 0, 0);
-  margin-bottom: 32px;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  color: rgb(20, 33, 45);
+  margin-bottom: 16px;
+  line-height: 1.2;
 }
 
-.description {
-  font-family: var(--font-body);
-  font-size: 1.25rem;
-  color: rgb(120, 120, 120);
+.sectionDescription {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(1rem, 1.2vw, 1.25rem);
+  color: rgba(20, 33, 45, 0.7);
   line-height: 1.6;
   max-width: 600px;
 }
@@ -64,137 +42,159 @@
 .projectGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 48px;
-  margin-bottom: 80px;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.footer {
-  text-align: center;
+.projectCard {
+  background: rgb(255, 255, 255);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(20, 33, 45, 0.08);
+  transition: all 0.4s ease;
+  border: 1px solid rgba(20, 33, 45, 0.06);
 }
 
-.viewAllButton {
-  background: transparent;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
-  padding: 16px 48px;
-  border-radius: 0;
-  font-family: var(--font-ui);
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-out);
+.projectCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(20, 33, 45, 0.15);
+  border-color: var(--color-primary);
+}
+
+.projectImage {
+  width: 100%;
+  height: 240px;
+  background: linear-gradient(135deg, var(--color-primary), rgba(49, 175, 180, 0.8));
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   overflow: hidden;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
 }
 
-.viewAllButton::before {
+.projectImage::before {
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--color-primary);
-  transition: left var(--duration-normal) var(--ease-out);
-  z-index: -1;
-}
-
-.viewAllButton:hover::before {
   left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+  opacity: 0.3;
 }
 
-.viewAllButton:hover {
+.imagePlaceholder {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  z-index: 1;
+  position: relative;
+}
+
+.projectContent {
+  padding: 32px;
+}
+
+.projectTitle {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgb(20, 33, 45);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.projectDescription {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1rem;
+  color: rgba(20, 33, 45, 0.7);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.projectTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  background: rgba(49, 175, 180, 0.1);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(49, 175, 180, 0.2);
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  background: var(--color-primary);
   color: rgb(255, 255, 255);
-  transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(49, 175, 180, 0.3);
+  transform: translateY(-1px);
 }
 
-/* ================================
-   RESPONSIVE DESIGN
-   ================================ */
-
+/* Responsive Design */
 @media (max-width: 1199px) {
   .workSection {
     padding: 80px 32px;
   }
   
-  .workSection::before {
-    left: 32px;
-    right: 32px;
+  .projectGrid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+  }
+  
+  .sectionHeader {
+    margin-bottom: 60px;
   }
 }
 
 @media (max-width: 809px) {
   .workSection {
     padding: 60px 24px;
-    margin-top: 0; /* Remove margin on mobile */
-  }
-  
-  .workSection::before {
-    left: 24px;
-    right: 24px;
-  }
-  
-  .header {
-    margin-bottom: 60px;
+    margin-top: 100vh;
   }
   
   .projectGrid {
     grid-template-columns: 1fr;
-    gap: 32px;
-    margin-bottom: 60px;
+    gap: 24px;
   }
   
-  .title {
-    font-size: clamp(2rem, 8vw, 3rem);
+  .projectCard {
+    border-radius: 12px;
   }
   
-  .description {
-    font-size: 1.125rem;
+  .projectImage {
+    height: 200px;
   }
   
-  .viewAllButton {
-    padding: 14px 32px;
-    font-size: 0.95rem;
+  .projectContent {
+    padding: 24px;
+  }
+  
+  .sectionHeader {
+    margin-bottom: 40px;
+    text-align: center;
   }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 480px) {
   .workSection {
-    padding: 40px 16px;
+    padding: 40px 20px;
   }
   
-  .workSection::before {
-    left: 16px;
-    right: 16px;
+  .projectContent {
+    padding: 20px;
   }
   
-  .label {
-    font-size: 0.8rem;
-    padding: 6px 12px;
+  .projectImage {
+    height: 180px;
   }
-  
-  .viewAllButton {
-    padding: 12px 24px;
-    font-size: 0.9rem;
-  }
-}
-
-/* ================================
-   ACCESSIBILITY & MOTION
-   ================================ */
-
-@media (prefers-reduced-motion: reduce) {
-  .viewAllButton,
-  .viewAllButton::before {
-    transition: none;
-  }
-}
-
-/* Focus states for accessibility */
-.viewAllButton:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 4px;
 }

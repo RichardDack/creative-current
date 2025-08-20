@@ -1,4 +1,4 @@
-﻿// src/components/sections/Hero.tsx - EXACT FRAMER MATCH
+﻿// src/components/sections/Hero.tsx - WITH FLOATING BACKGROUND ELEMENTS
 'use client';
 
 import { useState } from 'react';
@@ -9,22 +9,11 @@ const navigationItems = [
   { name: 'WORK', href: '#work-section' },
   { name: 'ABOUT', href: '#about-section' },
   { name: 'SERVICES', href: '#services' },
-  { name: 'SERVICES', href: '#services-2' }, // Duplicate as shown in Framer
   { name: 'CONTACT', href: '#footer-background' },
 ];
 
 export const Hero = () => {
-  const [activeNav, setActiveNav] = useState('WORK');
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-
-  const handleNavClick = (navName: string) => {
-    setActiveNav(navName);
-  };
-
-  const isActive = (itemName: string, index: number) => {
-    // Only the first WORK item should be active initially
-    return itemName === 'WORK' && index === 0;
-  };
 
   return (
     <motion.header 
@@ -34,6 +23,61 @@ export const Hero = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
+      {/* Floating Background Elements - REFINED */}
+      <motion.div 
+        className={styles.floatingBlur1}
+        animate={{ 
+          y: [-10, 10, -10],
+          scale: [1, 1.05, 1]
+        }}
+        transition={{ 
+          duration: 8, 
+          repeat: Infinity, 
+          ease: "easeInOut" 
+        }}
+      />
+      
+      <motion.div 
+        className={styles.floatingBlur2}
+        animate={{ 
+          y: [15, -15, 15],
+          x: [-5, 5, -5],
+          scale: [1, 1.08, 1]
+        }}
+        transition={{ 
+          duration: 10, 
+          repeat: Infinity, 
+          ease: "easeInOut" 
+        }}
+      />
+      
+      <motion.div 
+        className={styles.floatingBlur3}
+        animate={{ 
+          y: [8, -8, 8],
+          x: [5, -5, 5],
+          scale: [1, 1.1, 1]
+        }}
+        transition={{ 
+          duration: 6, 
+          repeat: Infinity, 
+          ease: "easeInOut" 
+        }}
+      />
+
+      <motion.div 
+        className={styles.floatingBlur4}
+        animate={{ 
+          y: [12, -12, 12],
+          scale: [1, 1.15, 1]
+        }}
+        transition={{ 
+          duration: 7, 
+          repeat: Infinity, 
+          ease: "easeInOut" 
+        }}
+      />
+
       {/* Header - HOME only */}
       <motion.div 
         className={styles.headerTop}
@@ -60,13 +104,12 @@ export const Hero = () => {
           transition={{ delay: 0.4, duration: 0.8, type: "spring", stiffness: 200 }}
         >
           {navigationItems.map((item, index) => {
-            const itemIsActive = isActive(item.name, index);
             const isHovered = hoveredItem === `${item.name}-${index}`;
             
             return (
               <motion.div
                 key={`${item.name}-${index}`}
-                className={styles.navItemContainer}
+                className={`${styles.navItemContainer} ${isHovered ? styles.expanded : ''}`}
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ 
@@ -79,7 +122,6 @@ export const Hero = () => {
                 <motion.a 
                   href={item.href} 
                   className={styles.navLink}
-                  onClick={() => handleNavClick(item.name)}
                   onMouseEnter={() => setHoveredItem(`${item.name}-${index}`)}
                   onMouseLeave={() => setHoveredItem(null)}
                   animate={{
@@ -87,12 +129,12 @@ export const Hero = () => {
                   }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                 >
-                  {/* Teal Background - Active or Hover */}
+                  {/* Teal Background - Only on Hover */}
                   <motion.div 
                     className={styles.tealBackground}
-                    initial={{ scaleX: itemIsActive ? 1 : 0 }}
+                    initial={{ scaleX: 0 }}
                     animate={{ 
-                      scaleX: (itemIsActive || isHovered) ? 1 : 0 
+                      scaleX: isHovered ? 1 : 0 
                     }}
                     transition={{ 
                       duration: 0.4, 
@@ -104,26 +146,31 @@ export const Hero = () => {
                   />
                   
                   {/* Navigation Text */}
-                  <span className={`${styles.navText} ${itemIsActive ? styles.active : ''}`}>
+                  <span className={`${styles.navText} ${isHovered ? styles.hovered : ''}`}>
                     {item.name}
                   </span>
 
-                  {/* Down Arrow - Appears on hover or active */}
+                  {/* Down Arrow - Proper arrow with tail */}
                   <motion.div 
                     className={styles.downArrow}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: 15, y: -15 }}
                     animate={{ 
-                      opacity: (isHovered || itemIsActive) ? 1 : 0,
-                      x: (isHovered || itemIsActive) ? 0 : -20
+                      opacity: isHovered ? 1 : 0,
+                      x: isHovered ? 0 : 15,
+                      y: isHovered ? 0 : -15
                     }}
                     transition={{ 
                       duration: 0.3, 
                       ease: "easeOut",
-                      delay: (isHovered || itemIsActive) ? 0.2 : 0
+                      delay: isHovered ? 0.4 : 0 // Delayed until after teal slide
                     }}
                   >
-                    <svg viewBox="0 0 256 256" className={styles.arrowIcon}>
-                      <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/>
+                    {/* Proper down arrow with tail SVG */}
+                    <svg viewBox="0 0 24 24" className={styles.arrowIcon}>
+                      {/* Arrow shaft/tail */}
+                      <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                      {/* Arrow head */}
+                      <polyline points="19,12 12,19 5,12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
                     </svg>
                   </motion.div>
                 </motion.a>
@@ -193,16 +240,6 @@ export const Hero = () => {
         <h1 className={styles.brandText}>
           CREATIVE CURRENT
         </h1>
-      </motion.div>
-
-      {/* Framer "Made in Framer" Badge */}
-      <motion.div 
-        className={styles.framerBadge}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 0.5 }}
-      >
-        <span>F Made in Framer</span>
       </motion.div>
     </motion.header>
   );

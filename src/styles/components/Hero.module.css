@@ -1,4 +1,4 @@
-﻿/* src/styles/components/Hero.module.css - COMPLETE FIXED VERSION */
+﻿/* src/styles/components/Hero.module.css - PRODUCTION READY */
 
 .heroSection {
   position: relative;
@@ -105,56 +105,62 @@
   display: flex;
   flex: 1;
   align-items: center;
-  padding: 100px 60px 160px; /* REDUCED bottom padding from 200px to 160px */
+  padding: 100px 60px 160px;
   gap: 0;
   position: relative;
   z-index: 2; /* Above background elements */
 }
 
-/* Left Navigation Menu - LARGER like Framer */
+/* DEFINITIVE NAVIGATION FIX - Prevents flex cascade */
 .navigationMenu {
   display: flex;
   flex-direction: column;
-  gap: -12px; /* Tighter default spacing */
+  gap: 8px;
   flex: 0 0 auto;
   margin-right: auto;
+  
+  /* CRITICAL: Prevent flex children from affecting each other */
+  align-items: flex-start;
 }
 
+/* PRODUCTION NAVIGATION CONTAINER */
 .navItemContainer {
   position: relative;
-  margin: -2px 0; /* Tighter default spacing */
-  min-height: 65px; /* FURTHER REDUCED from 80px for better proportions */
-  width: auto; /* DYNAMIC width - fits content */
+  margin: 0;
+  min-height: 65px;
   
-  /* GLASSMORPHISM EFFECT */
+  /* CRITICAL: Fixed width prevents flex cascade */
+  width: max-content;
+  min-width: 280px;
+  
+  /* Glassmorphism */
   backdrop-filter: blur(20px);
   background: rgba(255, 255, 255, 0.03);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* CRITICAL: Prevent flex interference */
+  flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: auto;
 }
 
-.navLink {
-  display: block;
-  text-decoration: none;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  min-height: 65px;
-  border-radius: 16px;
+/* EXPANDED state - production version */
+.navItemContainer.expanded {
+  /* Add space for arrow inside the container */
+  padding-right: 60px !important;
+  
+  /* Override hover effects */
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  
+  /* Smooth expansion */
+  transition: padding-right 0.3s ease-out, background-color 0.4s ease, border-color 0.4s ease;
 }
 
-/* Simple hover effect - just visual feedback */
-.navLink:hover {
-  transform: translateX(8px);
-}
-
-/* Enhanced hover effects for glassmorphism */
-.navLink:hover {
-  transform: translateX(8px);
-}
-
-.navItemContainer:hover {
+/* CRITICAL: Hover effects only for non-expanded */
+.navItemContainer:not(.expanded):hover {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(49, 175, 180, 0.3);
   box-shadow: 
@@ -162,35 +168,62 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* Expanded state for individual hovered item */
-.navItemContainer.expanded {
-  width: auto;
-  padding-right: 60px; /* Add space for arrow only on this item */
+.navLink {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  cursor: pointer;
+  min-height: 65px;
+  border-radius: 16px;
+  
+  /* CRITICAL: Make link fill the entire container including expanded area */
+  width: 100%;
+  height: 100%;
+  
+  /* ONLY visual feedback - no sizing changes */
+  transition: transform 0.3s ease;
 }
 
-/* Teal Background - Extended to include arrow area */
+/* CRITICAL: When container is expanded, make link cover the padding area too */
+.navItemContainer.expanded .navLink {
+  width: calc(100% + 60px) !important; /* Extend into padding area */
+}
+
+.navLink:hover {
+  transform: translateX(8px);
+}
+
+/* PERFECT TEAL BACKGROUND - production ready */
 .tealBackground {
   position: absolute;
-  top: 2px; /* Account for border */
-  left: 2px;
-  right: 2px; /* EXTEND all the way - arrow is part of the background */
-  bottom: 2px;
+  top: 0px;
+  left: -8px;   /* Perfect left alignment */
+  right: 0px;
+  bottom: 0px;
   background: linear-gradient(135deg, 
     rgba(49, 175, 180, 0.9) 0%,
     rgba(14, 165, 233, 0.8) 100%
   );
-  border-radius: 14px; /* Slightly smaller than container */
-  z-index: 1;
+  border-radius: 16px;
+  z-index: 2;
   transform-origin: left center;
+  transform: scaleX(0); /* Start collapsed */
+  transition: transform 0.4s ease-out;
   box-shadow: 
     0 4px 16px rgba(49, 175, 180, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* Navigation Text - Simple approach - NO cascade effects */
+/* PERFECT EXPANSION - production ready */
+.navItemContainer:hover .tealBackground,
+.navItemContainer.expanded .tealBackground {
+  transform: scaleX(0.985) !important; /* Perfect scale */
+}
+
+/* Navigation Text */
 .navText {
   position: relative;
-  z-index: 2;
+  z-index: 4; /* Above teal background and arrow */
   font-family: 'Clash Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: clamp(35px, 5.5vw, 120px);
   font-weight: 400;
@@ -198,46 +231,42 @@
   color: rgb(255, 255, 255);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
-  padding: 6px 20px 6px 20px; /* FIXED padding - never changes */
+  padding: 6px 20px 6px 20px;
   text-transform: uppercase;
   letter-spacing: -0.02em;
   white-space: nowrap;
+  
+  /* CRITICAL: Don't let text padding affect the parent link size */
+  box-sizing: border-box;
 }
 
-/* Hovered state - ONLY color change, NO padding change */
+/* Hovered state - ONLY color change */
 .navText.hovered {
   color: rgb(0, 0, 0);
   font-weight: 500;
-  /* NO padding changes here */
 }
 
-/* Container expansion - ONLY when specific item is hovered */
-.navItemContainer.expanded {
-  padding-right: 60px; /* Space for arrow */
-}
-
-/* Down Arrow */
+/* Down Arrow - LARGER BOTTOM POSITIONED */
 .downArrow {
   position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 5;
-  width: 36px;
-  height: 36px;
+  right: 12px; /* Good spacing from edge */
+  bottom: 8px; /* Bottom positioned as you like */
+  z-index: 3; /* Above teal background */
+  width: 48px; /* Larger container */
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  backdrop-filter: blur(5px);
+  
+  /* NO background - clean arrow */
 }
 
 .arrowIcon {
-  width: 22px;
-  height: 22px;
-  fill: rgb(0, 0, 0);
+  width: 38px; /* Much larger to be more prominent */
+  height: 38px;
+  fill: rgb(0, 0, 0); /* Black arrow on teal background */
   color: rgb(0, 0, 0);
+  stroke-width: 3; /* Thicker lines */
 }
 
 /* Right Content Area */
@@ -251,43 +280,45 @@
   position: relative;
 }
 
-/* Hero Content */
+/* Hero Content - MADE MUCH MORE PROMINENT */
 .heroContent {
   text-align: right;
-  max-width: 500px;
+  max-width: 650px; /* Wider to accommodate larger text */
 }
 
 .heroTitle {
   font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 400;
+  font-size: clamp(42px, 6vw, 72px); /* MUCH LARGER - was 28px-48px */
+  font-weight: 500; /* Bolder */
   line-height: 1.1;
   color: rgb(255, 255, 255);
-  margin-bottom: 24px;
-  letter-spacing: -0.5px;
+  margin-bottom: 32px; /* More spacing */
+  letter-spacing: -0.8px; /* Tighter for impact */
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3); /* Subtle depth */
 }
 
 .heroDescription {
   font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(18px, 2.5vw, 28px);
-  font-weight: 300;
-  line-height: 1.3;
-  color: rgba(255, 255, 255, 0.8);
-  letter-spacing: -0.2px;
+  font-size: clamp(24px, 3.5vw, 38px); /* MUCH LARGER - was 18px-28px */
+  font-weight: 400; /* Slightly bolder */
+  line-height: 1.4; /* Better readability */
+  color: rgba(255, 255, 255, 0.9); /* Slightly more opaque */
+  letter-spacing: -0.3px;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); /* Subtle depth */
 }
 
-/* Red Decorative Square - Exact Framer Position */
+/* Red Decorative Square */
 .redSquare {
   position: relative;
-  width: 100px; /* REDUCED from 140px for better laptop fit */
+  width: 100px;
   height: 100px;
-  background: rgb(180, 54, 49); /* Exact red from Framer */
-  border-radius: 16px; /* Proportionally smaller radius */
+  background: rgb(180, 54, 49);
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   transform: rotate(15deg);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Slightly smaller shadow */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 .arrowContainer {
@@ -295,11 +326,11 @@
   flex-direction: column;
   gap: 6px;
   align-items: center;
-  transform: rotate(-15deg); /* Counter-rotate arrows */
+  transform: rotate(-15deg);
 }
 
 .arrow {
-  width: 20px; /* REDUCED from 24px */
+  width: 20px;
   height: 20px;
   fill: rgba(255, 255, 255, 0.9);
   opacity: 0.8;
@@ -323,15 +354,15 @@
   transform-origin: center bottom;
 }
 
-/* Brand Text with Blue-to-Teal Gradient - ENHANCED */
+/* Brand Text with Blue-to-Teal Gradient */
 .brandText {
   font-family: 'Clash Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(50px, 7.5vw, 180px); /* REDUCED from 12vw to 7.5vw */
+  font-size: clamp(50px, 7.5vw, 180px);
   font-weight: 600;
   line-height: 0.8;
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: -0.05em; /* INCREASED negative spacing */
+  letter-spacing: -0.05em;
   
   /* PREVENT WRAPPING */
   white-space: nowrap;
@@ -352,33 +383,22 @@
   filter: drop-shadow(0 0 20px rgba(49, 175, 180, 0.3));
 }
 
-/* Framer Badge */
-.framerBadge {
-  position: absolute;
-  bottom: 40px;
-  right: 60px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 8px 16px;
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
 /* RESPONSIVE DESIGN - ENHANCED BREAKPOINTS */
 
 /* Large Desktop (1600px+) */
 @media (min-width: 1600px) {
+  .navItemContainer {
+    min-width: 320px;
+  }
+  
   .redSquare {
-    width: 140px; /* Full size on very large screens */
+    width: 140px;
     height: 140px;
     border-radius: 20px;
   }
   
   .arrow {
-    width: 24px; /* Full size arrows */
+    width: 24px;
     height: 24px;
   }
   
@@ -391,19 +411,28 @@
 /* Standard Desktop (1200px - 1599px) */
 @media (min-width: 1200px) and (max-width: 1599px) {
   .mainContent {
-    padding: 90px 50px 140px; /* Slightly reduced padding */
+    padding: 90px 50px 140px;
+  }
+  
+  .navItemContainer {
+    min-width: 300px;
   }
   
   .navText {
-    font-size: clamp(32px, 4.8vw, 80px); /* Conservative desktop sizing */
+    font-size: clamp(32px, 4.8vw, 80px);
   }
   
   .heroTitle {
-    font-size: clamp(26px, 3.5vw, 42px);
+    font-size: clamp(36px, 5vw, 58px); /* Larger on desktop */
+    font-weight: 600; /* Bolder */
+    margin-bottom: 20px;
+    line-height: 1.1;
   }
   
   .heroDescription {
-    font-size: clamp(17px, 2.3vw, 26px);
+    font-size: clamp(22px, 3vw, 32px); /* Larger on desktop */
+    font-weight: 400;
+    line-height: 1.35;
   }
   
   .brandText {
@@ -416,60 +445,52 @@
   }
 }
 
-/* Laptop and Medium Desktop Range (900px - 1599px) - BOLD & CHUNKY RESTORED */
+/* Laptop and Medium Desktop Range (900px - 1599px) */
 @media (min-width: 900px) and (max-width: 1599px) {
   .heroSection {
     min-height: 100vh;
   }
   
-  /* Background elements for laptop */
-  .heroSection::before {
-    width: 300px;
-    height: 300px;
-    top: 10%;
-    right: 8%;
-  }
-  
-  .heroSection::after {
-    width: 250px;
-    height: 250px;
-    bottom: 15%;
-    left: 3%;
-  }
-  
   .mainContent {
-    padding: 45px 40px 45px; /* SLIGHTLY REDUCED to make room for bigger brand text */
-    gap: 15px; /* Tighter gap for more space */
-  }
-  
-  .navText {
-    font-size: clamp(32px, 4.5vw, 70px); /* BOLDER - increased from 28px, 4vw, 60px */
-    font-weight: 400; /* Default weight */
-    line-height: 0.85; /* Tighter for chunky feel */
-    padding: 8px 20px 8px 20px; /* More substantial padding */
-    color: rgb(255, 255, 255); /* WHITE by default */
-  }
-  
-  .navText.hovered {
-    color: rgb(0, 0, 0); /* BLACK on hover */
-    font-weight: 500; /* Bolder on hover */
+    padding: 45px 40px 45px;
+    gap: 15px;
   }
   
   .navItemContainer {
+    min-width: 250px;
     min-height: 55px;
-    margin: 4px 0;
     backdrop-filter: blur(15px);
   }
   
   .navItemContainer.expanded {
-    padding-right: 50px !important; /* Force individual expansion on laptop */
+    padding-right: 50px !important;
+  }
+  
+  /* CRITICAL: Make link cover padding area on laptop */
+  .navItemContainer.expanded .navLink {
+    width: calc(100% + 50px) !important;
+  }
+  
+  .downArrow {
+    right: 10px; /* Good spacing from edge */
+    bottom: 6px; /* Bottom positioned */
+    width: 44px; /* Larger for laptop */
+    height: 44px;
+  }
+  
+  .arrowIcon {
+    width: 34px; /* Larger for laptop */
+    height: 34px;
+    fill: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    stroke-width: 3; /* Thicker */
   }
   
   .navText {
     font-size: clamp(32px, 4.5vw, 70px);
     font-weight: 400;
     line-height: 0.85;
-    padding: 8px 20px 8px 20px; /* STATIC - never changes */
+    padding: 8px 20px 8px 20px;
     color: rgb(255, 255, 255);
   }
   
@@ -478,69 +499,53 @@
     font-weight: 500;
   }
   
-  .downArrow {
-    right: 6px;
-    width: 36px;
-    height: 36px;
-  }
-  
-  .arrowIcon {
-    width: 18px;
-    height: 18px;
-    fill: rgb(255, 255, 255);
-    color: rgb(255, 255, 255);
-  }
-  
   .navLink {
     min-height: 55px;
   }
   
   .navigationMenu {
-    gap: 8px; /* More space for glassmorphism cards */
+    gap: 8px;
   }
   
-  /* Hero content - Bold but compact */
   .heroTitle {
-    font-size: clamp(22px, 3.2vw, 36px); /* BOLDER - increased size */
-    font-weight: 500; /* BOLDER weight */
-    margin-bottom: 12px; /* More breathing room */
-    line-height: 1.1; /* Chunky line height */
+    font-size: clamp(32px, 4.5vw, 52px); /* Much larger on laptop */
+    font-weight: 600; /* Bolder */
+    margin-bottom: 18px;
+    line-height: 1.1;
   }
   
   .heroDescription {
-    font-size: clamp(15px, 2.2vw, 20px); /* BOLDER - increased size */
-    font-weight: 400; /* Slightly bolder */
-    line-height: 1.25; /* Better readability */
+    font-size: clamp(20px, 3vw, 28px); /* Larger on laptop */
+    font-weight: 400;
+    line-height: 1.3;
   }
   
   .rightContent {
-    gap: 30px; /* More generous gap for presence */
+    gap: 30px;
   }
   
-  /* Red square - Substantial but not huge */
   .redSquare {
-    width: 80px; /* BIGGER - more presence */
+    width: 80px;
     height: 80px;
     border-radius: 14px;
   }
   
   .arrow {
-    width: 18px; /* Slightly bigger arrows */
+    width: 18px;
     height: 18px;
   }
   
-  /* Brand text - MASSIVE WOW FACTOR */
   .brandContainer {
-    bottom: 20px; /* HIGHER positioning - was 8px */
+    bottom: 20px;
     padding: 0 40px;
-    transform: scale(1); /* NO SCALING - full size impact */
+    transform: scale(1);
   }
   
   .brandText {
-    font-size: clamp(45px, 6.5vw, 130px); /* MUCH LARGER - was 35px, 5vw, 95px */
-    font-weight: 800; /* EXTRA BOLD - was 700 */
-    letter-spacing: -0.04em; /* Optimized spacing */
-    line-height: 0.75; /* Super tight for impact */
+    font-size: clamp(45px, 6.5vw, 130px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.75;
   }
   
   .headerTop {
@@ -549,31 +554,37 @@
   }
   
   .homeLink {
-    font-weight: 600; /* BOLDER home link */
-  }
-  
-  .framerBadge {
-    right: 40px;
-    bottom: 20px; /* Match brand container positioning */
-    font-size: 11px;
-    font-weight: 500; /* Bolder badge */
-    padding: 7px 14px; /* More substantial padding */
+    font-weight: 600;
   }
 }
 
 /* Tablet Range (810px - 899px) */
 @media (min-width: 810px) and (max-width: 899px) {
+  .navItemContainer {
+    min-width: 220px;
+  }
+  
   .navText {
-    font-size: clamp(32px, 5.5vw, 65px); /* Better tablet sizing */
+    font-size: clamp(32px, 5.5vw, 65px);
     padding: 6px 18px 6px 18px;
   }
   
   .navItemContainer {
-    min-height: 55px; /* Smaller for tablets */
+    min-height: 55px;
   }
   
   .navLink {
     min-height: 55px;
+  }
+  
+  .heroTitle {
+    font-size: clamp(30px, 5vw, 48px); /* Larger on tablet */
+    font-weight: 600;
+  }
+  
+  .heroDescription {
+    font-size: clamp(19px, 3.5vw, 26px); /* Larger on tablet */
+    font-weight: 400;
   }
   
   .brandText {
@@ -602,6 +613,32 @@
     align-items: center;
   }
   
+  .navItemContainer {
+    min-width: 200px;
+  }
+  
+  .navItemContainer.expanded {
+    padding-right: 50px !important;
+  }
+  
+  /* CRITICAL: Make link cover padding area on mobile */
+  .navItemContainer.expanded .navLink {
+    width: calc(100% + 50px) !important;
+  }
+  
+  .downArrow {
+    right: 8px; /* Good spacing from edge on mobile */
+    bottom: 6px; /* Bottom positioned */
+    width: 40px; /* Larger for mobile */
+    height: 40px;
+  }
+  
+  .arrowIcon {
+    width: 30px; /* Larger for mobile */
+    height: 30px;
+    stroke-width: 3; /* Thicker */
+  }
+  
   .rightContent {
     order: 1;
     align-items: center;
@@ -613,19 +650,9 @@
   }
   
   .navText {
-    font-size: clamp(30px, 7vw, 60px); /* REDUCED for mobile */
+    font-size: clamp(30px, 7vw, 60px);
     text-align: center;
-    padding: 6px 16px 6px 16px; /* Reduced padding */
-  }
-  
-  .navText.active {
-    padding: 6px 16px; /* Consistent padding */
-  }
-  
-  .downArrow {
-    right: 12px;
-    width: 20px;
-    height: 20px;
+    padding: 6px 16px 6px 16px;
   }
   
   .brandContainer {
@@ -636,12 +663,7 @@
   .brandText {
     font-size: clamp(35px, 9vw, 80px);
     letter-spacing: -0.03em;
-    white-space: normal; /* Allow wrapping on mobile only */
-  }
-  
-  .framerBadge {
-    bottom: 30px;
-    right: 30px;
+    white-space: normal;
   }
   
   .redSquare {
@@ -662,19 +684,13 @@
     left: 20px;
   }
   
+  .navItemContainer {
+    min-width: 180px;
+  }
+  
   .navText {
-    font-size: clamp(26px, 8vw, 45px); /* REDUCED for small mobile */
-    padding: 4px 12px 4px 12px; /* Tighter padding */
-  }
-  
-  .navText.active {
-    padding: 4px 12px; /* Consistent padding */
-  }
-  
-  .downArrow {
-    right: 10px;
-    width: 18px;
-    height: 18px;
+    font-size: clamp(26px, 8vw, 45px);
+    padding: 4px 12px 4px 12px;
   }
   
   .brandText {
@@ -683,33 +699,45 @@
   }
   
   .heroTitle {
-    font-size: clamp(20px, 5vw, 32px);
+    font-size: clamp(28px, 6vw, 44px); /* Larger on mobile */
+    font-weight: 600;
+    margin-bottom: 16px;
   }
   
   .heroDescription {
-    font-size: clamp(14px, 3vw, 20px);
+    font-size: clamp(18px, 4vw, 26px); /* Larger on mobile */
+    font-weight: 400;
+    line-height: 1.4;
   }
   
-  .brandContainer,
-  .framerBadge {
+  .brandContainer {
     padding: 0 20px;
-  }
-  
-  .framerBadge {
-    right: 20px;
-    bottom: 20px;
   }
 }
 
 /* Small Mobile (280px - 319px) */
 @media (max-width: 320px) {
+  .navItemContainer {
+    min-width: 160px;
+  }
+  
+  .heroTitle {
+    font-size: clamp(22px, 7vw, 34px); /* Larger for tiny screens */
+    font-weight: 600;
+  }
+  
+  .heroDescription {
+    font-size: clamp(15px, 5vw, 22px); /* Larger for tiny screens */
+    font-weight: 400;
+  }
+  
   .brandText {
     font-size: clamp(24px, 7vw, 50px);
     letter-spacing: -0.01em;
   }
   
   .navText {
-    font-size: clamp(22px, 7vw, 40px); /* REDUCED for very small screens */
+    font-size: clamp(22px, 7vw, 40px);
     padding: 4px 10px 4px 10px;
   }
 }

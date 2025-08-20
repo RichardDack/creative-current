@@ -1,4 +1,4 @@
-﻿// src/components/sections/Hero.tsx - WITH FLOATING BACKGROUND ELEMENTS
+﻿// src/components/sections/Hero.tsx - UPDATED WITH NEW TEXT & PROMINENT SIZING
 'use client';
 
 import { useState } from 'react';
@@ -23,7 +23,7 @@ export const Hero = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Floating Background Elements - REFINED */}
+      {/* Keep all floating background elements the same */}
       <motion.div 
         className={styles.floatingBlur1}
         animate={{ 
@@ -124,53 +124,33 @@ export const Hero = () => {
                   className={styles.navLink}
                   onMouseEnter={() => setHoveredItem(`${item.name}-${index}`)}
                   onMouseLeave={() => setHoveredItem(null)}
-                  animate={{
-                    scale: isHovered ? 1.05 : 1,
-                  }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
                 >
-                  {/* Teal Background - Only on Hover */}
-                  <motion.div 
-                    className={styles.tealBackground}
-                    initial={{ scaleX: 0 }}
-                    animate={{ 
-                      scaleX: isHovered ? 1 : 0 
-                    }}
-                    transition={{ 
-                      duration: 0.4, 
-                      ease: "easeOut"
-                    }}
-                    style={{
-                      transformOrigin: 'left center'
-                    }}
-                  />
+                  {/* Teal background inside link but link fills container */}
+                  <div className={styles.tealBackground} />
                   
                   {/* Navigation Text */}
                   <span className={`${styles.navText} ${isHovered ? styles.hovered : ''}`}>
                     {item.name}
                   </span>
 
-                  {/* Down Arrow - Proper arrow with tail */}
+                  {/* Down Arrow - Part of link so it expands together */}
                   <motion.div 
                     className={styles.downArrow}
-                    initial={{ opacity: 0, x: 15, y: -15 }}
+                    initial={{ opacity: 0, x: 15, y: 15 }}
                     animate={{ 
                       opacity: isHovered ? 1 : 0,
                       x: isHovered ? 0 : 15,
-                      y: isHovered ? 0 : -15
+                      y: isHovered ? 0 : 15
                     }}
                     transition={{ 
                       duration: 0.3, 
                       ease: "easeOut",
-                      delay: isHovered ? 0.4 : 0 // Delayed until after teal slide
+                      delay: isHovered ? 0.3 : 0
                     }}
                   >
-                    {/* Proper down arrow with tail SVG */}
                     <svg viewBox="0 0 24 24" className={styles.arrowIcon}>
-                      {/* Arrow shaft/tail */}
-                      <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                      {/* Arrow head */}
-                      <polyline points="19,12 12,19 5,12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                      <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
+                      <polyline points="19,12 12,19 5,12" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
                     </svg>
                   </motion.div>
                 </motion.a>
@@ -179,14 +159,14 @@ export const Hero = () => {
           })}
         </motion.nav>
 
-        {/* Right Content Area */}
+        {/* Right Content Area - UPDATED TEXT */}
         <motion.div 
           className={styles.rightContent}
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.8, type: "spring", stiffness: 200 }}
         >
-          {/* Hero Content */}
+          {/* Hero Content - NEW TEXT */}
           <div className={styles.heroContent}>
             <motion.h1 
               className={styles.heroTitle}
@@ -194,7 +174,7 @@ export const Hero = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.0, duration: 0.6 }}
             >
-              Elevating Digital Excellence.
+              Ride the Creative Current.
             </motion.h1>
             
             <motion.p 
@@ -203,7 +183,7 @@ export const Hero = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.2, duration: 0.6 }}
             >
-              We specialize in web design, development, UI/UX, and product design. Transform your online presence with our creative expertise.
+              We navigate the digital realm to build stunning websites, intuitive interfaces, and memorable brand experiences that flow seamlessly with your business goals.
             </motion.p>
           </div>
 
@@ -219,7 +199,6 @@ export const Hero = () => {
               animate={{ y: [-5, 5] }}
               transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
             >
-              {/* Multiple arrows stacked */}
               {[...Array(5)].map((_, i) => (
                 <svg key={i} viewBox="0 0 256 256" className={styles.arrow}>
                   <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/>

@@ -1,4 +1,12 @@
-﻿/* src/styles/components/Hero.module.css - PRODUCTION READY */
+﻿.redSquare {
+    width: 65px; /* Smaller for mobile portrait */
+    height: 65px;
+  }
+  
+  .arrow {
+    width: 11px; /* Smaller arrows */
+    height: 11px;
+  }/* src/styles/components/Hero.module.css - PRODUCTION READY */
 
 .heroSection {
   position: relative;
@@ -269,56 +277,71 @@
   stroke-width: 3; /* Thicker lines */
 }
 
-/* Right Content Area */
+/* Right Content Area - FIXED LAYOUT FOR RED BOX ON LEFT */
 .rightContent {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 60px;
+  flex-direction: row; /* Red box first, then text */
+  align-items: center;
+  justify-content: flex-start; /* Start from left, not flex-end */
+  gap: 40px; /* Space between red box and text */
   margin-left: auto;
-  max-width: 600px;
+  max-width: 700px;
   position: relative;
 }
 
-/* Hero Content - MADE MUCH MORE PROMINENT */
+/* Hero Content - ADJUSTED FOR SIDE-BY-SIDE LAYOUT */
 .heroContent {
   text-align: right;
-  max-width: 650px; /* Wider to accommodate larger text */
+  max-width: 520px; /* Adjusted for side-by-side layout */
+  flex-shrink: 1; /* Allow text to shrink if needed */
 }
 
 .heroTitle {
   font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(42px, 6vw, 72px); /* MUCH LARGER - was 28px-48px */
+  font-size: clamp(36px, 5vw, 58px); /* BALANCED - scaled back 15-20% */
   font-weight: 500; /* Bolder */
   line-height: 1.1;
   color: rgb(255, 255, 255);
-  margin-bottom: 32px; /* More spacing */
-  letter-spacing: -0.8px; /* Tighter for impact */
+  margin-bottom: 28px; /* Adjusted spacing */
+  letter-spacing: -0.6px; /* Slightly less tight */
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3); /* Subtle depth */
 }
 
 .heroDescription {
   font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(24px, 3.5vw, 38px); /* MUCH LARGER - was 18px-28px */
+  font-size: clamp(20px, 3vw, 32px); /* BALANCED - scaled back 15-20% */
   font-weight: 400; /* Slightly bolder */
   line-height: 1.4; /* Better readability */
   color: rgba(255, 255, 255, 0.9); /* Slightly more opaque */
-  letter-spacing: -0.3px;
+  letter-spacing: -0.2px;
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); /* Subtle depth */
 }
 
-/* Red Decorative Square */
+/* Red Decorative Square - SMALLER WITH BLACK ARROWS */
 .redSquare {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 80px; /* SMALLER - was 120px */
+  height: 80px;
   background: rgb(180, 54, 49);
-  border-radius: 16px;
+  border-radius: 12px; /* Proportionally smaller radius */
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: rotate(15deg);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Smaller shadow */
+  flex-shrink: 0; /* Don't shrink in flex layout */
+  
+  /* CONTINUOUS SPINNING ANIMATION */
+  animation: spinBox 8s linear infinite;
+}
+
+/* Spinning keyframes for the red box */
+@keyframes spinBox {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .arrowContainer {
@@ -326,21 +349,61 @@
   flex-direction: column;
   gap: 6px;
   align-items: center;
-  transform: rotate(-15deg);
+  
+  /* COUNTER-ROTATION to keep arrows vertical */
+  animation: counterSpin 8s linear infinite;
+}
+
+/* Counter-rotation keyframes to keep arrows upright */
+@keyframes counterSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
 }
 
 .arrow {
-  width: 20px;
-  height: 20px;
-  fill: rgba(255, 255, 255, 0.9);
+  width: 16px; /* Smaller arrows for smaller box */
+  height: 16px;
+  fill: rgb(0, 0, 0); /* BLACK ARROWS - was white */
   opacity: 0.8;
+  
+  /* SUBTLE BOUNCE ANIMATION */
+  animation: arrowBounce 2s ease-in-out infinite;
 }
 
-.arrow:nth-child(1) { opacity: 1; }
-.arrow:nth-child(2) { opacity: 0.8; }
-.arrow:nth-child(3) { opacity: 0.6; }
-.arrow:nth-child(4) { opacity: 0.4; }
-.arrow:nth-child(5) { opacity: 0.2; }
+/* Subtle bounce animation for arrows */
+@keyframes arrowBounce {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.arrow:nth-child(1) { 
+  opacity: 1; 
+  animation-delay: 0s;
+}
+.arrow:nth-child(2) { 
+  opacity: 0.8; 
+  animation-delay: 0.1s;
+}
+.arrow:nth-child(3) { 
+  opacity: 0.6; 
+  animation-delay: 0.2s;
+}
+.arrow:nth-child(4) { 
+  opacity: 0.4; 
+  animation-delay: 0.3s;
+}
+.arrow:nth-child(5) { 
+  opacity: 0.2; 
+  animation-delay: 0.4s;
+}
 
 /* Brand Text Container */
 .brandContainer {
@@ -391,15 +454,20 @@
     min-width: 320px;
   }
   
+  .rightContent {
+    gap: 50px; /* More space on large screens */
+    max-width: 800px;
+  }
+  
   .redSquare {
-    width: 140px;
-    height: 140px;
-    border-radius: 20px;
+    width: 100px; /* Smaller on large screens */
+    height: 100px;
+    border-radius: 16px;
   }
   
   .arrow {
-    width: 24px;
-    height: 24px;
+    width: 18px; /* Proportionally smaller */
+    height: 18px;
   }
   
   .brandText {
@@ -422,15 +490,31 @@
     font-size: clamp(32px, 4.8vw, 80px);
   }
   
+  .rightContent {
+    gap: 35px; /* Good spacing for standard desktop */
+    max-width: 650px;
+  }
+  
+  .redSquare {
+    width: 90px; /* Smaller for standard desktop */
+    height: 90px;
+    border-radius: 14px;
+  }
+  
+  .arrow {
+    width: 16px; /* Proportionally smaller */
+    height: 16px;
+  }
+  
   .heroTitle {
-    font-size: clamp(36px, 5vw, 58px); /* Larger on desktop */
+    font-size: clamp(30px, 4.2vw, 48px); /* Scaled back 15-20% */
     font-weight: 600; /* Bolder */
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     line-height: 1.1;
   }
   
   .heroDescription {
-    font-size: clamp(22px, 3vw, 32px); /* Larger on desktop */
+    font-size: clamp(18px, 2.8vw, 26px); /* Scaled back 15-20% */
     font-weight: 400;
     line-height: 1.35;
   }
@@ -508,26 +592,32 @@
   }
   
   .heroTitle {
-    font-size: clamp(32px, 4.5vw, 52px); /* Much larger on laptop */
+    font-size: clamp(28px, 3.8vw, 44px); /* Scaled back 15-20% */
     font-weight: 600; /* Bolder */
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     line-height: 1.1;
   }
   
   .heroDescription {
-    font-size: clamp(20px, 3vw, 28px); /* Larger on laptop */
+    font-size: clamp(17px, 2.5vw, 24px); /* Scaled back 15-20% */
     font-weight: 400;
     line-height: 1.3;
   }
   
   .rightContent {
-    gap: 30px;
+    gap: 25px; /* Smaller gap on laptop */
+    max-width: 650px;
   }
   
   .redSquare {
-    width: 80px;
-    height: 80px;
-    border-radius: 14px;
+    width: 75px; /* Smaller on laptop */
+    height: 75px;
+    border-radius: 12px;
+  }
+  
+  .arrow {
+    width: 14px; /* Smaller arrows */
+    height: 14px;
   }
   
   .arrow {
@@ -577,13 +667,29 @@
     min-height: 55px;
   }
   
+  .rightContent {
+    gap: 30px; /* Good spacing for tablet */
+    max-width: 600px;
+  }
+  
+  .redSquare {
+    width: 70px; /* Smaller for tablet */
+    height: 70px;
+    border-radius: 10px;
+  }
+  
+  .arrow {
+    width: 12px; /* Smaller arrows for tablet */
+    height: 12px;
+  }
+  
   .heroTitle {
-    font-size: clamp(30px, 5vw, 48px); /* Larger on tablet */
+    font-size: clamp(26px, 4.2vw, 40px); /* Scaled back 15-20% */
     font-weight: 600;
   }
   
   .heroDescription {
-    font-size: clamp(19px, 3.5vw, 26px); /* Larger on tablet */
+    font-size: clamp(16px, 3vw, 22px); /* Scaled back 15-20% */
     font-weight: 400;
   }
   
@@ -699,13 +805,13 @@
   }
   
   .heroTitle {
-    font-size: clamp(28px, 6vw, 44px); /* Larger on mobile */
+    font-size: clamp(24px, 5vw, 36px); /* Scaled back 15-20% */
     font-weight: 600;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
   
   .heroDescription {
-    font-size: clamp(18px, 4vw, 26px); /* Larger on mobile */
+    font-size: clamp(15px, 3.5vw, 22px); /* Scaled back 15-20% */
     font-weight: 400;
     line-height: 1.4;
   }
@@ -721,13 +827,24 @@
     min-width: 160px;
   }
   
+  .redSquare {
+    width: 60px; /* Smallest for tiny screens */
+    height: 60px;
+    border-radius: 8px;
+  }
+  
+  .arrow {
+    width: 10px; /* Smallest arrows */
+    height: 10px;
+  }
+  
   .heroTitle {
-    font-size: clamp(22px, 7vw, 34px); /* Larger for tiny screens */
+    font-size: clamp(18px, 6vw, 28px); /* Scaled back 15-20% */
     font-weight: 600;
   }
   
   .heroDescription {
-    font-size: clamp(15px, 5vw, 22px); /* Larger for tiny screens */
+    font-size: clamp(13px, 4vw, 18px); /* Scaled back 15-20% */
     font-weight: 400;
   }
   

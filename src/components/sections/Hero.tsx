@@ -174,7 +174,7 @@ export const Hero = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.0, duration: 0.6 }}
             >
-              Ride the Creative Current.
+              Where Ideas Take Shape
             </motion.h1>
             
             <motion.p 
@@ -187,24 +187,20 @@ export const Hero = () => {
             </motion.p>
           </div>
 
-          {/* Red Decorative Square with Arrows */}
+          {/* Red Decorative Square with Arrows - NOW SPINS WITH CSS */}
           <motion.div 
             className={styles.redSquare}
-            initial={{ opacity: 0, scale: 0.8, rotate: 15 }}
-            animate={{ opacity: 1, scale: 1, rotate: 15 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.4, duration: 0.8, type: "spring" }}
           >
-            <motion.div 
-              className={styles.arrowContainer}
-              animate={{ y: [-5, 5] }}
-              transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-            >
+            <div className={styles.arrowContainer}>
               {[...Array(5)].map((_, i) => (
                 <svg key={i} viewBox="0 0 256 256" className={styles.arrow}>
                   <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/>
                 </svg>
               ))}
-            </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </div>

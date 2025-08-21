@@ -4,8 +4,8 @@
   }
   
   .arrow {
-    width: 11px; /* Smaller arrows */
-    height: 11px;
+    width: 10px; /* Good size for 4 arrows on mobile portrait */
+    height: 10px;
   }/* src/styles/components/Hero.module.css - PRODUCTION READY */
 
 .heroSection {
@@ -85,12 +85,19 @@
   pointer-events: none;
 }
 
-/* Header Top - HOME only */
+/* Header Top - HOME only - HIDDEN ON MOBILE */
 .headerTop {
   position: absolute;
   top: 40px;
   left: 60px;
   z-index: 100;
+}
+
+/* Hide Hero's header on mobile - use Header component instead */
+@media (max-width: 1199px) {
+  .headerTop {
+    display: none; /* Hidden on tablet and mobile */
+  }
 }
 
 .homeLink {
@@ -129,6 +136,34 @@
   
   /* CRITICAL: Prevent flex children from affecting each other */
   align-items: flex-start;
+}
+
+/* RESPONSIVE NAVIGATION VISIBILITY */
+/* Hide navigation on mobile/tablet - Header component handles it */
+@media (max-width: 1199px) {
+  .navigationMenu {
+    display: none; /* Hidden on tablet and mobile */
+  }
+  
+  .headerTop {
+    display: none; /* Hidden - Header component handles HOME link */
+  }
+  
+  .mainContent {
+    justify-content: center; /* Center hero content when nav is hidden */
+    padding-left: 40px; /* Reduce left padding since no nav */
+  }
+}
+
+/* Show navigation on desktop */
+@media (min-width: 1200px) {
+  .navigationMenu {
+    display: flex; /* Show on desktop */
+  }
+  
+  .headerTop {
+    display: block; /* Show HOME link on desktop */
+  }
 }
 
 /* PRODUCTION NAVIGATION CONTAINER */
@@ -277,12 +312,12 @@
   stroke-width: 3; /* Thicker lines */
 }
 
-/* Right Content Area - FIXED LAYOUT FOR RED BOX ON LEFT */
+/* Right Content Area - TRULY PUT RED BOX ON LEFT */
 .rightContent {
   display: flex;
-  flex-direction: row; /* Red box first, then text */
+  flex-direction: row-reverse; /* Text first, then red box on left */
   align-items: center;
-  justify-content: flex-start; /* Start from left, not flex-end */
+  justify-content: flex-end; /* This will put red box on left, text on right */
   gap: 40px; /* Space between red box and text */
   margin-left: auto;
   max-width: 700px;
@@ -315,6 +350,111 @@
   color: rgba(255, 255, 255, 0.9); /* Slightly more opaque */
   letter-spacing: -0.2px;
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); /* Subtle depth */
+  margin-bottom: 32px; /* Space for CTA button */
+}
+
+/* Call-to-Action Button Container */
+.ctaContainer {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to right with text */
+  gap: 16px; /* Space between buttons */
+  margin-top: 8px;
+  flex-wrap: wrap; /* Allow wrapping on very small screens */
+}
+
+/* Primary CTA Button - Discuss Your Vision */
+.ctaButtonPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px; /* Smaller than original */
+  font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px; /* Slightly smaller */
+  font-weight: 500;
+  text-decoration: none;
+  color: rgb(255, 255, 255); /* WHITE text normally */
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Beautiful teal gradient background */
+  background: linear-gradient(135deg, 
+    rgba(49, 175, 180, 1) 0%,
+    rgba(14, 165, 233, 0.95) 100%
+  );
+  
+  /* Subtle shadow and glow */
+  box-shadow: 
+    0 4px 16px rgba(49, 175, 180, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ctaButtonPrimary:hover {
+  transform: translateY(-2px);
+  color: rgb(0, 0, 0); /* BLACK text on hover */
+  box-shadow: 
+    0 8px 24px rgba(49, 175, 180, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  
+  /* Slightly brighter on hover */
+  background: linear-gradient(135deg, 
+    rgba(49, 175, 180, 1) 0%,
+    rgba(14, 165, 233, 1) 100%
+  );
+}
+
+.ctaButtonPrimary:active {
+  transform: translateY(-1px);
+  color: rgb(0, 0, 0); /* Keep black text when pressed */
+}
+
+/* Secondary CTA Button - Browse Projects */
+.ctaButtonSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px; /* Same size as primary */
+  font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  color: rgb(255, 255, 255); /* White text */
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Transparent background with border */
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  
+  /* Subtle shadow */
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ctaButtonSecondary:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.1); /* Subtle white background */
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 4px 16px rgba(255, 255, 255, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.ctaButtonSecondary:active {
+  transform: translateY(0px);
 }
 
 /* Red Decorative Square - SMALLER WITH BLACK ARROWS */
@@ -347,8 +487,11 @@
 .arrowContainer {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 6px; /* Better spacing for 4 arrows */
   align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   
   /* COUNTER-ROTATION to keep arrows vertical */
   animation: counterSpin 8s linear infinite;
@@ -365,44 +508,42 @@
 }
 
 .arrow {
-  width: 16px; /* Smaller arrows for smaller box */
-  height: 16px;
-  fill: rgb(0, 0, 0); /* BLACK ARROWS - was white */
+  width: 14px; /* Good size for 4 arrows */
+  height: 14px;
+  fill: rgb(255, 255, 255); /* WHITE ARROWS */
   opacity: 0.8;
   
-  /* SUBTLE BOUNCE ANIMATION */
-  animation: arrowBounce 2s ease-in-out infinite;
+  /* SMOOTH CONVEYOR FLOW - much more subtle */
+  animation: smoothFlow 2s ease-in-out infinite;
 }
 
-/* Subtle bounce animation for arrows */
-@keyframes arrowBounce {
+/* Smooth, subtle flowing animation */
+@keyframes smoothFlow {
   0%, 100% {
-    transform: translateY(0px);
+    opacity: 0.8;
+    transform: translateY(0px) scale(1);
   }
   50% {
-    transform: translateY(-3px);
+    opacity: 1;
+    transform: translateY(-1px) scale(1.05);
   }
 }
 
 .arrow:nth-child(1) { 
   opacity: 1; 
-  animation-delay: 0s;
+  animation-delay: 0s; 
 }
 .arrow:nth-child(2) { 
-  opacity: 0.8; 
-  animation-delay: 0.1s;
+  opacity: 0.9; 
+  animation-delay: 0.5s; 
 }
 .arrow:nth-child(3) { 
-  opacity: 0.6; 
-  animation-delay: 0.2s;
+  opacity: 0.8; 
+  animation-delay: 1s; 
 }
 .arrow:nth-child(4) { 
-  opacity: 0.4; 
-  animation-delay: 0.3s;
-}
-.arrow:nth-child(5) { 
-  opacity: 0.2; 
-  animation-delay: 0.4s;
+  opacity: 0.7; 
+  animation-delay: 1.5s; 
 }
 
 /* Brand Text Container */
@@ -466,8 +607,8 @@
   }
   
   .arrow {
-    width: 18px; /* Proportionally smaller */
-    height: 18px;
+    width: 16px; /* Good size for 4 arrows on large screens */
+    height: 16px;
   }
   
   .brandText {
@@ -502,8 +643,8 @@
   }
   
   .arrow {
-    width: 16px; /* Proportionally smaller */
-    height: 16px;
+    width: 15px; /* Good size for 4 arrows on standard desktop */
+    height: 15px;
   }
   
   .heroTitle {
@@ -517,6 +658,13 @@
     font-size: clamp(18px, 2.8vw, 26px); /* Scaled back 15-20% */
     font-weight: 400;
     line-height: 1.35;
+    margin-bottom: 28px; /* Space for CTA */
+  }
+  
+  .ctaButtonPrimary,
+  .ctaButtonSecondary {
+    padding: 12px 20px; /* Slightly smaller on desktop */
+    font-size: 15px;
   }
   
   .brandText {
@@ -538,6 +686,15 @@
   .mainContent {
     padding: 45px 40px 45px;
     gap: 15px;
+  }
+  
+  .headerTop {
+    top: 18px;
+    left: 40px;
+  }
+  
+  .homeLink {
+    font-weight: 600;
   }
   
   .navItemContainer {
@@ -602,6 +759,13 @@
     font-size: clamp(17px, 2.5vw, 24px); /* Scaled back 15-20% */
     font-weight: 400;
     line-height: 1.3;
+    margin-bottom: 24px; /* Space for CTA */
+  }
+  
+  .ctaButtonPrimary,
+  .ctaButtonSecondary {
+    padding: 12px 20px; /* Good size on laptop */
+    font-size: 15px;
   }
   
   .rightContent {
@@ -616,8 +780,8 @@
   }
   
   .arrow {
-    width: 14px; /* Smaller arrows */
-    height: 14px;
+    width: 13px; /* Good size for 4 arrows on laptop */
+    height: 13px;
   }
   
   .arrow {
@@ -679,8 +843,8 @@
   }
   
   .arrow {
-    width: 12px; /* Smaller arrows for tablet */
-    height: 12px;
+    width: 11px; /* Good size for 4 arrows on tablet */
+    height: 11px;
   }
   
   .heroTitle {
@@ -705,18 +869,21 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 80px 30px 140px;
+    padding: 100px 30px 140px; /* More top padding for Header component */
     gap: 60px;
+    justify-content: center; /* Center content since no nav */
   }
   
   .headerTop {
     top: 20px;
     left: 30px;
+    display: none; /* Ensure it's hidden */
   }
   
   .navigationMenu {
     order: 2;
     align-items: center;
+    display: none; /* Hidden - Header component handles navigation */
   }
   
   .navItemContainer {
@@ -834,8 +1001,8 @@
   }
   
   .arrow {
-    width: 10px; /* Smallest arrows */
-    height: 10px;
+    width: 9px; /* Good size for 4 arrows on tiny screens */
+    height: 9px;
   }
   
   .heroTitle {
@@ -846,6 +1013,16 @@
   .heroDescription {
     font-size: clamp(13px, 4vw, 18px); /* Scaled back 15-20% */
     font-weight: 400;
+    margin-bottom: 18px; /* Space for CTA */
+  }
+  
+  .ctaButtonPrimary,
+  .ctaButtonSecondary {
+    padding: 10px 18px; /* Smallest size for tiny screens */
+    font-size: 13px;
+    border-radius: 10px; /* Slightly smaller radius */
+    width: 100%;
+    max-width: 160px; /* Compact for tiny screens */
   }
   
   .brandText {

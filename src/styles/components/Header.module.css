@@ -1,5 +1,6 @@
-﻿/* src/styles/components/Header.module.css */
+﻿/* src/styles/components/Header.module.css - Mobile Navigation with Hamburger */
 
+/* IMPORTANT: Only show header on mobile/tablet, hidden on desktop */
 .header {
   position: fixed;
   top: 0;
@@ -7,91 +8,314 @@
   right: 0;
   z-index: 1000;
   background: transparent;
-  pointer-events: none;
+  
+  /* Only visible on mobile and tablet */
+  display: block;
+}
+
+.fixed {
+  position: fixed;
 }
 
 .headerContent {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  padding: 32px 48px;
-  pointer-events: none;
+  align-items: center;
+  padding: 20px 30px;
+  max-width: 100%;
+}
+
+/* HOME Link */
+.logoArea {
+  display: flex;
+  align-items: center;
 }
 
 .homeLink {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.8); /* Light text for dark background */
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   transition: color 0.3s ease;
-  pointer-events: auto;
 }
 
 .homeLink:hover {
-  color: var(--color-primary);
+  color: rgb(49, 175, 180); /* Teal color */
 }
 
-.logoArea {
+/* Hamburger Button */
+.hamburgerButton {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 12px;
-  pointer-events: auto;
-}
-
-.logo {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-primary);
-  text-decoration: none;
-  letter-spacing: 1px;
-}
-
-.qrCodePlaceholder {
   width: 40px;
   height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.hamburgerButton:hover {
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
+  border-color: rgba(49, 175, 180, 0.3);
+}
+
+.hamburgerLine {
+  width: 18px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.8);
+  margin: 2px 0;
+  transition: all 0.3s ease;
+  border-radius: 1px;
+}
+
+/* Hamburger Animation */
+.hamburgerButton.active .hamburgerLine:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburgerButton.active .hamburgerLine:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburgerButton.active .hamburgerLine:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Mobile Menu Backdrop */
+.mobileMenuBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1500;
+  backdrop-filter: blur(4px);
+}
+
+/* Mobile Menu Panel */
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 280px;
+  background: linear-gradient(135deg, 
+    rgba(20, 33, 45, 0.95) 0%,
+    rgba(14, 26, 36, 0.98) 100%
+  );
+  backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 2000;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.mobileMenuContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px;
+}
+
+/* Close Button */
+.mobileCloseButton {
+  align-self: flex-end;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.6);
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 40px;
 }
 
-/* Responsive Design */
-@media (max-width: 1199px) {
-  .headerContent {
-    padding: 24px 32px;
+.mobileCloseButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(49, 175, 180, 0.3);
+}
+
+.closeIcon {
+  width: 20px;
+  height: 20px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Mobile Navigation */
+.mobileNavigation {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.mobileNavLink {
+  display: block;
+  padding: 16px 20px;
+  font-family: 'Clash Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.mobileNavLink:hover {
+  background: rgba(49, 175, 180, 0.1);
+  border-color: rgba(49, 175, 180, 0.3);
+  color: rgb(49, 175, 180);
+  transform: translateX(4px);
+}
+
+/* Mobile CTA Buttons */
+.mobileCTAContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.mobileCTAPrimary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  border-radius: 12px;
+  background: linear-gradient(135deg, 
+    rgba(49, 175, 180, 1) 0%,
+    rgba(14, 165, 233, 0.95) 100%
+  );
+  box-shadow: 
+    0 4px 16px rgba(49, 175, 180, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.mobileCTAPrimary:hover {
+  color: rgb(0, 0, 0);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(49, 175, 180, 0.4),
+    0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.mobileCTASecondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  border-radius: 12px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.mobileCTASecondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* RESPONSIVE BREAKPOINTS */
+
+/* Hide header on desktop - Hero component handles navigation */
+@media (min-width: 1200px) {
+  .header {
+    display: none; /* Hide on desktop - Hero handles navigation */
   }
 }
 
-@media (max-width: 809px) {
+/* Standard tablet and laptop */
+@media (min-width: 810px) and (max-width: 1199px) {
+  .header {
+    display: block; /* Show on tablet/laptop */
+  }
+  
   .headerContent {
-    padding: 20px 24px;
+    padding: 24px 40px;
   }
   
   .homeLink {
-    font-size: 12px;
-  }
-  
-  .logo {
     font-size: 16px;
-  }
-  
-  .qrCodePlaceholder {
-    width: 35px;
-    height: 35px;
-    font-size: 9px;
   }
 }
 
+/* Mobile range */
+@media (max-width: 809px) {
+  .header {
+    display: block; /* Show on mobile */
+  }
+  
+  .headerContent {
+    padding: 20px 30px;
+  }
+  
+  .homeLink {
+    font-size: 16px;
+  }
+  
+  .mobileMenu {
+    width: 100%; /* Full width on mobile */
+  }
+  
+  .mobileNavLink {
+    font-size: 28px; /* Larger on mobile */
+    padding: 20px 24px;
+  }
+}
+
+/* Small mobile */
 @media (max-width: 480px) {
   .headerContent {
+    padding: 16px 20px;
+  }
+  
+  .homeLink {
+    font-size: 14px;
+  }
+  
+  .hamburgerButton {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .hamburgerLine {
+    width: 16px;
+  }
+  
+  .mobileMenuContent {
+    padding: 20px;
+  }
+  
+  .mobileNavLink {
+    font-size: 24px;
     padding: 16px 20px;
   }
 }

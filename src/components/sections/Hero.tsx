@@ -1,4 +1,4 @@
-﻿// src/components/sections/Hero.tsx - UPDATED WITH NEW TEXT & PROMINENT SIZING
+﻿// src/components/sections/Hero.tsx - COMPLETE WITH CTA BUTTON
 'use client';
 
 import { useState } from 'react';
@@ -174,14 +174,14 @@ export const Hero = () => {
           })}
         </motion.nav>
 
-        {/* Right Content Area - UPDATED TEXT */}
+        {/* Right Content Area - WITH CTA BUTTON */}
         <motion.div 
           className={styles.rightContent}
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.8, type: "spring", stiffness: 200 }}
         >
-          {/* Hero Content - NEW TEXT */}
+          {/* Hero Content - WITH CTA BUTTON */}
           <div className={styles.heroContent}>
             <motion.h1 
               className={styles.heroTitle}
@@ -189,7 +189,7 @@ export const Hero = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.0, duration: 0.6 }}
             >
-              Where Ideas Take Shape
+              Where Ideas Take Shape.
             </motion.h1>
             
             <motion.p 
@@ -200,17 +200,45 @@ export const Hero = () => {
             >
               We navigate the digital realm to build stunning websites, intuitive interfaces, and memorable brand experiences that flow seamlessly with your business goals.
             </motion.p>
+
+            {/* Call-to-Action Buttons - Two Options */}
+            <motion.div
+              className={styles.ctaContainer}
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.4, duration: 0.6 }}
+            >
+              <motion.a
+                href="#contact"
+                className={styles.ctaButtonPrimary}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                Discuss Your Vision
+              </motion.a>
+              
+              <motion.a
+                href="#work-section"
+                className={styles.ctaButtonSecondary}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                Browse Projects
+              </motion.a>
+            </motion.div>
           </div>
 
-          {/* Red Decorative Square with Arrows - NOW SPINS WITH CSS */}
+          {/* Red Decorative Square with Arrows - POSITIONED ON LEFT */}
           <motion.div 
             className={styles.redSquare}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1.4, duration: 0.8, type: "spring" }}
+            transition={{ delay: 1.6, duration: 0.8, type: "spring" }}
           >
             <div className={styles.arrowContainer}>
-              {[...Array(5)].map((_, i) => (
+              {[...Array(4)].map((_, i) => (
                 <svg key={i} viewBox="0 0 256 256" className={styles.arrow}>
                   <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/>
                 </svg>
@@ -225,7 +253,7 @@ export const Hero = () => {
         className={styles.brandContainer}
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.8, type: "spring" }}
+        transition={{ delay: 1.8, duration: 0.8, type: "spring" }}
       >
         <h1 className={styles.brandText}>
           CREATIVE CURRENT

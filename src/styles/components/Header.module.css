@@ -1,5 +1,6 @@
-﻿/* src/styles/components/Header.module.css */
+﻿/* src/styles/components/Header.module.css - Mobile Navigation with Hamburger */
 
+/* IMPORTANT: Only show header on mobile/tablet, hidden on desktop */
 .header {
   position: absolute;
   top: 0;
@@ -50,7 +51,7 @@
 }
 
 .homeLink:hover {
-  color: var(--color-primary);
+  color: rgb(49, 175, 180); /* Teal color */
 }
 
 
@@ -58,6 +59,8 @@
 /* Logo Area (QR Code placeholder) */
 .logoArea {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: var(--space-md);
   pointer-events: auto;
@@ -122,19 +125,18 @@
   }
 }
 
-@media (max-width: 809px) {
+/* Standard tablet and laptop */
+@media (min-width: 810px) and (max-width: 1199px) {
+  .header {
+    display: block; /* Show on tablet/laptop */
+  }
+  
   .headerContent {
     padding: var(--space-lg) var(--space-lg);
   }
   
   .homeLink {
     font-size: var(--font-size-xs);
-  }
-  
-  .qrCodePlaceholder {
-    width: 35px;
-    height: 35px;
-    font-size: 9px;
   }
 }
 

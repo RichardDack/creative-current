@@ -43,11 +43,11 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects }) => {
   });
 
   // Transform scroll progress to match the number of projects
-  const progressValue = projects.length > 0 ? useTransform(
+  const progressValue = useTransform(
     scrollYProgress,
     [0, 1],
-    [0, projects.length]
-  ) : null;
+    [0, projects.length || 1]
+  );
 
   // Track visibility of work section
   const sectionVisibility = useTransform(
@@ -57,8 +57,6 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects }) => {
   );
 
   useEffect(() => {
-    if (!progressValue) return;
-    
     const unsubscribe = progressValue.onChange((latest) => {
       const newIndex = Math.min(Math.floor(latest), projects.length - 1);
       setActiveIndex(Math.max(0, newIndex));
@@ -103,7 +101,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects }) => {
           <motion.div 
             className={styles.scrollProgress}
             style={{
-              scaleY: useTransform(scrollYProgress, [0.1, 0.9], [0, 1])
+              scaleY: sectionVisibility
             }}
           />
         </div>

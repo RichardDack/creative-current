@@ -85,7 +85,7 @@ export const ContactSection = () => {
               className={styles.sectionTitle}
               variants={itemVariants}
             >
-              Let's Create Something Amazing Together
+              Let&apos;s Create Something Amazing Together
             </motion.h2>
             
             <motion.p 

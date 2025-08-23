@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { useRef, useState, useEffect } from 'react';
 import { WorkProject } from '@/types/data';
-import { staggerContainer } from '@/lib/animations/variants';
+// import { staggerContainer } from '@/lib/animations/variants';
 import styles from '@/styles/components/WorkSection.module.css';
 
 interface WorkSectionProps {
@@ -32,7 +32,7 @@ const workCardVariants = {
   })
 };
 
-export const WorkSection: React.FC<WorkSectionProps> = ({ projects, title }) => {
+export const WorkSection: React.FC<WorkSectionProps> = ({ projects }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isInView, setIsInView] = useState(false);
@@ -43,11 +43,11 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects, title }) => 
   });
 
   // Transform scroll progress to match the number of projects
-  const progressValue = useTransform(
+  const progressValue = projects.length > 0 ? useTransform(
     scrollYProgress,
     [0, 1],
     [0, projects.length]
-  );
+  ) : null;
 
   // Track visibility of work section
   const sectionVisibility = useTransform(
@@ -57,6 +57,8 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects, title }) => 
   );
 
   useEffect(() => {
+    if (!progressValue) return;
+    
     const unsubscribe = progressValue.onChange((latest) => {
       const newIndex = Math.min(Math.floor(latest), projects.length - 1);
       setActiveIndex(Math.max(0, newIndex));

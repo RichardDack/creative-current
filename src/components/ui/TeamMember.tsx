@@ -151,7 +151,7 @@ export const TeamMember: React.FC<TeamMemberProps> = ({ member, index = 0 }) => 
           <h3 className={styles.memberName}>{member.name}</h3>
           <p className={styles.memberTitle}>{member.title}</p>
           <blockquote className={styles.memberQuote}>
-            "{member.quote}"
+            &ldquo;{member.quote}&rdquo;
           </blockquote>
         </div>
       </div>

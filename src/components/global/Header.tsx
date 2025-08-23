@@ -6,12 +6,13 @@ import { useState, useEffect } from 'react';
 import styles from '@/styles/components/Header.module.css';
 import { HeaderProps } from '@/types/components';
 
-const navigationItems = [
-  { name: 'WORK', href: '#work-section' },
-  { name: 'ABOUT', href: '#about-section' },
-  { name: 'SERVICES', href: '#services' },
-  { name: 'CONTACT', href: '#footer-background' },
-];
+// Navigation items for future use
+// const navigationItems = [
+//   { name: 'WORK', href: '#work-section' },
+//   { name: 'ABOUT', href: '#about-section' },
+//   { name: 'SERVICES', href: '#services' },
+//   { name: 'CONTACT', href: '#footer-background' },
+// ];
 
 export const Header: React.FC<HeaderProps> = ({ 
   fixed = true, 

@@ -92,7 +92,7 @@ export const ContactSection = () => {
               className={styles.sectionDescription}
               variants={itemVariants}
             >
-              Ready to transform your digital presence? We'd love to hear about your project and explore how we can bring your vision to life.
+              Ready to transform your digital presence? We&apos;d love to hear about your project and explore how we can bring your vision to life.
             </motion.p>
 
             <motion.div 

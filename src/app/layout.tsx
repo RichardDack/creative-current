@@ -21,6 +21,16 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   weight: ['300', '400', '500', '600', '700'],
 });
 
+// Configure Wix Madefor Display using next/font/google
+import { Wix_Madefor_Display } from "next/font/google";
+
+const wixMadeforDisplay = Wix_Madefor_Display({
+  variable: "--font-wix-madefor",
+  subsets: ["latin"],
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
+
 export const metadata: Metadata = {
   title: "Creative Current - Elevating Digital Excellence",
   description: "We specialize in web design, development, UI/UX, and product design. Transform your online presence with our creative expertise.",
@@ -36,28 +46,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Preload Wix Madefor Display from Google Fonts with font-display: swap */}
-        <link
-          rel="preconnect"
-          href="https://fonts.googleapis.com"
-        />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700&display=swap"
-          as="style"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={`${interTight.variable} ${plusJakartaSans.variable} antialiased`}>
+      <body className={`${interTight.variable} ${plusJakartaSans.variable} ${wixMadeforDisplay.variable} antialiased`}>
         {children}
       </body>
     </html>

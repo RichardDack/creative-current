@@ -76,8 +76,10 @@ export const delays = {
   heroBackground: 0.5
 };
 
-export default {
+const transitionDefaults = {
   transitions,
   staggerConfig,
   delays
 };
+
+export default transitionDefaults;

@@ -6,7 +6,7 @@ export const createMotionProps = (
   options?: {
     viewport?: boolean;
     delay?: number;
-    custom?: any;
+    custom?: unknown;
   }
 ): MotionProps => {
   const prefersReducedMotion = typeof window !== 'undefined' &&
@@ -105,7 +105,7 @@ export const shouldAnimate = (): boolean => {
 
 // Utility to create hover props with reduced motion support
 export const createHoverProps = (
-  hoverVariant: any,
+  hoverVariant: unknown,
   options?: {
     scale?: number;
     duration?: number;
@@ -126,9 +126,11 @@ export const createHoverProps = (
   };
 };
 
-export default {
+const utilDefaults = {
   createMotionProps,
   createStaggerProps,
   shouldAnimate,
   createHoverProps
 };
+
+export default utilDefaults;

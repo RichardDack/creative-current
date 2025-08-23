@@ -204,7 +204,7 @@ export const animationPresets = {
   }
 };
 
-export default {
+const variantDefaults = {
   slideInLeft,
   slideInRight,
   slideInUp,
@@ -220,3 +220,5 @@ export default {
   getAnimationProps,
   viewportConfig
 };
+
+export default variantDefaults;

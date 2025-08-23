@@ -1,11 +1,11 @@
 // src/components/sections/ContactSection.tsx
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { useState } from 'react';
 import styles from '@/styles/components/ContactSection.module.css';
 
-const sectionVariants = {
+const sectionVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -16,26 +16,26 @@ const sectionVariants = {
   }
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 200,
       damping: 30
     }
   }
 };
 
-const formVariants = {
+const formVariants: Variants = {
   hidden: { opacity: 0, x: 50 },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 150,
       damping: 25,
       delay: 0.3

@@ -1,0 +1,194 @@
+/* src/styles/components/TeamMember.module.css */
+
+.teamMember {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.memberCard {
+  background: rgb(255, 255, 255);
+  border: 1px solid rgba(49, 175, 180, 0.3);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  will-change: transform;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.memberCard:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 12px 40px rgba(49, 175, 180, 0.3);
+  transform: translateY(-8px);
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-primary), rgba(49, 175, 180, 0.8));
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.memberImage {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.socialOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: var(--space-lg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.memberCard:hover .socialOverlay {
+  opacity: 1;
+}
+
+.socialLinks {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.socialLink:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-background-darker);
+}
+
+.memberInfo {
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+.memberName {
+  font-family: var(--font-headline);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary-dark);
+  margin-bottom: var(--space-sm);
+  line-height: var(--line-height-tight);
+}
+
+.memberTitle {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+  margin-bottom: var(--space-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.memberQuote {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-style: italic;
+  color: var(--color-text-muted-dark);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+  position: relative;
+}
+
+.memberQuote::before {
+  content: '"';
+  font-size: var(--font-size-3xl);
+  color: var(--color-primary);
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  font-family: serif;
+  opacity: 0.3;
+}
+
+/* Responsive Design */
+@media (max-width: 809px) {
+  .teamMember {
+    max-width: 350px;
+  }
+  
+  .memberInfo {
+    padding: var(--space-lg);
+  }
+  
+  .memberName {
+    font-size: var(--font-size-lg);
+  }
+  
+  .memberTitle {
+    font-size: var(--font-size-sm);
+  }
+  
+  .memberQuote {
+    font-size: var(--font-size-sm);
+  }
+  
+  .socialLink {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .socialLinks {
+    gap: var(--space-sm);
+  }
+}
+
+@media (max-width: 390px) {
+  .teamMember {
+    max-width: 100%;
+  }
+  
+  .memberInfo {
+    padding: var(--space-md);
+  }
+  
+  .memberName {
+    font-size: var(--font-size-base);
+  }
+  
+  .memberQuote {
+    font-size: var(--font-size-xs);
+  }
+  
+  .socialOverlay {
+    padding: var(--space-md);
+  }
+  
+  .socialLink {
+    width: 32px;
+    height: 32px;
+  }
+}

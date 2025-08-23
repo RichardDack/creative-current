@@ -3,7 +3,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { WorkProject } from '@/types/components';
+import { WorkProject } from '@/types/data';
 import styles from '@/styles/components/WorkCard.module.css';
 
 interface WorkCardProps {
@@ -27,7 +27,10 @@ const cardVariants = {
   hover: {
     scale: 1.02,
     y: -8,
-    transition: { duration: 0.3 }
+    transition: { 
+      duration: 0.3,
+      ease: "easeOut"
+    }
   }
 };
 

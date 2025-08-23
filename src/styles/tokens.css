@@ -1,19 +1,49 @@
 ﻿:root {
-  /* Colors - Based on original Framer tokens */
-  --color-primary: rgb(49, 175, 180);
-  --color-background-dark: rgb(14, 26, 36);
-  --color-background-light: rgb(20, 33, 45);
-  --color-text-primary: rgb(255, 255, 255);
-  --color-text-muted: rgb(186, 189, 198);
-  --color-border-light: rgb(230, 230, 230);
-  --color-accent-red: rgb(180, 54, 49);
+  /* Colors - Extracted from original Framer tokens */
+  --color-primary: rgb(49, 175, 180);                    /* token-633663d4 - Primary brand color */
+  --color-background-darker: rgb(14, 26, 36);            /* token-51170b41 - Darkest background */
+  --color-background-lighter: rgb(20, 33, 45);           /* token-e76238c2 - Lighter background */
+  --color-background-light: rgb(248, 250, 252);          /* Light background for contrast sections */
+  --color-background-neutral: rgb(241, 245, 249);        /* Neutral light background */
+  --color-text-primary: rgb(255, 255, 255);              /* White text for dark backgrounds */
+  --color-text-primary-dark: rgb(15, 23, 42);            /* Dark text for light backgrounds */
+  --color-text-muted: rgb(186, 189, 198);                /* token-dd3bc34b - Muted text color */
+  --color-text-muted-dark: rgb(100, 116, 139);           /* Muted text for light backgrounds */
+  --color-border-light: rgb(230, 230, 230);              /* token-cf55a365 - Light border color */
+  --color-accent-red: rgb(180, 54, 49);                  /* token-da3bfa35 - Red accent color */
   
-  /* Typography */
-  --font-display: "Clash Display", "Clash Display Placeholder", sans-serif;
-  --font-body: "Plus Jakarta Sans", sans-serif;
-  --font-ui: "Inter Tight", sans-serif;
-  --font-headline: "Wix Madefor Display", sans-serif;
-  --font-mono: "Clash Grotesk", monospace;
+  /* Typography - Using optimized next/font variables with fallbacks */
+  --font-display: var(--font-display), "Inter Tight", system-ui, sans-serif;     /* Primary display font */
+  --font-body: var(--font-body), "Plus Jakarta Sans", system-ui, sans-serif;     /* Body text font */
+  --font-ui: var(--font-display), "Inter Tight", system-ui, sans-serif;          /* UI elements font */
+  --font-headline: "Wix Madefor Display", Georgia, serif;                        /* Headline font with serif fallback */
+  --font-mono: ui-monospace, "SF Mono", "Monaco", "Inconsolata", monospace;      /* Monospace font stack */
+  
+  /* Typography Scale - Based on Framer font weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+  
+  /* Font Sizes - Responsive scale */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+  --font-size-3xl: 1.875rem;    /* 30px */
+  --font-size-4xl: 2.25rem;     /* 36px */
+  --font-size-5xl: 3rem;        /* 48px */
+  --font-size-6xl: 3.75rem;     /* 60px */
+  --font-size-7xl: 4.5rem;      /* 72px */
+  
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
   
   /* Spacing Scale */
   --space-xs: 0.25rem;    /* 4px */
@@ -23,15 +53,113 @@
   --space-xl: 2rem;       /* 32px */
   --space-2xl: 3rem;      /* 48px */
   --space-3xl: 4rem;      /* 64px */
+  --space-4xl: 5rem;      /* 80px */
+  --space-5xl: 6rem;      /* 96px */
   
-  /* Breakpoints */
+  /* Border Radius */
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 1rem;      /* 16px */
+  --radius-xl: 1.5rem;    /* 24px */
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  
+  /* Breakpoints - From Framer responsive design */
   --breakpoint-mobile: 390px;
   --breakpoint-tablet: 810px;
   --breakpoint-desktop: 1200px;
   
-  /* Animation */
+  /* Animation - Based on Framer Motion settings */
   --duration-fast: 0.2s;
   --duration-normal: 0.3s;
   --duration-slow: 0.6s;
   --ease-out: cubic-bezier(0.44, 0, 0.56, 1);
+  --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Spring Animation Values - From Framer appear animations */
+  --spring-stiffness: 200;
+  --spring-damping: 30;
+  --spring-mass: 1;
+}
+
+/* Color Variations - Opacity variants of main colors */
+:root {
+  --color-primary-50: rgb(49, 175, 180, 0.05);
+  --color-primary-100: rgb(49, 175, 180, 0.1);
+  --color-primary-200: rgb(49, 175, 180, 0.2);
+  --color-primary-300: rgb(49, 175, 180, 0.3);
+  --color-primary-400: rgb(49, 175, 180, 0.4);
+  --color-primary-500: rgb(49, 175, 180, 0.5);
+  --color-primary-600: rgb(49, 175, 180, 0.6);
+  --color-primary-700: rgb(49, 175, 180, 0.7);
+  --color-primary-800: rgb(49, 175, 180, 0.8);
+  --color-primary-900: rgb(49, 175, 180, 0.9);
+  
+  --color-background-darker-50: rgb(14, 26, 36, 0.05);
+  --color-background-darker-100: rgb(14, 26, 36, 0.1);
+  --color-background-darker-200: rgb(14, 26, 36, 0.2);
+  --color-background-darker-300: rgb(14, 26, 36, 0.3);
+  --color-background-darker-400: rgb(14, 26, 36, 0.4);
+  --color-background-darker-500: rgb(14, 26, 36, 0.5);
+  --color-background-darker-600: rgb(14, 26, 36, 0.6);
+  --color-background-darker-700: rgb(14, 26, 36, 0.7);
+  --color-background-darker-800: rgb(14, 26, 36, 0.8);
+  --color-background-darker-900: rgb(14, 26, 36, 0.9);
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 389px) {
+  :root {
+    --font-size-6xl: 2.5rem;    /* Smaller on mobile */
+    --font-size-7xl: 3rem;      /* Smaller on mobile */
+    --space-4xl: 3rem;          /* Smaller spacing on mobile */
+    --space-5xl: 4rem;          /* Smaller spacing on mobile */
+  }
+}
+
+@media (min-width: 390px) and (max-width: 809px) {
+  :root {
+    --font-size-6xl: 3rem;      /* Medium on tablet */
+    --font-size-7xl: 3.5rem;    /* Medium on tablet */
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --font-size-6xl: 4rem;      /* Larger on desktop */
+    --font-size-7xl: 5rem;      /* Larger on desktop */
+    --space-4xl: 6rem;          /* Larger spacing on desktop */
+    --space-5xl: 8rem;          /* Larger spacing on desktop */
+  }
+}
+
+/* Utility Classes for Common Patterns */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--breakpoint-desktop);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+@media (max-width: 809px) {
+  .container {
+    padding: 0 var(--space-md);
+  }
 }

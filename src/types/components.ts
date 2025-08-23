@@ -3,36 +3,25 @@
   children?: React.ReactNode;
 }
 
-export interface WorkProject {
-  id: string;
-  title: string;
-  category: string;
-  client: string;
-  duration: string;
-  image: string;
-  link?: string;
+export interface IconProps {
+  size?: number | string;
+  color?: string;
+  className?: string;
 }
 
-export interface TeamMember {
-  id: string;
-  name: string;
-  title: string;
-  quote: string;
-  image: string;
-  socialLinks: {
-    linkedin?: string;
-    twitter?: string;
-    portfolio?: string;
-  };
+export interface AnimationProps {
+  initial?: string | boolean;
+  animate?: string | boolean;
+  transition?: object;
+  variants?: object;
 }
 
-export interface PricingPlan {
-  id: string;
-  name: string;
-  price: number;
-  period: 'month' | 'year';
-  features: string[];
-  popular?: boolean;
-  ctaText: string;
-  ctaLink: string;
+export interface HeaderProps {
+  fixed?: boolean;
+  variant?: 'light' | 'dark';
+}
+
+export interface NavigationLink {
+  href: string;
+  label: string;
 }

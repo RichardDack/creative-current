@@ -1,200 +1,329 @@
 ﻿/* src/styles/components/WorkSection.module.css */
 
 .workSection {
-  padding: 120px 48px;
-  background: rgb(255, 255, 255); /* White background for contrast */
+  background-color: var(--color-background-darker);
   position: relative;
-  margin-top: 100vh; /* Push below the full-height hero */
+  z-index: 1;
 }
 
-.workSection::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(20, 33, 45, 0.1), transparent);
-}
-
-.sectionHeader {
-  margin-bottom: 80px;
-  text-align: left;
-}
-
-.sectionTitle {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  color: rgb(20, 33, 45);
-  margin-bottom: 16px;
-  line-height: 1.2;
-}
-
-.sectionDescription {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(1rem, 1.2vw, 1.25rem);
-  color: rgba(20, 33, 45, 0.7);
-  line-height: 1.6;
-  max-width: 600px;
-}
-
-.projectGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.projectCard {
-  background: rgb(255, 255, 255);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 24px rgba(20, 33, 45, 0.08);
-  transition: all 0.4s ease;
-  border: 1px solid rgba(20, 33, 45, 0.06);
-}
-
-.projectCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(20, 33, 45, 0.15);
-  border-color: var(--color-primary);
-}
-
-.projectImage {
-  width: 100%;
-  height: 240px;
-  background: linear-gradient(135deg, var(--color-primary), rgba(49, 175, 180, 0.8));
+.workItem {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100vh;
+  padding: 24px;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  will-change: transform;
+  z-index: 1;
+}
+
+.workItemContainer {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.workCard {
+  background-color: var(--color-background-lighter);
+  border: 1px solid var(--color-primary);
+  border-radius: 60px;
+  box-shadow: 1px 1px 20px 1px rgba(49, 175, 180, 0.5);
+  display: flex;
+  flex: 1;
+  height: 100%;
+  max-height: calc(100vh - 48px);
+  overflow: hidden;
+  position: relative;
+  will-change: transform;
+}
+
+.workCardInner {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  inset: 0;
+  padding: 0;
+}
+
+.workContent {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl);
+}
+
+.workMeta {
+  max-width: 400px;
+}
+
+.workLabel {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.workTitle {
+  font-family: var(--font-headline);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+  margin-bottom: var(--space-xl);
+}
+
+.workDetails {
+  margin-bottom: var(--space-xl);
+}
+
+.workDetailItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.workDetailItem:last-child {
+  border-bottom: none;
+}
+
+.workDetailLabel {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.workDetailValue {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.viewProjectButton {
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 30px;
+  color: var(--color-background-darker);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-md) var(--space-xl);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.viewProjectButton:hover {
+  background-color: rgba(49, 175, 180, 0.9);
+  transform: translateY(-2px);
+}
+
+.workImage {
+  flex: 1;
+  position: relative;
+  height: 100%;
+}
+
+.workImageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 60px 60px 0;
+  overflow: hidden;
+}
+
+.projectImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Scroll Indicator */
+.scrollIndicator {
+  position: fixed;
+  right: var(--space-xl);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.scrollTrack {
+  width: 2px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 1px;
   position: relative;
   overflow: hidden;
 }
 
-.projectImage::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
-  opacity: 0.3;
+.scrollProgress {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    var(--color-primary),
+    rgba(49, 175, 180, 0.6)
+  );
+  border-radius: 1px;
+  transform-origin: top;
+  will-change: transform;
 }
 
-.imagePlaceholder {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.8);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  z-index: 1;
-  position: relative;
-}
-
-.projectContent {
-  padding: 32px;
-}
-
-.projectTitle {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: rgb(20, 33, 45);
-  margin-bottom: 12px;
-  line-height: 1.3;
-}
-
-.projectDescription {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 1rem;
-  color: rgba(20, 33, 45, 0.7);
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-.projectTags {
+.scrollDots {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-left: var(--space-sm);
 }
 
-.tag {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-primary);
-  background: rgba(49, 175, 180, 0.1);
-  padding: 6px 12px;
-  border-radius: 20px;
-  border: 1px solid rgba(49, 175, 180, 0.2);
+.scrollDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.tag:hover {
-  background: var(--color-primary);
-  color: rgb(255, 255, 255);
-  transform: translateY(-1px);
+.scrollDotActive {
+  background-color: var(--color-primary);
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(49, 175, 180, 0.6);
 }
 
 /* Responsive Design */
 @media (max-width: 1199px) {
-  .workSection {
-    padding: 80px 32px;
+  .workItem {
+    padding: var(--space-lg);
   }
   
-  .projectGrid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 32px;
+  .workCard {
+    border-radius: 40px;
   }
   
-  .sectionHeader {
-    margin-bottom: 60px;
+  .workImageContainer {
+    border-radius: 0 40px 40px 0;
+  }
+  
+  .workContent {
+    padding: var(--space-xl);
+  }
+  
+  .workTitle {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+  
+  .scrollIndicator {
+    right: var(--space-lg);
+  }
+  
+  .scrollTrack {
+    height: 150px;
   }
 }
 
 @media (max-width: 809px) {
-  .workSection {
-    padding: 60px 24px;
-    margin-top: 100vh;
+  .workItem {
+    padding: var(--space-md);
   }
   
-  .projectGrid {
-    grid-template-columns: 1fr;
-    gap: 24px;
+  .workCard {
+    border-radius: 30px;
   }
   
-  .projectCard {
-    border-radius: 12px;
+  .workCardInner {
+    flex-direction: column;
+    gap: 0;
   }
   
-  .projectImage {
-    height: 200px;
+  .workContent {
+    flex: none;
+    padding: var(--space-xl) var(--space-lg);
   }
   
-  .projectContent {
-    padding: 24px;
+  .workImage {
+    flex: 1;
   }
   
-  .sectionHeader {
-    margin-bottom: 40px;
-    text-align: center;
+  .workImageContainer {
+    border-radius: 0 0 30px 30px;
+  }
+  
+  .workTitle {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .workDetails {
+    margin-bottom: var(--space-lg);
+  }
+  
+  .scrollIndicator {
+    right: var(--space-md);
+  }
+  
+  .scrollTrack {
+    height: 120px;
+  }
+  
+  .scrollDots {
+    gap: var(--space-sm);
+  }
+  
+  .scrollDot {
+    width: 6px;
+    height: 6px;
   }
 }
 
-@media (max-width: 480px) {
-  .workSection {
-    padding: 40px 20px;
+@media (max-width: 390px) {
+  .workItem {
+    padding: var(--space-sm);
   }
   
-  .projectContent {
-    padding: 20px;
+  .workCard {
+    border-radius: 20px;
   }
   
-  .projectImage {
-    height: 180px;
+  .workContent {
+    padding: var(--space-lg) var(--space-md);
+  }
+  
+  .workImageContainer {
+    border-radius: 0 0 20px 20px;
+  }
+  
+  .workTitle {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  
+  .viewProjectButton {
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--font-size-sm);
+  }
+  
+  .scrollIndicator {
+    right: var(--space-sm);
+  }
+  
+  .scrollTrack {
+    height: 100px;
   }
 }

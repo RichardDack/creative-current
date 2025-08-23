@@ -15,6 +15,19 @@ const navigationItems = [
 export const Hero = () => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const targetElement = document.getElementById(targetId);
+    
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <motion.header 
       className={styles.heroSection}
@@ -89,6 +102,7 @@ export const Hero = () => {
           href="#hero-section" 
           className={styles.homeLink}
           whileHover={{ color: 'var(--color-primary)' }}
+          onClick={(e) => handleSmoothScroll(e, '#hero-section')}
         >
           HOME
         </motion.a>
@@ -124,6 +138,7 @@ export const Hero = () => {
                   className={styles.navLink}
                   onMouseEnter={() => setHoveredItem(`${item.name}-${index}`)}
                   onMouseLeave={() => setHoveredItem(null)}
+                  onClick={(e) => handleSmoothScroll(e, item.href)}
                 >
                   {/* Teal background inside link but link fills container */}
                   <div className={styles.tealBackground} />

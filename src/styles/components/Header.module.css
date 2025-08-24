@@ -1,4 +1,4 @@
-﻿/* src/styles/components/Header.module.css - Mobile Navigation with Hamburger */
+﻿/* src/styles/components/Header.module.css - COMPLETE FILE with Clash Fonts */
 
 /* IMPORTANT: Only show header on mobile/tablet, hidden on desktop */
 .header {
@@ -64,10 +64,8 @@
 }
 
 .homeLink:hover {
-  color: rgb(49, 175, 180); /* Teal color */
+  color: var(--color-primary);
 }
-
-
 
 /* Burger Menu Container */
 .burgerMenuContainer {
@@ -80,8 +78,6 @@
 .burgerMenuIcon {
   /* Additional styling if needed */
 }
-
-
 
 /* Variant Styles */
 .header.light .homeLink {
@@ -113,7 +109,6 @@
 }
 
 /* Mobile-only responsive adjustments */
-
 @media (max-width: 389px) {
   .headerContent {
     padding: var(--space-md) var(--space-md);

@@ -1,34 +1,70 @@
-// src/app/layout.tsx - UPDATED
+// src/app/layout.tsx - COMPLETE WORKING VERSION
 import type { Metadata } from "next";
-import { Inter_Tight, Plus_Jakarta_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-// Configure Inter Tight for display/heading text
-const interTight = Inter_Tight({
-  variable: "--font-display",
-  subsets: ["latin"],
-  display: 'swap',
-  fallback: ['system-ui', 'arial'],
-  weight: ['400', '500', '600', '700', '800', '900'],
+// Configure Clash Display with all weights
+const clashDisplay = localFont({
+  src: [
+    {
+      path: "../../public/fonts/ClashDisplay-Extralight.woff2",
+      weight: "200",
+    },
+    {
+      path: "../../public/fonts/ClashDisplay-Light.woff2",
+      weight: "300",
+    },
+    {
+      path: "../../public/fonts/ClashDisplay-Regular.woff2",
+      weight: "400",
+    },
+    {
+      path: "../../public/fonts/ClashDisplay-Medium.woff2",
+      weight: "500",
+    },
+    {
+      path: "../../public/fonts/ClashDisplay-Semibold.woff2",
+      weight: "600",
+    },
+    {
+      path: "../../public/fonts/ClashDisplay-Bold.woff2",
+      weight: "700",
+    },
+  ],
+  variable: "--font-clash-display",
+  display: "swap",
 });
 
-// Configure Plus Jakarta Sans for body text
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-body",
-  subsets: ["latin"],
-  display: 'swap',
-  fallback: ['system-ui', 'arial'],
-  weight: ['300', '400', '500', '600', '700'],
-});
-
-// Configure Wix Madefor Display using next/font/google
-import { Wix_Madefor_Display } from "next/font/google";
-
-const wixMadeforDisplay = Wix_Madefor_Display({
-  variable: "--font-wix-madefor",
-  subsets: ["latin"],
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
+// Configure Clash Grotesk with all weights
+const clashGrotesk = localFont({
+  src: [
+    {
+      path: "../../public/fonts/ClashGrotesk-Extralight.woff2",
+      weight: "200",
+    },
+    {
+      path: "../../public/fonts/ClashGrotesk-Light.woff2",
+      weight: "300",
+    },
+    {
+      path: "../../public/fonts/ClashGrotesk-Regular.woff2",
+      weight: "400",
+    },
+    {
+      path: "../../public/fonts/ClashGrotesk-Medium.woff2",
+      weight: "500",
+    },
+    {
+      path: "../../public/fonts/ClashGrotesk-Semibold.woff2",
+      weight: "600",
+    },
+    {
+      path: "../../public/fonts/ClashGrotesk-Bold.woff2",
+      weight: "700",
+    },
+  ],
+  variable: "--font-clash-grotesk",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -46,7 +82,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${interTight.variable} ${plusJakartaSans.variable} ${wixMadeforDisplay.variable} antialiased`}>
+      <body className={`${clashDisplay.variable} ${clashGrotesk.variable} antialiased`}>
         {children}
       </body>
     </html>

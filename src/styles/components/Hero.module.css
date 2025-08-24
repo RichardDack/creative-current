@@ -1,4 +1,6 @@
-﻿.redSquare {
+﻿/* src/styles/components/Hero.module.css - COMPLETE FILE with Clash Fonts */
+
+.redSquare {
     width: 65px; /* Smaller for mobile portrait */
     height: 65px;
   }
@@ -6,7 +8,7 @@
   .arrow {
     width: 10px; /* Good size for 4 arrows on mobile portrait */
     height: 10px;
-  }/* src/styles/components/Hero.module.css - PRODUCTION READY */
+  }
 
 .heroSection {
   position: relative;
@@ -101,7 +103,7 @@
 }
 
 .homeLink {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-ui);
   font-size: 16px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.9);
@@ -267,7 +269,7 @@
 .navText {
   position: relative;
   z-index: 4; /* Above teal background and arrow */
-  font-family: 'Clash Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(35px, 5.5vw, 120px);
   font-weight: 400;
   line-height: 0.95;
@@ -332,7 +334,7 @@
 }
 
 .heroTitle {
-  font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(36px, 5vw, 58px); /* BALANCED - scaled back 15-20% */
   font-weight: 500; /* Bolder */
   line-height: 1.1;
@@ -343,7 +345,7 @@
 }
 
 .heroDescription {
-  font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(20px, 3vw, 32px); /* BALANCED - scaled back 15-20% */
   font-weight: 400; /* Slightly bolder */
   line-height: 1.4; /* Better readability */
@@ -368,7 +370,7 @@
   align-items: center;
   justify-content: center;
   padding: 14px 24px; /* Smaller than original */
-  font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px; /* Slightly smaller */
   font-weight: 500;
   text-decoration: none;
@@ -420,7 +422,7 @@
   align-items: center;
   justify-content: center;
   padding: 14px 24px; /* Same size as primary */
-  font-family: 'Clash Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   font-weight: 500;
   text-decoration: none;
@@ -560,7 +562,7 @@
 
 /* Brand Text with Blue-to-Teal Gradient */
 .brandText {
-  font-family: 'Clash Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(50px, 7.5vw, 180px);
   font-weight: 600;
   line-height: 0.8;

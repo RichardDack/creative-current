@@ -12,18 +12,20 @@
   --color-border-light: rgb(230, 230, 230);              /* token-cf55a365 - Light border color */
   --color-accent-red: rgb(180, 54, 49);                  /* token-da3bfa35 - Red accent color */
   
-  /* Typography - Using optimized next/font variables with fallbacks */
-  --font-display: var(--font-display), "Inter Tight", system-ui, sans-serif;     /* Primary display font */
-  --font-body: var(--font-body), "Plus Jakarta Sans", system-ui, sans-serif;     /* Body text font */
-  --font-ui: var(--font-display), "Inter Tight", system-ui, sans-serif;          /* UI elements font */
-  --font-headline: "Wix Madefor Display", Georgia, serif;                        /* Headline font with serif fallback */
-  --font-mono: ui-monospace, "SF Mono", "Monaco", "Inconsolata", monospace;      /* Monospace font stack */
+  /* Typography - Using Clash fonts via CSS variables set by Next.js */
+  --font-display: var(--font-clash-display), "Clash Display", system-ui, sans-serif;     /* Display/heading font */
+  --font-body: var(--font-clash-grotesk), "Clash Grotesk", system-ui, sans-serif;        /* Body text font */
+  --font-ui: var(--font-clash-grotesk), "Clash Grotesk", system-ui, sans-serif;          /* UI elements font */
+  --font-headline: var(--font-clash-display), "Clash Display", system-ui, sans-serif;    /* Headlines */
+  --font-mono: ui-monospace, "SF Mono", "Monaco", "Inconsolata", monospace;              /* Monospace font stack */
   
-  /* Typography Scale - Based on Framer font weights */
+  /* Typography Scale - Based on Clash font weights */
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
+  --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --font-weight-black: 900;
   
   /* Font Sizes - Responsive scale */
   --font-size-xs: 0.75rem;      /* 12px */

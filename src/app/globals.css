@@ -1,4 +1,4 @@
-﻿/* src/app/globals.css - UPDATED */
+﻿/* src/app/globals.css - WORKING VERSION with Font Application */
 @import '../styles/tokens.css';
 
 * {
@@ -14,10 +14,15 @@ html {
 }
 
 body {
-  font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: var(--font-clash-grotesk), var(--font-body), system-ui, sans-serif;
   background-color: rgb(255, 255, 255);
   color: rgb(20, 33, 45);
   line-height: 1.6;
+}
+
+/* Force apply fonts to all elements */
+*, *::before, *::after {
+  font-family: inherit;
 }
 
 /* Container utility */
@@ -48,7 +53,7 @@ body {
 
 /* Typography utilities */
 .h1 {
-  font-family: var(--font-inter);
+  font-family: var(--font-clash-display), var(--font-display), system-ui, sans-serif;
   font-size: clamp(2.5rem, 8vw, 5rem);
   font-weight: 700;
   line-height: 1;
@@ -56,14 +61,14 @@ body {
 }
 
 .h2 {
-  font-family: var(--font-inter);
+  font-family: var(--font-clash-display), var(--font-display), system-ui, sans-serif;
   font-size: clamp(1.75rem, 5vw, 3rem);
   font-weight: 700;
   line-height: 1.2;
 }
 
 .body-lg {
-  font-family: var(--font-inter);
+  font-family: var(--font-clash-grotesk), var(--font-body), system-ui, sans-serif;
   font-size: 1.125rem;
   line-height: 1.7;
 }

@@ -1,7 +1,7 @@
 // src/components/ui/TeamMember.tsx
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 import { TeamMember as TeamMemberType } from '@/types/data';
 import styles from '@/styles/components/TeamMember.module.css';
@@ -11,23 +11,22 @@ interface TeamMemberProps {
   index?: number;
 }
 
-const memberVariants = {
+const memberVariants: Variants = {
   hidden: { 
     opacity: 0,
     y: 60,
     scale: 0.9
   },
-  visible: (index: number) => ({
+  visible: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
       type: "spring",
       stiffness: 200,
-      damping: 30,
-      delay: index * 0.1
+      damping: 30
     }
-  })
+  }
 };
 
 const imageVariants = {
@@ -62,7 +61,12 @@ export const TeamMember: React.FC<TeamMemberProps> = ({ member, index = 0 }) => 
       whileInView="visible"
       whileHover="hover"
       viewport={{ once: true, margin: "-50px" }}
-      custom={index}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 30,
+        delay: index * 0.1
+      }}
     >
       <div className={styles.memberCard}>
         <div className={styles.imageContainer}>

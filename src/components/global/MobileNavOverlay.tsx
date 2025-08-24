@@ -94,8 +94,6 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
       transition: {
         duration: 0.4,
         ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for smooth slide-in
-        staggerChildren: 0.08,
-        delayChildren: 0.15,
       },
     },
     exit: {
@@ -105,8 +103,6 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
       transition: {
         duration: 0.3,
         ease: [0.55, 0.06, 0.68, 0.19], // Custom easing for smooth slide-out
-        staggerChildren: 0.05,
-        staggerDirection: -1, // Reverse stagger for exit
       },
     },
   };
@@ -205,10 +201,11 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
             <motion.ul 
               className={styles.navigationList}
               variants={{
+                hidden: {},
                 visible: {
                   transition: {
                     staggerChildren: 0.08,
-                    delayChildren: 0.1,
+                    delayChildren: 0.15,
                   },
                 },
                 exit: {
@@ -218,6 +215,9 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
                   },
                 },
               }}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
             >
               {navigationItems.map((item, index) => (
                 <motion.li 

@@ -164,6 +164,13 @@
   gap: var(--space-md);
 }
 
+/* Hide scroll indicator on mobile to avoid conflicts with mobile menu */
+@media (max-width: 767px) {
+  .scrollIndicator {
+    display: none;
+  }
+}
+
 .scrollTrack {
   width: 2px;
   height: 200px;

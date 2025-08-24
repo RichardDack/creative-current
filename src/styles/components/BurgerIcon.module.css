@@ -1,7 +1,7 @@
 /* BurgerIcon.module.css - Animated hamburger menu icon */
 
 .burgerButton {
-  background: none;
+  background: transparent;
   border: none;
   cursor: pointer;
   padding: var(--space-xs);
@@ -12,6 +12,8 @@
   transition: background-color var(--duration-normal) var(--ease-out);
   position: relative;
   z-index: 1001;
+  outline: none;
+  box-sizing: border-box;
 }
 
 .burgerButton:hover {

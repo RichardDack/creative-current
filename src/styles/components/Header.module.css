@@ -11,6 +11,9 @@
   transition: all var(--duration-normal) var(--ease-out);
   pointer-events: none;
   display: block; /* Show by default for mobile */
+  overflow: hidden; /* Prevent content overflow */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Hide header on desktop viewports (768px and above) */
@@ -40,6 +43,8 @@
   max-width: 100%;
   margin: 0;
   transition: padding var(--duration-normal) var(--ease-out);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 /* Logo Container */
@@ -69,6 +74,7 @@
   display: none; /* Hidden by default (desktop) */
   pointer-events: auto;
   z-index: 1001; /* Above header but below mobile menu overlay */
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .burgerMenuIcon {

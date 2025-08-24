@@ -5,6 +5,7 @@
   padding: 0; /* No sidebar padding - full width layout like Agentic */
   background: var(--color-background-darker);
   position: relative;
+  width: 100%;
   /* Account for fixed header - no padding needed as header is transparent initially */
 }
 

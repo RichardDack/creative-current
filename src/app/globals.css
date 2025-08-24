@@ -18,7 +18,6 @@ body {
   background-color: rgb(255, 255, 255);
   color: rgb(20, 33, 45);
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
 /* Container utility */

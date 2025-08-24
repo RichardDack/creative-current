@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <Layout>
       <Hero />
-      <WorkSection 
+      <WorkSection
         projects={workProjects.slice(0, 3)}
       />
       <TeamSection />

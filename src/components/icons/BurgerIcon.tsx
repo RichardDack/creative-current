@@ -19,62 +19,35 @@ export const BurgerIcon: React.FC<BurgerIconProps> = ({
 }) => {
   // Enhanced animation variants for smoother transitions
   const topLineVariants = {
-    closed: { 
-      rotate: 0, 
+    closed: {
+      rotate: 0,
       y: 0,
-      transition: {
-        duration: 0.3,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }
     },
-    open: { 
-      rotate: 45, 
+    open: {
+      rotate: 45,
       y: 8,
-      transition: {
-        duration: 0.3,
-        ease: [0.25, 0.46, 0.45, 0.94],
-        delay: 0.1, // Slight delay for smoother transformation
-      }
     }
   };
 
   const middleLineVariants = {
-    closed: { 
+    closed: {
       opacity: 1,
       x: 0,
-      transition: {
-        duration: 0.2,
-        ease: 'easeOut',
-        delay: 0.1,
-      }
     },
-    open: { 
+    open: {
       opacity: 0,
       x: -10,
-      transition: {
-        duration: 0.2,
-        ease: 'easeIn',
-      }
     }
   };
 
   const bottomLineVariants = {
-    closed: { 
-      rotate: 0, 
+    closed: {
+      rotate: 0,
       y: 0,
-      transition: {
-        duration: 0.3,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }
     },
-    open: { 
-      rotate: -45, 
+    open: {
+      rotate: -45,
       y: -8,
-      transition: {
-        duration: 0.3,
-        ease: [0.25, 0.46, 0.45, 0.94],
-        delay: 0.1, // Slight delay for smoother transformation
-      }
     }
   };
 
@@ -101,16 +74,9 @@ export const BurgerIcon: React.FC<BurgerIconProps> = ({
       animate={isOpen ? 'open' : 'closed'}
       whileHover={{
         scale: 1.1,
-        transition: {
-          duration: 0.2,
-          ease: 'easeOut',
-        },
       }}
       whileTap={{
         scale: 0.95,
-        transition: {
-          duration: 0.1,
-        },
       }}
     >
       <div className={styles.burgerIcon}>
@@ -118,16 +84,31 @@ export const BurgerIcon: React.FC<BurgerIconProps> = ({
           className={`${styles.line} ${styles.topLine}`}
           variants={topLineVariants}
           animate={isOpen ? 'open' : 'closed'}
+          transition={{
+            duration: 0.3,
+            ease: 'easeOut',
+            delay: isOpen ? 0.1 : 0,
+          }}
         />
         <motion.span
           className={`${styles.line} ${styles.middleLine}`}
           variants={middleLineVariants}
           animate={isOpen ? 'open' : 'closed'}
+          transition={{
+            duration: 0.2,
+            ease: isOpen ? 'easeIn' : 'easeOut',
+            delay: isOpen ? 0 : 0.1,
+          }}
         />
         <motion.span
           className={`${styles.line} ${styles.bottomLine}`}
           variants={bottomLineVariants}
           animate={isOpen ? 'open' : 'closed'}
+          transition={{
+            duration: 0.3,
+            ease: 'easeOut',
+            delay: isOpen ? 0.1 : 0,
+          }}
         />
       </div>
     </motion.button>

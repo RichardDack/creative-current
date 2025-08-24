@@ -1,4 +1,4 @@
-import { Variants, MotionProps } from 'framer-motion';
+import { Variants, MotionProps, TargetAndTransition, VariantLabels } from 'framer-motion';
 
 // Utility to create motion props with reduced motion support
 export const createMotionProps = (
@@ -105,7 +105,7 @@ export const shouldAnimate = (): boolean => {
 
 // Utility to create hover props with reduced motion support
 export const createHoverProps = (
-  hoverVariant: unknown,
+  hoverVariant: TargetAndTransition | VariantLabels,
   options?: {
     scale?: number;
     duration?: number;

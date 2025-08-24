@@ -93,7 +93,7 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
       scale: 1,
       transition: {
         duration: 0.4,
-        ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for smooth slide-in
+        ease: 'easeOut',
       },
     },
     exit: {
@@ -102,7 +102,7 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
       scale: 0.95,
       transition: {
         duration: 0.3,
-        ease: [0.55, 0.06, 0.68, 0.19], // Custom easing for smooth slide-out
+        ease: 'easeIn',
       },
     },
   };
@@ -110,31 +110,20 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
   const backgroundVariants = {
     hidden: {
       opacity: 0,
-      backdropFilter: 'blur(0px)',
     },
     visible: {
       opacity: 1,
-      backdropFilter: 'blur(20px)',
       transition: {
         duration: 0.4,
         ease: 'easeOut',
-        backdropFilter: {
-          duration: 0.6,
-          ease: 'easeOut',
-        },
       },
     },
     exit: {
       opacity: 0,
-      backdropFilter: 'blur(0px)',
       transition: {
         duration: 0.3,
         ease: 'easeIn',
-        delay: 0.1, // Slight delay to let content animate out first
-        backdropFilter: {
-          duration: 0.2,
-          ease: 'easeIn',
-        },
+        delay: 0.1,
       },
     },
   };
@@ -152,11 +141,10 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
       x: 0,
       scale: 1,
       transition: {
-        duration: 0.4,
-        ease: [0.25, 0.46, 0.45, 0.94],
         type: 'spring',
         stiffness: 100,
         damping: 15,
+        duration: 0.4,
       },
     },
     exit: {
@@ -219,7 +207,7 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
               animate="visible"
               exit="exit"
             >
-              {navigationItems.map((item, index) => (
+              {navigationItems.map((item) => (
                 <motion.li 
                   key={item.id} 
                   variants={itemVariants}

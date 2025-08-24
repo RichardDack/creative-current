@@ -1,7 +1,7 @@
 ﻿// src/components/sections/WorkSection.tsx
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, Variants } from 'framer-motion';
 import Image from 'next/image';
 import { useRef, useState, useEffect } from 'react';
 import { WorkProject } from '@/types/data';
@@ -13,23 +13,22 @@ interface WorkSectionProps {
   title?: string;
 }
 
-const workCardVariants = {
+const workCardVariants: Variants = {
   hidden: { 
     opacity: 0,
     y: 100,
     scale: 0.8
   },
-  visible: (index: number) => ({
+  visible: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
       type: "spring",
       stiffness: 100,
-      damping: 20,
-      delay: index * 0.2
+      damping: 20
     }
-  })
+  }
 };
 
 export const WorkSection: React.FC<WorkSectionProps> = ({ projects }) => {
@@ -137,7 +136,12 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects }) => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-20%" }}
-              custom={index}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+                damping: 20,
+                delay: index * 0.2
+              }}
             >
               <div className={styles.workCardInner}>
                 <div className={styles.workContent}>

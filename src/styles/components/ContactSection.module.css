@@ -4,6 +4,10 @@
   padding: var(--space-5xl) 0;
   background: var(--color-background-neutral);
   position: relative;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .contactSection::before {
@@ -22,8 +26,10 @@
   gap: var(--space-4xl);
   align-items: start;
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 var(--space-lg);
+  box-sizing: border-box;
 }
 
 .contactInfo {
@@ -222,11 +228,14 @@
   
   .contactGrid {
     gap: var(--space-xl);
-    padding: 0 var(--space-xs);
+    padding: 0 var(--space-sm);
+    max-width: calc(100vw - 2 * var(--space-sm));
   }
   
   .contactForm {
     padding: var(--space-lg);
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .form {

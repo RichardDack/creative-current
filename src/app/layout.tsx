@@ -1,20 +1,52 @@
-// Alternative approach - if absolute paths don't work
+// src/app/layout.tsx - VERCEL COMPATIBLE VERSION
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-// Using explicit relative paths from project root
+// ABSOLUTE paths - these work on Vercel
 const clashDisplay = localFont({
-  src: "./public/fonts/ClashDisplay-Regular.woff2",
+  src: [
+    {
+      path: "/fonts/ClashDisplay-Regular.woff2",
+      weight: "400",
+    },
+    {
+      path: "/fonts/ClashDisplay-Medium.woff2", 
+      weight: "500",
+    },
+    {
+      path: "/fonts/ClashDisplay-Semibold.woff2",
+      weight: "600",
+    },
+    {
+      path: "/fonts/ClashDisplay-Bold.woff2",
+      weight: "700",
+    },
+  ],
   variable: "--font-clash-display",
-  weight: "400 700", // Variable weight range
   display: "swap",
 });
 
 const clashGrotesk = localFont({
-  src: "./public/fonts/ClashGrotesk-Regular.woff2", 
+  src: [
+    {
+      path: "/fonts/ClashGrotesk-Regular.woff2",
+      weight: "400", 
+    },
+    {
+      path: "/fonts/ClashGrotesk-Medium.woff2",
+      weight: "500",
+    },
+    {
+      path: "/fonts/ClashGrotesk-Semibold.woff2",
+      weight: "600",
+    },
+    {
+      path: "/fonts/ClashGrotesk-Bold.woff2",
+      weight: "700",
+    },
+  ],
   variable: "--font-clash-grotesk",
-  weight: "400 700", // Variable weight range
   display: "swap",
 });
 

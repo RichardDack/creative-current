@@ -29,25 +29,25 @@ const memberVariants: Variants = {
   }
 };
 
-const imageVariants = {
+const imageVariants: Variants = {
   initial: { scale: 1 },
   hover: { 
     scale: 1.05,
     transition: { 
       duration: 0.3,
-      ease: "easeOut"
+      ease: [0.4, 0, 0.2, 1]
     }
   }
 };
 
-const socialIconVariants = {
+const socialIconVariants: Variants = {
   initial: { scale: 1, opacity: 0.7 },
   hover: { 
     scale: 1.1,
     opacity: 1,
     transition: { 
       duration: 0.2,
-      ease: "easeOut"
+      ease: [0.4, 0, 0.2, 1]
     }
   }
 };

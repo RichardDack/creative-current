@@ -46,7 +46,7 @@ export const Hero = () => {
         transition={{ 
           duration: 8, 
           repeat: Infinity, 
-          ease: "easeInOut" 
+          ease: [0.4, 0, 0.6, 1] 
         }}
       />
       
@@ -60,7 +60,7 @@ export const Hero = () => {
         transition={{ 
           duration: 10, 
           repeat: Infinity, 
-          ease: "easeInOut" 
+          ease: [0.4, 0, 0.6, 1] 
         }}
       />
       
@@ -74,7 +74,7 @@ export const Hero = () => {
         transition={{ 
           duration: 6, 
           repeat: Infinity, 
-          ease: "easeInOut" 
+          ease: [0.4, 0, 0.6, 1] 
         }}
       />
 
@@ -87,7 +87,7 @@ export const Hero = () => {
         transition={{ 
           duration: 7, 
           repeat: Infinity, 
-          ease: "easeInOut" 
+          ease: [0.4, 0, 0.6, 1] 
         }}
       />
 
@@ -159,7 +159,7 @@ export const Hero = () => {
                     }}
                     transition={{ 
                       duration: 0.3, 
-                      ease: "easeOut",
+                      ease: [0.4, 0, 0.2, 1],
                       delay: isHovered ? 0.3 : 0
                     }}
                   >

@@ -93,7 +93,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects }) => {
         }}
         transition={{ 
           duration: 0.3,
-          ease: "easeOut"
+          ease: [0.4, 0, 0.2, 1]
         }}
       >
         <div className={styles.scrollTrack}>
@@ -116,7 +116,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects }) => {
               transition={{ 
                 delay: index * 0.1,
                 duration: 0.2,
-                ease: "easeOut"
+                ease: [0.4, 0, 0.2, 1]
               }}
             />
           ))}

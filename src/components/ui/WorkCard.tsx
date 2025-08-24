@@ -1,7 +1,7 @@
 ﻿// src/components/ui/WorkCard.tsx
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 import { WorkProject } from '@/types/data';
 import styles from '@/styles/components/WorkCard.module.css';
@@ -11,30 +11,29 @@ interface WorkCardProps {
   index: number;
 }
 
-const cardVariants = {
+const cardVariants: Variants = {
   initial: { scale: 0.9, opacity: 0, y: 60 },
-  animate: (index: number) => ({
+  animate: {
     scale: 1,
     opacity: 1,
     y: 0,
     transition: {
       type: "spring",
       stiffness: 400,
-      damping: 90,
-      delay: index * 0.1
+      damping: 90
     }
-  }),
+  },
   hover: {
     scale: 1.02,
     y: -8,
     transition: { 
       duration: 0.3,
-      ease: "easeOut"
+      ease: [0.4, 0, 0.2, 1]
     }
   }
 };
 
-const imageVariants = {
+const imageVariants: Variants = {
   initial: { scale: 1.2 },
   animate: { scale: 1 },
   hover: { scale: 1.1 }
@@ -49,7 +48,12 @@ export const WorkCard: React.FC<WorkCardProps> = ({ project, index }) => {
       whileInView="animate"
       whileHover="hover"
       viewport={{ once: true, margin: "-50px" }}
-      custom={index}
+      transition={{
+        type: "spring",
+        stiffness: 400,
+        damping: 90,
+        delay: index * 0.1
+      }}
     >
       <div className={styles.imageContainer}>
         <motion.div 

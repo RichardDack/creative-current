@@ -32,15 +32,15 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
   // Handle smooth scrolling functionality for navigation links
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    
+
     // Close menu before scrolling with enhanced timing
     onClose();
-    
+
     // Delay to allow menu close animation to complete before scrolling
     setTimeout(() => {
       const targetId = href.replace('#', '');
       const targetElement = document.getElementById(targetId);
-      
+
       if (targetElement) {
         targetElement.scrollIntoView({
           behavior: 'smooth',
@@ -91,19 +91,11 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
       opacity: 1,
       x: 0,
       scale: 1,
-      transition: {
-        duration: 0.4,
-        ease: 'easeOut',
-      },
     },
     exit: {
       opacity: 0,
       x: '100%',
       scale: 0.95,
-      transition: {
-        duration: 0.3,
-        ease: 'easeIn',
-      },
     },
   };
 
@@ -113,18 +105,9 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
     },
     visible: {
       opacity: 1,
-      transition: {
-        duration: 0.4,
-        ease: 'easeOut',
-      },
     },
     exit: {
       opacity: 0,
-      transition: {
-        duration: 0.3,
-        ease: 'easeIn',
-        delay: 0.1,
-      },
     },
   };
 
@@ -140,22 +123,12 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
       y: 0,
       x: 0,
       scale: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 15,
-        duration: 0.4,
-      },
     },
     exit: {
       opacity: 0,
       y: -20,
       x: 30,
       scale: 0.9,
-      transition: {
-        duration: 0.2,
-        ease: 'easeIn',
-      },
     },
   };
 
@@ -168,62 +141,57 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
           initial="hidden"
           animate="visible"
           exit="exit"
+          transition={{
+            duration: 0.4,
+            ease: 'easeOut',
+          }}
           onClick={handleOverlayClick}
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation menu"
         >
-          <motion.div 
+          <motion.div
             className={styles.overlayBackground}
             variants={backgroundVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
+            transition={{
+              duration: 0.4,
+              ease: 'easeOut',
+            }}
           />
-          
-          <motion.nav 
+
+          <motion.nav
             className={styles.navigationContainer}
             role="navigation"
             aria-label="Main navigation"
           >
-            <motion.ul 
+            <motion.ul
               className={styles.navigationList}
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.08,
-                    delayChildren: 0.15,
-                  },
-                },
-                exit: {
-                  transition: {
-                    staggerChildren: 0.05,
-                    staggerDirection: -1,
-                  },
-                },
-              }}
               initial="hidden"
               animate="visible"
               exit="exit"
+              transition={{
+                staggerChildren: 0.08,
+                delayChildren: 0.15,
+              }}
             >
               {navigationItems.map((item) => (
-                <motion.li 
-                  key={item.id} 
+                <motion.li
+                  key={item.id}
                   variants={itemVariants}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 100,
+                    damping: 15,
+                  }}
                   whileHover={{
                     scale: 1.05,
                     y: -2,
-                    transition: {
-                      duration: 0.2,
-                      ease: 'easeOut',
-                    },
                   }}
                   whileTap={{
                     scale: 0.98,
-                    transition: {
-                      duration: 0.1,
-                    },
                   }}
                 >
                   <a

@@ -1,0 +1,125 @@
+/* BurgerIcon.module.css - Animated hamburger menu icon */
+
+.burgerButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--duration-normal) var(--ease-out);
+  position: relative;
+  z-index: 1001;
+}
+
+.burgerButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.burgerButton:hover .line {
+  transform: scale(1.05);
+}
+
+.burgerButton:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.burgerIcon {
+  width: 24px;
+  height: 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-text-muted);
+  border-radius: 1px;
+  transform-origin: center;
+}
+
+.topLine {
+  transform-origin: center;
+}
+
+.middleLine {
+  transform-origin: center;
+}
+
+.bottomLine {
+  transform-origin: center;
+}
+
+/* Variant styles */
+.burgerButton.dark .line {
+  background-color: var(--color-text-muted);
+}
+
+.burgerButton.light .line {
+  background-color: var(--color-background-darker);
+}
+
+.burgerButton.dark:hover .line {
+  background-color: var(--color-primary);
+}
+
+.burgerButton.light:hover .line {
+  background-color: var(--color-primary);
+}
+
+/* Enhanced animation support */
+.burgerButton {
+  /* Enable hardware acceleration for smooth animations */
+  transform: translateZ(0);
+  will-change: transform, background-color;
+}
+
+.burgerIcon {
+  /* Enable hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.line {
+  /* Enable hardware acceleration for line animations */
+  will-change: transform, opacity, background-color;
+  transform: translateZ(0);
+}
+
+/* Accessibility - Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .burgerButton,
+  .line,
+  .burgerIcon {
+    transition: none !important;
+    animation: none !important;
+    will-change: auto;
+  }
+  
+  /* Disable animations for specific elements */
+  .burgerButton,
+  .burgerButton *,
+  .burgerIcon,
+  .burgerIcon *,
+  .line {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Touch target optimization for mobile */
+@media (max-width: 768px) {
+  .burgerButton {
+    padding: var(--space-sm);
+    min-width: 44px;
+    min-height: 44px;
+  }
+}

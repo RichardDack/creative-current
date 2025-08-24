@@ -10,6 +10,14 @@
   background: transparent;
   transition: all var(--duration-normal) var(--ease-out);
   pointer-events: none;
+  display: block; /* Show by default for mobile */
+}
+
+/* Hide header on desktop viewports (768px and above) */
+@media (min-width: 768px) {
+  .header {
+    display: none !important;
+  }
 }
 
 .header.fixed {
@@ -56,61 +64,26 @@
 
 
 
-/* Logo Area (QR Code placeholder) */
-.logoArea {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-md);
+/* Burger Menu Container */
+.burgerMenuContainer {
+  display: none; /* Hidden by default (desktop) */
   pointer-events: auto;
+  z-index: 1001; /* Above header but below mobile menu overlay */
 }
 
-.qrCodePlaceholder {
-  width: 40px;
-  height: 40px;
-  background: var(--color-background-darker-100);
-  border: 1px solid var(--color-background-darker-300);
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-ui);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-muted);
-  transition: all var(--duration-normal) var(--ease-out);
-}
-
-.qrCodePlaceholder:hover {
-  background: var(--color-background-darker-200);
-  border-color: var(--color-primary-300);
-  color: var(--color-primary);
+.burgerMenuIcon {
+  /* Additional styling if needed */
 }
 
 
 
 /* Variant Styles */
-.header.light .homeLink,
-.header.light .navLink,
-.header.light .mobileNavLink {
+.header.light .homeLink {
   color: var(--color-background-darker);
 }
 
-.header.light .homeLink:hover,
-.header.light .navLink:hover,
-.header.light .mobileNavLink:hover {
+.header.light .homeLink:hover {
   color: var(--color-primary);
-}
-
-.header.light .qrCodePlaceholder {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(0, 0, 0, 0.1);
-  color: var(--color-background-darker);
-}
-
-.header.light .mobileMenuButton span {
-  background: var(--color-background-darker);
 }
 
 .header.light.scrolled {
@@ -125,30 +98,19 @@
   }
 }
 
-/* Standard tablet and laptop */
-@media (min-width: 810px) and (max-width: 1199px) {
-  .header {
-    display: block; /* Show on tablet/laptop */
-  }
-  
-  .headerContent {
-    padding: var(--space-lg) var(--space-lg);
-  }
-  
-  .homeLink {
-    font-size: var(--font-size-xs);
+/* Mobile burger menu visibility - only show on mobile */
+@media (max-width: 767px) {
+  .burgerMenuContainer {
+    display: block; /* Show on mobile */
+    position: relative; /* Remove absolute positioning */
   }
 }
+
+/* Mobile-only responsive adjustments */
 
 @media (max-width: 389px) {
   .headerContent {
     padding: var(--space-md) var(--space-md);
-  }
-  
-  .qrCodePlaceholder {
-    width: 30px;
-    height: 30px;
-    font-size: 8px;
   }
 }
 
@@ -157,20 +119,19 @@
   .header,
   .headerContent,
   .homeLink,
-  .navLink,
-  .qrCodePlaceholder,
-  .mobileMenuButton span,
-  .mobileNav {
-    transition: none;
-  }
-  
-  .navLink::after {
+  .burgerMenuIcon {
     transition: none;
   }
 }
 
 /* Focus styles for accessibility */
 .homeLink:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.burgerMenuIcon:focus {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
   border-radius: var(--radius-sm);

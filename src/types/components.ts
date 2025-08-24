@@ -25,3 +25,15 @@ export interface NavigationLink {
   href: string;
   label: string;
 }
+
+export interface NavigationItem {
+  name: string;
+  href: string;
+  id: string;
+}
+
+export interface MobileNavOverlayProps {
+  isOpen: boolean;
+  onClose: () => void;
+  variant?: 'light' | 'dark';
+}

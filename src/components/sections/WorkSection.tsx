@@ -341,14 +341,14 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects: propProjects
                   }}
                 >
                   <div className={styles.workImageContainer}>
-                    <Image
-                      src={project.image}
-                      alt={`${project.title} - ${project.category} project`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className={styles.projectImage}
-                      priority={index < 2}
-                    />
+ <Image
+  src={project.image}
+  alt={`${project.title} - ${project.category} project`}
+fill
+  sizes="(max-width: 768px) 100vw, 50vw"
+  className={styles.projectImage}
+  priority={index < 2}
+/>
                     
                     {/* Image overlay with project type */}
                     <motion.div 

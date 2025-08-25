@@ -1,42 +1,54 @@
-﻿// src/lib/data/work-projects.ts - REDUCED TO 3 PROJECTS + CTA
+﻿// src/lib/data/work-projects.ts - WITH LOCAL IMAGES
 import { WorkProject } from '@/types/data';
 
 export const workProjects: WorkProject[] = [
   {
     id: '1',
-    title: 'FinTech Mobile App',
-    category: 'Mobile Development',
-    client: 'NeoBank Solutions',
-    duration: '4 months',
-    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop&auto=format&q=80',
-    thumbnail: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop&auto=format&q=80',
-    description: 'A comprehensive mobile banking application featuring advanced security protocols, intuitive user experience design, and seamless integration with financial APIs. The app supports biometric authentication, real-time transaction notifications, and AI-powered spending insights.',
-    link: 'https://example.com/fintech-app',
-    tags: ['React Native', 'TypeScript', 'Node.js', 'PostgreSQL', 'Fintech', 'Mobile UI/UX']
+    title: 'Your Clean Queen',
+    category: 'Business Website',
+    client: 'Teal Dack',
+    duration: '1 month',
+    image: '/images/work/your-clean-queen.png',
+    thumbnail: '/images/work/your-clean-queen-thumb.png',
+    description: 'Developed a professional, clean, and mobile-first website for a domestic cleaning business. The project focused on building a modern online presence to build customer trust and generate local inquiries through a clear call-to-action strategy.',
+    link: 'https://www.yourcleanqueen.co.uk/',
+    tags: ['WordPress', 'Elementor', 'Responsive Design', 'Local SEO', 'Lead Generation']
   },
   {
     id: '2',
-    title: 'E-commerce Platform Redesign',
-    category: 'Web Development',
-    client: 'RetailMax Inc.',
-    duration: '6 months',
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop&auto=format&q=80',
-    thumbnail: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop&auto=format&q=80',
-    description: 'Complete redesign and development of a high-traffic e-commerce platform that increased conversion rates by 40% and reduced bounce rate by 25%. Features include advanced product filtering, personalized recommendations, and optimized checkout flow.',
-    link: 'https://example.com/ecommerce-redesign',
-    tags: ['Next.js', 'Shopify Plus', 'React', 'Tailwind CSS', 'E-commerce', 'Performance']
+    title: 'Insight Opticians',
+    category: 'Local Business Website',
+    client: 'Insight Opticians',
+    duration: '6 weeks',
+    image: '/images/work/insight-opticians.png',
+    thumbnail: '/images/work/insight-opticians-thumb.png',
+    description: 'Designed and built a comprehensive, user-friendly website for a local opticians. The site was crafted to present a wide range of services and contact options in a clean and professional layout, enhancing the clinic\'s online brand and accessibility.',
+    link: 'https://insightdorchester.co.uk/',
+    tags: ['WordPress', 'Elementor', 'UI/UX Design', 'Custom Forms', 'Accessibility']
   },
   {
     id: '3',
-    title: 'SaaS Dashboard Analytics',
-    category: 'UI/UX Design',
-    client: 'DataViz Pro',
-    duration: '3 months',
-    image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop&auto=format&q=80',
-    thumbnail: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=300&fit=crop&auto=format&q=80',
-    description: 'Modern analytics dashboard with real-time data visualization, interactive reporting features, and customizable widget system. The platform processes over 10 million data points daily with millisecond response times.',
-    link: 'https://example.com/saas-dashboard',
-    tags: ['Vue.js', 'D3.js', 'Python', 'FastAPI', 'Data Visualization', 'Real-time']
+    title: 'SaveOnThePen',
+    category: 'Full-Stack Web App',
+    client: 'Personal Project',
+    duration: 'Ongoing',
+    image: '/images/work/saveonthepen.jpg',
+    thumbnail: '/images/work/saveonthepen-thumb.jpg',
+    description: 'A full-stack web application designed to help users find cost-saving solutions for popular consumer products. The project includes dynamic data handling, a custom content management system, and an intuitive user interface built to provide clear value.',
+    link: 'https://saveonthepen.com/',
+    tags: ['React', 'Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Full-Stack', 'AI Integration']
+  },
+  {
+    id: '4',
+    title: 'Plodding Isles',
+    category: 'Web3 / Blockchain',
+    client: 'Personal Project',
+    duration: '2 months',
+    image: '/images/work/plodding-isles.jpg',
+    thumbnail: '/images/work/plodding-isles-thumb.jpg',
+    description: 'A custom, high-energy marketing website and smart contract for an NFT project. The site was built to generate community engagement, showcase the collection, and provide a seamless, secure user experience for interacting with the blockchain.',
+    link: 'https://www.ploddingisles.io/',
+    tags: ['React', 'Next.js', 'Solidity', 'Ethereum', 'Web3', 'Blockchain']
   },
   // CTA CARD - "Your Project Here"
   {
@@ -45,26 +57,27 @@ export const workProjects: WorkProject[] = [
     category: 'Let\'s Work Together',
     client: 'Your Company',
     duration: 'Let\'s Discuss',
-    image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop&auto=format&q=80',
-    thumbnail: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop&auto=format&q=80',
+    image: '/images/work/cta-background.jpg',
+    thumbnail: '/images/work/cta-background.jpg',
     description: 'Ready to bring your vision to life? Let\'s collaborate on your next digital project and create something extraordinary together. From concept to launch, we\'ll guide you through every step of the process.',
-    link: '#contact', // Links to contact section
+    link: '#contact',
     tags: ['Your Vision', 'Our Expertise', 'Together', 'Innovation', 'Success', 'Partnership'],
-    isCTA: true // Special flag to identify this as CTA card
+    isCTA: true
   }
 ];
 
 // Featured projects for homepage (exclude CTA card)
 export const featuredProjects = workProjects.filter(p => !p.isCTA);
 
-// Projects by category (exclude CTA card)  
+// Projects by category - UPDATE TO MATCH YOUR ACTUAL CATEGORIES
 export const projectsByCategory = {
-  'Mobile Development': workProjects.filter(p => p.category === 'Mobile Development'),
-  'Web Development': workProjects.filter(p => p.category === 'Web Development'),
-  'UI/UX Design': workProjects.filter(p => p.category === 'UI/UX Design'),
+  'Business Website': workProjects.filter(p => p.category === 'Business Website'),
+  'Local Business Website': workProjects.filter(p => p.category === 'Local Business Website'),
+  'Full-Stack Web App': workProjects.filter(p => p.category === 'Full-Stack Web App'),
+  'Web3 / Blockchain': workProjects.filter(p => p.category === 'Web3 / Blockchain'),
 };
 
-// Recent projects (all 3 actual projects)
+// Recent projects (all 4 actual projects)
 export const recentProjects = workProjects.filter(p => !p.isCTA);
 
 // Project statistics for about section (exclude CTA)
@@ -72,8 +85,8 @@ const actualProjects = workProjects.filter(p => !p.isCTA);
 export const projectStats = {
   totalProjects: actualProjects.length,
   categories: Object.keys(projectsByCategory).length,
-  averageDuration: '4.3 months',
-  clientSatisfaction: '98%',
-  totalClients: actualProjects.length, // Assuming one project per client
-  yearsExperience: 8
+  averageDuration: '2.3 months', // Updated based on your actual durations
+  clientSatisfaction: '100%',
+  totalClients: actualProjects.length,
+  yearsExperience: 5 // Adjust to your actual experience
 };

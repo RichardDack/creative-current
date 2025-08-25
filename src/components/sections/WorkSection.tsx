@@ -60,6 +60,13 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects: propProjects
     [0, 1, 1, 0]
   );
 
+  // Progress bar scale transform - MUST be at top level
+  const progressBarScale = useTransform(
+    scrollYProgress,
+    [0.1, 0.9],
+    [0, 1]
+  );
+
   // Smooth active index updates with debouncing
   useEffect(() => {
     if (!projects || projects.length === 0) return;
@@ -80,7 +87,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects: propProjects
       unsubscribe();
       clearTimeout(timeoutId);
     };
-  }, [progressValue, projects?.length, activeIndex]);
+  }, [progressValue, projects, activeIndex]); // Fixed dependency array
 
   useEffect(() => {
     const unsubscribe = sectionVisibility.onChange((latest) => {
@@ -137,11 +144,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects: propProjects
           <motion.div 
             className={styles.scrollProgress}
             style={{
-              scaleY: useTransform(
-                scrollYProgress,
-                [0.1, 0.9],
-                [0, 1]
-              )
+              scaleY: progressBarScale
             }}
           />
         </div>

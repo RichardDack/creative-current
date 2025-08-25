@@ -1,4 +1,4 @@
-// src/components/sections/WorkSection.tsx - FIXED HOOKS RULE VIOLATION
+// src/components/sections/WorkSection.tsx - HOOKS RULE COMPLIANT
 'use client';
 
 import { motion, useScroll, useTransform, Variants } from 'framer-motion';
@@ -36,15 +36,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects: propProjects
   // Use the full workProjects array by default
   const projects = propProjects || workProjects;
   
-  // Defensive check for projects array - MUST be before any hooks
-  if (!projects || projects.length === 0) {
-    return (
-      <div style={{ padding: '2rem', textAlign: 'center', color: 'white' }}>
-        No projects found. Make sure workProjects data is available.
-      </div>
-    );
-  }
-
+  // ALL hooks must be called in same order every render - NO conditional logic before this
   const sectionRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isInView, setIsInView] = useState(false);
@@ -54,11 +46,11 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects: propProjects
     offset: ["start end", "end start"]
   });
 
-  // Simple progress calculation
+  // Simple progress calculation - handle empty array case safely
   const progressValue = useTransform(
     scrollYProgress,
     [0.1, 0.9],
-    [0, projects.length - 1]
+    [0, Math.max(0, (projects?.length || 1) - 1)]
   );
 
   // Enhanced visibility tracking
@@ -70,6 +62,8 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects: propProjects
 
   // Smooth active index updates with debouncing
   useEffect(() => {
+    if (!projects || projects.length === 0) return;
+    
     let timeoutId: NodeJS.Timeout;
     
     const unsubscribe = progressValue.onChange((latest) => {
@@ -86,7 +80,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects: propProjects
       unsubscribe();
       clearTimeout(timeoutId);
     };
-  }, [progressValue, projects.length, activeIndex]);
+  }, [progressValue, projects?.length, activeIndex]);
 
   useEffect(() => {
     const unsubscribe = sectionVisibility.onChange((latest) => {
@@ -107,7 +101,16 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects: propProjects
     }
   };
 
+  // Handle empty state in JSX return without early return
+  const isEmpty = !projects || projects.length === 0;
+
   return (
+    <>
+      {isEmpty ? (
+        <div style={{ padding: '2rem', textAlign: 'center', color: 'white' }}>
+          No projects found. Make sure workProjects data is available.
+        </div>
+      ) : (
     <motion.section 
       ref={sectionRef}
       id="work-section"
@@ -361,5 +364,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects: propProjects
         </motion.div>
       ))}
     </motion.section>
+      )}
+    </>
   );
 };

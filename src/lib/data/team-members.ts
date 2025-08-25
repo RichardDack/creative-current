@@ -3,14 +3,14 @@ import { TeamMember } from '@/types/data';
 export const teamMembers: TeamMember[] = [
   {
     id: '1',
-    name: 'Sarah Chen',
-    title: 'Creative Director',
+    name: 'Richard Dack',
+    title: 'Director',
     quote: 'Design is not just what it looks like and feels like. Design is how it works.',
-    image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&auto=format',
+    image: '/images/richard.avif',
     socialLinks: {
-      linkedin: 'https://linkedin.com/in/sarahchen',
-      twitter: 'https://twitter.com/sarahchen',
-      portfolio: 'https://sarahchen.design'
+      linkedin: 'https://www.linkedin.com/in/richard-dack-1172822aa/',
+      twitter: 'https://twitter.com/richarddack',
+      portfolio: 'https://creativecurrent.co.uk/'
     }
   },
   {

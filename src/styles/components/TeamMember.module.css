@@ -123,16 +123,7 @@
   position: relative;
 }
 
-.memberQuote::before {
-  content: '"';
-  font-size: var(--font-size-3xl);
-  color: var(--color-primary);
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  font-family: serif;
-  opacity: 0.3;
-}
+
 
 /* Responsive Design */
 @media (max-width: 809px) {

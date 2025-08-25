@@ -1,4 +1,4 @@
-// src/components/sections/WorkSection.tsx - COMPLETE WORKING VERSION
+// src/components/sections/WorkSection.tsx - FIXED HOOKS RULE VIOLATION
 'use client';
 
 import { motion, useScroll, useTransform, Variants } from 'framer-motion';
@@ -33,14 +33,21 @@ const cardEnterVariants: Variants = {
 };
 
 export const WorkSection: React.FC<WorkSectionProps> = ({ projects: propProjects }) => {
+  // Use the full workProjects array by default
+  const projects = propProjects || workProjects;
+  
+  // Defensive check for projects array - MUST be before any hooks
+  if (!projects || projects.length === 0) {
+    return (
+      <div style={{ padding: '2rem', textAlign: 'center', color: 'white' }}>
+        No projects found. Make sure workProjects data is available.
+      </div>
+    );
+  }
 
   const sectionRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isInView, setIsInView] = useState(false);
-  
-  // Use the full workProjects array by default
-  const projects = propProjects || workProjects;
- 
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -99,15 +106,6 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects: propProjects
       });
     }
   };
-
-  // Defensive check for projects array
-  if (!projects || projects.length === 0) {
-    return (
-      <div style={{ padding: '2rem', textAlign: 'center', color: 'white' }}>
-        No projects found. Make sure workProjects data is available.
-      </div>
-    );
-  }
 
   return (
     <motion.section 

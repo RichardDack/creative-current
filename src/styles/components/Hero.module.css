@@ -841,15 +841,16 @@
   }
 }
 
-/* Mobile Landscape (480px - 809px) - FIXED SPACING */
+/* Mobile Landscape (480px - 809px) - AGGRESSIVE SPACING REDUCTION */
 @media (max-width: 809px) {
   .mainContent {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 80px 30px 60px; /* REDUCED: Much less padding for mobile */
-    gap: 30px; /* REDUCED: Smaller gap between elements */
-    justify-content: center; /* Center content since no nav */
+    padding: 20px 30px 15px; /* ULTRA AGGRESSIVE: Minimal top padding */
+    gap: 10px; /* ULTRA AGGRESSIVE: Tiny gap between elements */
+    justify-content: center;
+    min-height: calc(100vh - 35px); /* Maximize use of viewport */
   }
   
   .headerTop {
@@ -875,21 +876,21 @@
   }
   
   .heroTitle {
-    font-size: clamp(24px, 5vw, 36px); /* REDUCED: Smaller for mobile */
+    font-size: clamp(24px, 5vw, 36px);
     font-weight: 600;
-    margin-bottom: 12px; /* REDUCED: Less bottom margin */
+    margin-bottom: 8px; /* AGGRESSIVE: Minimal margin between title and description */
   }
   
   .heroDescription {
-    font-size: clamp(15px, 3.5vw, 20px); /* REDUCED: Smaller text */
+    font-size: clamp(15px, 3.5vw, 20px);
     font-weight: 400;
-    line-height: 1.4;
-    margin-bottom: 20px; /* REDUCED: Less margin for CTA buttons */
+    line-height: 1.3; /* TIGHTER: Reduce line height */
+    margin-bottom: 12px; /* AGGRESSIVE: Minimal margin before buttons */
   }
   
   .ctaContainer {
-    gap: 12px; /* REDUCED: Smaller gap between buttons */
-    margin-bottom: 10px; /* REDUCED: Less bottom margin */
+    gap: 8px; /* AGGRESSIVE: Tiny gap between buttons */
+    margin-bottom: 5px; /* AGGRESSIVE: Minimal bottom margin */
   }
   
   .ctaButtonPrimary,
@@ -899,33 +900,34 @@
   }
   
   .brandContainer {
-    bottom: 15px; /* REDUCED: Bring brand text up into viewport */
+    bottom: 5px; /* AGGRESSIVE: Bring brand text very close to viewport edge */
     padding: 0 30px;
   }
   
   .brandText {
-    font-size: clamp(28px, 7vw, 65px); /* REDUCED: Smaller text to fit viewport */
-    letter-spacing: -0.02em;
+    font-size: clamp(24px, 6vw, 55px); /* AGGRESSIVE: Much smaller text */
+    letter-spacing: -0.01em;
     white-space: normal; /* Allow wrapping if needed */
   }
   
   .redSquare {
-    width: 70px; /* REDUCED: Smaller red square for mobile */
-    height: 70px;
-    margin-top: 15px; /* REDUCED: Less top margin */
+    width: 60px; /* AGGRESSIVE: Much smaller red square */
+    height: 60px;
+    margin-top: 5px; /* AGGRESSIVE: Minimal top margin */
   }
   
   .arrow {
-    width: 10px; /* REDUCED: Smaller arrows */
-    height: 10px;
+    width: 8px; /* AGGRESSIVE: Much smaller arrows */
+    height: 8px;
   }
 }
 
-/* Mobile Portrait (320px - 479px) - TIGHTER SPACING */
+/* Mobile Portrait (320px - 479px) - ULTRA TIGHT SPACING */
 @media (max-width: 480px) {
   .mainContent {
-    padding: 60px 20px 40px; /* REDUCED: Much tighter padding for portrait */
-    gap: 20px; /* REDUCED: Smaller gaps between elements */
+    padding: 20px 20px 15px; /* ULTRA TIGHT: Minimal padding for maximum content space */
+    gap: 10px; /* ULTRA TIGHT: Minimal gaps between elements */
+    min-height: calc(100vh - 40px); /* Maximize content area */
   }
   
   .headerTop {
@@ -934,45 +936,44 @@
   }
   
   .heroTitle {
-    font-size: clamp(20px, 5vw, 28px); /* REDUCED: Smaller title */
+    font-size: clamp(18px, 4.5vw, 26px); /* ULTRA TIGHT: Even smaller title */
     font-weight: 600;
-    margin-bottom: 10px; /* REDUCED: Tighter spacing */
+    margin-bottom: 6px; /* ULTRA TIGHT: Minimal margin */
   }
   
   .heroDescription {
-    font-size: clamp(14px, 3.5vw, 18px); /* REDUCED: Smaller description */
+    font-size: clamp(13px, 3vw, 17px); /* ULTRA TIGHT: Smaller description */
     font-weight: 400;
-    line-height: 1.4;
-    margin-bottom: 16px; /* REDUCED: Less margin for CTA */
+    line-height: 1.25; /* ULTRA TIGHT: Tighter line height */
+    margin-bottom: 10px; /* ULTRA TIGHT: Minimal margin for CTA */
   }
   
   .ctaButtonPrimary,
   .ctaButtonSecondary {
-    padding: 10px 16px; /* REDUCED: Smaller buttons */
-    font-size: 13px; /* REDUCED: Smaller text */
-    width: 100%;
-    max-width: 140px; /* REDUCED: Narrower buttons */
+    padding: 8px 14px; /* ULTRA TIGHT: Much smaller buttons */
+    font-size: 12px; /* ULTRA TIGHT: Smaller text */
+    max-width: 130px; /* ULTRA TIGHT: Narrower buttons */
   }
   
   .redSquare {
-    width: 60px; /* REDUCED: Smaller red square */
-    height: 60px;
-    margin-top: 10px; /* REDUCED: Less margin */
+    width: 50px; /* ULTRA TIGHT: Much smaller red square */
+    height: 50px;
+    margin-top: 5px; /* ULTRA TIGHT: Minimal margin */
   }
   
   .arrow {
-    width: 8px; /* REDUCED: Much smaller arrows */
-    height: 8px;
+    width: 6px; /* ULTRA TIGHT: Tiny arrows */
+    height: 6px;
   }
   
   .brandContainer {
-    bottom: 10px; /* REDUCED: Bring even closer to viewport */
+    bottom: 3px; /* ULTRA TIGHT: Bring very close to viewport */
     padding: 0 20px;
   }
   
   .brandText {
-    font-size: clamp(22px, 6vw, 45px); /* REDUCED: Much smaller brand text */
-    letter-spacing: -0.01em;
+    font-size: clamp(18px, 5vw, 35px); /* ULTRA TIGHT: Much smaller brand text */
+    letter-spacing: -0.005em;
   }
 }
 

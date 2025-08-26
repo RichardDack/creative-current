@@ -71,7 +71,7 @@ export const LocalTestimonialsSection: React.FC<LocalTestimonialsSectionProps> =
             What {townName} Businesses Say About Us
           </h2>
           <p className={styles.sectionDescription}>
-            Don't just take our word for it. Here's what local {townName} business owners 
+            Don&apos;t just take our word for it. Here&apos;s what local {townName} business owners 
             have to say about working with Creative Current.
           </p>
         </motion.div>
@@ -91,7 +91,7 @@ export const LocalTestimonialsSection: React.FC<LocalTestimonialsSectionProps> =
                   ))}
                 </div>
                 <blockquote className={styles.quote}>
-                  "{testimonial.quote}"
+                  &quot;{testimonial.quote}&quot;
                 </blockquote>
                 <div className={styles.author}>
                   <strong className={styles.authorName}>{testimonial.name}</strong>

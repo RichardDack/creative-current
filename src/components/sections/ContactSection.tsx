@@ -2,7 +2,7 @@
 'use client';
 
 import { motion, Variants } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '@/styles/components/ContactSection.module.css';
 
 const sectionVariants: Variants = {
@@ -48,6 +48,16 @@ interface FormStatus {
   message?: string;
 }
 
+// Extend the Window interface to include grecaptcha
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (callback: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+    };
+  }
+}
+
 export const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -57,9 +67,47 @@ export const ContactSection = () => {
   });
 
   const [status, setStatus] = useState<FormStatus>({ type: 'idle' });
+  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
 
-  // Replace with your actual Formspree endpoint
-  const FORMSPREE_URL = 'https://formspree.io/f/xnnbqpwa'; // Update this!
+  // Environment variables - Add these to your .env.local file
+  const FORMSPREE_URL = 'https://formspree.io/f/xnnbqpwa'; // Your existing endpoint
+  const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '';
+  const RECAPTCHA_THRESHOLD = 0.5; // Adjust based on your spam tolerance (0.0-1.0)
+
+  // Load reCAPTCHA script
+  useEffect(() => {
+    if (!RECAPTCHA_SITE_KEY) {
+      console.warn('reCAPTCHA site key not found. Please add NEXT_PUBLIC_RECAPTCHA_SITE_KEY to your environment variables.');
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+    script.async = true;
+    script.defer = true;
+    
+    script.onload = () => {
+      setRecaptchaLoaded(true);
+    };
+
+    script.onerror = () => {
+      console.error('Failed to load reCAPTCHA script');
+      setStatus({
+        type: 'error',
+        message: 'Failed to load security verification. Please try again.'
+      });
+    };
+
+    document.head.appendChild(script);
+
+    // Cleanup
+    return () => {
+      const existingScript = document.querySelector(`script[src*="recaptcha"]`);
+      if (existingScript) {
+        document.head.removeChild(existingScript);
+      }
+    };
+  }, [RECAPTCHA_SITE_KEY]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -69,23 +117,63 @@ export const ContactSection = () => {
     }));
   };
 
+  const executeRecaptcha = async (): Promise<string | null> => {
+    if (!recaptchaLoaded || !RECAPTCHA_SITE_KEY) {
+      return null;
+    }
+
+    try {
+      return await new Promise((resolve, reject) => {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha
+            .execute(RECAPTCHA_SITE_KEY, { action: 'contact_form' })
+            .then(resolve)
+            .catch(reject);
+        });
+      });
+    } catch (error) {
+      console.error('reCAPTCHA execution failed:', error);
+      return null;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus({ type: 'loading' });
 
     try {
+      // Execute reCAPTCHA
+      let recaptchaToken = null;
+      if (recaptchaLoaded && RECAPTCHA_SITE_KEY) {
+        recaptchaToken = await executeRecaptcha();
+        
+        if (!recaptchaToken) {
+          throw new Error('Security verification failed');
+        }
+      }
+
+      // Prepare form data
+      const submitData: any = {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        message: formData.message,
+        _subject: `New contact form submission from ${formData.name}`,
+      };
+
+      // Add reCAPTCHA token if available
+      if (recaptchaToken) {
+        submitData['g-recaptcha-response'] = recaptchaToken;
+        submitData._recaptcha_threshold = RECAPTCHA_THRESHOLD;
+      }
+
+      // Submit to Formspree
       const response = await fetch(FORMSPREE_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          message: formData.message,
-          _subject: `New contact form submission from ${formData.name}`,
-        }),
+        body: JSON.stringify(submitData),
       });
 
       if (response.ok) {
@@ -96,12 +184,29 @@ export const ContactSection = () => {
         // Reset form
         setFormData({ name: '', email: '', company: '', message: '' });
       } else {
-        throw new Error('Form submission failed');
+        // Handle different error responses
+        const errorData = await response.json().catch(() => ({}));
+        
+        if (response.status === 422 && errorData.errors?.some((e: any) => e.field === 'g-recaptcha-response')) {
+          throw new Error('Security verification failed. Please try again.');
+        } else {
+          throw new Error('Form submission failed');
+        }
       }
     } catch (error) {
+      let errorMessage = 'Sorry, there was an error sending your message. Please try again.';
+      
+      if (error instanceof Error) {
+        if (error.message.includes('Security verification')) {
+          errorMessage = 'Security verification failed. Please refresh the page and try again.';
+        } else if (error.message.includes('network') || error.message.includes('fetch')) {
+          errorMessage = 'Network error. Please check your connection and try again.';
+        }
+      }
+      
       setStatus({ 
         type: 'error', 
-        message: 'Sorry, there was an error sending your message. Please try again.' 
+        message: errorMessage
       });
     }
   };
@@ -176,6 +281,36 @@ export const ContactSection = () => {
                 </div>
               </div>
             </motion.div>
+
+            {/* reCAPTCHA Privacy Notice */}
+            {RECAPTCHA_SITE_KEY && (
+              <motion.div 
+                className={styles.privacyNotice}
+                variants={itemVariants}
+              >
+                <p className={styles.privacyText}>
+                  This site is protected by reCAPTCHA and the Google{' '}
+                  <a 
+                    href="https://policies.google.com/privacy" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className={styles.privacyLink}
+                  >
+                    Privacy Policy
+                  </a>
+                  {' '}and{' '}
+                  <a 
+                    href="https://policies.google.com/terms" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className={styles.privacyLink}
+                  >
+                    Terms of Service
+                  </a>
+                  {' '}apply.
+                </p>
+              </motion.div>
+            )}
           </motion.div>
 
           {/* Contact Form */}
@@ -271,12 +406,31 @@ export const ContactSection = () => {
                 {status.type === 'loading' ? (
                   <>
                     <div className={styles.spinner} />
-                    Sending...
+                    {recaptchaLoaded ? 'Verifying & Sending...' : 'Sending...'}
                   </>
                 ) : (
                   'Send Message'
                 )}
               </motion.button>
+
+              {/* reCAPTCHA Status Indicator */}
+              {RECAPTCHA_SITE_KEY && (
+                <div className={styles.recaptchaStatus}>
+                  {recaptchaLoaded ? (
+                    <span className={styles.recaptchaReady}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                      </svg>
+                      Security verification ready
+                    </span>
+                  ) : (
+                    <span className={styles.recaptchaLoading}>
+                      <div className={styles.miniSpinner} />
+                      Loading security verification...
+                    </span>
+                  )}
+                </div>
+              )}
             </form>
           </motion.div>
         </div>

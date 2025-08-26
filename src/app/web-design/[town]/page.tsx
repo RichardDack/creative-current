@@ -1,4 +1,4 @@
-// src/app/web-design/[town]/page.tsx - Dynamic Town Page
+// src/app/web-design/[town]/page.tsx - Dynamic Town Page (Next.js 15 Fixed)
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Layout } from '@/components/global/Layout';
@@ -17,10 +17,11 @@ import {
   generateLocalBusinessSchema 
 } from '@/lib/seo/metadata';
 
+// FIXED: Updated PageProps for Next.js 15 - params is now a Promise
 interface PageProps {
-  params: {
+  params: Promise<{
     town: string;
-  };
+  }>;
 }
 
 // Generate static params for all Dorset towns
@@ -30,9 +31,9 @@ export async function generateStaticParams() {
   }));
 }
 
-// Generate metadata for each town
+// FIXED: Generate metadata for each town - now async to handle Promise params
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { town } = params;
+  const { town } = await params; // FIXED: await the params promise
   
   if (!dorseyTowns[town]) {
     return {
@@ -44,8 +45,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return generateLocalMetadata(town, 'web design');
 }
 
-export default function TownPage({ params }: PageProps) {
-  const { town } = params;
+// FIXED: Main component is now async to handle Promise params
+export default async function TownPage({ params }: PageProps) {
+  const { town } = await params; // FIXED: await the params promise
   
   // Check if town exists
   if (!dorseyTowns[town]) {
@@ -108,15 +110,7 @@ export default function TownPage({ params }: PageProps) {
       />
 
       {/* Contact Section */}
-      <ContactSection 
-        title={localContent.contactSection.title}
-        description={localContent.contactSection.content}
-        localInfo={{
-          phone: localContent.contactSection.localPhone,
-          coverage: localContent.contactSection.coverage
-        }}
-      />
+      <ContactSection />
     </Layout>
   );
 }
-

@@ -283,8 +283,62 @@ export const generateLocalBusinessSchema = (townKey: string, _service: string = 
     throw new Error(`Town data not found for: ${townKey}`);
   }
 
-  // FIXED: Build schema object conditionally
-  const schema: any = {
+  // FIXED: Replace 'any' with proper interface
+  interface LocalBusinessSchema {
+    "@context": string;
+    "@type": string;
+    "@id": string;
+    name: string;
+    alternateName: string;
+    description: string;
+    url: string;
+    telephone: string;
+    email: string;
+    foundingDate: string;
+    founder: {
+      "@type": string;
+      name: string;
+    };
+    address: {
+      "@type": string;
+      addressLocality: string;
+      addressRegion: string;
+      addressCountry: string;
+      postalCode: string;
+    };
+    geo?: {
+      "@type": string;
+      latitude: number;
+      longitude: number;
+    };
+    areaServed: Array<{
+      "@type": string;
+      name: string;
+      containedInPlace?: {
+        "@type": string;
+        name: string;
+      };
+    }>;
+    serviceArea?: {
+      "@type": string;
+      geoMidpoint: {
+        "@type": string;
+        latitude: number;
+        longitude: number;
+      };
+      geoRadius: string;
+    };
+    priceRange: string;
+    openingHours: string[];
+    paymentAccepted: string;
+    currenciesAccepted: string;
+    hasOfferCatalog: object;
+    aggregateRating: object;
+    review: object[];
+    sameAs: string[];
+  }
+
+  const schema: LocalBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": `https://creativecurrent.co.uk/web-design/${townKey}`,

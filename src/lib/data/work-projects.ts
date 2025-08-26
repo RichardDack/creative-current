@@ -6,7 +6,7 @@ export const workProjects: WorkProject[] = [
     id: '1',
     title: 'Your Clean Queen',
     category: 'Business Website',
-    client: 'Teal Dack',
+    client: 'Your Clean Queen',
     duration: '1 month',
     image: '/images/work/your-clean-queen.png',
     thumbnail: '/images/work/your-clean-queen-thumb.png',

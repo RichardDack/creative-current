@@ -43,6 +43,11 @@ const formVariants: Variants = {
   }
 };
 
+interface FormStatus {
+  type: 'idle' | 'loading' | 'success' | 'error';
+  message?: string;
+}
+
 export const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -50,6 +55,11 @@ export const ContactSection = () => {
     company: '',
     message: ''
   });
+
+  const [status, setStatus] = useState<FormStatus>({ type: 'idle' });
+
+  // Replace with your actual Formspree endpoint
+  const FORMSPREE_URL = 'https://formspree.io/f/xnnbqpwa'; // Update this!
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -59,10 +69,41 @@ export const ContactSection = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    setStatus({ type: 'loading' });
+
+    try {
+      const response = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          message: formData.message,
+          _subject: `New contact form submission from ${formData.name}`,
+        }),
+      });
+
+      if (response.ok) {
+        setStatus({ 
+          type: 'success', 
+          message: 'Thank you! Your message has been sent successfully.' 
+        });
+        // Reset form
+        setFormData({ name: '', email: '', company: '', message: '' });
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      setStatus({ 
+        type: 'error', 
+        message: 'Sorry, there was an error sending your message. Please try again.' 
+      });
+    }
   };
 
   return (
@@ -107,7 +148,7 @@ export const ContactSection = () => {
                 </div>
                 <div className={styles.contactText}>
                   <h4>Email Us</h4>
-                  <p>hello@agentic.design</p>
+                  <p>hello@creativecurrent.com</p>
                 </div>
               </div>
 
@@ -119,7 +160,7 @@ export const ContactSection = () => {
                 </div>
                 <div className={styles.contactText}>
                   <h4>Call Us</h4>
-                  <p>+1 (555) 123-4567</p>
+                  <p>+44 7123 456789</p>
                 </div>
               </div>
 
@@ -131,7 +172,7 @@ export const ContactSection = () => {
                 </div>
                 <div className={styles.contactText}>
                   <h4>Visit Us</h4>
-                  <p>San Francisco, CA</p>
+                  <p>Selsey, England, GB</p>
                 </div>
               </div>
             </motion.div>
@@ -142,6 +183,32 @@ export const ContactSection = () => {
             className={styles.contactForm}
             variants={formVariants}
           >
+            {/* Status Messages */}
+            {status.type !== 'idle' && (
+              <motion.div 
+                className={`${styles.statusMessage} ${styles[status.type]}`}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {status.type === 'success' && (
+                  <div className={styles.successIcon}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                  </div>
+                )}
+                {status.type === 'error' && (
+                  <div className={styles.errorIcon}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                  </div>
+                )}
+                <p>{status.message}</p>
+              </motion.div>
+            )}
+
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.formGroup}>
                 <input
@@ -152,6 +219,7 @@ export const ContactSection = () => {
                   onChange={handleInputChange}
                   className={styles.formInput}
                   required
+                  disabled={status.type === 'loading'}
                 />
               </div>
 
@@ -164,6 +232,7 @@ export const ContactSection = () => {
                   onChange={handleInputChange}
                   className={styles.formInput}
                   required
+                  disabled={status.type === 'loading'}
                 />
               </div>
 
@@ -175,6 +244,7 @@ export const ContactSection = () => {
                   value={formData.company}
                   onChange={handleInputChange}
                   className={styles.formInput}
+                  disabled={status.type === 'loading'}
                 />
               </div>
 
@@ -187,16 +257,25 @@ export const ContactSection = () => {
                   className={styles.formTextarea}
                   rows={5}
                   required
+                  disabled={status.type === 'loading'}
                 />
               </div>
 
               <motion.button
                 type="submit"
-                className={styles.submitButton}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className={`${styles.submitButton} ${status.type === 'loading' ? styles.loading : ''}`}
+                whileHover={status.type !== 'loading' ? { scale: 1.02 } : {}}
+                whileTap={status.type !== 'loading' ? { scale: 0.98 } : {}}
+                disabled={status.type === 'loading'}
               >
-                Send Message
+                {status.type === 'loading' ? (
+                  <>
+                    <div className={styles.spinner} />
+                    Sending...
+                  </>
+                ) : (
+                  'Send Message'
+                )}
               </motion.button>
             </form>
           </motion.div>

@@ -1,4 +1,4 @@
-﻿/* src/styles/components/WorkSection.module.css - FIXED VERSION */
+﻿/* src/styles/components/WorkSection.module.css - COMPLETE FIXED VERSION */
 
 .workSection {
   background-color: var(--color-background-darker);
@@ -45,7 +45,7 @@
   margin: 0;
 }
 
-/* Work Items - FIXED */
+/* Work Items - Desktop/Tablet */
 .workItem {
   display: flex;
   align-items: center;
@@ -58,20 +58,18 @@
   max-width: 100vw;
   box-sizing: border-box;
   will-change: transform;
-  /* Z-index will be handled by inline styles in component */
 }
 
-/* FIXED: Container height issue */
 .workItemContainer {
   width: 100%;
   max-width: 1200px;
-  height: 100%; /* RESTORED: Need this for height flow */
-  min-height: 80vh; /* KEEP: Backup minimum height */
+  height: 100%;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  flex: 1; /* KEEP: Proper flex behavior */
+  flex: 1;
 }
 
 .workCard {
@@ -83,14 +81,13 @@
     0 0 0 1px rgba(49, 175, 180, 0.1);
   display: flex;
   flex: 1;
-  /* FIXED: Ensure proper height instead of max-height constraint */
-  min-height: 60vh; /* ADDED: Minimum height to ensure visibility */
-  height: calc(100vh - var(--space-3xl)); /* CHANGED: Use height instead of max-height */
+  min-height: 60vh;
+  height: calc(100vh - var(--space-3xl));
   overflow: hidden;
   position: relative;
   will-change: transform;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 100%; /* KEEP: Ensure full width */
+  width: 100%;
 }
 
 .workCard:hover {
@@ -270,13 +267,13 @@
   letter-spacing: 0.05em;
 }
 
-/* Scroll Indicator Enhancements */
+/* Scroll Indicator */
 .scrollIndicator {
   position: fixed;
   right: var(--space-xl);
   top: 50%;
   transform: translateY(-50%);
-  z-index: 1000; /* INCREASED: Ensure it's above work items */
+  z-index: 1000;
   display: flex;
   align-items: center;
   gap: var(--space-md);
@@ -348,25 +345,6 @@
   transform: scale(1.2);
 }
 
-/* Work CTA Section - Enhanced for smooth transition */
-.workCTA {
-  text-align: center;
-  padding: var(--space-5xl) var(--space-lg);
-  background: linear-gradient(135deg, 
-    var(--color-background-darker) 0%,
-    var(--color-background-lighter) 100%
-  );
-  max-width: 800px;
-  margin: var(--space-4xl) auto 0; /* ADDED: Top margin for separation */
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(49, 175, 180, 0.2);
-  /* ADDED: Ensure clean background transition */
-  position: relative;
-  z-index: 100;
-  /* ADDED: Subtle shadow for depth */
-  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.1);
-}
-
 /* CTA Card Special Styling */
 .ctaCard {
   background: linear-gradient(135deg, 
@@ -384,7 +362,22 @@
     0 0 60px rgba(49, 175, 180, 0.15) !important;
 }
 
-/* Work CTA Section - Keep for future use */
+/* Work CTA Section */
+.workCTA {
+  text-align: center;
+  padding: var(--space-5xl) var(--space-lg);
+  background: linear-gradient(135deg, 
+    var(--color-background-darker) 0%,
+    var(--color-background-lighter) 100%
+  );
+  max-width: 800px;
+  margin: var(--space-4xl) auto 0;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(49, 175, 180, 0.2);
+  position: relative;
+  z-index: 100;
+  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.1);
+}
 
 .workCTA h3 {
   font-family: var(--font-headline);
@@ -424,21 +417,21 @@
   box-shadow: 0 8px 24px rgba(49, 175, 180, 0.4);
 }
 
-/* Responsive Design - UPDATED */
+/* Tablet Media Query */
 @media (max-width: 1199px) {
   .workItem {
     padding: var(--space-lg);
   }
   
   .workItemContainer {
-    min-height: 70vh; /* ADJUSTED: Smaller minimum on tablets */
-    height: 100%; /* KEEP: Height flow */
+    min-height: 70vh;
+    height: 100%;
   }
   
   .workCard {
     border-radius: 40px;
-    min-height: 50vh; /* ADJUSTED: Smaller minimum on tablets */
-    height: calc(100vh - var(--space-2xl)); /* ADJUSTED: Smaller calculation */
+    min-height: 50vh;
+    height: calc(100vh - var(--space-2xl));
   }
   
   .workImageContainer {
@@ -462,6 +455,7 @@
   }
 }
 
+/* Mobile Media Query - FIXED HEIGHT ISSUES */
 @media (max-width: 809px) {
   .sectionHeader {
     padding: 0 var(--space-md);
@@ -472,42 +466,50 @@
     padding-top: var(--space-2xl);
   }
   
+  /* CRITICAL: Reset ALL height-related properties in the chain */
   .workItem {
     padding: var(--space-md);
-    min-height: auto; /* FIXED: Remove sticky on mobile */
-    position: relative; /* FIXED: Not sticky on mobile */
+    min-height: auto; /* Remove viewport height constraint */
+    height: auto; /* Allow natural height */
+    position: relative; /* Not sticky on mobile */
   }
   
   .workItemContainer {
-    min-height: auto; /* FIXED: Auto height on mobile */
-    height: auto; /* ADDED: Auto height override */
-    flex: none; /* FIXED: Reset flex behavior */
+    min-height: auto; /* Remove viewport height constraint */
+    height: auto; /* Allow natural height */
+    flex: none; /* Reset flex behavior */
+    display: block; /* Change from flex to block for better stacking */
   }
   
   .workCard {
     border-radius: 30px;
-    min-height: auto; /* FIXED: Remove fixed height on mobile */
-    height: auto; /* FIXED: Auto height on mobile */
-    max-height: none; /* FIXED: No height restriction on mobile */
+    min-height: 400px; /* Set reasonable minimum instead of auto */
+    height: auto; /* Allow content to determine height */
+    max-height: none; /* No height restrictions */
+    margin-bottom: var(--space-lg); /* Add spacing between cards */
   }
   
   .workCardInner {
     flex-direction: column;
     gap: 0;
+    position: relative; /* Ensure proper positioning */
+    height: auto; /* Allow natural height */
   }
   
   .workContent {
-    flex: none;
+    flex: none; /* Don't use flex sizing */
     padding: var(--space-xl) var(--space-lg);
   }
   
   .workImage {
     flex: 1;
-    min-height: 300px;
+    min-height: 300px; /* Ensure images have proper height */
+    height: 300px; /* Fixed height for consistency */
   }
   
   .workImageContainer {
     border-radius: 0 0 30px 30px;
+    height: 100%; /* Fill the image container */
   }
   
   .workTitle {
@@ -531,6 +533,7 @@
   }
 }
 
+/* Small Mobile Media Query */
 @media (max-width: 390px) {
   .workItem {
     padding: var(--space-sm);
@@ -538,10 +541,15 @@
   
   .workCard {
     border-radius: 20px;
+    min-height: 350px; /* Slightly smaller for very small screens */
   }
   
   .workContent {
     padding: var(--space-lg) var(--space-md);
+  }
+  
+  .workImage {
+    height: 250px; /* Smaller image height for small screens */
   }
   
   .workImageContainer {
@@ -567,7 +575,7 @@
   }
 }
 
-/* Reduced Motion Preferences */
+/* Accessibility - Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .workCard,
   .projectImage,
@@ -586,7 +594,7 @@
   }
 }
 
-/* High Contrast Mode */
+/* Accessibility - High Contrast */
 @media (prefers-contrast: high) {
   .workCard {
     border-color: var(--color-text-primary);

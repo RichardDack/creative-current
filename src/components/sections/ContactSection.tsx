@@ -160,7 +160,7 @@ export const ContactSection = () => {
                 </div>
                 <div className={styles.contactText}>
                   <h4>Call Us</h4>
-                  <p>+44 7123 456789</p>
+                  <p>01305 584997</p>
                 </div>
               </div>
 

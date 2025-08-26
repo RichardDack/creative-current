@@ -1,14 +1,4 @@
-﻿/* src/styles/components/Hero.module.css - COMPLETE FILE with Clash Fonts */
-
-.redSquare {
-    width: 65px; /* Smaller for mobile portrait */
-    height: 65px;
-  }
-  
-  .arrow {
-    width: 10px; /* Good size for 4 arrows on mobile portrait */
-    height: 10px;
-  }
+﻿/* src/styles/components/Hero.module.css - COMPLETE FILE with Mobile Fixes */
 
 .heroSection {
   position: relative;
@@ -786,11 +776,6 @@
     height: 13px;
   }
   
-  .arrow {
-    width: 18px;
-    height: 18px;
-  }
-  
   .brandContainer {
     bottom: 20px;
     padding: 0 40px;
@@ -802,15 +787,6 @@
     font-weight: 800;
     letter-spacing: -0.04em;
     line-height: 0.75;
-  }
-  
-  .headerTop {
-    top: 18px;
-    left: 40px;
-  }
-  
-  .homeLink {
-    font-weight: 600;
   }
 }
 
@@ -865,14 +841,14 @@
   }
 }
 
-/* Mobile Landscape (480px - 809px) */
+/* Mobile Landscape (480px - 809px) - FIXED SPACING */
 @media (max-width: 809px) {
   .mainContent {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 100px 30px 140px; /* More top padding for Header component */
-    gap: 60px;
+    padding: 80px 30px 60px; /* REDUCED: Much less padding for mobile */
+    gap: 30px; /* REDUCED: Smaller gap between elements */
     justify-content: center; /* Center content since no nav */
   }
   
@@ -888,32 +864,6 @@
     display: none; /* Hidden - Header component handles navigation */
   }
   
-  .navItemContainer {
-    min-width: 200px;
-  }
-  
-  .navItemContainer.expanded {
-    padding-right: 50px !important;
-  }
-  
-  /* CRITICAL: Make link cover padding area on mobile */
-  .navItemContainer.expanded .navLink {
-    width: calc(100% + 50px) !important;
-  }
-  
-  .downArrow {
-    right: 8px; /* Good spacing from edge on mobile */
-    bottom: 6px; /* Bottom positioned */
-    width: 40px; /* Larger for mobile */
-    height: 40px;
-  }
-  
-  .arrowIcon {
-    width: 30px; /* Larger for mobile */
-    height: 30px;
-    stroke-width: 3; /* Thicker */
-  }
-  
   .rightContent {
     order: 1;
     align-items: center;
@@ -924,34 +874,58 @@
     text-align: center;
   }
   
-  .navText {
-    font-size: clamp(30px, 7vw, 60px);
-    text-align: center;
-    padding: 6px 16px 6px 16px;
+  .heroTitle {
+    font-size: clamp(24px, 5vw, 36px); /* REDUCED: Smaller for mobile */
+    font-weight: 600;
+    margin-bottom: 12px; /* REDUCED: Less bottom margin */
+  }
+  
+  .heroDescription {
+    font-size: clamp(15px, 3.5vw, 20px); /* REDUCED: Smaller text */
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 20px; /* REDUCED: Less margin for CTA buttons */
+  }
+  
+  .ctaContainer {
+    gap: 12px; /* REDUCED: Smaller gap between buttons */
+    margin-bottom: 10px; /* REDUCED: Less bottom margin */
+  }
+  
+  .ctaButtonPrimary,
+  .ctaButtonSecondary {
+    padding: 12px 18px; /* REDUCED: Smaller padding */
+    font-size: 14px; /* REDUCED: Smaller text */
   }
   
   .brandContainer {
-    bottom: 30px;
+    bottom: 15px; /* REDUCED: Bring brand text up into viewport */
     padding: 0 30px;
   }
   
   .brandText {
-    font-size: clamp(35px, 9vw, 80px);
-    letter-spacing: -0.03em;
-    white-space: normal;
+    font-size: clamp(28px, 7vw, 65px); /* REDUCED: Smaller text to fit viewport */
+    letter-spacing: -0.02em;
+    white-space: normal; /* Allow wrapping if needed */
   }
   
   .redSquare {
-    width: 100px;
-    height: 100px;
-    margin-top: 30px;
+    width: 70px; /* REDUCED: Smaller red square for mobile */
+    height: 70px;
+    margin-top: 15px; /* REDUCED: Less top margin */
+  }
+  
+  .arrow {
+    width: 10px; /* REDUCED: Smaller arrows */
+    height: 10px;
   }
 }
 
-/* Mobile Portrait (320px - 479px) */
+/* Mobile Portrait (320px - 479px) - TIGHTER SPACING */
 @media (max-width: 480px) {
   .mainContent {
-    padding: 60px 20px 120px;
+    padding: 60px 20px 40px; /* REDUCED: Much tighter padding for portrait */
+    gap: 20px; /* REDUCED: Smaller gaps between elements */
   }
   
   .headerTop {
@@ -959,82 +933,97 @@
     left: 20px;
   }
   
-  .navItemContainer {
-    min-width: 180px;
-  }
-  
-  .navText {
-    font-size: clamp(26px, 8vw, 45px);
-    padding: 4px 12px 4px 12px;
-  }
-  
-  .brandText {
-    font-size: clamp(28px, 8vw, 60px);
-    letter-spacing: -0.02em;
-  }
-  
   .heroTitle {
-    font-size: clamp(24px, 5vw, 36px); /* Scaled back 15-20% */
+    font-size: clamp(20px, 5vw, 28px); /* REDUCED: Smaller title */
     font-weight: 600;
-    margin-bottom: 14px;
+    margin-bottom: 10px; /* REDUCED: Tighter spacing */
   }
   
   .heroDescription {
-    font-size: clamp(15px, 3.5vw, 22px); /* Scaled back 15-20% */
+    font-size: clamp(14px, 3.5vw, 18px); /* REDUCED: Smaller description */
     font-weight: 400;
     line-height: 1.4;
-  }
-  
-  .brandContainer {
-    padding: 0 20px;
-  }
-}
-
-/* Small Mobile (280px - 319px) */
-@media (max-width: 320px) {
-  .navItemContainer {
-    min-width: 160px;
-  }
-  
-  .redSquare {
-    width: 60px; /* Smallest for tiny screens */
-    height: 60px;
-    border-radius: 8px;
-  }
-  
-  .arrow {
-    width: 9px; /* Good size for 4 arrows on tiny screens */
-    height: 9px;
-  }
-  
-  .heroTitle {
-    font-size: clamp(18px, 6vw, 28px); /* Scaled back 15-20% */
-    font-weight: 600;
-  }
-  
-  .heroDescription {
-    font-size: clamp(13px, 4vw, 18px); /* Scaled back 15-20% */
-    font-weight: 400;
-    margin-bottom: 18px; /* Space for CTA */
+    margin-bottom: 16px; /* REDUCED: Less margin for CTA */
   }
   
   .ctaButtonPrimary,
   .ctaButtonSecondary {
-    padding: 10px 18px; /* Smallest size for tiny screens */
-    font-size: 13px;
-    border-radius: 10px; /* Slightly smaller radius */
+    padding: 10px 16px; /* REDUCED: Smaller buttons */
+    font-size: 13px; /* REDUCED: Smaller text */
     width: 100%;
-    max-width: 160px; /* Compact for tiny screens */
+    max-width: 140px; /* REDUCED: Narrower buttons */
+  }
+  
+  .redSquare {
+    width: 60px; /* REDUCED: Smaller red square */
+    height: 60px;
+    margin-top: 10px; /* REDUCED: Less margin */
+  }
+  
+  .arrow {
+    width: 8px; /* REDUCED: Much smaller arrows */
+    height: 8px;
+  }
+  
+  .brandContainer {
+    bottom: 10px; /* REDUCED: Bring even closer to viewport */
+    padding: 0 20px;
   }
   
   .brandText {
-    font-size: clamp(24px, 7vw, 50px);
+    font-size: clamp(22px, 6vw, 45px); /* REDUCED: Much smaller brand text */
     letter-spacing: -0.01em;
   }
+}
+
+/* Small Mobile (280px - 319px) - MINIMAL SPACING */
+@media (max-width: 320px) {
+  .mainContent {
+    padding: 50px 15px 30px; /* REDUCED: Minimal padding for tiny screens */
+    gap: 15px; /* REDUCED: Very tight spacing */
+  }
   
-  .navText {
-    font-size: clamp(22px, 7vw, 40px);
-    padding: 4px 10px 4px 10px;
+  .heroTitle {
+    font-size: clamp(18px, 5vw, 24px); /* REDUCED: Even smaller title */
+    font-weight: 600;
+    margin-bottom: 8px; /* REDUCED: Minimal margin */
+  }
+  
+  .heroDescription {
+    font-size: clamp(12px, 3.5vw, 16px); /* REDUCED: Smaller text */
+    font-weight: 400;
+    margin-bottom: 12px; /* REDUCED: Minimal space for CTA */
+  }
+  
+  .ctaButtonPrimary,
+  .ctaButtonSecondary {
+    padding: 8px 14px; /* REDUCED: Smallest buttons */
+    font-size: 12px; /* REDUCED: Tiny text */
+    border-radius: 8px; /* REDUCED: Smaller radius */
+    width: 100%;
+    max-width: 130px; /* REDUCED: Very compact */
+  }
+  
+  .redSquare {
+    width: 50px; /* REDUCED: Tiny red square */
+    height: 50px;
+    border-radius: 6px; /* REDUCED: Smaller radius */
+    margin-top: 8px; /* REDUCED: Minimal margin */
+  }
+  
+  .arrow {
+    width: 6px; /* REDUCED: Tiny arrows */
+    height: 6px;
+  }
+  
+  .brandContainer {
+    bottom: 8px; /* REDUCED: Bring as close as possible */
+    padding: 0 15px;
+  }
+  
+  .brandText {
+    font-size: clamp(18px, 5vw, 35px); /* REDUCED: Much smaller for tiny screens */
+    letter-spacing: -0.005em;
   }
 }
 
@@ -1060,5 +1049,17 @@
   
   .downArrow {
     transition: none;
+  }
+  
+  .redSquare {
+    animation: none;
+  }
+  
+  .arrowContainer {
+    animation: none;
+  }
+  
+  .arrow {
+    animation: none;
   }
 }

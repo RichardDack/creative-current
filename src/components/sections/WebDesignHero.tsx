@@ -49,7 +49,7 @@ export const WebDesignHero = () => {
             transition={{ delay: 0.8, duration: 0.6 }}
           >
             Creative Current specializes in creating beautiful, responsive websites for businesses 
-            throughout Dorset. Whether you're in Bournemouth, Poole, Weymouth, or any town across 
+            throughout Dorset. Whether you&apos;re in Bournemouth, Poole, Weymouth, or any town across 
             the county, we deliver web solutions that attract customers and grow your business.
           </motion.p>
 

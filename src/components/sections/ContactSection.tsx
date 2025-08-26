@@ -148,7 +148,7 @@ export const ContactSection = () => {
                 </div>
                 <div className={styles.contactText}>
                   <h4>Email Us</h4>
-                  <p>hello@creativecurrent.com</p>
+                  <p>hello@creativecurrent.co.uk</p>
                 </div>
               </div>
 
@@ -172,7 +172,7 @@ export const ContactSection = () => {
                 </div>
                 <div className={styles.contactText}>
                   <h4>Visit Us</h4>
-                  <p>Selsey, England, GB</p>
+                  <p>Dorchester, England, GB</p>
                 </div>
               </div>
             </motion.div>

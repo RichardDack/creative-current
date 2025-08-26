@@ -48,6 +48,26 @@ interface FormStatus {
   message?: string;
 }
 
+interface FormSubmitData {
+  name: string;
+  email: string;
+  company: string;
+  message: string;
+  _subject: string;
+  'g-recaptcha-response'?: string;
+  _recaptcha_threshold?: number;
+}
+
+interface FormspreeError {
+  field: string;
+  code: string;
+  message: string;
+}
+
+interface FormspreeErrorResponse {
+  errors: FormspreeError[];
+}
+
 // Extend the Window interface to include grecaptcha
 declare global {
   interface Window {
@@ -153,7 +173,7 @@ export const ContactSection = () => {
       }
 
       // Prepare form data
-      const submitData: any = {
+      const submitData: FormSubmitData = {
         name: formData.name,
         email: formData.email,
         company: formData.company,
@@ -185,9 +205,9 @@ export const ContactSection = () => {
         setFormData({ name: '', email: '', company: '', message: '' });
       } else {
         // Handle different error responses
-        const errorData = await response.json().catch(() => ({}));
+        const errorData = await response.json().catch(() => ({}) as FormspreeErrorResponse);
         
-        if (response.status === 422 && errorData.errors?.some((e: any) => e.field === 'g-recaptcha-response')) {
+        if (response.status === 422 && errorData.errors?.some((e: FormspreeError) => e.field === 'g-recaptcha-response')) {
           throw new Error('Security verification failed. Please try again.');
         } else {
           throw new Error('Form submission failed');

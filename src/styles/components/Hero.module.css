@@ -858,7 +858,7 @@
     padding: 15px 30px 10px; /* COMPACT: Minimal padding */
     gap: 8px; /* COMPACT: Very small gaps */
     justify-content: center; /* RESTORED: Center the content */
-    min-height: 90vh; /* SMALLER: Less than full viewport for tighter layout */
+    min-height: 55vh; /* SMALLER: Less than full viewport for tighter layout */
   }
   
   .headerTop {
@@ -936,7 +936,7 @@
   .mainContent {
     padding: 20px 20px 15px; /* ULTRA TIGHT: Minimal padding for maximum content space */
     gap: 10px; /* ULTRA TIGHT: Minimal gaps between elements */
-    justify-content: flex-start; /* FIXED: Push content to top */
+    justify-content: center; /* FIXED: Push content to top */
     /* REMOVED: min-height that was causing excessive vertical spacing */
   }
   
@@ -982,7 +982,7 @@
   }
   
   .brandText {
-    font-size: clamp(18px, 5vw, 35px); /* ULTRA TIGHT: Much smaller brand text */
+    font-size: clamp(55px, 5vw, 35px); /* ULTRA TIGHT: Much smaller brand text */
     letter-spacing: -0.005em;
   }
 }

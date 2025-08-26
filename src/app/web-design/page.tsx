@@ -86,10 +86,7 @@ export default function WebDesignPage() {
       <WebDesignHero />
       <TownLinksSection towns={dorseyTowns} />
       <WebDesignServicesSection />
-      <ContactSection 
-        title="Ready to Transform Your Dorset Business Online?"
-        description="Get in touch today for a free consultation and quote. We're here to help businesses across Dorset succeed online."
-      />
+      <ContactSection />
     </Layout>
   );
 }

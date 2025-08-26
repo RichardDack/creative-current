@@ -2,12 +2,20 @@
 
 .heroSection {
   position: relative;
-  min-height: 100vh;
+  min-height: 100vh; /* Keep full height on desktop */
   background: rgb(20, 33, 45); /* Exact Framer background */
   overflow: hidden;
   display: flex;
   flex-direction: column;
   padding: 0;
+}
+
+/* MOBILE: Remove forced full height */
+@media (max-width: 809px) {
+  .heroSection {
+    min-height: auto; /* FIXED: Let content determine height on mobile */
+    height: auto; /* Allow natural height */
+  }
 }
 
 /* Floating Background Elements - REFINED VERSION */
@@ -841,16 +849,16 @@
   }
 }
 
-/* Mobile Landscape (480px - 809px) - AGGRESSIVE SPACING REDUCTION */
+/* Mobile Landscape (480px - 809px) - COMPACT CENTERED CONTENT */
 @media (max-width: 809px) {
   .mainContent {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 20px 30px 15px; /* ULTRA AGGRESSIVE: Minimal top padding */
-    gap: 10px; /* ULTRA AGGRESSIVE: Tiny gap between elements */
-    justify-content: center;
-    min-height: calc(100vh - 35px); /* Maximize use of viewport */
+    padding: 15px 30px 10px; /* COMPACT: Minimal padding */
+    gap: 8px; /* COMPACT: Very small gaps */
+    justify-content: center; /* RESTORED: Center the content */
+    min-height: 90vh; /* SMALLER: Less than full viewport for tighter layout */
   }
   
   .headerTop {
@@ -876,49 +884,50 @@
   }
   
   .heroTitle {
-    font-size: clamp(24px, 5vw, 36px);
+    font-size: clamp(20px, 4vw, 28px); /* SMALLER: Reduced title size */
     font-weight: 600;
-    margin-bottom: 8px; /* AGGRESSIVE: Minimal margin between title and description */
+    margin-bottom: 6px; /* COMPACT: Minimal margin */
   }
   
   .heroDescription {
-    font-size: clamp(15px, 3.5vw, 20px);
+    font-size: clamp(13px, 3vw, 16px); /* SMALLER: Much smaller description */
     font-weight: 400;
-    line-height: 1.3; /* TIGHTER: Reduce line height */
-    margin-bottom: 12px; /* AGGRESSIVE: Minimal margin before buttons */
+    line-height: 1.2; /* TIGHTER: Compact line height */
+    margin-bottom: 8px; /* COMPACT: Minimal margin */
   }
   
   .ctaContainer {
-    gap: 8px; /* AGGRESSIVE: Tiny gap between buttons */
-    margin-bottom: 5px; /* AGGRESSIVE: Minimal bottom margin */
+    gap: 6px; /* COMPACT: Tiny gap between buttons */
+    margin-bottom: 3px; /* COMPACT: Minimal margin */
   }
   
   .ctaButtonPrimary,
   .ctaButtonSecondary {
-    padding: 12px 18px; /* REDUCED: Smaller padding */
-    font-size: 14px; /* REDUCED: Smaller text */
+    padding: 8px 12px; /* COMPACT: Much smaller buttons */
+    font-size: 12px; /* COMPACT: Smaller text */
+    max-width: 120px; /* COMPACT: Narrower buttons */
+  }
+  
+  .redSquare {
+    width: 45px; /* COMPACT: Much smaller red square */
+    height: 45px;
+    margin-top: 3px; /* COMPACT: Minimal margin */
+  }
+  
+  .arrow {
+    width: 6px; /* COMPACT: Tiny arrows */
+    height: 6px;
   }
   
   .brandContainer {
-    bottom: 5px; /* AGGRESSIVE: Bring brand text very close to viewport edge */
+    bottom: 8px; /* COMPACT: Close to bottom but not cramped */
     padding: 0 30px;
   }
   
   .brandText {
-    font-size: clamp(24px, 6vw, 55px); /* AGGRESSIVE: Much smaller text */
-    letter-spacing: -0.01em;
-    white-space: normal; /* Allow wrapping if needed */
-  }
-  
-  .redSquare {
-    width: 60px; /* AGGRESSIVE: Much smaller red square */
-    height: 60px;
-    margin-top: 5px; /* AGGRESSIVE: Minimal top margin */
-  }
-  
-  .arrow {
-    width: 8px; /* AGGRESSIVE: Much smaller arrows */
-    height: 8px;
+    font-size: clamp(20px, 5vw, 45px); /* COMPACT: Much smaller brand text */
+    letter-spacing: -0.005em;
+    white-space: normal;
   }
 }
 
@@ -927,7 +936,8 @@
   .mainContent {
     padding: 20px 20px 15px; /* ULTRA TIGHT: Minimal padding for maximum content space */
     gap: 10px; /* ULTRA TIGHT: Minimal gaps between elements */
-    min-height: calc(100vh - 40px); /* Maximize content area */
+    justify-content: flex-start; /* FIXED: Push content to top */
+    /* REMOVED: min-height that was causing excessive vertical spacing */
   }
   
   .headerTop {

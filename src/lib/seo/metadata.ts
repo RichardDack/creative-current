@@ -1,4 +1,4 @@
-// src/lib/seo/metadata.ts
+// src/lib/seo/metadata.ts - COMPLETE FIXED VERSION
 import { Metadata } from 'next';
 
 export interface LocalSEOData {
@@ -163,7 +163,7 @@ export const dorseyTowns: Record<string, LocalSEOData> = {
 
 export const generateLocalMetadata = (
   town: string,
-  service: string = 'web design'
+  _service: string = 'web design' // FIXED: Prefixed with underscore to indicate intentionally unused
 ): Metadata => {
   const townData = dorseyTowns[town.toLowerCase().replace(/\s+/g, '-')];
   
@@ -173,6 +173,32 @@ export const generateLocalMetadata = (
 
   const townName = townData.town;
   const county = townData.county;
+  
+  // FIXED: Build other metadata object conditionally to avoid undefined values
+  const otherMetadata: Record<string, string> = {
+    'geo.region': 'GB-DOR',
+    'geo.placename': `${townName}, ${county}`,
+    'DC.title': `Web Design ${townName} | Creative Current`,
+    'DC.creator': 'Creative Current',
+    'DC.subject': `Web Design, Website Development, ${townName}, ${county}`,
+    'DC.description': `Professional web design and development services in ${townName}, ${county}`,
+    'DC.publisher': 'Creative Current',
+    'DC.contributor': 'Creative Current Team',
+    'DC.date': new Date().toISOString().split('T')[0],
+    'DC.type': 'Service',
+    'DC.format': 'text/html',
+    'DC.identifier': `https://creativecurrent.co.uk/web-design/${town.toLowerCase().replace(/\s+/g, '-')}`,
+    'DC.source': 'Creative Current',
+    'DC.language': 'en-GB',
+    'DC.relation': 'https://creativecurrent.co.uk',
+    'DC.coverage': `${townName}, ${county}, England`
+  };
+
+  // FIXED: Only add coordinate-based metadata if coordinates exist
+  if (townData.coordinates) {
+    otherMetadata['geo.position'] = `${townData.coordinates.lat};${townData.coordinates.lng}`;
+    otherMetadata['ICBM'] = `${townData.coordinates.lat}, ${townData.coordinates.lng}`;
+  }
   
   return {
     title: `Professional Web Design ${townName} | Creative Current - ${county} Web Developers`,
@@ -244,39 +270,21 @@ export const generateLocalMetadata = (
     category: 'Web Design Services',
     classification: 'Business Services',
     
-    // Geo-targeting
-    other: {
-      'geo.region': 'GB-DOR',
-      'geo.placename': `${townName}, ${county}`,
-      'geo.position': townData.coordinates ? `${townData.coordinates.lat};${townData.coordinates.lng}` : undefined,
-      'ICBM': townData.coordinates ? `${townData.coordinates.lat}, ${townData.coordinates.lng}` : undefined,
-      'DC.title': `Web Design ${townName} | Creative Current`,
-      'DC.creator': 'Creative Current',
-      'DC.subject': `Web Design, Website Development, ${townName}, ${county}`,
-      'DC.description': `Professional web design and development services in ${townName}, ${county}`,
-      'DC.publisher': 'Creative Current',
-      'DC.contributor': 'Creative Current Team',
-      'DC.date': new Date().toISOString().split('T')[0],
-      'DC.type': 'Service',
-      'DC.format': 'text/html',
-      'DC.identifier': `https://creativecurrent.co.uk/web-design/${town.toLowerCase().replace(/\s+/g, '-')}`,
-      'DC.source': 'Creative Current',
-      'DC.language': 'en-GB',
-      'DC.relation': 'https://creativecurrent.co.uk',
-      'DC.coverage': `${townName}, ${county}, England`
-    }
+    // FIXED: Geo-targeting without undefined values
+    other: otherMetadata
   };
 };
 
 // Generate schema.org structured data for local business
-export const generateLocalBusinessSchema = (townKey: string, service: string = 'web design') => {
+export const generateLocalBusinessSchema = (townKey: string, _service: string = 'web design') => {
   const townData = dorseyTowns[townKey];
   
   if (!townData) {
     throw new Error(`Town data not found for: ${townKey}`);
   }
 
-  return {
+  // FIXED: Build schema object conditionally
+  const schema: any = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": `https://creativecurrent.co.uk/web-design/${townKey}`,
@@ -298,11 +306,6 @@ export const generateLocalBusinessSchema = (townKey: string, service: string = '
       "addressCountry": "GB",
       "postalCode": "DT1"
     },
-    "geo": townData.coordinates ? {
-      "@type": "GeoCoordinates",
-      "latitude": townData.coordinates.lat,
-      "longitude": townData.coordinates.lng
-    } : undefined,
     "areaServed": [
       {
         "@type": "City",
@@ -317,15 +320,6 @@ export const generateLocalBusinessSchema = (townKey: string, service: string = '
         "name": "Dorset"
       }
     ],
-    "serviceArea": {
-      "@type": "GeoCircle",
-      "geoMidpoint": townData.coordinates ? {
-        "@type": "GeoCoordinates",
-        "latitude": townData.coordinates.lat,
-        "longitude": townData.coordinates.lng
-      } : undefined,
-      "geoRadius": "50000"
-    },
     "priceRange": "££",
     "openingHours": [
       "Mo-Fr 09:00-17:30"
@@ -412,6 +406,27 @@ export const generateLocalBusinessSchema = (townKey: string, service: string = '
       "https://www.facebook.com/creativecurrent"
     ]
   };
+
+  // FIXED: Only add geo properties if coordinates exist
+  if (townData.coordinates) {
+    schema.geo = {
+      "@type": "GeoCoordinates",
+      "latitude": townData.coordinates.lat,
+      "longitude": townData.coordinates.lng
+    };
+
+    schema.serviceArea = {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": townData.coordinates.lat,
+        "longitude": townData.coordinates.lng
+      },
+      "geoRadius": "50000"
+    };
+  }
+
+  return schema;
 };
 
 // SEO content generation helper

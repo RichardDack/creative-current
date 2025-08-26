@@ -15,6 +15,7 @@
   .heroSection {
     min-height: auto; /* FIXED: Let content determine height on mobile */
     height: auto; /* Allow natural height */
+    
   }
 }
 
@@ -859,6 +860,7 @@
     gap: 8px; /* COMPACT: Very small gaps */
     justify-content: center; /* RESTORED: Center the content */
     min-height: 55vh; /* SMALLER: Less than full viewport for tighter layout */
+    margin-bottom: 100px; /* COMPACT: Space for brand text */
   }
   
   .headerTop {
@@ -928,6 +930,7 @@
     font-size: clamp(20px, 5vw, 45px); /* COMPACT: Much smaller brand text */
     letter-spacing: -0.005em;
     white-space: normal;
+    margin-bottom: 45px;
   }
 }
 

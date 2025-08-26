@@ -1,0 +1,159 @@
+/* src/styles/components/WebDesignHero.module.css */
+.webDesignHero {
+  position: relative;
+  min-height: 80vh;
+  background: var(--color-background-darker);
+  display: flex;
+  align-items: center;
+  padding: var(--space-4xl) 0;
+  overflow: hidden;
+}
+
+.webDesignHero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(circle at 30% 40%, rgba(49, 175, 180, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 80% 10%, rgba(180, 54, 49, 0.1) 0%, transparent 50%);
+  z-index: 0;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  text-align: center;
+}
+
+.locationBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: rgba(49, 175, 180, 0.1);
+  border: 1px solid rgba(49, 175, 180, 0.3);
+  border-radius: var(--radius-full);
+  padding: var(--space-sm) var(--space-lg);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  margin-bottom: var(--space-xl);
+}
+
+.locationIcon {
+  font-size: var(--font-size-base);
+}
+
+.heroTitle {
+  font-family: var(--font-headline);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-lg);
+}
+
+.heroSubtitle {
+  font-family: var(--font-body);
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  color: var(--color-primary);
+  margin-bottom: var(--space-xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.heroDescription {
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-3xl);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: var(--space-lg);
+  justify-content: center;
+  margin-bottom: var(--space-2xl);
+  flex-wrap: wrap;
+}
+
+.ctaButtonPrimary,
+.ctaButtonSecondary {
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.ctaButtonPrimary {
+  background: var(--color-primary);
+  color: var(--color-background-darker);
+  border: 2px solid var(--color-primary);
+}
+
+.ctaButtonPrimary:hover {
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.ctaButtonSecondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.ctaButtonSecondary:hover {
+  background: var(--color-primary);
+  color: var(--color-background-darker);
+}
+
+.trustIndicators {
+  display: flex;
+  gap: var(--space-xl);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.trustItem {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* Responsive Design */
+@media (max-width: 809px) {
+  .webDesignHero {
+    min-height: 60vh;
+    padding: var(--space-3xl) 0;
+  }
+  
+  .ctaButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .ctaButtonPrimary,
+  .ctaButtonSecondary {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+  
+  .trustIndicators {
+    gap: var(--space-lg);
+    text-align: center;
+  }
+}

@@ -1,0 +1,140 @@
+/* src/styles/components/LocalFAQSection.module.css */
+.faqSection {
+  padding: var(--space-5xl) 0;
+  background: var(--color-background-darker);
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: var(--space-4xl);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionLabel {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.sectionTitle {
+  font-family: var(--font-headline);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-lg);
+  line-height: var(--line-height-tight);
+}
+
+.sectionDescription {
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+}
+
+.faqList {
+  max-width: 800px;
+  margin: 0 auto var(--space-4xl) auto;
+}
+
+.faqItem {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: var(--space-md);
+}
+
+.faqQuestion {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.faqQuestion:hover {
+  background: rgba(49, 175, 180, 0.05);
+}
+
+.faqQuestion.active {
+  background: rgba(49, 175, 180, 0.1);
+  color: var(--color-primary);
+}
+
+.faqIcon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+  margin-left: var(--space-lg);
+}
+
+.faqAnswer {
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.faqAnswerContent {
+  padding: var(--space-lg);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+}
+
+.contactCTA {
+  text-align: center;
+  background: rgba(49, 175, 180, 0.1);
+  border: 1px solid rgba(49, 175, 180, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3xl);
+}
+
+.ctaTitle {
+  font-family: var(--font-headline);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.ctaDescription {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-xl);
+}
+
+.ctaButton {
+  background: var(--color-primary);
+  color: var(--color-background-darker);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.ctaButton:hover {
+  background: rgba(49, 175, 180, 0.9);
+  transform: translateY(-2px);
+}

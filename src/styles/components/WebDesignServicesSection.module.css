@@ -1,0 +1,182 @@
+/* src/styles/components/WebDesignServicesSection.module.css */
+.servicesSection {
+  padding: var(--space-5xl) 0;
+  background: var(--color-background-darker);
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: var(--space-4xl);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionLabel {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.sectionTitle {
+  font-family: var(--font-headline);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-lg);
+  line-height: var(--line-height-tight);
+}
+
+.sectionDescription {
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-2xl);
+  margin-bottom: var(--space-4xl);
+}
+
+.serviceCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.serviceCard:hover {
+  border-color: var(--color-primary);
+  background: rgba(49, 175, 180, 0.05);
+}
+
+.serviceIcon {
+  margin-bottom: var(--space-lg);
+  color: var(--color-primary);
+}
+
+.serviceTitle {
+  font-family: var(--font-headline);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.serviceDescription {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-xl);
+}
+
+.serviceFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.serviceFeature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.ctaSection {
+  background: rgba(49, 175, 180, 0.1);
+  border: 1px solid rgba(49, 175, 180, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3xl);
+  text-align: center;
+}
+
+.ctaTitle {
+  font-family: var(--font-headline);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.ctaDescription {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-xl);
+}
+
+.ctaButton {
+  background: var(--color-primary);
+  color: var(--color-background-darker);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.ctaButton:hover {
+  background: rgba(49, 175, 180, 0.9);
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1199px) {
+  .townGrid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  .servicesGrid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 809px) {
+  .townGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .servicesGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .coverageStats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+@media (max-width: 390px) {
+  .coverageStats {
+    grid-template-columns: 1fr;
+  }
+  
+  .townCard {
+    padding: var(--space-lg);
+  }
+  
+  .serviceCard {
+    padding: var(--space-lg);
+  }
+}

@@ -49,14 +49,14 @@ export const Footer = () => {
             variants={itemVariants}
           >
             <Link href="/" className={styles.logo}>
-              <span className={styles.logoText}>Agentic</span>
+              <span className={styles.logoText}>CREATIVE CURRENT</span>
             </Link>
             <p className={styles.brandDescription}>
               Elevating digital experiences through innovative design and development.
             </p>
             <div className={styles.socialLinks}>
               <motion.a
-                href="https://linkedin.com/company/agentic"
+                href="https://linkedin.com/company/creative-current"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialLink}
@@ -69,7 +69,7 @@ export const Footer = () => {
               </motion.a>
               
               <motion.a
-                href="https://twitter.com/agentic"
+                href="https://twitter.com/creativecurrent"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialLink}
@@ -82,7 +82,7 @@ export const Footer = () => {
               </motion.a>
               
               <motion.a
-                href="https://dribbble.com/agentic"
+                href="https://dribbble.com/creativecurrent"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialLink}
@@ -131,9 +131,9 @@ export const Footer = () => {
           >
             <h4 className={styles.sectionTitle}>Get In Touch</h4>
             <div className={styles.contactInfo}>
-              <p className={styles.contactItem}>hello@agentic.design</p>
-              <p className={styles.contactItem}>+1 (555) 123-4567</p>
-              <p className={styles.contactItem}>San Francisco, CA</p>
+              <p className={styles.contactItem}>hello@creativecurrent.co.uk</p>
+              <p className={styles.contactItem}>01305 584997</p>
+              <p className={styles.contactItem}>Dorchester, England</p>
             </div>
           </motion.div>
         </div>
@@ -144,10 +144,10 @@ export const Footer = () => {
           variants={itemVariants}
         >
           <p className={styles.copyright}>
-            © {currentYear} Agentic. All rights reserved.
+            © {currentYear} Creative Current. All rights reserved.
           </p>
           <p className={styles.madeWith}>
-            Made with ❤️ in San Francisco
+            Made with ❤️ in Dorset
           </p>
         </motion.div>
       </div>

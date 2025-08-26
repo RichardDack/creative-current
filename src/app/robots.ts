@@ -10,8 +10,7 @@ export default function robots(): MetadataRoute.Robots {
         '/admin/',
         '/_next/',
         '/api/',
-        '*.json',
-        '*.xml',
+        '*.json'
       ],
     },
     sitemap: 'https://creativecurrent.co.uk/sitemap.xml',

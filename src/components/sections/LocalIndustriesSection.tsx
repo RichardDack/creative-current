@@ -1,6 +1,7 @@
-// src/components/sections/LocalIndustriesSection.tsx - Industries Section
+// src/components/sections/LocalIndustriesSection.tsx - Industries Section (FIXED)
 'use client';
 
+import React from 'react'; // ADDED: Import React for ReactElement type
 import { motion, Variants } from 'framer-motion';
 import styles from '@/styles/components/LocalIndustriesSection.module.css';
 
@@ -34,6 +35,29 @@ const itemVariants: Variants = {
       damping: 30
     }
   }
+};
+
+// FIXED: Helper function to get industry icons - moved above component
+const getIndustryIcon = (industry: string): React.ReactElement => {
+  const iconMap: Record<string, React.ReactElement> = { // FIXED: JSX.Element -> React.ReactElement
+    'Tourism': <span>🏖️</span>,
+    'Technology': <span>💻</span>,
+    'Healthcare': <span>🏥</span>,
+    'Education': <span>🎓</span>,
+    'Retail': <span>🛒</span>,
+    'Manufacturing': <span>🏭</span>,
+    'Agriculture': <span>🌾</span>,
+    'Marine Industry': <span>⚓</span>,
+    'Financial Services': <span>💰</span>,
+    'Digital Media': <span>📱</span>,
+    'Creative Industries': <span>🎨</span>,
+    'Professional Services': <span>💼</span>,
+    'Fishing': <span>🎣</span>,
+    'Marine Services': <span>🚤</span>,
+    'Aerospace': <span>✈️</span>
+  };
+
+  return iconMap[industry] || <span>🏢</span>;
 };
 
 export const LocalIndustriesSection: React.FC<LocalIndustriesSectionProps> = ({
@@ -108,27 +132,3 @@ export const LocalIndustriesSection: React.FC<LocalIndustriesSectionProps> = ({
     </motion.section>
   );
 };
-
-// Helper function to get industry icons
-const getIndustryIcon = (industry: string) => {
-  const iconMap: Record<string, JSX.Element> = {
-    'Tourism': <span>🏖️</span>,
-    'Technology': <span>💻</span>,
-    'Healthcare': <span>🏥</span>,
-    'Education': <span>🎓</span>,
-    'Retail': <span>🛒</span>,
-    'Manufacturing': <span>🏭</span>,
-    'Agriculture': <span>🌾</span>,
-    'Marine Industry': <span>⚓</span>,
-    'Financial Services': <span>💰</span>,
-    'Digital Media': <span>📱</span>,
-    'Creative Industries': <span>🎨</span>,
-    'Professional Services': <span>💼</span>,
-    'Fishing': <span>🎣</span>,
-    'Marine Services': <span>🚤</span>,
-    'Aerospace': <span>✈️</span>
-  };
-
-  return iconMap[industry] || <span>🏢</span>;
-};
-

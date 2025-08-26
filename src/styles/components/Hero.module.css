@@ -861,6 +861,7 @@
     justify-content: center; /* RESTORED: Center the content */
     min-height: 55vh; /* SMALLER: Less than full viewport for tighter layout */
     margin-bottom: 100px; /* COMPACT: Space for brand text */
+    margin-top: 100px;
   }
   
   .headerTop {

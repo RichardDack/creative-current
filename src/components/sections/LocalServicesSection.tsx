@@ -48,6 +48,11 @@ export const LocalServicesSection: React.FC<LocalServicesSectionProps> = ({
   townName,
   county
 }) => {
+  // Add null checks for required props
+  if (!title || !services || !Array.isArray(services) || !townName || !county) {
+    console.error('LocalServicesSection: Missing required props', { title, services, townName, county });
+    return null;
+  }
   return (
     <motion.section 
       className={styles.servicesSection}
@@ -67,9 +72,9 @@ export const LocalServicesSection: React.FC<LocalServicesSectionProps> = ({
         </motion.div>
 
         <div className={styles.servicesGrid}>
-          {services.map((service, index) => (
+          {services.filter(service => service && service.title && service.description).map((service, index) => (
             <motion.div
-              key={index}
+              key={`${townName}-service-${index}-${service.title}`}
               className={styles.serviceCard}
               variants={itemVariants}
               whileHover={{ scale: 1.02, y: -5 }}

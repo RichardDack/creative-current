@@ -43,6 +43,12 @@ export const LocalFAQSection: React.FC<LocalFAQSectionProps> = ({
   faqs,
   townName
 }) => {
+  // Add null checks for required props
+  if (!faqs || !Array.isArray(faqs) || !townName || typeof townName !== 'string') {
+    console.error('LocalFAQSection: Missing or invalid props', { faqs, townName });
+    return null;
+  }
+
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
@@ -69,9 +75,9 @@ export const LocalFAQSection: React.FC<LocalFAQSectionProps> = ({
         </motion.div>
 
         <div className={styles.faqList}>
-          {faqs.map((faq, index) => (
+          {faqs.filter(faq => faq && faq.question && faq.answer).map((faq, index) => (
             <motion.div
-              key={index}
+              key={`${townName}-faq-${index}-${faq.question.slice(0, 20)}`}
               className={styles.faqItem}
               variants={itemVariants}
             >

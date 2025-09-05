@@ -67,6 +67,11 @@ export const LocalIndustriesSection: React.FC<LocalIndustriesSectionProps> = ({
   townName,
   landmarks
 }) => {
+  // Add null checks for required props
+  if (!title || !content || !industries || !Array.isArray(industries) || !townName) {
+    console.error('LocalIndustriesSection: Missing required props', { title, content, industries, townName });
+    return null;
+  }
   return (
     <motion.section 
       className={styles.industriesSection}
@@ -82,12 +87,12 @@ export const LocalIndustriesSection: React.FC<LocalIndustriesSectionProps> = ({
             <h2 className={styles.sectionTitle}>{title}</h2>
             <p className={styles.sectionDescription}>{content}</p>
 
-            {landmarks && landmarks.length > 0 && (
+            {landmarks && Array.isArray(landmarks) && landmarks.length > 0 && (
               <motion.div className={styles.landmarksSection} variants={itemVariants}>
                 <h3 className={styles.landmarksTitle}>Serving businesses near:</h3>
                 <div className={styles.landmarksList}>
-                  {landmarks.map((landmark, index) => (
-                    <span key={index} className={styles.landmarkTag}>
+                  {landmarks.filter(landmark => landmark && typeof landmark === 'string').map((landmark, index) => (
+                    <span key={`${townName}-landmark-${index}-${landmark}`} className={styles.landmarkTag}>
                       {landmark}
                     </span>
                   ))}
@@ -112,9 +117,9 @@ export const LocalIndustriesSection: React.FC<LocalIndustriesSectionProps> = ({
 
           <motion.div className={styles.industriesVisual} variants={itemVariants}>
             <div className={styles.industriesGrid}>
-              {industries.map((industry, index) => (
+              {industries.filter(industry => industry && typeof industry === 'string').map((industry, index) => (
                 <motion.div
-                  key={index}
+                  key={`${townName}-industry-${index}-${industry}`}
                   className={styles.industryCard}
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}

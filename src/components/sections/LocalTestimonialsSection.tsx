@@ -35,6 +35,12 @@ const itemVariants: Variants = {
 export const LocalTestimonialsSection: React.FC<LocalTestimonialsSectionProps> = ({
   townName
 }) => {
+  // Add null check for required props
+  if (!townName || typeof townName !== 'string') {
+    console.error('LocalTestimonialsSection: Missing or invalid townName prop', { townName });
+    return null;
+  }
+
   const testimonials = [
     {
       name: "Sarah Mitchell",
@@ -77,17 +83,18 @@ export const LocalTestimonialsSection: React.FC<LocalTestimonialsSectionProps> =
         </motion.div>
 
         <div className={styles.testimonialsGrid}>
-          {testimonials.map((testimonial, index) => (
+          {testimonials.filter(testimonial => testimonial && testimonial.name && testimonial.quote).map((testimonial, index) => (
             <motion.div
-              key={index}
+              key={`${townName}-testimonial-${index}-${testimonial.name}`}
               className={styles.testimonialCard}
               variants={itemVariants}
               whileHover={{ scale: 1.02 }}
             >
               <div className={styles.testimonialContent}>
                 <div className={styles.rating}>
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className={styles.star}>★</span>
+                  {testimonial.rating && typeof testimonial.rating === 'number' && 
+                   [...Array(Math.min(testimonial.rating, 5))].map((_, i) => (
+                    <span key={`${testimonial.name}-star-${i}`} className={styles.star}>★</span>
                   ))}
                 </div>
                 <blockquote className={styles.quote}>

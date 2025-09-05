@@ -15,6 +15,12 @@ interface LocalBreadcrumbsProps {
 }
 
 export const LocalBreadcrumbs: React.FC<LocalBreadcrumbsProps> = ({ items }) => {
+  // Add null checks for required props
+  if (!items || !Array.isArray(items) || items.length === 0) {
+    console.error('LocalBreadcrumbs: Missing or invalid items prop', { items });
+    return null;
+  }
+
   return (
     <motion.nav 
       className={styles.breadcrumbs}
@@ -25,8 +31,8 @@ export const LocalBreadcrumbs: React.FC<LocalBreadcrumbsProps> = ({ items }) => 
     >
       <div className="container">
         <ol className={styles.breadcrumbList}>
-          {items.map((item, index) => (
-            <li key={index} className={styles.breadcrumbItem}>
+          {items.filter(item => item && item.name && item.url).map((item, index) => (
+            <li key={`breadcrumb-${index}-${item.name}`} className={styles.breadcrumbItem}>
               {index < items.length - 1 ? (
                 <>
                   <Link href={item.url} className={styles.breadcrumbLink}>

@@ -3,6 +3,7 @@
 
 import { motion } from 'framer-motion';
 import { LocalSEOData } from '@/lib/seo/metadata';
+import { ClientOnly } from '@/components/ui/ClientOnly';
 import styles from '@/styles/components/LocalHero.module.css';
 
 interface LocalHeroProps {
@@ -28,8 +29,16 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
   ctaPrimary,
   ctaSecondary
 }) => {
+  // Add null checks for required props
+  if (!title || !subtitle || !description || !townData || !ctaPrimary || !ctaSecondary) {
+    console.error('LocalHero: Missing required props', { title, subtitle, description, townData, ctaPrimary, ctaSecondary });
+    return null;
+  }
+
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
+    if (!href || typeof window === 'undefined') return;
+    
     const targetId = href.replace('#', '');
     const targetElement = document.getElementById(targetId);
     
@@ -41,7 +50,109 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
     }
   };
 
-  return (
+  // Static fallback content for SSR
+  const staticContent = (
+    <section className={styles.localHero}>
+      <div className={styles.floatingBlur1} />
+      <div className={styles.floatingBlur2} />
+      
+      <div className="container">
+        <div className={styles.heroContent}>
+          <div className={styles.locationBadge}>
+            <span className={styles.locationIcon}>📍</span>
+            <span>Serving {townData.town}, {townData.county}</span>
+            {townData.postcode && <span className={styles.postcode}>{townData.postcode}</span>}
+          </div>
+
+          <h1 className={styles.heroTitle}>{title}</h1>
+          <h2 className={styles.heroSubtitle}>{subtitle}</h2>
+          <p className={styles.heroDescription}>{description}</p>
+
+          <div className={styles.localStats}>
+            {townData.population && (
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>{townData.population}</span>
+                <span className={styles.statLabel}>Residents</span>
+              </div>
+            )}
+            <div className={styles.statItem}>
+              <span className={styles.statNumber}>5★</span>
+              <span className={styles.statLabel}>Rating</span>
+            </div>
+            <div className={styles.statItem}>
+              <span className={styles.statNumber}>47+</span>
+              <span className={styles.statLabel}>Projects</span>
+            </div>
+          </div>
+
+          <div className={styles.ctaButtons}>
+            <a
+              href={ctaPrimary.href}
+              className={styles.ctaButtonPrimary}
+              onClick={(e) => handleSmoothScroll(e, ctaPrimary.href)}
+            >
+              {ctaPrimary.text}
+            </a>
+            
+            <a
+              href={ctaSecondary.href}
+              className={styles.ctaButtonSecondary}
+              onClick={(e) => handleSmoothScroll(e, ctaSecondary.href)}
+            >
+              {ctaSecondary.text}
+            </a>
+          </div>
+
+          <div className={styles.trustIndicators}>
+            <span className={styles.trustItem}>✓ Free Consultation</span>
+            <span className={styles.trustItem}>✓ Local {townData.county} Team</span>
+            <span className={styles.trustItem}>✓ 90 Day Support</span>
+          </div>
+        </div>
+
+        <div className={styles.infoPanel}>
+          <div className={styles.infoPanelContent}>
+            <h3 className={styles.infoPanelTitle}>Quick Facts</h3>
+            
+            <div className={styles.infoItem}>
+              <span className={styles.infoLabel}>Location:</span>
+              <span className={styles.infoValue}>{townData.town}, {townData.county}</span>
+            </div>
+            
+            {townData.population && (
+              <div className={styles.infoItem}>
+                <span className={styles.infoLabel}>Population:</span>
+                <span className={styles.infoValue}>{townData.population}</span>
+              </div>
+            )}
+            
+            {townData.postcode && (
+              <div className={styles.infoItem}>
+                <span className={styles.infoLabel}>Postcode:</span>
+                <span className={styles.infoValue}>{townData.postcode}</span>
+              </div>
+            )}
+            
+            {townData.keyBusinesses && Array.isArray(townData.keyBusinesses) && townData.keyBusinesses.length > 0 && (
+              <div className={styles.infoItem}>
+                <span className={styles.infoLabel}>Key Industries:</span>
+                <div className={styles.industriesList}>
+                  {townData.keyBusinesses.slice(0, 3).map((business, index) => (
+                    <span key={`${townData.town}-business-${index}-${business}`} className={styles.industryTag}>
+                      {business}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+
+  // Animated content for client-side
+  const animatedContent = (
     <motion.section 
       className={styles.localHero}
       initial={{ opacity: 0 }}
@@ -213,12 +324,14 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
               </div>
             )}
             
-            {townData.keyBusinesses && townData.keyBusinesses.length > 0 && (
+            {townData.keyBusinesses && Array.isArray(townData.keyBusinesses) && townData.keyBusinesses.length > 0 && (
               <div className={styles.infoItem}>
                 <span className={styles.infoLabel}>Key Industries:</span>
                 <div className={styles.industriesList}>
                   {townData.keyBusinesses.slice(0, 3).map((business, index) => (
-                    <span key={index} className={styles.industryTag}>{business}</span>
+                    <span key={`${townData.town}-business-${index}-${business}`} className={styles.industryTag}>
+                      {business}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -227,6 +340,12 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
         </motion.div>
       </div>
     </motion.section>
+  );
+
+  return (
+    <ClientOnly fallback={staticContent}>
+      {animatedContent}
+    </ClientOnly>
   );
 };
 

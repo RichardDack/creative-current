@@ -66,7 +66,7 @@ export const LogoComponent = forwardRef<HTMLDivElement, LogoProps>(
           <desc id="logo-desc">
             Creative Current logo with flowing design elements and tagline &quot;Flowing Ideas Into Reality&quot;
           </desc>
-          
+
           {/* Logo icon container with relative positioning */}
           <g
             className={styles.logoIcon}
@@ -82,7 +82,7 @@ export const LogoComponent = forwardRef<HTMLDivElement, LogoProps>(
                 className={styles.logoTopPath}
               />
             </g>
-            
+
             {/* Bottom logo part (gray) - optimized positioning */}
             <g className={styles.logoBottom} transform="translate(0,40)">
               <path
@@ -94,7 +94,7 @@ export const LogoComponent = forwardRef<HTMLDivElement, LogoProps>(
               />
             </g>
           </g>
-          
+
           {/* Text container with relative positioning */}
           <g
             className={styles.logoText}
@@ -113,7 +113,7 @@ export const LogoComponent = forwardRef<HTMLDivElement, LogoProps>(
             >
               Creative Current
             </text>
-            
+
             {/* Flowing Ideas Into Reality text - positioned relatively */}
             {showTagline && (
               <text

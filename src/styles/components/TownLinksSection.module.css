@@ -1,13 +1,13 @@
 
 /* src/styles/components/TownLinksSection.module.css */
 .townLinksSection {
-  padding: var(--space-5xl) 0;
+  padding: var(--space-3xl) 0;
   background: var(--color-background-light);
 }
 
 .sectionHeader {
   text-align: center;
-  margin-bottom: var(--space-4xl);
+  margin-bottom: var(--space-2xl);
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
@@ -28,7 +28,7 @@
   font-family: var(--font-headline);
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-text-primary-dark);
   margin-bottom: var(--space-lg);
   line-height: var(--line-height-tight);
 }
@@ -36,33 +36,41 @@
 .sectionDescription {
   font-family: var(--font-body);
   font-size: var(--font-size-lg);
-  color: var(--color-text-muted);
+  color: var(--color-text-muted-dark);
   line-height: var(--line-height-relaxed);
 }
 
 .townGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-xl);
-  margin-bottom: var(--space-4xl);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+  max-width: 100%;
+  padding: 8px;
 }
 
 .townCard {
   display: block;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid var(--color-primary);
   border-radius: var(--radius-xl);
-  padding: var(--space-xl);
+  padding: var(--space-lg);
   text-decoration: none;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(49, 175, 180, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
 }
 
 .townCard:hover {
   border-color: var(--color-primary);
-  background: rgba(49, 175, 180, 0.05);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(49, 175, 180, 0.2);
+  border-width: 3px;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(49, 175, 180, 0.25), 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  position: relative;
 }
 
 .townCardInner {
@@ -79,14 +87,14 @@
   font-family: var(--font-headline);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-text-primary-dark);
   margin-bottom: var(--space-xs);
 }
 
 .townPopulation {
   font-family: var(--font-ui);
   font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  color: var(--color-text-muted-dark);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -113,7 +121,7 @@
 .industriesLabel {
   font-family: var(--font-ui);
   font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
+  color: var(--color-text-muted-dark);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: var(--space-sm);
@@ -143,7 +151,7 @@
   align-items: center;
   justify-content: space-between;
   padding-top: var(--space-md);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 2px solid rgba(49, 175, 180, 0.3);
   margin-top: auto;
 }
 
@@ -167,7 +175,7 @@
   background: rgba(49, 175, 180, 0.1);
   border: 1px solid rgba(49, 175, 180, 0.2);
   border-radius: var(--radius-xl);
-  padding: var(--space-3xl);
+  padding: var(--space-xl);
   text-align: center;
 }
 
@@ -175,16 +183,16 @@
   font-family: var(--font-headline);
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-text-primary-dark);
   margin-bottom: var(--space-lg);
 }
 
 .coverageDescription {
   font-family: var(--font-body);
   font-size: var(--font-size-base);
-  color: var(--color-text-muted);
+  color: var(--color-text-muted-dark);
   line-height: var(--line-height-relaxed);
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-xl);
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -193,7 +201,7 @@
 .coverageStats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--space-xl);
+  gap: var(--space-lg);
 }
 
 .coverageStat {
@@ -213,7 +221,71 @@
 .statLabel {
   font-family: var(--font-ui);
   font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  color: var(--color-text-muted-dark);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+/*
+ Responsive Design */
+@media (max-width: 809px) {
+  .townLinksSection {
+    padding: var(--space-2xl) 0;
+  }
+  
+  .sectionHeader {
+    margin-bottom: var(--space-xl);
+  }
+  
+  .townGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+  
+  .townCard {
+    padding: var(--space-md);
+  }
+  
+  .coverageInfo {
+    padding: var(--space-lg);
+  }
+  
+  .coverageStats {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .townLinksSection {
+    padding: var(--space-xl) 0;
+  }
+  
+  .sectionTitle {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+  }
+  
+  .townGrid {
+    gap: var(--space-sm);
+  }
+  
+  .townCard {
+    padding: var(--space-sm);
+  }
+  
+  .coverageInfo {
+    padding: var(--space-md);
+  }
+}
+
+@media (min-width: 810px) and (max-width: 1199px) {
+  .townGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .townGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

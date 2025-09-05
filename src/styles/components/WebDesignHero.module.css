@@ -5,6 +5,7 @@
   background: var(--color-background-darker);
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: var(--space-4xl) 0;
   overflow: hidden;
 }
@@ -26,6 +27,7 @@
   z-index: 1;
   max-width: 800px;
   text-align: center;
+  margin: 0 auto;
 }
 
 .locationBadge {
@@ -48,7 +50,7 @@
 
 .heroTitle {
   font-family: var(--font-headline);
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: clamp(2rem, 5vw + 1rem, 4rem);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   line-height: var(--line-height-tight);
@@ -57,7 +59,7 @@
 
 .heroSubtitle {
   font-family: var(--font-body);
-  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-size: clamp(1.125rem, 2vw + 0.5rem, 1.75rem);
   color: var(--color-primary);
   margin-bottom: var(--space-xl);
   font-weight: var(--font-weight-medium);

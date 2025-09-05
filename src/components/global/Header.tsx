@@ -3,6 +3,7 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import styles from '@/styles/components/Header.module.css';
 import { HeaderProps } from '@/types/components';
 import { BurgerIcon } from '@/components/icons/BurgerIcon';
@@ -48,16 +49,7 @@ export const Header: React.FC<HeaderProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobileMenuOpen]);
 
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const targetId = href.replace('#', '');
-    const targetElement = document.getElementById(targetId);
-    
-    if (targetElement) {
-      targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
+  // Removed unused handleSmoothScroll function
     }
   };
 
@@ -103,7 +95,7 @@ export const Header: React.FC<HeaderProps> = ({
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          <a 
+          <Link 
             href="/" 
             className={styles.homeLink}
             aria-label="Creative Current - Go to homepage"
@@ -114,7 +106,7 @@ export const Header: React.FC<HeaderProps> = ({
               className={styles.navbarLogo}
             />
             <span className={styles.homeText}>HOME</span>
-          </a>
+          </Link>
         </motion.div>
 
         {/* Burger Menu Icon - Mobile Only */}

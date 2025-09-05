@@ -10,7 +10,6 @@ describe('Responsive Design Validation', () => {
   describe('Hero Centering Tests', () => {
     test('Hero content should be properly centered on mobile devices', () => {
       // Test mobile viewport (320px - 479px)
-      const mobileViewport = { width: 375, height: 667 };
       
       // Validate hero centering CSS properties
       const expectedMobileStyles = {
@@ -37,7 +36,6 @@ describe('Responsive Design Validation', () => {
     
     test('Hero content should scale properly on tablet devices', () => {
       // Test tablet viewport (768px - 1023px)
-      const tabletViewport = { width: 768, height: 1024 };
       
       // At 768px+, hero should be 70vh and content 80% width
       const expectedTabletStyles = {
@@ -50,7 +48,6 @@ describe('Responsive Design Validation', () => {
     
     test('Hero content should be optimal on desktop devices', () => {
       // Test desktop viewport (1024px+)
-      const desktopViewport = { width: 1200, height: 800 };
       
       // At 1024px+, hero should be 80vh and content max 800px
       const expectedDesktopStyles = {

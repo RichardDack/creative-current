@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  return generateLocalMetadata(town, 'web design');
+  return generateLocalMetadata(town);
 }
 
 // FIXED: Main component is now async to handle Promise params

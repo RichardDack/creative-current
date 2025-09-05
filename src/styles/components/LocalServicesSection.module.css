@@ -27,7 +27,7 @@
   font-family: var(--font-headline);
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-text-on-light);
   margin-bottom: var(--space-lg);
   line-height: var(--line-height-tight);
 }
@@ -35,7 +35,8 @@
 .sectionDescription {
   font-family: var(--font-body);
   font-size: var(--font-size-lg);
-  color: var(--color-text-muted);
+  color: var(--color-text-on-light);
+  opacity: 0.8;
   line-height: var(--line-height-relaxed);
 }
 
@@ -47,18 +48,22 @@
 }
 
 .serviceCard {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(26, 32, 44, 0.1);
   border-radius: var(--radius-xl);
   padding: var(--space-2xl);
   text-align: center;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .serviceCard:hover {
-  border-color: var(--color-primary);
-  background: rgba(49, 175, 180, 0.05);
+  border-color: var(--color-teal-accessible);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 8px 25px rgba(13, 115, 119, 0.15);
 }
 
 .serviceIcon {
@@ -69,22 +74,24 @@
   font-family: var(--font-headline);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-text-on-light);
   margin-bottom: var(--space-md);
 }
 
 .serviceDescription {
   font-family: var(--font-body);
   font-size: var(--font-size-base);
-  color: var(--color-text-muted);
+  color: var(--color-text-on-light);
+  opacity: 0.8;
   line-height: var(--line-height-relaxed);
   margin-bottom: var(--space-xl);
+  flex-grow: 1;
 }
 
 .serviceButton {
   background: transparent;
-  border: 2px solid var(--color-primary);
-  color: var(--color-primary);
+  border: 2px solid var(--color-teal-accessible);
+  color: var(--color-teal-accessible);
   padding: var(--space-sm) var(--space-lg);
   border-radius: var(--radius-md);
   font-family: var(--font-ui);
@@ -98,16 +105,17 @@
   align-items: center;
   gap: var(--space-sm);
   justify-content: center;
+  margin-top: auto;
 }
 
 .serviceButton:hover {
-  background: var(--color-primary);
-  color: var(--color-background-darker);
+  background: var(--color-teal-accessible);
+  color: var(--color-text-on-teal);
 }
 
 .localFocus {
-  background: rgba(49, 175, 180, 0.1);
-  border: 1px solid rgba(49, 175, 180, 0.2);
+  background: rgba(13, 115, 119, 0.05);
+  border: 1px solid rgba(13, 115, 119, 0.2);
   border-radius: var(--radius-xl);
   padding: var(--space-3xl);
   text-align: center;
@@ -117,13 +125,14 @@
   font-family: var(--font-headline);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-text-on-light);
   margin-bottom: var(--space-md);
 }
 
 .localFocusDescription {
   font-family: var(--font-body);
   font-size: var(--font-size-base);
-  color: var(--color-text-muted);
+  color: var(--color-text-on-light);
+  opacity: 0.8;
   line-height: var(--line-height-relaxed);
 }

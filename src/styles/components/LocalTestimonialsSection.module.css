@@ -27,7 +27,7 @@
   font-family: var(--font-headline);
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-text-on-light);
   margin-bottom: var(--space-lg);
   line-height: var(--line-height-tight);
 }
@@ -35,7 +35,8 @@
 .sectionDescription {
   font-family: var(--font-body);
   font-size: var(--font-size-lg);
-  color: var(--color-text-muted);
+  color: var(--color-text-on-light);
+  opacity: 0.8;
   line-height: var(--line-height-relaxed);
 }
 
@@ -47,8 +48,8 @@
 }
 
 .testimonialCard {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(26, 32, 44, 0.1);
   border-radius: var(--radius-xl);
   padding: var(--space-2xl);
   transition: all 0.3s ease;
@@ -56,8 +57,9 @@
 }
 
 .testimonialCard:hover {
-  border-color: var(--color-primary);
-  background: rgba(49, 175, 180, 0.05);
+  border-color: var(--color-teal-accessible);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 8px 25px rgba(13, 115, 119, 0.15);
 }
 
 .testimonialContent {
@@ -78,10 +80,11 @@
   font-family: var(--font-body);
   font-size: var(--font-size-base);
   font-style: italic;
-  color: var(--color-text-muted);
+  color: var(--color-text-on-light);
+  opacity: 0.9;
   line-height: var(--line-height-relaxed);
   margin-bottom: var(--space-xl);
-  border-left: 3px solid var(--color-primary);
+  border-left: 3px solid var(--color-teal-accessible);
   padding-left: var(--space-lg);
 }
 
@@ -95,20 +98,20 @@
   font-family: var(--font-body);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-text-on-light);
 }
 
 .authorBusiness {
   font-family: var(--font-ui);
   font-size: var(--font-size-sm);
-  color: var(--color-primary);
+  color: var(--color-teal-accessible);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .statsSection {
-  background: rgba(49, 175, 180, 0.1);
-  border: 1px solid rgba(49, 175, 180, 0.2);
+  background: rgba(13, 115, 119, 0.05);
+  border: 1px solid rgba(13, 115, 119, 0.2);
   border-radius: var(--radius-xl);
   padding: var(--space-3xl);
 }
@@ -130,14 +133,15 @@
   font-family: var(--font-headline);
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
+  color: var(--color-teal-accessible);
   margin-bottom: var(--space-sm);
 }
 
 .statLabel {
   font-family: var(--font-ui);
   font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  color: var(--color-text-on-light);
+  opacity: 0.8;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }

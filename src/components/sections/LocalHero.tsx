@@ -36,9 +36,15 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
   }
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
     if (!href || typeof window === 'undefined') return;
     
+    // If it's an external link (starts with / or http), don't prevent default
+    if (href.startsWith('/') || href.startsWith('http')) {
+      return;
+    }
+    
+    // Handle local anchors
+    e.preventDefault();
     const targetId = href.replace('#', '');
     const targetElement = document.getElementById(targetId);
     

@@ -111,7 +111,7 @@ export default async function TownPage({ params }: PageProps) {
               }}
               ctaSecondary={{
                 text: 'View Our Work',
-                href: '#work-section'
+                href: '/#work-section'
               }}
             />
           </TownPageErrorBoundary>

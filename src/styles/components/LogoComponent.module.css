@@ -1,0 +1,229 @@
+/* src/styles/components/LogoComponent.module.css */
+
+.logoContainer {
+  /* CSS Custom Properties for consistent scaling */
+  --logo-primary-color: #31afb4;
+  --logo-secondary-color: #babdc6;
+  --logo-text-color: var(--logo-primary-color);
+  --logo-tagline-color: var(--logo-secondary-color);
+  
+  /* Default responsive sizing */
+  --logo-width: 100%;
+  --logo-height: auto;
+  --logo-max-width: 350px;
+  --logo-min-width: 200px;
+  
+  /* Container setup */
+  display: inline-block;
+  width: var(--logo-width);
+  height: var(--logo-height);
+  max-width: var(--logo-max-width);
+  min-width: var(--logo-min-width);
+  
+  /* Enable container queries */
+  container-type: inline-size;
+  container-name: logo;
+}
+
+.logoSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+  
+  /* Smooth transitions for responsive changes */
+  transition: all 0.3s ease;
+}
+
+/* Logo Icon Styling */
+.logoIcon {
+  /* Use CSS custom properties for colors */
+  color: var(--logo-primary-color);
+}
+
+.logoTopPath {
+  fill: var(--logo-primary-color);
+  transition: fill 0.3s ease;
+}
+
+.logoBottomPath {
+  fill: var(--logo-secondary-color);
+  transition: fill 0.3s ease;
+}
+
+/* Text Styling */
+.logoText {
+  color: var(--logo-text-color);
+}
+
+.logoTitle {
+  fill: var(--logo-text-color);
+  transition: fill 0.3s ease;
+}
+
+.logoTagline {
+  fill: var(--logo-tagline-color);
+  transition: fill 0.3s ease;
+}
+
+/* Size Variants */
+.size-small {
+  --logo-max-width: 200px;
+  --logo-min-width: 150px;
+}
+
+.size-medium {
+  --logo-max-width: 300px;
+  --logo-min-width: 200px;
+}
+
+.size-large {
+  --logo-max-width: 450px;
+  --logo-min-width: 300px;
+}
+
+.size-responsive {
+  /* Default responsive behavior - adapts to container */
+  --logo-max-width: 100%;
+  --logo-min-width: 150px;
+}
+
+/* Visual Variants */
+.variant-default {
+  --logo-primary-color: #31afb4;
+  --logo-secondary-color: #babdc6;
+  --logo-text-color: #31afb4;
+  --logo-tagline-color: #9ca3af;
+}
+
+.variant-light {
+  --logo-primary-color: #ffffff;
+  --logo-secondary-color: #e5e7eb;
+  --logo-text-color: #ffffff;
+  --logo-tagline-color: #d1d5db;
+}
+
+.variant-dark {
+  --logo-primary-color: #1f2937;
+  --logo-secondary-color: #6b7280;
+  --logo-text-color: #1f2937;
+  --logo-tagline-color: #6b7280;
+}
+
+/* Container Query-based Responsive Scaling */
+@container logo (max-width: 180px) {
+  .logoSvg {
+    /* Very small containers - hide tagline, scale down */
+    font-size: 0.8em;
+  }
+  
+  .logoTagline {
+    display: none;
+  }
+}
+
+@container logo (min-width: 181px) and (max-width: 350px) {
+  .logoSvg {
+    /* Medium containers - show all elements */
+    font-size: 0.9em;
+  }
+}
+
+@container logo (min-width: 351px) {
+  .logoSvg {
+    /* Large containers - full scale */
+    font-size: 1em;
+  }
+}
+
+/* Fallback Media Queries for browsers without container query support */
+@supports not (container-type: inline-size) {
+  /* Mobile breakpoint */
+  @media (max-width: 480px) {
+    .logoContainer {
+      --logo-max-width: 250px;
+      --logo-min-width: 180px;
+    }
+    
+    .logoTagline {
+      font-size: 14px;
+    }
+  }
+  
+  /* Tablet breakpoint */
+  @media (min-width: 481px) and (max-width: 768px) {
+    .logoContainer {
+      --logo-max-width: 300px;
+      --logo-min-width: 220px;
+    }
+  }
+  
+  /* Desktop breakpoint */
+  @media (min-width: 769px) {
+    .logoContainer {
+      --logo-max-width: 350px;
+      --logo-min-width: 250px;
+    }
+  }
+  
+  /* Large desktop breakpoint */
+  @media (min-width: 1200px) {
+    .logoContainer {
+      --logo-max-width: 400px;
+      --logo-min-width: 300px;
+    }
+  }
+}
+
+/* Hover Effects */
+.logoContainer:hover .logoTopPath {
+  fill: color-mix(in srgb, var(--logo-primary-color) 85%, white 15%);
+}
+
+.logoContainer:hover .logoTitle {
+  fill: color-mix(in srgb, var(--logo-text-color) 85%, white 15%);
+}
+
+/* Focus States for Accessibility */
+.logoContainer:focus-visible {
+  outline: 2px solid var(--logo-primary-color);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .logoSvg,
+  .logoTopPath,
+  .logoBottomPath,
+  .logoTitle,
+  .logoTagline {
+    transition: none;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .variant-default {
+    --logo-primary-color: #000000;
+    --logo-secondary-color: #666666;
+    --logo-text-color: #000000;
+    --logo-tagline-color: #333333;
+  }
+  
+  .variant-light {
+    --logo-primary-color: #ffffff;
+    --logo-secondary-color: #cccccc;
+    --logo-text-color: #ffffff;
+    --logo-tagline-color: #eeeeee;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .logoContainer {
+    --logo-primary-color: #000000;
+    --logo-secondary-color: #666666;
+    --logo-text-color: #000000;
+    --logo-tagline-color: #333333;
+  }
+}

@@ -2,8 +2,10 @@
 
 .heroSection {
   position: relative;
-  min-height: 100vh; /* Keep full height on desktop */
-  background: rgb(20, 33, 45); /* Exact Framer background */
+  min-height: 100vh;
+  /* Keep full height on desktop */
+  background: rgb(20, 33, 45);
+  /* Exact Framer background */
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -13,9 +15,11 @@
 /* MOBILE: Remove forced full height */
 @media (max-width: 809px) {
   .heroSection {
-    min-height: auto; /* FIXED: Let content determine height on mobile */
-    height: auto; /* Allow natural height */
-    
+    min-height: auto;
+    /* FIXED: Let content determine height on mobile */
+    height: auto;
+    /* Allow natural height */
+
   }
 }
 
@@ -26,11 +30,10 @@
   right: 12%;
   width: 350px;
   height: 350px;
-  background: linear-gradient(135deg, 
-    rgba(49, 175, 180, 0.15) 0%,
-    rgba(59, 130, 246, 0.12) 50%,
-    rgba(6, 182, 212, 0.18) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(49, 175, 180, 0.15) 0%,
+      rgba(59, 130, 246, 0.12) 50%,
+      rgba(6, 182, 212, 0.18) 100%);
   border-radius: 50%;
   filter: blur(50px);
   z-index: 1;
@@ -43,10 +46,9 @@
   left: 8%;
   width: 280px;
   height: 280px;
-  background: linear-gradient(45deg, 
-    rgba(180, 54, 49, 0.12) 0%,
-    rgba(49, 175, 180, 0.08) 100%
-  );
+  background: linear-gradient(45deg,
+      rgba(180, 54, 49, 0.12) 0%,
+      rgba(49, 175, 180, 0.08) 100%);
   border-radius: 60%;
   filter: blur(45px);
   z-index: 1;
@@ -59,10 +61,9 @@
   right: 30%;
   width: 200px;
   height: 200px;
-  background: linear-gradient(90deg, 
-    rgba(14, 165, 233, 0.1) 0%,
-    rgba(49, 175, 180, 0.08) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(14, 165, 233, 0.1) 0%,
+      rgba(49, 175, 180, 0.08) 100%);
   border-radius: 40%;
   filter: blur(35px);
   z-index: 1;
@@ -76,10 +77,9 @@
   left: 25%;
   width: 150px;
   height: 150px;
-  background: linear-gradient(180deg, 
-    rgba(6, 182, 212, 0.06) 0%,
-    rgba(59, 130, 246, 0.04) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(6, 182, 212, 0.06) 0%,
+      rgba(59, 130, 246, 0.04) 100%);
   border-radius: 30%;
   filter: blur(30px);
   z-index: 1;
@@ -97,7 +97,8 @@
 /* Hide Hero's header on mobile - use Header component instead */
 @media (max-width: 1199px) {
   .headerTop {
-    display: none; /* Hidden on tablet and mobile */
+    display: none;
+    /* Hidden on tablet and mobile */
   }
 }
 
@@ -124,7 +125,8 @@
   padding: 100px 60px 160px;
   gap: 0;
   position: relative;
-  z-index: 2; /* Above background elements */
+  z-index: 2;
+  /* Above background elements */
 }
 
 /* DEFINITIVE NAVIGATION FIX - Prevents flex cascade */
@@ -134,7 +136,7 @@
   gap: 8px;
   flex: 0 0 auto;
   margin-right: auto;
-  
+
   /* CRITICAL: Prevent flex children from affecting each other */
   align-items: flex-start;
 }
@@ -143,27 +145,33 @@
 /* Hide navigation on mobile/tablet - Header component handles it */
 @media (max-width: 1199px) {
   .navigationMenu {
-    display: none; /* Hidden on tablet and mobile */
+    display: none;
+    /* Hidden on tablet and mobile */
   }
-  
+
   .headerTop {
-    display: none; /* Hidden - Header component handles HOME link */
+    display: none;
+    /* Hidden - Header component handles HOME link */
   }
-  
+
   .mainContent {
-    justify-content: center; /* Center hero content when nav is hidden */
-    padding-left: 40px; /* Reduce left padding since no nav */
+    justify-content: center;
+    /* Center hero content when nav is hidden */
+    padding-left: 40px;
+    /* Reduce left padding since no nav */
   }
 }
 
 /* Show navigation on desktop */
 @media (min-width: 1200px) {
   .navigationMenu {
-    display: flex; /* Show on desktop */
+    display: flex;
+    /* Show on desktop */
   }
-  
+
   .headerTop {
-    display: block; /* Show HOME link on desktop */
+    display: block;
+    /* Show HOME link on desktop */
   }
 }
 
@@ -172,18 +180,18 @@
   position: relative;
   margin: 0;
   min-height: 65px;
-  
+
   /* CRITICAL: Fixed width prevents flex cascade */
   width: max-content;
   min-width: 280px;
-  
+
   /* Glassmorphism */
   backdrop-filter: blur(20px);
   background: rgba(255, 255, 255, 0.03);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   /* CRITICAL: Prevent flex interference */
   flex-shrink: 0;
   flex-grow: 0;
@@ -194,11 +202,11 @@
 .navItemContainer.expanded {
   /* Add space for arrow inside the container */
   padding-right: 60px !important;
-  
+
   /* Override hover effects */
   background: rgba(255, 255, 255, 0.03) !important;
   border-color: rgba(255, 255, 255, 0.08) !important;
-  
+
   /* Smooth expansion */
   transition: padding-right 0.3s ease-out, background-color 0.4s ease, border-color 0.4s ease;
 }
@@ -207,7 +215,7 @@
 .navItemContainer:not(.expanded):hover {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(49, 175, 180, 0.3);
-  box-shadow: 
+  box-shadow:
     0 8px 32px rgba(49, 175, 180, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
@@ -219,18 +227,19 @@
   cursor: pointer;
   min-height: 65px;
   border-radius: 16px;
-  
+
   /* CRITICAL: Make link fill the entire container including expanded area */
   width: 100%;
   height: 100%;
-  
+
   /* ONLY visual feedback - no sizing changes */
   transition: transform 0.3s ease;
 }
 
 /* CRITICAL: When container is expanded, make link cover the padding area too */
 .navItemContainer.expanded .navLink {
-  width: calc(100% + 60px) !important; /* Extend into padding area */
+  width: calc(100% + 60px) !important;
+  /* Extend into padding area */
 }
 
 .navLink:hover {
@@ -241,19 +250,20 @@
 .tealBackground {
   position: absolute;
   top: 0px;
-  left: -8px;   /* Perfect left alignment */
+  left: -8px;
+  /* Perfect left alignment */
   right: 0px;
   bottom: 0px;
-  background: linear-gradient(135deg, 
-    rgba(49, 175, 180, 0.9) 0%,
-    rgba(14, 165, 233, 0.8) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(49, 175, 180, 0.9) 0%,
+      rgba(14, 165, 233, 0.8) 100%);
   border-radius: 16px;
   z-index: 2;
   transform-origin: left center;
-  transform: scaleX(0); /* Start collapsed */
+  transform: scaleX(0);
+  /* Start collapsed */
   transition: transform 0.4s ease-out;
-  box-shadow: 
+  box-shadow:
     0 4px 16px rgba(49, 175, 180, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
@@ -261,13 +271,15 @@
 /* PERFECT EXPANSION - production ready */
 .navItemContainer:hover .tealBackground,
 .navItemContainer.expanded .tealBackground {
-  transform: scaleX(0.985) !important; /* Perfect scale */
+  transform: scaleX(0.985) !important;
+  /* Perfect scale */
 }
 
 /* Navigation Text */
 .navText {
   position: relative;
-  z-index: 4; /* Above teal background and arrow */
+  z-index: 4;
+  /* Above teal background and arrow */
   font-family: var(--font-display);
   font-size: clamp(35px, 5.5vw, 120px);
   font-weight: 400;
@@ -279,7 +291,7 @@
   text-transform: uppercase;
   letter-spacing: -0.02em;
   white-space: nowrap;
-  
+
   /* CRITICAL: Don't let text padding affect the parent link size */
   box-sizing: border-box;
 }
@@ -293,33 +305,43 @@
 /* Down Arrow - LARGER BOTTOM POSITIONED */
 .downArrow {
   position: absolute;
-  right: 12px; /* Good spacing from edge */
-  bottom: 8px; /* Bottom positioned as you like */
-  z-index: 3; /* Above teal background */
-  width: 48px; /* Larger container */
+  right: 12px;
+  /* Good spacing from edge */
+  bottom: 8px;
+  /* Bottom positioned as you like */
+  z-index: 3;
+  /* Above teal background */
+  width: 48px;
+  /* Larger container */
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   /* NO background - clean arrow */
 }
 
 .arrowIcon {
-  width: 38px; /* Much larger to be more prominent */
+  width: 38px;
+  /* Much larger to be more prominent */
   height: 38px;
-  fill: rgb(0, 0, 0); /* Black arrow on teal background */
+  fill: rgb(0, 0, 0);
+  /* Black arrow on teal background */
   color: rgb(0, 0, 0);
-  stroke-width: 3; /* Thicker lines */
+  stroke-width: 3;
+  /* Thicker lines */
 }
 
 /* Right Content Area - TRULY PUT RED BOX ON LEFT */
 .rightContent {
   display: flex;
-  flex-direction: row-reverse; /* Text first, then red box on left */
+  flex-direction: row-reverse;
+  /* Text first, then red box on left */
   align-items: center;
-  justify-content: flex-end; /* This will put red box on left, text on right */
-  gap: 40px; /* Space between red box and text */
+  justify-content: flex-end;
+  /* This will put red box on left, text on right */
+  gap: 40px;
+  /* Space between red box and text */
   margin-left: auto;
   max-width: 700px;
   position: relative;
@@ -328,39 +350,55 @@
 /* Hero Content - ADJUSTED FOR SIDE-BY-SIDE LAYOUT */
 .heroContent {
   text-align: right;
-  max-width: 520px; /* Adjusted for side-by-side layout */
-  flex-shrink: 1; /* Allow text to shrink if needed */
+  max-width: 520px;
+  /* Adjusted for side-by-side layout */
+  flex-shrink: 1;
+  /* Allow text to shrink if needed */
 }
 
 .heroTitle {
   font-family: var(--font-body);
-  font-size: clamp(36px, 5vw, 58px); /* BALANCED - scaled back 15-20% */
-  font-weight: 500; /* Bolder */
+  font-size: clamp(36px, 5vw, 58px);
+  /* BALANCED - scaled back 15-20% */
+  font-weight: 500;
+  /* Bolder */
   line-height: 1.1;
   color: rgb(255, 255, 255);
-  margin-bottom: 28px; /* Adjusted spacing */
-  letter-spacing: -0.6px; /* Slightly less tight */
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3); /* Subtle depth */
+  margin-bottom: 28px;
+  /* Adjusted spacing */
+  letter-spacing: -0.6px;
+  /* Slightly less tight */
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  /* Subtle depth */
 }
 
 .heroDescription {
   font-family: var(--font-body);
-  font-size: clamp(20px, 3vw, 32px); /* BALANCED - scaled back 15-20% */
-  font-weight: 400; /* Slightly bolder */
-  line-height: 1.4; /* Better readability */
-  color: rgba(255, 255, 255, 0.9); /* Slightly more opaque */
+  font-size: clamp(20px, 3vw, 32px);
+  /* BALANCED - scaled back 15-20% */
+  font-weight: 400;
+  /* Slightly bolder */
+  line-height: 1.4;
+  /* Better readability */
+  color: rgba(255, 255, 255, 0.9);
+  /* Slightly more opaque */
   letter-spacing: -0.2px;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); /* Subtle depth */
-  margin-bottom: 32px; /* Space for CTA button */
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+  /* Subtle depth */
+  margin-bottom: 32px;
+  /* Space for CTA button */
 }
 
 /* Call-to-Action Button Container */
 .ctaContainer {
   display: flex;
-  justify-content: flex-end; /* Align buttons to right with text */
-  gap: 16px; /* Space between buttons */
+  justify-content: flex-end;
+  /* Align buttons to right with text */
+  gap: 16px;
+  /* Space between buttons */
   margin-top: 8px;
-  flex-wrap: wrap; /* Allow wrapping on very small screens */
+  flex-wrap: wrap;
+  /* Allow wrapping on very small screens */
 }
 
 /* Primary CTA Button - Discuss Your Vision */
@@ -368,28 +406,30 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 24px; /* Smaller than original */
+  padding: 14px 24px;
+  /* Smaller than original */
   font-family: var(--font-body);
-  font-size: 16px; /* Slightly smaller */
+  font-size: 16px;
+  /* Slightly smaller */
   font-weight: 500;
   text-decoration: none;
-  color: rgb(255, 255, 255); /* WHITE text normally */
+  color: rgb(255, 255, 255);
+  /* WHITE text normally */
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   /* Beautiful teal gradient background */
-  background: linear-gradient(135deg, 
-    rgba(49, 175, 180, 1) 0%,
-    rgba(14, 165, 233, 0.95) 100%
-  );
-  
+  background: linear-gradient(135deg,
+      rgba(49, 175, 180, 1) 0%,
+      rgba(14, 165, 233, 0.95) 100%);
+
   /* Subtle shadow and glow */
-  box-shadow: 
+  box-shadow:
     0 4px 16px rgba(49, 175, 180, 0.3),
     0 2px 8px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  
+
   /* Prevent text selection */
   user-select: none;
   -webkit-user-select: none;
@@ -397,22 +437,23 @@
 
 .ctaButtonPrimary:hover {
   transform: translateY(-2px);
-  color: rgb(0, 0, 0); /* BLACK text on hover */
-  box-shadow: 
+  color: rgb(0, 0, 0);
+  /* BLACK text on hover */
+  box-shadow:
     0 8px 24px rgba(49, 175, 180, 0.4),
     0 4px 12px rgba(0, 0, 0, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  
+
   /* Slightly brighter on hover */
-  background: linear-gradient(135deg, 
-    rgba(49, 175, 180, 1) 0%,
-    rgba(14, 165, 233, 1) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(49, 175, 180, 1) 0%,
+      rgba(14, 165, 233, 1) 100%);
 }
 
 .ctaButtonPrimary:active {
   transform: translateY(-1px);
-  color: rgb(0, 0, 0); /* Keep black text when pressed */
+  color: rgb(0, 0, 0);
+  /* Keep black text when pressed */
 }
 
 /* Secondary CTA Button - Browse Projects */
@@ -420,25 +461,27 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 24px; /* Same size as primary */
+  padding: 14px 24px;
+  /* Same size as primary */
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 500;
   text-decoration: none;
-  color: rgb(255, 255, 255); /* White text */
+  color: rgb(255, 255, 255);
+  /* White text */
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   /* Transparent background with border */
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  
+
   /* Subtle shadow */
-  box-shadow: 
+  box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  
+
   /* Prevent text selection */
   user-select: none;
   -webkit-user-select: none;
@@ -446,9 +489,10 @@
 
 .ctaButtonSecondary:hover {
   transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.1); /* Subtle white background */
+  background: rgba(255, 255, 255, 0.1);
+  /* Subtle white background */
   border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 
+  box-shadow:
     0 4px 16px rgba(255, 255, 255, 0.1),
     0 2px 8px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -461,16 +505,20 @@
 /* Red Decorative Square - SMALLER WITH BLACK ARROWS */
 .redSquare {
   position: relative;
-  width: 80px; /* SMALLER - was 120px */
+  width: 80px;
+  /* SMALLER - was 120px */
   height: 80px;
   background: rgb(180, 54, 49);
-  border-radius: 12px; /* Proportionally smaller radius */
+  border-radius: 12px;
+  /* Proportionally smaller radius */
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Smaller shadow */
-  flex-shrink: 0; /* Don't shrink in flex layout */
-  
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  /* Smaller shadow */
+  flex-shrink: 0;
+  /* Don't shrink in flex layout */
+
   /* CONTINUOUS SPINNING ANIMATION */
   animation: spinBox 8s linear infinite;
 }
@@ -480,6 +528,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -488,12 +537,13 @@
 .arrowContainer {
   display: flex;
   flex-direction: column;
-  gap: 6px; /* Better spacing for 4 arrows */
+  gap: 6px;
+  /* Better spacing for 4 arrows */
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  
+
   /* COUNTER-ROTATION to keep arrows vertical */
   animation: counterSpin 8s linear infinite;
 }
@@ -503,48 +553,57 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(-360deg);
   }
 }
 
 .arrow {
-  width: 14px; /* Good size for 4 arrows */
+  width: 14px;
+  /* Good size for 4 arrows */
   height: 14px;
-  fill: rgb(255, 255, 255); /* WHITE ARROWS */
+  fill: rgb(255, 255, 255);
+  /* WHITE ARROWS */
   opacity: 0.8;
-  
+
   /* SMOOTH CONVEYOR FLOW - much more subtle */
   animation: smoothFlow 2s ease-in-out infinite;
 }
 
 /* Smooth, subtle flowing animation */
 @keyframes smoothFlow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.8;
     transform: translateY(0px) scale(1);
   }
+
   50% {
     opacity: 1;
     transform: translateY(-1px) scale(1.05);
   }
 }
 
-.arrow:nth-child(1) { 
-  opacity: 1; 
-  animation-delay: 0s; 
+.arrow:nth-child(1) {
+  opacity: 1;
+  animation-delay: 0s;
 }
-.arrow:nth-child(2) { 
-  opacity: 0.9; 
-  animation-delay: 0.5s; 
+
+.arrow:nth-child(2) {
+  opacity: 0.9;
+  animation-delay: 0.5s;
 }
-.arrow:nth-child(3) { 
-  opacity: 0.8; 
-  animation-delay: 1s; 
+
+.arrow:nth-child(3) {
+  opacity: 0.8;
+  animation-delay: 1s;
 }
-.arrow:nth-child(4) { 
-  opacity: 0.7; 
-  animation-delay: 1.5s; 
+
+.arrow:nth-child(4) {
+  opacity: 0.7;
+  animation-delay: 1.5s;
 }
 
 /* Brand Text Container */
@@ -568,22 +627,26 @@
   margin: 0;
   text-transform: uppercase;
   letter-spacing: -0.05em;
-  
+
   /* PREVENT WRAPPING */
   white-space: nowrap;
   overflow: hidden;
-  
+
   /* Enhanced Blue to Teal Gradient with glow */
-  background: linear-gradient(90deg, 
-    rgb(59, 130, 246) 0%,     /* Blue start */
-    rgb(14, 165, 233) 30%,    /* Sky blue */
-    rgb(6, 182, 212) 60%,     /* Cyan */
-    rgb(49, 175, 180) 100%    /* Creative Current teal */
-  );
+  background: linear-gradient(90deg,
+      rgb(59, 130, 246) 0%,
+      /* Blue start */
+      rgb(14, 165, 233) 30%,
+      /* Sky blue */
+      rgb(6, 182, 212) 60%,
+      /* Cyan */
+      rgb(49, 175, 180) 100%
+      /* Creative Current teal */
+    );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  
+
   /* Subtle glow effect */
   filter: drop-shadow(0 0 20px rgba(49, 175, 180, 0.3));
 }
@@ -595,23 +658,26 @@
   .navItemContainer {
     min-width: 320px;
   }
-  
+
   .rightContent {
-    gap: 50px; /* More space on large screens */
+    gap: 50px;
+    /* More space on large screens */
     max-width: 800px;
   }
-  
+
   .redSquare {
-    width: 100px; /* Smaller on large screens */
+    width: 100px;
+    /* Smaller on large screens */
     height: 100px;
     border-radius: 16px;
   }
-  
+
   .arrow {
-    width: 16px; /* Good size for 4 arrows on large screens */
+    width: 16px;
+    /* Good size for 4 arrows on large screens */
     height: 16px;
   }
-  
+
   .brandText {
     font-size: clamp(80px, 8vw, 200px);
     letter-spacing: -0.06em;
@@ -623,56 +689,64 @@
   .mainContent {
     padding: 90px 50px 140px;
   }
-  
+
   .navItemContainer {
     min-width: 300px;
   }
-  
+
   .navText {
     font-size: clamp(32px, 4.8vw, 80px);
   }
-  
+
   .rightContent {
-    gap: 35px; /* Good spacing for standard desktop */
+    gap: 35px;
+    /* Good spacing for standard desktop */
     max-width: 650px;
   }
-  
+
   .redSquare {
-    width: 90px; /* Smaller for standard desktop */
+    width: 90px;
+    /* Smaller for standard desktop */
     height: 90px;
     border-radius: 14px;
   }
-  
+
   .arrow {
-    width: 15px; /* Good size for 4 arrows on standard desktop */
+    width: 15px;
+    /* Good size for 4 arrows on standard desktop */
     height: 15px;
   }
-  
+
   .heroTitle {
-    font-size: clamp(30px, 4.2vw, 48px); /* Scaled back 15-20% */
-    font-weight: 600; /* Bolder */
+    font-size: clamp(30px, 4.2vw, 48px);
+    /* Scaled back 15-20% */
+    font-weight: 600;
+    /* Bolder */
     margin-bottom: 18px;
     line-height: 1.1;
   }
-  
+
   .heroDescription {
-    font-size: clamp(18px, 2.8vw, 26px); /* Scaled back 15-20% */
+    font-size: clamp(18px, 2.8vw, 26px);
+    /* Scaled back 15-20% */
     font-weight: 400;
     line-height: 1.35;
-    margin-bottom: 28px; /* Space for CTA */
+    margin-bottom: 28px;
+    /* Space for CTA */
   }
-  
+
   .ctaButtonPrimary,
   .ctaButtonSecondary {
-    padding: 12px 20px; /* Slightly smaller on desktop */
+    padding: 12px 20px;
+    /* Slightly smaller on desktop */
     font-size: 15px;
   }
-  
+
   .brandText {
     font-size: clamp(60px, 7vw, 160px);
     letter-spacing: -0.05em;
   }
-  
+
   .brandContainer {
     bottom: 35px;
   }
@@ -683,51 +757,56 @@
   .heroSection {
     min-height: 100vh;
   }
-  
+
   .mainContent {
     padding: 45px 40px 45px;
     gap: 15px;
   }
-  
+
   .headerTop {
     top: 18px;
     left: 40px;
   }
-  
+
   .homeLink {
     font-weight: 600;
   }
-  
+
   .navItemContainer {
     min-width: 250px;
     min-height: 55px;
     backdrop-filter: blur(15px);
   }
-  
+
   .navItemContainer.expanded {
     padding-right: 50px !important;
   }
-  
+
   /* CRITICAL: Make link cover padding area on laptop */
   .navItemContainer.expanded .navLink {
     width: calc(100% + 50px) !important;
   }
-  
+
   .downArrow {
-    right: 10px; /* Good spacing from edge */
-    bottom: 6px; /* Bottom positioned */
-    width: 44px; /* Larger for laptop */
+    right: 10px;
+    /* Good spacing from edge */
+    bottom: 6px;
+    /* Bottom positioned */
+    width: 44px;
+    /* Larger for laptop */
     height: 44px;
   }
-  
+
   .arrowIcon {
-    width: 34px; /* Larger for laptop */
+    width: 34px;
+    /* Larger for laptop */
     height: 34px;
     fill: rgb(0, 0, 0);
     color: rgb(0, 0, 0);
-    stroke-width: 3; /* Thicker */
+    stroke-width: 3;
+    /* Thicker */
   }
-  
+
   .navText {
     font-size: clamp(32px, 4.5vw, 70px);
     font-weight: 400;
@@ -735,62 +814,70 @@
     padding: 8px 20px 8px 20px;
     color: rgb(255, 255, 255);
   }
-  
+
   .navText.hovered {
     color: rgb(0, 0, 0);
     font-weight: 500;
   }
-  
+
   .navLink {
     min-height: 55px;
   }
-  
+
   .navigationMenu {
     gap: 8px;
   }
-  
+
   .heroTitle {
-    font-size: clamp(28px, 3.8vw, 44px); /* Scaled back 15-20% */
-    font-weight: 600; /* Bolder */
+    font-size: clamp(28px, 3.8vw, 44px);
+    /* Scaled back 15-20% */
+    font-weight: 600;
+    /* Bolder */
     margin-bottom: 16px;
     line-height: 1.1;
   }
-  
+
   .heroDescription {
-    font-size: clamp(17px, 2.5vw, 24px); /* Scaled back 15-20% */
+    font-size: clamp(17px, 2.5vw, 24px);
+    /* Scaled back 15-20% */
     font-weight: 400;
     line-height: 1.3;
-    margin-bottom: 24px; /* Space for CTA */
+    margin-bottom: 24px;
+    /* Space for CTA */
   }
-  
+
   .ctaButtonPrimary,
   .ctaButtonSecondary {
-    padding: 12px 20px; /* Good size on laptop */
+    padding: 12px 20px;
+    /* Good size on laptop */
     font-size: 15px;
   }
-  
+
   .rightContent {
-    gap: 25px; /* Smaller gap on laptop */
+    gap: 25px;
+    /* Smaller gap on laptop */
     max-width: 650px;
   }
-  
+
   .redSquare {
-    width: 75px; /* Smaller on laptop */
+    width: 75px;
+    /* Smaller on laptop */
     height: 75px;
     border-radius: 12px;
   }
-  
+
   .arrow {
-    width: 13px; /* Good size for 4 arrows on laptop */
+    width: 13px;
+    /* Good size for 4 arrows on laptop */
     height: 13px;
   }
-  
+
   .brandContainer {
     bottom: 20px;
     padding: 0 40px;
     transform: scale(1);
   }
-  
+
   .brandText {
     font-size: clamp(45px, 6.5vw, 130px);
     font-weight: 800;
@@ -804,46 +891,51 @@
   .navItemContainer {
     min-width: 220px;
   }
-  
+
   .navText {
     font-size: clamp(32px, 5.5vw, 65px);
     padding: 6px 18px 6px 18px;
   }
-  
+
   .navItemContainer {
     min-height: 55px;
   }
-  
+
   .navLink {
     min-height: 55px;
   }
-  
+
   .rightContent {
-    gap: 30px; /* Good spacing for tablet */
+    gap: 30px;
+    /* Good spacing for tablet */
     max-width: 600px;
   }
-  
+
   .redSquare {
-    width: 70px; /* Smaller for tablet */
+    width: 70px;
+    /* Smaller for tablet */
     height: 70px;
     border-radius: 10px;
   }
-  
+
   .arrow {
-    width: 11px; /* Good size for 4 arrows on tablet */
+    width: 11px;
+    /* Good size for 4 arrows on tablet */
     height: 11px;
   }
-  
+
   .heroTitle {
-    font-size: clamp(26px, 4.2vw, 40px); /* Scaled back 15-20% */
+    font-size: clamp(26px, 4.2vw, 40px);
+    /* Scaled back 15-20% */
     font-weight: 600;
   }
-  
+
   .heroDescription {
-    font-size: clamp(16px, 3vw, 22px); /* Scaled back 15-20% */
+    font-size: clamp(16px, 3vw, 22px);
+    /* Scaled back 15-20% */
     font-weight: 400;
   }
-  
+
   .brandText {
     font-size: clamp(40px, 6vw, 100px);
     letter-spacing: -0.04em;
@@ -856,79 +948,101 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 15px 30px 10px; /* COMPACT: Minimal padding */
-    gap: 8px; /* COMPACT: Very small gaps */
-    justify-content: center; /* RESTORED: Center the content */
-    min-height: 55vh; /* SMALLER: Less than full viewport for tighter layout */
-    margin-bottom: 100px; /* COMPACT: Space for brand text */
+    padding: 15px 30px 10px;
+    /* COMPACT: Minimal padding */
+    gap: 8px;
+    /* COMPACT: Very small gaps */
+    justify-content: center;
+    /* RESTORED: Center the content */
+    min-height: 55vh;
+    /* SMALLER: Less than full viewport for tighter layout */
+    margin-bottom: 100px;
+    /* COMPACT: Space for brand text */
     margin-top: 100px;
   }
-  
+
   .headerTop {
     top: 20px;
     left: 30px;
-    display: none; /* Ensure it's hidden */
+    display: none;
+    /* Ensure it's hidden */
   }
-  
+
   .navigationMenu {
     order: 2;
     align-items: center;
-    display: none; /* Hidden - Header component handles navigation */
+    display: none;
+    /* Hidden - Header component handles navigation */
   }
-  
+
   .rightContent {
     order: 1;
     align-items: center;
     max-width: 100%;
   }
-  
+
   .heroContent {
     text-align: center;
   }
-  
+
   .heroTitle {
-    font-size: clamp(20px, 4vw, 28px); /* SMALLER: Reduced title size */
+    font-size: clamp(20px, 4vw, 28px);
+    /* SMALLER: Reduced title size */
     font-weight: 600;
-    margin-bottom: 6px; /* COMPACT: Minimal margin */
+    margin-bottom: 6px;
+    /* COMPACT: Minimal margin */
   }
-  
+
   .heroDescription {
-    font-size: clamp(13px, 3vw, 16px); /* SMALLER: Much smaller description */
+    font-size: clamp(13px, 3vw, 16px);
+    /* SMALLER: Much smaller description */
     font-weight: 400;
-    line-height: 1.2; /* TIGHTER: Compact line height */
-    margin-bottom: 8px; /* COMPACT: Minimal margin */
+    line-height: 1.2;
+    /* TIGHTER: Compact line height */
+    margin-bottom: 8px;
+    /* COMPACT: Minimal margin */
   }
-  
+
   .ctaContainer {
-    gap: 6px; /* COMPACT: Tiny gap between buttons */
-    margin-bottom: 3px; /* COMPACT: Minimal margin */
+    gap: 6px;
+    /* COMPACT: Tiny gap between buttons */
+    margin-bottom: 3px;
+    /* COMPACT: Minimal margin */
   }
-  
+
   .ctaButtonPrimary,
   .ctaButtonSecondary {
-    padding: 8px 12px; /* COMPACT: Much smaller buttons */
-    font-size: 12px; /* COMPACT: Smaller text */
-    max-width: 120px; /* COMPACT: Narrower buttons */
+    padding: 8px 12px;
+    /* COMPACT: Much smaller buttons */
+    font-size: 12px;
+    /* COMPACT: Smaller text */
+    max-width: 120px;
+    /* COMPACT: Narrower buttons */
   }
-  
+
   .redSquare {
-    width: 45px; /* COMPACT: Much smaller red square */
+    width: 45px;
+    /* COMPACT: Much smaller red square */
     height: 45px;
-    margin-top: 3px; /* COMPACT: Minimal margin */
+    margin-top: 3px;
+    /* COMPACT: Minimal margin */
   }
-  
+
   .arrow {
-    width: 6px; /* COMPACT: Tiny arrows */
+    width: 6px;
+    /* COMPACT: Tiny arrows */
     height: 6px;
   }
-  
+
   .brandContainer {
-    bottom: 8px; /* COMPACT: Close to bottom but not cramped */
+    bottom: 8px;
+    /* COMPACT: Close to bottom but not cramped */
     padding: 0 30px;
   }
-  
+
   .brandText {
-    font-size: clamp(20px, 5vw, 45px); /* COMPACT: Much smaller brand text */
+    font-size: clamp(20px, 5vw, 45px);
+    /* COMPACT: Much smaller brand text */
     letter-spacing: -0.005em;
     white-space: normal;
     margin-bottom: 45px;
@@ -938,55 +1052,71 @@
 /* Mobile Portrait (320px - 479px) - ULTRA TIGHT SPACING */
 @media (max-width: 480px) {
   .mainContent {
-    padding: 20px 20px 15px; /* ULTRA TIGHT: Minimal padding for maximum content space */
-    gap: 10px; /* ULTRA TIGHT: Minimal gaps between elements */
-    justify-content: center; /* FIXED: Push content to top */
+    padding: 20px 20px 15px;
+    /* ULTRA TIGHT: Minimal padding for maximum content space */
+    gap: 10px;
+    /* ULTRA TIGHT: Minimal gaps between elements */
+    justify-content: center;
+    /* FIXED: Push content to top */
     /* REMOVED: min-height that was causing excessive vertical spacing */
   }
-  
+
   .headerTop {
     top: 16px;
     left: 20px;
   }
-  
+
   .heroTitle {
-    font-size: clamp(18px, 4.5vw, 26px); /* ULTRA TIGHT: Even smaller title */
+    font-size: clamp(18px, 4.5vw, 26px);
+    /* ULTRA TIGHT: Even smaller title */
     font-weight: 600;
-    margin-bottom: 6px; /* ULTRA TIGHT: Minimal margin */
+    margin-bottom: 6px;
+    /* ULTRA TIGHT: Minimal margin */
   }
-  
+
   .heroDescription {
-    font-size: clamp(13px, 3vw, 17px); /* ULTRA TIGHT: Smaller description */
+    font-size: clamp(13px, 3vw, 17px);
+    /* ULTRA TIGHT: Smaller description */
     font-weight: 400;
-    line-height: 1.25; /* ULTRA TIGHT: Tighter line height */
-    margin-bottom: 10px; /* ULTRA TIGHT: Minimal margin for CTA */
+    line-height: 1.25;
+    /* ULTRA TIGHT: Tighter line height */
+    margin-bottom: 10px;
+    /* ULTRA TIGHT: Minimal margin for CTA */
   }
-  
+
   .ctaButtonPrimary,
   .ctaButtonSecondary {
-    padding: 8px 14px; /* ULTRA TIGHT: Much smaller buttons */
-    font-size: 12px; /* ULTRA TIGHT: Smaller text */
-    max-width: 130px; /* ULTRA TIGHT: Narrower buttons */
+    padding: 8px 14px;
+    /* ULTRA TIGHT: Much smaller buttons */
+    font-size: 12px;
+    /* ULTRA TIGHT: Smaller text */
+    max-width: 130px;
+    /* ULTRA TIGHT: Narrower buttons */
   }
-  
+
   .redSquare {
-    width: 50px; /* ULTRA TIGHT: Much smaller red square */
+    width: 50px;
+    /* ULTRA TIGHT: Much smaller red square */
     height: 50px;
-    margin-top: 5px; /* ULTRA TIGHT: Minimal margin */
+    margin-top: 5px;
+    /* ULTRA TIGHT: Minimal margin */
   }
-  
+
   .arrow {
-    width: 6px; /* ULTRA TIGHT: Tiny arrows */
+    width: 6px;
+    /* ULTRA TIGHT: Tiny arrows */
     height: 6px;
   }
-  
+
   .brandContainer {
-    bottom: 3px; /* ULTRA TIGHT: Bring very close to viewport */
+    bottom: 3px;
+    /* ULTRA TIGHT: Bring very close to viewport */
     padding: 0 20px;
   }
-  
+
   .brandText {
-    font-size: clamp(55px, 5vw, 35px); /* ULTRA TIGHT: Much smaller brand text */
+    font-size: clamp(55px, 5vw, 35px);
+    /* ULTRA TIGHT: Much smaller brand text */
     letter-spacing: -0.005em;
   }
 }
@@ -994,56 +1124,73 @@
 /* Small Mobile (280px - 319px) - MINIMAL SPACING */
 @media (max-width: 320px) {
   .mainContent {
-    padding: 50px 15px 30px; /* REDUCED: Minimal padding for tiny screens */
-    gap: 15px; /* REDUCED: Very tight spacing */
+    padding: 50px 15px 30px;
+    /* REDUCED: Minimal padding for tiny screens */
+    gap: 15px;
+    /* REDUCED: Very tight spacing */
   }
-  
+
   .heroTitle {
-    font-size: clamp(18px, 5vw, 24px); /* REDUCED: Even smaller title */
+    font-size: clamp(18px, 5vw, 24px);
+    /* REDUCED: Even smaller title */
     font-weight: 600;
-    margin-bottom: 8px; /* REDUCED: Minimal margin */
+    margin-bottom: 8px;
+    /* REDUCED: Minimal margin */
   }
-  
+
   .heroDescription {
-    font-size: clamp(12px, 3.5vw, 16px); /* REDUCED: Smaller text */
+    font-size: clamp(12px, 3.5vw, 16px);
+    /* REDUCED: Smaller text */
     font-weight: 400;
-    margin-bottom: 12px; /* REDUCED: Minimal space for CTA */
+    margin-bottom: 12px;
+    /* REDUCED: Minimal space for CTA */
   }
-  
+
   .ctaButtonPrimary,
   .ctaButtonSecondary {
-    padding: 8px 14px; /* REDUCED: Smallest buttons */
-    font-size: 12px; /* REDUCED: Tiny text */
-    border-radius: 8px; /* REDUCED: Smaller radius */
+    padding: 8px 14px;
+    /* REDUCED: Smallest buttons */
+    font-size: 12px;
+    /* REDUCED: Tiny text */
+    border-radius: 8px;
+    /* REDUCED: Smaller radius */
     width: 100%;
-    max-width: 130px; /* REDUCED: Very compact */
+    max-width: 130px;
+    /* REDUCED: Very compact */
   }
-  
+
   .redSquare {
-    width: 50px; /* REDUCED: Tiny red square */
+    width: 50px;
+    /* REDUCED: Tiny red square */
     height: 50px;
-    border-radius: 6px; /* REDUCED: Smaller radius */
-    margin-top: 8px; /* REDUCED: Minimal margin */
+    border-radius: 6px;
+    /* REDUCED: Smaller radius */
+    margin-top: 8px;
+    /* REDUCED: Minimal margin */
   }
-  
+
   .arrow {
-    width: 6px; /* REDUCED: Tiny arrows */
+    width: 6px;
+    /* REDUCED: Tiny arrows */
     height: 6px;
   }
-  
+
   .brandContainer {
-    bottom: 8px; /* REDUCED: Bring as close as possible */
+    bottom: 8px;
+    /* REDUCED: Bring as close as possible */
     padding: 0 15px;
   }
-  
+
   .brandText {
-    font-size: clamp(18px, 5vw, 35px); /* REDUCED: Much smaller for tiny screens */
+    font-size: clamp(18px, 5vw, 35px);
+    /* REDUCED: Much smaller for tiny screens */
     letter-spacing: -0.005em;
   }
 }
 
 /* High DPI / Retina Displays */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
   .brandText {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -1052,29 +1199,116 @@
 
 /* Reduced Motion Preferences */
 @media (prefers-reduced-motion: reduce) {
+
   .navLink,
   .homeLink,
   .brandText {
     transition: none;
   }
-  
+
   .tealBackground {
     transition: none;
   }
-  
+
   .downArrow {
     transition: none;
   }
-  
+
   .redSquare {
     animation: none;
   }
-  
+
   .arrowContainer {
     animation: none;
   }
-  
+
   .arrow {
     animation: none;
   }
+}
+
+/* Logo Header Styles */
+
+.logoHeader {
+  /* Logo positioned in header area */
+  cursor: pointer;
+  
+  /* Responsive sizing for logo component */
+  width: clamp(250px, 20vw, 350px);
+  max-width: 350px;
+  
+  /* Ensure proper scaling */
+  --logo-max-width: 100%;
+  --logo-min-width: 250px;
+  
+  /* Smooth transitions */
+  transition: transform 0.3s ease;
+}
+
+.logoHeader:hover {
+  transform: scale(1.02);
+}
+
+.logoMerge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.logoPartTop {
+  position: relative;
+  z-index: 2;
+}
+
+.logoPartBottom {
+  position: relative;
+  z-index: 2;
+  margin-top: -2px;
+  /* Slight overlap to connect the parts */
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+.brandName {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  color: #31afb4;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.tagline {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.2;
+}
+
+.log oPartTop {
+  position: relative;
+  z-index: 2;
+}
+
+.logoPartBottom {
+  position: relative;
+  z-index: 2;
+  margin-top: -5px;
+  /* Overlap to connect the parts */
+}/* Si
+mplified logo replacement */
+.logoReplacement {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }

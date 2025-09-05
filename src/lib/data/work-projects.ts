@@ -1,6 +1,20 @@
 ﻿// src/lib/data/work-projects.ts - WITH LOCAL IMAGES
 import { WorkProject } from '@/types/data';
 
+// New project data structure for insertion at position 2
+const newProject: WorkProject = {
+  id: '2',
+  title: 'IsThisQuoteExpensive',
+  category: 'AI-Powered SaaS Platform',
+  client: 'Personal Project',
+  duration: '4 weeks',
+  image: '/images/work/isthisquoteexpensive.png',
+  thumbnail: '/images/work/isthisquoteexpensive-thumb.png',
+  description: 'Built an AI-powered quote analysis platform that helps users avoid getting ripped off on quotes. Features instant AI analysis via Google Gemini API, premium PDF reports, multi-market support (UK/US/AU), and 200+ SEO pages. Generating $940+ monthly revenue with 25,000+ users worldwide.',
+  link: 'https://isthisquoteexpensive.com/',
+  tags: ['Next.js 15', 'TypeScript', 'AI Integration', 'Stripe', 'Supabase', 'Google Gemini API', 'SEO', 'SaaS', 'Revenue Generation']
+};
+
 export const workProjects: WorkProject[] = [
   {
     id: '1',
@@ -14,8 +28,9 @@ export const workProjects: WorkProject[] = [
     link: 'https://www.yourcleanqueen.co.uk/',
     tags: ['WordPress', 'Elementor', 'Responsive Design', 'Local SEO', 'Lead Generation']
   },
+  newProject,
   {
-    id: '2',
+    id: '3',
     title: 'Insight Opticians',
     category: 'Local Business Website',
     client: 'Insight Opticians',
@@ -27,7 +42,7 @@ export const workProjects: WorkProject[] = [
     tags: ['WordPress', 'Elementor', 'UI/UX Design', 'Custom Forms', 'Accessibility']
   },
   {
-    id: '3',
+    id: '4',
     title: 'SaveOnThePen',
     category: 'Full-Stack Web App',
     client: 'Personal Project',
@@ -39,7 +54,7 @@ export const workProjects: WorkProject[] = [
     tags: ['React', 'Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Full-Stack', 'AI Integration']
   },
   {
-    id: '4',
+    id: '5',
     title: 'Plodding Isles',
     category: 'Web3 / Blockchain',
     client: 'Personal Project',
@@ -72,6 +87,7 @@ export const featuredProjects = workProjects.filter(p => !p.isCTA);
 // Projects by category - UPDATE TO MATCH YOUR ACTUAL CATEGORIES
 export const projectsByCategory = {
   'Business Website': workProjects.filter(p => p.category === 'Business Website'),
+  'AI-Powered SaaS Platform': workProjects.filter(p => p.category === 'AI-Powered SaaS Platform'),
   'Local Business Website': workProjects.filter(p => p.category === 'Local Business Website'),
   'Full-Stack Web App': workProjects.filter(p => p.category === 'Full-Stack Web App'),
   'Web3 / Blockchain': workProjects.filter(p => p.category === 'Web3 / Blockchain'),

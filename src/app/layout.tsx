@@ -73,6 +73,11 @@ export const metadata: Metadata = {
   keywords: "web design, web development, UI/UX, product design, digital agency",
   authors: [{ name: "Creative Current" }],
   viewport: "width=device-width, initial-scale=1",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

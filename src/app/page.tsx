@@ -4,6 +4,7 @@ import { Hero } from '@/components/sections/Hero';
 import { WorkSection } from '@/components/sections/WorkSection';
 import { TeamSection } from '@/components/sections/TeamSection';
 import { ContactSection } from '@/components/sections/ContactSection';
+import { ExtractedSvg } from '@/components/ui/ExtractedSvg';
 
 export default function Home() {
   return (

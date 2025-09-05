@@ -63,7 +63,7 @@ export const TownLinksSection: React.FC<TownLinksSectionProps> = ({ towns }) => 
         </motion.div>
 
         <motion.div className={styles.townGrid} variants={itemVariants}>
-          {sortedTowns.map(([townKey, townData], index) => (
+          {sortedTowns.map(([townKey, townData]) => (
             <motion.div
               key={townKey}
               variants={itemVariants}

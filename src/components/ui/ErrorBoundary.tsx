@@ -111,7 +111,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         <div className="error-boundary-fallback">
           <div className="error-content">
             <h2>Something went wrong</h2>
-            <p>We're sorry, but something unexpected happened. Please try refreshing the page.</p>
+            <p>We&apos;re sorry, but something unexpected happened. Please try refreshing the page.</p>
             <button 
               onClick={this.resetErrorBoundary}
               className="error-retry-button"

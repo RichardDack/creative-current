@@ -43,13 +43,13 @@ export const LocalFAQSection: React.FC<LocalFAQSectionProps> = ({
   faqs,
   townName
 }) => {
-  // Add null checks for required props
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  // Add null checks for required props - moved after hooks
   if (!faqs || !Array.isArray(faqs) || !townName || typeof townName !== 'string') {
     console.error('LocalFAQSection: Missing or invalid props', { faqs, townName });
     return null;
   }
-
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);

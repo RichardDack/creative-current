@@ -10,7 +10,7 @@ import { LocalFAQSection } from '@/components/sections/LocalFAQSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { LocalBreadcrumbs } from '@/components/ui/LocalBreadcrumbs';
 import { LocalStructuredData } from '@/components/seo/LocalStructuredData';
-import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
+import { TownPageErrorBoundary } from '@/components/ui/TownPageErrorBoundary';
 import { 
   dorseyTowns, 
   generateLocalMetadata, 
@@ -75,18 +75,17 @@ export default async function TownPage({ params }: PageProps) {
     <Layout>
       <LocalStructuredData schema={schemaData} />
       
-      <ErrorBoundary 
+      <TownPageErrorBoundary 
+        town={town}
+        sectionName="page"
         fallback={
           <div className="error-boundary-fallback">
             <div className="error-content">
               <h2>Unable to load page content</h2>
-              <p>We're having trouble loading the content for {townData.town}. Please try refreshing the page.</p>
+              <p>We&apos;re having trouble loading the content for {townData.town}. Please try refreshing the page.</p>
             </div>
           </div>
         }
-        onError={(error, errorInfo) => {
-          console.error(`Error in town page for ${town}:`, error, errorInfo);
-        }}
       >
         {/* Breadcrumbs */}
         {localContent.breadcrumbs && localContent.breadcrumbs.length > 0 && (
@@ -95,11 +94,11 @@ export default async function TownPage({ params }: PageProps) {
         
         {/* Hero Section */}
         {localContent.heroTitle && localContent.heroSubtitle && localContent.heroDescription && (
-          <ErrorBoundary 
+          <TownPageErrorBoundary 
             key={`hero-${town}`}
+            town={town}
+            sectionName="hero"
             fallback={<div className="section-error">Unable to load hero section</div>}
-            onError={(error) => console.error('Hero section error:', error)}
-            resetKeys={[town]}
           >
             <LocalHero
               title={localContent.heroTitle}
@@ -115,16 +114,16 @@ export default async function TownPage({ params }: PageProps) {
                 href: '#work-section'
               }}
             />
-          </ErrorBoundary>
+          </TownPageErrorBoundary>
         )}
 
         {/* Services Section */}
         {localContent.servicesSection && localContent.servicesSection.title && localContent.servicesSection.services && (
-          <ErrorBoundary 
+          <TownPageErrorBoundary 
             key={`services-${town}`}
+            town={town}
+            sectionName="services"
             fallback={<div className="section-error">Unable to load services section</div>}
-            onError={(error) => console.error('Services section error:', error)}
-            resetKeys={[town]}
           >
             <LocalServicesSection
               title={localContent.servicesSection.title}
@@ -132,7 +131,7 @@ export default async function TownPage({ params }: PageProps) {
               townName={townData.town}
               county={townData.county}
             />
-          </ErrorBoundary>
+          </TownPageErrorBoundary>
         )}
 
         {/* Industries Section */}
@@ -140,11 +139,11 @@ export default async function TownPage({ params }: PageProps) {
          localContent.localBusinessSection.title && 
          localContent.localBusinessSection.content && 
          localContent.localBusinessSection.industries && (
-          <ErrorBoundary 
+          <TownPageErrorBoundary 
             key={`industries-${town}`}
+            town={town}
+            sectionName="industries"
             fallback={<div className="section-error">Unable to load industries section</div>}
-            onError={(error) => console.error('Industries section error:', error)}
-            resetKeys={[town]}
           >
             <LocalIndustriesSection
               title={localContent.localBusinessSection.title}
@@ -153,46 +152,46 @@ export default async function TownPage({ params }: PageProps) {
               townName={townData.town}
               landmarks={townData.landmarks}
             />
-          </ErrorBoundary>
+          </TownPageErrorBoundary>
         )}
 
         {/* Testimonials Section */}
         {townData.town && (
-          <ErrorBoundary 
+          <TownPageErrorBoundary 
             key={`testimonials-${town}`}
+            town={town}
+            sectionName="testimonials"
             fallback={<div className="section-error">Unable to load testimonials section</div>}
-            onError={(error) => console.error('Testimonials section error:', error)}
-            resetKeys={[town]}
           >
             <LocalTestimonialsSection townName={townData.town} />
-          </ErrorBoundary>
+          </TownPageErrorBoundary>
         )}
 
         {/* FAQ Section */}
         {localContent.faqSection && Array.isArray(localContent.faqSection) && localContent.faqSection.length > 0 && (
-          <ErrorBoundary 
+          <TownPageErrorBoundary 
             key={`faq-${town}`}
+            town={town}
+            sectionName="faq"
             fallback={<div className="section-error">Unable to load FAQ section</div>}
-            onError={(error) => console.error('FAQ section error:', error)}
-            resetKeys={[town]}
           >
             <LocalFAQSection 
               faqs={localContent.faqSection}
               townName={townData.town}
             />
-          </ErrorBoundary>
+          </TownPageErrorBoundary>
         )}
 
         {/* Contact Section */}
-        <ErrorBoundary 
+        <TownPageErrorBoundary 
           key={`contact-${town}`}
+          town={town}
+          sectionName="contact"
           fallback={<div className="section-error">Unable to load contact section</div>}
-          onError={(error) => console.error('Contact section error:', error)}
-          resetKeys={[town]}
         >
           <ContactSection />
-        </ErrorBoundary>
-      </ErrorBoundary>
+        </TownPageErrorBoundary>
+      </TownPageErrorBoundary>
     </Layout>
   );
 }

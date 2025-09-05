@@ -178,7 +178,7 @@ export const dorseyTowns: Record<string, LocalSEOData> = {
 
 export const generateLocalMetadata = (
   town: string,
-  _service: string = 'web design'
+  service: string = 'web design'
 ): Metadata => {
   const townData = dorseyTowns[town.toLowerCase().replace(/\s+/g, '-')];
   
@@ -464,7 +464,7 @@ export const generateServiceSchema = (townKey: string, services: Service[]) => {
 };
 
 // LocalBusiness Schema (Enhanced)
-export const generateLocalBusinessSchema = (townKey: string, _service: string = 'web design') => {
+export const generateLocalBusinessSchema = (townKey: string, service: string = 'web design') => {
   const townData = dorseyTowns[townKey];
   
   if (!townData) {

@@ -64,7 +64,7 @@ export const LogoComponent = forwardRef<HTMLDivElement, LogoProps>(
         >
           <title id="logo-title">Creative Current</title>
           <desc id="logo-desc">
-            Creative Current logo with flowing design elements and tagline "Flowing Ideas Into Reality"
+            Creative Current logo with flowing design elements and tagline &quot;Flowing Ideas Into Reality&quot;
           </desc>
           
           {/* Logo icon container with relative positioning */}

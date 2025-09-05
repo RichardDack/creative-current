@@ -24,7 +24,9 @@
   - Ensure CTA card retains ID 'cta' unchanged
   - _Requirements: 1.1, 1.2, 1.3_
 
-- [ ] 3. Insert new project at position 2 in workProjects array
+- [x] 3. Insert new project at position 2 in workProjects array
+
+
 
 
 

@@ -50,8 +50,6 @@ export const Header: React.FC<HeaderProps> = ({
   }, [isMobileMenuOpen]);
 
   // Removed unused handleSmoothScroll function
-    }
-  };
 
   // Toggle function for opening/closing mobile menu
   const toggleMobileMenu = () => {

@@ -1,13 +1,13 @@
 /* src/styles/components/WebDesignServicesSection.module.css */
 .servicesSection {
-  padding: var(--space-5xl) 0;
+  padding: var(--space-responsive-xl) 0;
   background: var(--color-background-darker);
 }
 
 .sectionHeader {
   text-align: center;
-  margin-bottom: var(--space-4xl);
-  max-width: 800px;
+  margin-bottom: var(--space-responsive-2xl);
+  max-width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -25,39 +25,40 @@
 
 .sectionTitle {
   font-family: var(--font-headline);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: var(--font-size-responsive-3xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-responsive-lg);
   line-height: var(--line-height-tight);
 }
 
 .sectionDescription {
   font-family: var(--font-body);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-responsive-lg);
   color: var(--color-text-muted);
   line-height: var(--line-height-relaxed);
 }
 
 .servicesGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-2xl);
-  margin-bottom: var(--space-4xl);
+  grid-template-columns: 1fr;
+  gap: var(--space-responsive-lg);
+  margin-bottom: var(--space-responsive-2xl);
   max-width: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .serviceCard {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-xl);
-  padding: var(--space-2xl);
+  padding: var(--space-responsive-lg);
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
-  min-height: 400px;
+  min-height: 350px;
 }
 
 .serviceCard:hover {
@@ -148,64 +149,74 @@
   transform: translateY(-2px);
 }
 
-/* Responsive Design */
-/* Desktop and tablet - 2 columns */
-@media (min-width: 769px) {
-  .servicesGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(1.5rem, 4vw, 2rem);
-  }
-}
+/* Mobile-First Responsive Design */
 
-/* Tablet adjustments */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .servicesGrid {
-    gap: clamp(1.5rem, 3vw, 2rem);
-  }
-  
-  .townGrid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  }
-}
-
-/* Mobile - 1 column */
-@media (max-width: 768px) {
-  .servicesGrid {
-    grid-template-columns: 1fr;
-    gap: clamp(1rem, 4vw, 1.5rem);
-  }
-  
-  .townGrid {
-    grid-template-columns: 1fr;
-  }
-  
-  .coverageStats {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-lg);
-  }
-}
-
-/* Small mobile adjustments */
-@media (max-width: 480px) {
-  .servicesGrid {
-    gap: var(--space-lg);
+/* Small mobile and up (480px+) */
+@media (min-width: 480px) {
+  .sectionHeader {
+    max-width: 85%;
   }
   
   .serviceCard {
-    padding: var(--space-lg);
-    min-height: 350px;
+    padding: var(--space-responsive-xl);
+    min-height: 380px;
+  }
+  
+  .servicesGrid {
+    gap: var(--space-responsive-xl);
   }
 }
 
+/* Tablets and up (768px+) */
+@media (min-width: 768px) {
+  .servicesSection {
+    padding: var(--space-responsive-2xl) 0;
+  }
+  
+  .sectionHeader {
+    max-width: 800px;
+    margin-bottom: var(--space-responsive-3xl);
+  }
+  
+  .servicesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-responsive-2xl);
+    margin-bottom: var(--space-responsive-3xl);
+  }
+  
+  .serviceCard {
+    min-height: 400px;
+  }
+}
+
+/* Small desktops and up (1024px+) */
+@media (min-width: 1024px) {
+  .servicesSection {
+    padding: var(--space-responsive-3xl) 0;
+  }
+  
+  .ctaSection {
+    padding: var(--space-3xl);
+  }
+}
+
+/* Large desktops and up (1200px+) */
+@media (min-width: 1200px) {
+  .servicesSection {
+    padding: var(--space-4xl) 0;
+  }
+  
+  .sectionHeader {
+    margin-bottom: var(--space-4xl);
+  }
+  
+  .servicesGrid {
+    margin-bottom: var(--space-4xl);
+  }
+}
+
+/* Extra small mobile adjustments */
 @media (max-width: 390px) {
-  .coverageStats {
-    grid-template-columns: 1fr;
-  }
-  
-  .townCard {
-    padding: var(--space-lg);
-  }
-  
   .serviceCard {
     padding: var(--space-md);
     min-height: 320px;

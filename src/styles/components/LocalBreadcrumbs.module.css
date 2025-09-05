@@ -1,45 +1,136 @@
 /* src/styles/components/LocalBreadcrumbs.module.css */
 .breadcrumbs {
-  background: rgba(255, 255, 255, 0.02);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: var(--space-md) 0;
+  display: none; /* Hide breadcrumbs on mobile by default */
 }
 
 .breadcrumbList {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: var(--space-responsive-xs);
   list-style: none;
   margin: 0;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 .breadcrumbItem {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: var(--space-responsive-xs);
 }
 
 .breadcrumbLink {
   font-family: var(--font-ui);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  font-size: var(--font-size-responsive-sm);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  word-break: break-word;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .breadcrumbLink:hover {
   color: var(--color-primary);
+  background: rgba(49, 175, 180, 0.1);
+  border-color: rgba(49, 175, 180, 0.3);
+  transform: translateY(-1px);
 }
 
 .breadcrumbCurrent {
   font-family: var(--font-ui);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-responsive-sm);
   color: var(--color-primary);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
+  word-break: break-word;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  background: rgba(49, 175, 180, 0.15);
+  border: 1px solid rgba(49, 175, 180, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .breadcrumbSeparator {
-  color: var(--color-text-muted);
-  opacity: 0.5;
+  color: var(--color-primary);
+  opacity: 0.6;
+  margin: 0 var(--space-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}/* Mobile
+-First Responsive Design */
+
+/* Small mobile adjustments */
+@media (max-width: 389px) {
+  .breadcrumbs {
+    padding: var(--space-responsive-sm) 0;
+  }
+  
+  .breadcrumbList {
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+  
+  .breadcrumbLink,
+  .breadcrumbCurrent {
+    font-size: var(--font-size-xs);
+    padding: 0.125rem 0.375rem; /* Smaller padding on tiny screens */
+  }
+}
+
+/* Small mobile and up (480px+) */
+@media (min-width: 480px) {
+  .breadcrumbs {
+    padding: var(--space-responsive-md) 0;
+  }
+  
+  .breadcrumbList {
+    gap: var(--space-sm);
+  }
+}
+
+/* Tablets and up (768px+) - Show breadcrumbs on desktop only */
+@media (min-width: 768px) {
+  .breadcrumbs {
+    display: block; /* Show breadcrumbs on desktop */
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(49, 175, 180, 0.2);
+    padding: var(--space-lg) 0;
+    position: relative;
+    z-index: 5;
+  }
+  
+  .breadcrumbList {
+    gap: var(--space-md);
+  }
+  
+  .breadcrumbLink,
+  .breadcrumbCurrent {
+    font-size: var(--font-size-base);
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  .breadcrumbSeparator {
+    margin: 0 var(--space-sm);
+  }
+}
+
+/* Large desktops and up (1200px+) */
+@media (min-width: 1200px) {
+  .breadcrumbs {
+    padding: var(--space-xl) 0;
+  }
+  
+  .breadcrumbLink,
+  .breadcrumbCurrent {
+    padding: var(--space-sm) var(--space-lg);
+  }
 }

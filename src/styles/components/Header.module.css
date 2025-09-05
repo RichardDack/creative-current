@@ -53,6 +53,9 @@
 }
 
 .homeLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
   font-family: var(--font-ui);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
@@ -60,19 +63,32 @@
   text-decoration: none;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  transition: color var(--duration-normal) var(--ease-out);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.navbarLogo {
+  flex-shrink: 0;
+}
+
+.homeText {
+  display: inline-block;
 }
 
 .homeLink:hover {
   color: var(--color-primary);
 }
 
+.homeLink:hover .navbarLogo {
+  transform: scale(1.05);
+}
+
 /* Burger Menu Container */
 .burgerMenuContainer {
   display: none; /* Hidden by default (desktop) */
   pointer-events: auto;
-  z-index: 1001; /* Above header but below mobile menu overlay */
+  z-index: 1002; /* Above mobile menu overlay so X is visible */
   flex-shrink: 0; /* Prevent shrinking */
+  position: relative; /* Ensure z-index works */
 }
 
 .burgerMenuIcon {
@@ -108,10 +124,25 @@
   }
 }
 
+/* Hide HOME text on smaller mobile screens */
+@media (max-width: 480px) {
+  .homeText {
+    display: none; /* Show only logo on smaller mobile screens */
+  }
+}
+
 /* Mobile-only responsive adjustments */
 @media (max-width: 389px) {
   .headerContent {
     padding: var(--space-md) var(--space-md);
+  }
+  
+  .homeText {
+    display: none; /* Hide HOME text on very small screens */
+  }
+  
+  .navbarLogo {
+    /* Logo only on very small screens */
   }
 }
 

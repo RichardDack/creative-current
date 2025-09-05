@@ -1,13 +1,13 @@
 /* src/styles/components/LocalServicesSection.module.css */
 .servicesSection {
-  padding: var(--space-5xl) 0;
+  padding: var(--space-responsive-xl) 0;
   background: var(--color-background-light);
 }
 
 .sectionHeader {
   text-align: center;
-  margin-bottom: var(--space-4xl);
-  max-width: 800px;
+  margin-bottom: var(--space-responsive-2xl);
+  max-width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -25,16 +25,16 @@
 
 .sectionTitle {
   font-family: var(--font-headline);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: var(--font-size-responsive-3xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-on-light);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-responsive-lg);
   line-height: var(--line-height-tight);
 }
 
 .sectionDescription {
   font-family: var(--font-body);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-responsive-lg);
   color: var(--color-text-on-light);
   opacity: 0.8;
   line-height: var(--line-height-relaxed);
@@ -42,22 +42,26 @@
 
 .servicesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-2xl);
-  margin-bottom: var(--space-4xl);
+  grid-template-columns: 1fr;
+  gap: var(--space-responsive-lg);
+  margin-bottom: var(--space-responsive-2xl);
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .serviceCard {
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(26, 32, 44, 0.1);
   border-radius: var(--radius-xl);
-  padding: var(--space-2xl);
+  padding: var(--space-responsive-lg);
   text-align: center;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
   height: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .serviceCard:hover {
@@ -117,8 +121,9 @@
   background: rgba(13, 115, 119, 0.05);
   border: 1px solid rgba(13, 115, 119, 0.2);
   border-radius: var(--radius-xl);
-  padding: var(--space-3xl);
+  padding: var(--space-responsive-xl);
   text-align: center;
+  max-width: 100%;
 }
 
 .localFocusTitle {
@@ -135,4 +140,88 @@
   color: var(--color-text-on-light);
   opacity: 0.8;
   line-height: var(--line-height-relaxed);
+}
+/*
+ Mobile-First Responsive Design */
+
+/* Small mobile and up (480px+) */
+@media (min-width: 480px) {
+  .sectionHeader {
+    max-width: 85%;
+  }
+  
+  .serviceCard {
+    padding: var(--space-responsive-xl);
+  }
+  
+  .servicesGrid {
+    gap: var(--space-responsive-xl);
+  }
+}
+
+/* Tablets and up (768px+) */
+@media (min-width: 768px) {
+  .servicesSection {
+    padding: var(--space-responsive-2xl) 0;
+  }
+  
+  .sectionHeader {
+    max-width: 800px;
+    margin-bottom: var(--space-responsive-3xl);
+  }
+  
+  .servicesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-responsive-2xl);
+    margin-bottom: var(--space-responsive-3xl);
+  }
+  
+  .localFocus {
+    padding: var(--space-responsive-2xl);
+  }
+}
+
+/* Small desktops and up (1024px+) */
+@media (min-width: 1024px) {
+  .servicesSection {
+    padding: var(--space-responsive-3xl) 0;
+  }
+  
+  .servicesGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .localFocus {
+    padding: var(--space-3xl);
+  }
+}
+
+/* Large desktops and up (1200px+) */
+@media (min-width: 1200px) {
+  .servicesSection {
+    padding: var(--space-4xl) 0;
+  }
+  
+  .sectionHeader {
+    margin-bottom: var(--space-4xl);
+  }
+  
+  .servicesGrid {
+    margin-bottom: var(--space-4xl);
+  }
+}
+
+/* Extra small mobile adjustments */
+@media (max-width: 390px) {
+  .serviceCard {
+    padding: var(--space-md);
+  }
+  
+  .servicesGrid {
+    gap: var(--space-md);
+  }
+  
+  .localFocus {
+    padding: var(--space-lg);
+  }
 }

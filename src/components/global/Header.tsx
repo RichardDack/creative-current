@@ -7,6 +7,7 @@ import styles from '@/styles/components/Header.module.css';
 import { HeaderProps } from '@/types/components';
 import { BurgerIcon } from '@/components/icons/BurgerIcon';
 import { MobileNavOverlay } from '@/components/global/MobileNavOverlay';
+import { NavbarLogo } from '@/components/ui/NavbarLogo';
 
 // Navigation items for future use
 // const navigationItems = [
@@ -103,11 +104,16 @@ export const Header: React.FC<HeaderProps> = ({
           transition={{ delay: 0.2, duration: 0.6 }}
         >
           <a 
-            href="#hero-section" 
+            href="/" 
             className={styles.homeLink}
-            onClick={(e) => handleSmoothScroll(e, '#hero-section')}
+            aria-label="Creative Current - Go to homepage"
           >
-            HOME
+            <NavbarLogo 
+              size={36} 
+              variant={variant}
+              className={styles.navbarLogo}
+            />
+            <span className={styles.homeText}>HOME</span>
           </a>
         </motion.div>
 

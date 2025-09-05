@@ -11,7 +11,7 @@
   border-radius: var(--radius-sm);
   transition: background-color var(--duration-normal) var(--ease-out);
   position: relative;
-  z-index: 1001;
+  z-index: 1003; /* Above mobile overlay and container */
   outline: none;
   box-sizing: border-box;
 }
@@ -42,38 +42,27 @@
   display: block;
   width: 100%;
   height: 2px;
-  background-color: var(--color-text-muted);
+  background-color: var(--color-primary);
   border-radius: 1px;
   transform-origin: center;
-}
-
-.topLine {
-  transform-origin: center;
-}
-
-.middleLine {
-  transform-origin: center;
-}
-
-.bottomLine {
-  transform-origin: center;
+  transition: background-color 0.3s ease;
 }
 
 /* Variant styles */
 .burgerButton.dark .line {
-  background-color: var(--color-text-muted);
+  background-color: var(--color-primary);
 }
 
 .burgerButton.light .line {
-  background-color: var(--color-background-darker);
+  background-color: var(--color-primary);
 }
 
 .burgerButton.dark:hover .line {
-  background-color: var(--color-primary);
+  background-color: rgba(49, 175, 180, 0.8);
 }
 
 .burgerButton.light:hover .line {
-  background-color: var(--color-primary);
+  background-color: rgba(49, 175, 180, 0.8);
 }
 
 /* Enhanced animation support */

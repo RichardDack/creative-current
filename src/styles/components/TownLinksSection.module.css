@@ -1,14 +1,14 @@
 
 /* src/styles/components/TownLinksSection.module.css */
 .townLinksSection {
-  padding: var(--space-3xl) 0;
+  padding: var(--space-responsive-xl) 0;
   background: var(--color-background-light);
 }
 
 .sectionHeader {
   text-align: center;
-  margin-bottom: var(--space-2xl);
-  max-width: 800px;
+  margin-bottom: var(--space-responsive-xl);
+  max-width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -26,27 +26,28 @@
 
 .sectionTitle {
   font-family: var(--font-headline);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: var(--font-size-responsive-3xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary-dark);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-responsive-lg);
   line-height: var(--line-height-tight);
 }
 
 .sectionDescription {
   font-family: var(--font-body);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-responsive-lg);
   color: var(--color-text-muted-dark);
   line-height: var(--line-height-relaxed);
 }
 
 .townGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-lg);
-  margin-bottom: var(--space-2xl);
+  grid-template-columns: 1fr;
+  gap: var(--space-responsive-md);
+  margin-bottom: var(--space-responsive-xl);
   max-width: 100%;
-  padding: 8px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .townCard {
@@ -54,7 +55,7 @@
   background: rgba(255, 255, 255, 0.95);
   border: 2px solid var(--color-primary);
   border-radius: var(--radius-xl);
-  padding: var(--space-lg);
+  padding: var(--space-responsive-md);
   text-decoration: none;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
@@ -225,67 +226,76 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
-/*
- Responsive Design */
-@media (max-width: 809px) {
-  .townLinksSection {
-    padding: var(--space-2xl) 0;
-  }
-  
+/* Mobile-First Responsive Design */
+
+/* Small mobile and up (480px+) */
+@media (min-width: 480px) {
   .sectionHeader {
-    margin-bottom: var(--space-xl);
-  }
-  
-  .townGrid {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-    margin-bottom: var(--space-xl);
+    max-width: 85%;
   }
   
   .townCard {
-    padding: var(--space-md);
+    padding: var(--space-responsive-lg);
+  }
+  
+  .townGrid {
+    gap: var(--space-responsive-lg);
+  }
+}
+
+/* Tablets and up (768px+) */
+@media (min-width: 768px) {
+  .townLinksSection {
+    padding: var(--space-responsive-2xl) 0;
+  }
+  
+  .sectionHeader {
+    max-width: 800px;
+    margin-bottom: var(--space-responsive-2xl);
+  }
+  
+  .townGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-responsive-xl);
+    margin-bottom: var(--space-responsive-2xl);
+  }
+  
+  .coverageStats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+/* Small desktops and up (1024px+) */
+@media (min-width: 1024px) {
+  .townGrid {
+    grid-template-columns: repeat(3, 1fr);
   }
   
   .coverageInfo {
-    padding: var(--space-lg);
+    padding: var(--space-xl);
+  }
+}
+
+/* Large desktops and up (1200px+) */
+@media (min-width: 1200px) {
+  .townLinksSection {
+    padding: var(--space-3xl) 0;
   }
   
+  .townGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Extra small mobile adjustments */
+@media (max-width: 390px) {
   .coverageStats {
     grid-template-columns: 1fr;
     gap: var(--space-md);
   }
-}
-
-@media (max-width: 480px) {
-  .townLinksSection {
-    padding: var(--space-xl) 0;
-  }
-  
-  .sectionTitle {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-  }
-  
-  .townGrid {
-    gap: var(--space-sm);
-  }
   
   .townCard {
     padding: var(--space-sm);
-  }
-  
-  .coverageInfo {
-    padding: var(--space-md);
-  }
-}
-
-@media (min-width: 810px) and (max-width: 1199px) {
-  .townGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1200px) {
-  .townGrid {
-    grid-template-columns: repeat(3, 1fr);
   }
 }

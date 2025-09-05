@@ -1,5 +1,6 @@
 ﻿/* src/app/globals.css - WORKING VERSION with Font Application */
 @import '../styles/tokens.css';
+@import '../styles/responsive.css';
 
 @font-face {
   font-family: 'ClashDisplay';

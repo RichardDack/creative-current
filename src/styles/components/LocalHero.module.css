@@ -1,12 +1,12 @@
 /* src/styles/components/LocalHero.module.css */
 .localHero {
   position: relative;
-  min-height: 100vh;
+  min-height: 60vh;
   background: var(--color-background-darker);
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: var(--space-4xl) 0;
+  padding: 100px 0 var(--space-responsive-xl) 0; /* Increased top padding to clear mobile navbar */
 }
 
 .floatingBlur1,
@@ -37,15 +37,16 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  align-items: center;
+  text-align: center;
   position: relative;
   z-index: 1;
-  max-width: 900px;
+  max-width: 90%;
+  width: 100%;
 }
 
 .heroContent {
-  max-width: 700px;
+  max-width: 100%;
   width: 100%;
 }
 
@@ -77,35 +78,36 @@
 
 .heroTitle {
   font-family: var(--font-headline);
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: var(--font-size-responsive-4xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-on-dark);
   line-height: var(--line-height-tight);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-responsive-lg);
 }
 
 .heroSubtitle {
   font-family: var(--font-body);
-  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-size: var(--font-size-responsive-xl);
   color: var(--color-primary);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-responsive-lg);
   font-weight: var(--font-weight-medium);
 }
 
 .heroDescription {
   font-family: var(--font-body);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-responsive-base);
   color: var(--color-text-on-dark);
   line-height: var(--line-height-relaxed);
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-responsive-xl);
   opacity: 0.9;
 }
 
 .localStats {
   display: flex;
-  justify-content: flex-start;
-  gap: var(--space-2xl);
-  margin-bottom: var(--space-2xl);
+  justify-content: center;
+  gap: var(--space-responsive-lg);
+  margin-bottom: var(--space-responsive-xl);
+  flex-wrap: wrap;
 }
 
 .statItem {
@@ -131,17 +133,20 @@
 
 .ctaButtons {
   display: flex;
-  justify-content: flex-start;
-  gap: var(--space-lg);
-  margin-bottom: var(--space-xl);
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-responsive-sm);
+  margin-bottom: var(--space-responsive-lg);
+  width: 100%;
 }
 
 .ctaButtonPrimary,
 .ctaButtonSecondary {
-  padding: var(--space-md) var(--space-xl);
+  padding: var(--space-responsive-sm) var(--space-responsive-lg);
   border-radius: var(--radius-md);
   font-family: var(--font-ui);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-responsive-base);
   font-weight: var(--font-weight-medium);
   text-decoration: none;
   text-transform: uppercase;
@@ -149,7 +154,11 @@
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-sm);
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
 }
 
 .ctaButtonPrimary {
@@ -176,8 +185,8 @@
 
 .trustIndicators {
   display: flex;
-  justify-content: flex-start;
-  gap: var(--space-lg);
+  justify-content: center;
+  gap: var(--space-responsive-sm);
   flex-wrap: wrap;
 }
 
@@ -245,112 +254,90 @@
   letter-spacing: 0.05em;
 }
 
-/* Responsive Design */
-@media (max-width: 809px) {
-  .localHero {
-    min-height: auto;
-    padding: var(--space-3xl) 0;
-  }
-  
+/* Mobile-First Responsive Design */
+
+/* Small mobile and up (480px+) */
+@media (min-width: 480px) {
   .container {
-    align-items: center;
-    text-align: center;
+    max-width: 85%;
   }
   
   .localStats {
-    justify-content: center;
-    gap: var(--space-lg);
+    gap: var(--space-responsive-xl);
+  }
+  
+  .trustIndicators {
+    gap: var(--space-responsive-lg);
+  }
+}
+
+/* Tablets and up (768px+) */
+@media (min-width: 768px) {
+  .localHero {
+    min-height: 70vh;
+    padding: var(--space-responsive-2xl) 0; /* Normal padding - no navbar on desktop */
+  }
+  
+  .container {
+    align-items: flex-start;
+    text-align: left;
+    max-width: 900px;
+  }
+  
+  .heroContent {
+    max-width: 700px;
+  }
+  
+  .localStats {
+    justify-content: flex-start;
+    gap: var(--space-2xl);
   }
   
   .ctaButtons {
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: var(--space-lg);
   }
   
   .ctaButtonPrimary,
   .ctaButtonSecondary {
-    width: 100%;
-    justify-content: center;
-    max-width: 300px;
+    width: auto;
+    max-width: none;
+    padding: var(--space-md) var(--space-xl);
   }
   
   .trustIndicators {
-    justify-content: center;
-  }
-}
-
-
-
-
-
-
-
-
-
-/* Responsive Design for all local sections */
-@media (max-width: 1199px) {
-  .industriesGrid {
-    gap: var(--space-3xl);
-  }
-  
-  .testimonialsGrid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  }
-}
-
-@media (max-width: 809px) {
-  .industriesGrid {
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
-  }
-  
-  .industriesVisual {
-    order: -1;
-  }
-  
-  .servicesGrid {
-    grid-template-columns: 1fr;
-  }
-  
-  .testimonialsGrid {
-    grid-template-columns: 1fr;
+    justify-content: flex-start;
     gap: var(--space-lg);
   }
-  
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .localStats {
-    gap: var(--space-lg);
-  }
-  
-  .ctaButtons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .breadcrumbList {
-    flex-wrap: wrap;
+}
+
+/* Small desktops and up (1024px+) */
+@media (min-width: 1024px) {
+  .localHero {
+    min-height: 80vh;
+    padding: var(--space-responsive-3xl) 0; /* Normal padding */
   }
 }
 
+/* Large desktops and up (1200px+) */
+@media (min-width: 1200px) {
+  .localHero {
+    min-height: 100vh;
+    padding: var(--space-4xl) 0; /* Normal padding */
+  }
+}
+
+/* Extra small mobile adjustments */
 @media (max-width: 390px) {
-  .statsGrid {
-    grid-template-columns: 1fr;
+  .localStats {
+    flex-direction: column;
+    gap: var(--space-md);
   }
   
   .trustIndicators {
     flex-direction: column;
     text-align: center;
-  }
-  
-  .landmarksList {
-    justify-content: center;
-  }
-  
-  .localStats {
-    justify-content: center;
+    gap: var(--space-sm);
   }
 }

@@ -1,0 +1,541 @@
+/* src/styles/responsive.css - Mobile-First Responsive Breakpoint System */
+
+/* ===== MOBILE-FIRST RESPONSIVE BREAKPOINT SYSTEM ===== */
+
+:root {
+  /* Enhanced Responsive Breakpoints - Mobile First */
+  --breakpoint-xs: 320px;    /* Extra small mobile devices */
+  --breakpoint-sm: 480px;    /* Small mobile devices */
+  --breakpoint-md: 768px;    /* Tablets */
+  --breakpoint-lg: 1024px;   /* Small desktops */
+  --breakpoint-xl: 1200px;   /* Large desktops */
+  --breakpoint-2xl: 1440px;  /* Extra large screens */
+  
+  /* Container Max Widths for Each Breakpoint */
+  --container-xs: 100%;
+  --container-sm: 100%;
+  --container-md: 100%;
+  --container-lg: 1024px;
+  --container-xl: 1200px;
+  --container-2xl: 1400px;
+  
+  /* Responsive Spacing Scale - Mobile First */
+  --space-responsive-xs: clamp(0.25rem, 1vw, 0.5rem);    /* 4px - 8px */
+  --space-responsive-sm: clamp(0.5rem, 2vw, 1rem);       /* 8px - 16px */
+  --space-responsive-md: clamp(1rem, 3vw, 2rem);         /* 16px - 32px */
+  --space-responsive-lg: clamp(1.5rem, 4vw, 3rem);       /* 24px - 48px */
+  --space-responsive-xl: clamp(2rem, 5vw, 4rem);         /* 32px - 64px */
+  --space-responsive-2xl: clamp(3rem, 6vw, 6rem);        /* 48px - 96px */
+  --space-responsive-3xl: clamp(4rem, 8vw, 8rem);        /* 64px - 128px */
+  
+  /* Responsive Typography Scale - Mobile First */
+  --font-size-responsive-xs: clamp(0.75rem, 2vw, 0.875rem);    /* 12px - 14px */
+  --font-size-responsive-sm: clamp(0.875rem, 2.5vw, 1rem);     /* 14px - 16px */
+  --font-size-responsive-base: clamp(1rem, 3vw, 1.125rem);     /* 16px - 18px */
+  --font-size-responsive-lg: clamp(1.125rem, 3.5vw, 1.25rem);  /* 18px - 20px */
+  --font-size-responsive-xl: clamp(1.25rem, 4vw, 1.5rem);      /* 20px - 24px */
+  --font-size-responsive-2xl: clamp(1.5rem, 5vw, 2rem);        /* 24px - 32px */
+  --font-size-responsive-3xl: clamp(2rem, 6vw, 3rem);          /* 32px - 48px */
+  --font-size-responsive-4xl: clamp(2.5rem, 7vw, 4rem);        /* 40px - 64px */
+  --font-size-responsive-5xl: clamp(3rem, 8vw, 5rem);          /* 48px - 80px */
+  
+  /* Grid System - Mobile First */
+  --grid-columns-xs: 1;
+  --grid-columns-sm: 1;
+  --grid-columns-md: 2;
+  --grid-columns-lg: 3;
+  --grid-columns-xl: 4;
+  
+  /* Grid Gaps - Responsive */
+  --grid-gap-xs: var(--space-responsive-sm);
+  --grid-gap-sm: var(--space-responsive-md);
+  --grid-gap-md: var(--space-responsive-lg);
+  --grid-gap-lg: var(--space-responsive-xl);
+  --grid-gap-xl: var(--space-responsive-2xl);
+}
+
+/* ===== RESPONSIVE CONTAINER SYSTEM ===== */
+
+.container-responsive {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--space-responsive-md);
+  max-width: var(--container-xs);
+}
+
+/* Small mobile and up */
+@media (min-width: 480px) {
+  .container-responsive {
+    padding: 0 var(--space-responsive-lg);
+    max-width: var(--container-sm);
+  }
+}
+
+/* Tablets and up */
+@media (min-width: 768px) {
+  .container-responsive {
+    padding: 0 var(--space-responsive-xl);
+    max-width: var(--container-md);
+  }
+}
+
+/* Small desktops and up */
+@media (min-width: 1024px) {
+  .container-responsive {
+    padding: 0 var(--space-responsive-2xl);
+    max-width: var(--container-lg);
+  }
+}
+
+/* Large desktops and up */
+@media (min-width: 1200px) {
+  .container-responsive {
+    padding: 0 var(--space-responsive-2xl);
+    max-width: var(--container-xl);
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+  .container-responsive {
+    max-width: var(--container-2xl);
+  }
+}
+
+/* ===== RESPONSIVE GRID SYSTEM ===== */
+
+.grid-responsive {
+  display: grid;
+  gap: var(--grid-gap-xs);
+  grid-template-columns: repeat(var(--grid-columns-xs), 1fr);
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Small mobile and up */
+@media (min-width: 480px) {
+  .grid-responsive {
+    gap: var(--grid-gap-sm);
+    grid-template-columns: repeat(var(--grid-columns-sm), 1fr);
+  }
+}
+
+/* Tablets and up */
+@media (min-width: 768px) {
+  .grid-responsive {
+    gap: var(--grid-gap-md);
+    grid-template-columns: repeat(var(--grid-columns-md), 1fr);
+  }
+}
+
+/* Small desktops and up */
+@media (min-width: 1024px) {
+  .grid-responsive {
+    gap: var(--grid-gap-lg);
+    grid-template-columns: repeat(var(--grid-columns-lg), 1fr);
+  }
+}
+
+/* Large desktops and up */
+@media (min-width: 1200px) {
+  .grid-responsive {
+    gap: var(--grid-gap-xl);
+    grid-template-columns: repeat(var(--grid-columns-xl), 1fr);
+  }
+}
+
+/* ===== RESPONSIVE FLEXBOX UTILITIES ===== */
+
+.flex-responsive {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-responsive-sm);
+}
+
+@media (min-width: 768px) {
+  .flex-responsive {
+    flex-direction: row;
+    gap: var(--space-responsive-lg);
+  }
+}
+
+.flex-responsive-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-responsive-sm);
+}
+
+@media (min-width: 768px) {
+  .flex-responsive-center {
+    flex-direction: row;
+    gap: var(--space-responsive-lg);
+  }
+}
+
+/* ===== RESPONSIVE TEXT ALIGNMENT ===== */
+
+.text-responsive-center {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .text-responsive-left {
+    text-align: left;
+  }
+  
+  .text-responsive-right {
+    text-align: right;
+  }
+}
+
+/* ===== RESPONSIVE VISIBILITY UTILITIES ===== */
+
+.hidden-xs {
+  display: none;
+}
+
+@media (min-width: 480px) {
+  .hidden-xs {
+    display: block;
+  }
+  
+  .hidden-sm {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .hidden-sm {
+    display: block;
+  }
+  
+  .hidden-md {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hidden-md {
+    display: block;
+  }
+  
+  .hidden-lg {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hidden-lg {
+    display: block;
+  }
+}
+
+/* Show only on specific breakpoints */
+.show-xs-only {
+  display: block;
+}
+
+@media (min-width: 480px) {
+  .show-xs-only {
+    display: none;
+  }
+}
+
+.show-sm-only {
+  display: none;
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .show-sm-only {
+    display: block;
+  }
+}
+
+.show-md-only {
+  display: none;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .show-md-only {
+    display: block;
+  }
+}
+
+.show-lg-only {
+  display: none;
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .show-lg-only {
+    display: block;
+  }
+}
+
+.show-xl-only {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .show-xl-only {
+    display: block;
+  }
+}
+
+/* ===== CONTAINER QUERIES WITH FALLBACKS ===== */
+
+/* Container query support with fallbacks */
+@supports (container-type: inline-size) {
+  .container-query-responsive {
+    container-type: inline-size;
+  }
+  
+  /* Container-based responsive grid */
+  @container (min-width: 480px) {
+    .grid-container-responsive {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @container (min-width: 768px) {
+    .grid-container-responsive {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @container (min-width: 1024px) {
+    .grid-container-responsive {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+/* Fallback for browsers without container query support */
+@supports not (container-type: inline-size) {
+  .grid-container-responsive {
+    display: grid;
+    gap: var(--grid-gap-sm);
+    grid-template-columns: 1fr;
+  }
+  
+  @media (min-width: 480px) {
+    .grid-container-responsive {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .grid-container-responsive {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .grid-container-responsive {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+/* ===== RESPONSIVE SPACING UTILITIES ===== */
+
+.p-responsive {
+  padding: var(--space-responsive-sm);
+}
+
+@media (min-width: 768px) {
+  .p-responsive {
+    padding: var(--space-responsive-lg);
+  }
+}
+
+@media (min-width: 1200px) {
+  .p-responsive {
+    padding: var(--space-responsive-xl);
+  }
+}
+
+.m-responsive {
+  margin: var(--space-responsive-sm);
+}
+
+@media (min-width: 768px) {
+  .m-responsive {
+    margin: var(--space-responsive-lg);
+  }
+}
+
+@media (min-width: 1200px) {
+  .m-responsive {
+    margin: var(--space-responsive-xl);
+  }
+}
+
+/* ===== RESPONSIVE TYPOGRAPHY UTILITIES ===== */
+
+.text-responsive-xs {
+  font-size: var(--font-size-responsive-xs);
+}
+
+.text-responsive-sm {
+  font-size: var(--font-size-responsive-sm);
+}
+
+.text-responsive-base {
+  font-size: var(--font-size-responsive-base);
+}
+
+.text-responsive-lg {
+  font-size: var(--font-size-responsive-lg);
+}
+
+.text-responsive-xl {
+  font-size: var(--font-size-responsive-xl);
+}
+
+.text-responsive-2xl {
+  font-size: var(--font-size-responsive-2xl);
+}
+
+.text-responsive-3xl {
+  font-size: var(--font-size-responsive-3xl);
+}
+
+.text-responsive-4xl {
+  font-size: var(--font-size-responsive-4xl);
+}
+
+.text-responsive-5xl {
+  font-size: var(--font-size-responsive-5xl);
+}
+
+/* ===== RESPONSIVE HERO CENTERING SYSTEM ===== */
+
+.hero-responsive {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: var(--space-responsive-xl) 0;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .hero-responsive {
+    min-height: 70vh;
+    padding: var(--space-responsive-2xl) 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-responsive {
+    min-height: 80vh;
+    padding: var(--space-responsive-3xl) 0;
+  }
+}
+
+.hero-content-responsive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .hero-content-responsive {
+    max-width: 80%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-content-responsive {
+    max-width: 800px;
+  }
+}
+
+/* ===== RESPONSIVE CARD GRID SYSTEM ===== */
+
+.cards-responsive {
+  display: grid;
+  gap: var(--space-responsive-md);
+  grid-template-columns: 1fr;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+@media (min-width: 480px) {
+  .cards-responsive {
+    gap: var(--space-responsive-lg);
+  }
+}
+
+@media (min-width: 768px) {
+  .cards-responsive {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-responsive-xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cards-responsive {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .cards-responsive {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Services specific - 2x2 grid on desktop, 2x1 on tablet, 1x1 on mobile */
+.services-cards-responsive {
+  display: grid;
+  gap: var(--space-responsive-md);
+  grid-template-columns: 1fr;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .services-cards-responsive {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-responsive-xl);
+  }
+}
+
+/* ===== RESPONSIVE BUTTON SYSTEM ===== */
+
+.buttons-responsive {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-responsive-sm);
+  align-items: center;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .buttons-responsive {
+    flex-direction: row;
+    gap: var(--space-responsive-lg);
+    justify-content: center;
+  }
+}
+
+.button-responsive {
+  width: 100%;
+  max-width: 300px;
+  padding: var(--space-responsive-sm) var(--space-responsive-lg);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .button-responsive {
+    width: auto;
+    max-width: none;
+  }
+}

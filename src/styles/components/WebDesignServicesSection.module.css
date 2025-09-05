@@ -41,9 +41,11 @@
 
 .servicesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-2xl);
   margin-bottom: var(--space-4xl);
+  max-width: 100%;
+  width: 100%;
 }
 
 .serviceCard {
@@ -53,6 +55,9 @@
   padding: var(--space-2xl);
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
 }
 
 .serviceCard:hover {
@@ -79,12 +84,14 @@
   color: var(--color-text-muted);
   line-height: var(--line-height-relaxed);
   margin-bottom: var(--space-xl);
+  flex-grow: 1;
 }
 
 .serviceFeatures {
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-top: auto;
 }
 
 .serviceFeature {
@@ -142,28 +149,51 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1199px) {
-  .townGrid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+/* Desktop and tablet - 2 columns */
+@media (min-width: 769px) {
+  .servicesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1.5rem, 4vw, 2rem);
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .servicesGrid {
+    gap: clamp(1.5rem, 3vw, 2rem);
   }
   
-  .servicesGrid {
+  .townGrid {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
 }
 
-@media (max-width: 809px) {
-  .townGrid {
+/* Mobile - 1 column */
+@media (max-width: 768px) {
+  .servicesGrid {
     grid-template-columns: 1fr;
+    gap: clamp(1rem, 4vw, 1.5rem);
   }
   
-  .servicesGrid {
+  .townGrid {
     grid-template-columns: 1fr;
   }
   
   .coverageStats {
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-lg);
+  }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 480px) {
+  .servicesGrid {
+    gap: var(--space-lg);
+  }
+  
+  .serviceCard {
+    padding: var(--space-lg);
+    min-height: 350px;
   }
 }
 
@@ -177,6 +207,11 @@
   }
   
   .serviceCard {
-    padding: var(--space-lg);
+    padding: var(--space-md);
+    min-height: 320px;
+  }
+  
+  .servicesGrid {
+    gap: var(--space-md);
   }
 }

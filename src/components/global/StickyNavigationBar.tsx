@@ -34,7 +34,7 @@ export const StickyNavigationBar: React.FC<StickyNavigationBarProps> = ({
    * Handle navigation click with smooth scrolling for anchor links
    */
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavigationItem) => {
-    handleNavigationClick(e, item.href, currentPage);
+    handleNavigationClick(e, item.href);
   };
 
   /**
@@ -103,7 +103,7 @@ export const StickyNavigationBar: React.FC<StickyNavigationBarProps> = ({
   // Enhanced transition configuration for smoother animations
   const transitionConfig = {
     duration: 0.4,
-    ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for smooth feel
+    ease: "easeOut" as const,
     opacity: { duration: 0.3 },
     scale: { duration: 0.2 }
   };

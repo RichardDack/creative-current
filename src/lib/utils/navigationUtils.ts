@@ -192,7 +192,7 @@ export function generateMobileNavigationLinks(currentPage: PageType, townSlug?: 
 /**
  * Handle navigation click with proper cross-page and smooth scrolling logic
  */
-export function handleNavigationClick(href: string, _currentPage: PageType): void {
+export function handleNavigationClick(href: string): void {
   if (typeof window === 'undefined') return;
 
   // Handle anchor links on same page
@@ -239,7 +239,7 @@ export function handleNavigationClick(href: string, _currentPage: PageType): voi
 /**
  * Validate navigation link exists and is accessible
  */
-export function validateNavigationLink(href: string, currentPage: PageType): boolean {
+export function validateNavigationLink(href: string): boolean {
   if (typeof window === 'undefined') return true;
 
   // Validate anchor links have corresponding elements
@@ -273,8 +273,7 @@ export function validateNavigationLink(href: string, currentPage: PageType): boo
  */
 export function shouldShowStickyNav(
   currentPage: PageType, 
-  isScrolledPastHero: boolean,
-  scrollDirection?: 'up' | 'down' | 'none'
+  isScrolledPastHero: boolean
 ): boolean {
   switch (currentPage) {
     case 'homepage':

@@ -18,7 +18,7 @@ export const Hero = () => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    handleNavigationClick(e, href, 'homepage');
+    handleNavigationClick(e, href);
   };
 
   return (

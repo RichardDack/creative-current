@@ -34,8 +34,7 @@ export function scrollToElement(targetId: string, additionalOffset: number = 20)
  */
 export function handleNavigationClick(
   e: React.MouseEvent<HTMLAnchorElement>, 
-  href: string, 
-  currentPage?: string
+  href: string
 ): void {
   // Only handle anchor links
   if (!href.startsWith('#')) {
@@ -47,7 +46,7 @@ export function handleNavigationClick(
   const targetId = href.substring(1);
   
   // Handle cross-page navigation to homepage anchors
-  if (currentPage && currentPage !== 'homepage' && href.startsWith('#')) {
+  if (href.startsWith('#') && window.location.pathname !== '/') {
     // Navigate to homepage first, then scroll to anchor
     window.location.href = `/${href}`;
     return;

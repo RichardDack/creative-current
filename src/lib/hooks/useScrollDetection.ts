@@ -50,7 +50,7 @@ export function useScrollDetection(options: ScrollDetectionOptions = {}): Scroll
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const lastScrollY = useRef(0);
-  const rafId = useRef<number>();
+  const rafId = useRef<number | undefined>(undefined);
 
   // Enhanced scroll handler with hero section awareness
   const handleScroll = useCallback(() => {

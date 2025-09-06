@@ -25,7 +25,6 @@ const LayoutContent: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       {/* Sticky Navigation Bar */}
       <StickyNavigationBar
         isVisible={showStickyNav}
-        currentPage={currentPage}
         navigationItems={navigationItems}
         subNavigationItems={subNavigationItems}
       />

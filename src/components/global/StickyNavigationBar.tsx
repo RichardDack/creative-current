@@ -24,7 +24,6 @@ import { handleNavigationClick } from '@/lib/utils/scrollUtils';
  */
 export const StickyNavigationBar: React.FC<StickyNavigationBarProps> = ({
   isVisible,
-  currentPage,
   navigationItems,
   subNavigationItems = [],
   className = ''

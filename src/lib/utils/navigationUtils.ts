@@ -196,7 +196,7 @@ export function handleNavigationClick(href: string): void {
   if (typeof window === 'undefined') return;
 
   // Handle anchor links on same page
-  if (href.startsWith('#') && currentPage === 'homepage') {
+  if (href.startsWith('#') && window.location.pathname === '/') {
     const targetId = href.substring(1);
     const targetElement = document.getElementById(targetId);
     

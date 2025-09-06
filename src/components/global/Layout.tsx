@@ -16,7 +16,7 @@ interface LayoutProps {
 
 // Inner layout component that uses navigation context
 const LayoutContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { showStickyNav, navigationItems, subNavigationItems, currentPage } = useNavigation();
+  const { showStickyNav, navigationItems, subNavigationItems } = useNavigation();
 
   return (
     <>

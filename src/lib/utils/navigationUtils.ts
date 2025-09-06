@@ -155,7 +155,7 @@ export function generateMobileNavigationLinks(currentPage: PageType, townSlug?: 
         { id: 'about', name: 'ABOUT', href: '/#meet-our-team', type: 'page' as NavigationType },
         { id: 'contact', name: 'CONTACT', href: '/#footer-background', type: 'page' as NavigationType },
         // Add town navigation as a separator
-        { id: 'towns-separator', name: '--- LOCATIONS ---', href: '#', type: 'anchor' as NavigationType, mobileOnly: true },
+        { id: 'towns-separator', name: '--- LOCATIONS ---', href: '#', type: 'anchor' as NavigationType },
         ...NAVIGATION_CONFIG.webDesign.townNavigation.map(town => ({ ...town }))
       ];
       return webDesignLinks;
@@ -177,7 +177,7 @@ export function generateMobileNavigationLinks(currentPage: PageType, townSlug?: 
       
       if (otherTowns.length > 0) {
         townLinks.push(
-          { id: 'other-towns-separator', name: '--- OTHER LOCATIONS ---', href: '#', type: 'anchor' as NavigationType, mobileOnly: true },
+          { id: 'other-towns-separator', name: '--- OTHER LOCATIONS ---', href: '#', type: 'anchor' as NavigationType },
           ...otherTowns.map(town => ({ ...town }))
         );
       }

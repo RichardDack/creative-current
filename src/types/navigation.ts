@@ -43,7 +43,6 @@ export interface NavigationProviderProps {
 
 export interface StickyNavigationBarProps {
   isVisible: boolean;
-  currentPage: PageType;
   navigationItems: NavigationItem[];
   subNavigationItems?: NavigationItem[];
   className?: string;

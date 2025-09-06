@@ -1,0 +1,343 @@
+/* src/styles/components/StickyNavigationBar.module.css */
+
+/* Main sticky navigation bar - hidden on mobile, visible on desktop/tablet */
+.stickyNavigationBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  pointer-events: auto; /* Ensure it can be interacted with */
+  
+  /* Glass morphism effect */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  
+  /* Smooth transitions */
+  transition: all var(--duration-normal) var(--ease-out);
+  
+  /* Hidden on mobile by default */
+  display: none;
+}
+
+/* Show on tablet and desktop */
+@media (min-width: 768px) {
+  .stickyNavigationBar {
+    display: block;
+  }
+}
+
+/* Navigation content container */
+.navigationContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--breakpoint-desktop);
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-2xl);
+  height: 60px; /* Fixed height for consistent layout */
+  box-sizing: border-box;
+}
+
+/* Logo section */
+.logoSection {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform var(--duration-fast) var(--ease-out);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs);
+}
+
+.logoLink:hover {
+  transform: scale(1.05);
+}
+
+.logoLink:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.logo {
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+/* Main navigation section */
+.mainNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  flex: 1;
+}
+
+/* Sub-navigation section */
+.subNavigation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-shrink: 0;
+}
+
+.subNavigationDivider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0 var(--space-sm);
+}
+
+/* Navigation items */
+.navigationItem {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  transition: all var(--duration-fast) var(--ease-out);
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  white-space: nowrap;
+}
+
+/* Hover state */
+.navigationItem:hover {
+  background: rgba(49, 175, 180, 0.2);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+/* Focus state for accessibility */
+.navigationItem:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  color: var(--color-primary);
+}
+
+/* Active state */
+.navigationItem.active {
+  background: rgba(49, 175, 180, 0.3);
+  color: var(--color-primary);
+}
+
+.navigationItem.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: 1px;
+}
+
+/* Sub-navigation items (smaller) */
+.navigationItem.subItem {
+  font-size: var(--font-size-xs);
+  padding: var(--space-xs) var(--space-sm);
+  color: rgba(255, 255, 255, 0.7);
+  min-height: 28px;
+}
+
+.navigationItem.subItem:hover {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Item text */
+.itemText {
+  display: block;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .navigationContent {
+    padding: var(--space-md) var(--space-xl);
+  }
+  
+  .mainNavigation {
+    gap: var(--space-md);
+  }
+  
+  .navigationItem {
+    font-size: var(--font-size-xs);
+    padding: var(--space-xs) var(--space-sm);
+  }
+}
+
+@media (min-width: 1024px) {
+  .navigationContent {
+    padding: var(--space-md) var(--space-2xl);
+  }
+  
+  .mainNavigation {
+    gap: var(--space-xl);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .stickyNavigationBar {
+    background: rgba(0, 0, 0, 0.95);
+    border-bottom-color: var(--color-primary);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  
+  .navigationItem {
+    border: 1px solid transparent;
+  }
+  
+  .navigationItem:hover,
+  .navigationItem:focus {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-background-darker);
+  }
+  
+  .navigationItem.active {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-background-darker);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .stickyNavigationBar,
+  .navigationItem,
+  .logoLink,
+  .logo {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .navigationItem:hover {
+    transform: none !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .stickyNavigationBar {
+    display: none;
+  }
+}
+
+/* CSS custom property for work section height adjustment */
+/* Note: CSS custom properties are handled via CSS-in-JS or global styles */
+
+/* When sticky nav is visible, expose the height for other components */
+.stickyNavigationBar {
+  --nav-height: 60px;
+}
+
+/* Dark theme variant (default) */
+.stickyNavigationBar {
+  /* Glass morphism with dark tint */
+  background: rgba(20, 33, 45, 0.8);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Light theme variant */
+.stickyNavigationBar.light {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+.stickyNavigationBar.light .navigationItem {
+  color: rgba(20, 33, 45, 0.9);
+}
+
+.stickyNavigationBar.light .navigationItem:hover {
+  background: rgba(49, 175, 180, 0.1);
+  color: var(--color-primary);
+}
+
+.stickyNavigationBar.light .navigationItem.subItem {
+  color: rgba(20, 33, 45, 0.7);
+}
+
+.stickyNavigationBar.light .navigationItem.subItem:hover {
+  color: rgba(20, 33, 45, 0.9);
+  background: rgba(20, 33, 45, 0.05);
+}
+
+.stickyNavigationBar.light .subNavigationDivider {
+  background: rgba(20, 33, 45, 0.2);
+}
+
+/* Enhanced animation performance optimizations */
+.stickyNavigationBar {
+  will-change: transform, opacity, backdrop-filter;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  
+  /* Smooth backdrop filter transitions */
+  transition: backdrop-filter var(--duration-normal) var(--ease-out);
+}
+
+/* Enhanced navigation item animations */
+.navigationItem {
+  will-change: transform, background-color, color;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  
+  /* Staggered animation support */
+  animation-fill-mode: both;
+}
+
+/* Staggered animation for navigation items */
+.navigationItem:nth-child(1) { animation-delay: 0.1s; }
+.navigationItem:nth-child(2) { animation-delay: 0.15s; }
+.navigationItem:nth-child(3) { animation-delay: 0.2s; }
+.navigationItem:nth-child(4) { animation-delay: 0.25s; }
+.navigationItem:nth-child(5) { animation-delay: 0.3s; }
+
+/* Smooth appearance animation for navigation items */
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stickyNavigationBar.visible .navigationItem {
+  animation: slideInFromTop 0.3s var(--ease-out) forwards;
+}
+
+/* Ensure proper stacking context */
+.stickyNavigationBar {
+  isolation: isolate;
+}
+
+/* Loading state (for future enhancement) */
+.stickyNavigationBar.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.stickyNavigationBar.loading .navigationItem {
+  cursor: wait;
+}

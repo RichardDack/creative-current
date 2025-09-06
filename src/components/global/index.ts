@@ -3,3 +3,4 @@ export { Header } from './Header';
 export { Footer } from './Footer';
 export { Layout } from './Layout';
 export { MobileNavOverlay } from './MobileNavOverlay';
+export { StickyNavigationBar } from './StickyNavigationBar';

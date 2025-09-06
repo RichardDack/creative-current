@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from '@/styles/components/Hero.module.css';
 import { LogoComponent } from '@/components/ui/LogoComponent';
+import { handleNavigationClick } from '@/lib/utils/scrollUtils';
 
 const navigationItems = [
   { name: 'WORK', href: '#work-section' },
@@ -17,16 +18,7 @@ export const Hero = () => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const targetId = href.replace('#', '');
-    const targetElement = document.getElementById(targetId);
-
-    if (targetElement) {
-      targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+    handleNavigationClick(e, href, 'homepage');
   };
 
   return (
@@ -215,8 +207,9 @@ export const Hero = () => {
               transition={{ delay: 1.4, duration: 0.6 }}
             >
               <motion.a
-                href="#contact"
+                href="#footer-background"
                 className={styles.ctaButtonPrimary}
+                onClick={(e) => handleSmoothScroll(e, "#footer-background")}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -227,6 +220,7 @@ export const Hero = () => {
               <motion.a
                 href="#work-section"
                 className={styles.ctaButtonSecondary}
+                onClick={(e) => handleSmoothScroll(e, "#work-section")}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}

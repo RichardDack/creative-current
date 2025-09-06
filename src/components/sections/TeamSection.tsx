@@ -36,6 +36,7 @@ export const TeamSection = () => {
 
   return (
     <motion.section 
+      id="meet-our-team"
       className={styles.teamSection}
       variants={sectionVariants}
       initial="hidden"

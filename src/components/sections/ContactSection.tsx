@@ -233,7 +233,7 @@ export const ContactSection = () => {
 
   return (
     <motion.section 
-      id="contact"
+      id="footer-background"
       className={styles.contactSection}
       variants={sectionVariants}
       initial="hidden"

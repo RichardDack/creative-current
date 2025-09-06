@@ -81,6 +81,11 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* CSS custom properties for navigation system */
+:root {
+  --sticky-nav-height: 60px;
+}
+
 body {
   font-family: var(--font-clash-grotesk), var(--font-body), system-ui, sans-serif;
   background-color: rgb(255, 255, 255);

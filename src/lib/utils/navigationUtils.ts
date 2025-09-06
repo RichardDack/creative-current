@@ -79,9 +79,9 @@ export function detectPageContext(): PageContext {
   }
 
   // Detect viewport size
-  const viewportSize: ViewportSize = 
+  const viewportSize: ViewportSize =
     window.innerWidth < 768 ? 'mobile' :
-    window.innerWidth < 1024 ? 'tablet' : 'desktop';
+      window.innerWidth < 1024 ? 'tablet' : 'desktop';
 
   // Detect scroll position (will be updated by scroll detection hook)
   const isScrolledPastHero = false;
@@ -119,7 +119,7 @@ export function generateNavigationLinks(currentPage: PageType, townSlug?: string
       const otherTowns = NAVIGATION_CONFIG.townPages.otherTowns.filter(
         town => !town.href.includes(townSlug || '')
       );
-      
+
       return {
         navigationItems: [...NAVIGATION_CONFIG.townPages.mainNavigation],
         subNavigationItems: [...otherTowns]
@@ -174,7 +174,7 @@ export function generateMobileNavigationLinks(currentPage: PageType, townSlug?: 
       const otherTowns = NAVIGATION_CONFIG.townPages.otherTowns.filter(
         town => !town.href.includes(townSlug || '')
       );
-      
+
       if (otherTowns.length > 0) {
         townLinks.push(
           { id: 'other-towns-separator', name: '--- OTHER LOCATIONS ---', href: '#', type: 'anchor' as NavigationType },
@@ -199,7 +199,7 @@ export function handleNavigationClick(href: string): void {
   if (href.startsWith('#') && window.location.pathname === '/') {
     const targetId = href.substring(1);
     const targetElement = document.getElementById(targetId);
-    
+
     if (targetElement) {
       targetElement.scrollIntoView({
         behavior: 'smooth',
@@ -212,7 +212,7 @@ export function handleNavigationClick(href: string): void {
   // Handle cross-page navigation with anchor
   if (href.includes('/#')) {
     const [path, anchor] = href.split('/#');
-    
+
     if (window.location.pathname === path || (path === '' && window.location.pathname === '/')) {
       // Same page, just scroll to anchor
       const targetElement = document.getElementById(anchor);
@@ -272,19 +272,19 @@ export function validateNavigationLink(href: string): boolean {
  * - 4.1, 4.2, 4.3: Proper page-type aware visibility logic
  */
 export function shouldShowStickyNav(
-  currentPage: PageType, 
+  currentPage: PageType,
   isScrolledPastHero: boolean
 ): boolean {
   switch (currentPage) {
     case 'homepage':
       // On homepage, only show after scrolling past hero section
       return isScrolledPastHero;
-      
+
     case 'web-design':
     case 'town':
       // On sub-pages, always show sticky navigation immediately
       return true;
-      
+
     default:
       return false;
   }
@@ -295,13 +295,13 @@ export function shouldShowStickyNav(
  * Provides smoother UX by considering scroll direction for show/hide behavior
  */
 export function shouldShowStickyNavEnhanced(
-  currentPage: PageType, 
+  currentPage: PageType,
   isScrolledPastHero: boolean,
   scrollDirection: 'up' | 'down' | 'none' = 'none',
   scrollY: number = 0
 ): boolean {
-  const baseVisibility = shouldShowStickyNav(currentPage, isScrolledPastHero, scrollDirection);
-  
+  const baseVisibility = shouldShowStickyNav(currentPage, isScrolledPastHero);
+
   // For homepage, add scroll direction awareness for better UX
   if (currentPage === 'homepage' && baseVisibility) {
     // Hide sticky nav when scrolling down fast (aggressive scrolling)
@@ -311,10 +311,10 @@ export function shouldShowStickyNavEnhanced(
       // For now, keep it always visible once past hero
       return true;
     }
-    
+
     return true;
   }
-  
+
   return baseVisibility;
 }
 
@@ -326,7 +326,7 @@ export function getContextualMessage(currentPage: PageType, townSlug?: string): 
     case 'web-design':
       return 'Navigate to main sections or select a location';
     case 'town':
-      const formattedTownName = townSlug 
+      const formattedTownName = townSlug
         ? townSlug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
         : 'this location';
       return `Navigate from ${formattedTownName}`;
@@ -358,7 +358,7 @@ export function getTownDisplayName(townSlug: string): string {
   const town = NAVIGATION_CONFIG.webDesign.townNavigation.find(
     town => town.href.includes(townSlug)
   );
-  return town?.name || townSlug.split('-').map(word => 
+  return town?.name || townSlug.split('-').map(word =>
     word.charAt(0).toUpperCase() + word.slice(1)
   ).join(' ');
 }
@@ -412,8 +412,8 @@ export function generateBreadcrumbNavigation(currentPage: PageType, townSlug?: s
  * Mark active navigation item based on current context
  */
 export function markActiveNavigationItem(
-  items: NavigationItem[], 
-  currentPage: PageType, 
+  items: NavigationItem[],
+  currentPage: PageType,
   currentSection?: string,
   currentPath?: string
 ): NavigationItem[] {
@@ -427,8 +427,8 @@ export function markActiveNavigationItem(
  * Determine if a navigation item should be marked as active
  */
 function determineIfItemIsActive(
-  item: NavigationItem, 
-  currentPage: PageType, 
+  item: NavigationItem,
+  currentPage: PageType,
   currentSection?: string,
   currentPath?: string
 ): boolean {
@@ -438,13 +438,13 @@ function determineIfItemIsActive(
   if (item.type === 'page') {
     // Exact path match
     if (item.href === currentPathname) return true;
-    
+
     // Homepage variations
     if ((item.href === '/' || item.href === '') && currentPage === 'homepage') return true;
-    
+
     // Web-design page
     if (item.href === '/web-design' && currentPage === 'web-design') return true;
-    
+
     // Town pages - check if current path matches the town href
     if (item.href.startsWith('/web-design/') && currentPage === 'town') {
       return currentPathname === item.href;
@@ -511,7 +511,7 @@ export function detectCurrentSection(): string | undefined {
  * Generate contextual sub-navigation based on current page and context
  */
 export function generateContextualSubNavigation(
-  currentPage: PageType, 
+  currentPage: PageType,
   townSlug?: string,
   showAllTowns: boolean = false
 ): NavigationItem[] {
@@ -523,7 +523,7 @@ export function generateContextualSubNavigation(
     case 'web-design':
       // Show town navigation with enhanced context
       const townNav = [...NAVIGATION_CONFIG.webDesign.townNavigation];
-      
+
       // If we want to show all towns with additional context
       if (showAllTowns) {
         return townNav.map(town => ({
@@ -531,7 +531,7 @@ export function generateContextualSubNavigation(
           name: `${town.name} WEB DESIGN`
         }));
       }
-      
+
       return townNav;
 
     case 'town':

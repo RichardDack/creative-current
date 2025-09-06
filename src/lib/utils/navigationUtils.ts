@@ -192,7 +192,7 @@ export function generateMobileNavigationLinks(currentPage: PageType, townSlug?: 
 /**
  * Handle navigation click with proper cross-page and smooth scrolling logic
  */
-export function handleNavigationClick(href: string, currentPage: PageType): void {
+export function handleNavigationClick(href: string, _currentPage: PageType): void {
   if (typeof window === 'undefined') return;
 
   // Handle anchor links on same page

@@ -37,7 +37,6 @@ export function useScrollDetection(options: ScrollDetectionOptions = {}): Scroll
   const {
     heroElementId = 'hero-section',
     fallbackThreshold = 800,
-    throttleMs = 16, // ~60fps
     offset = 100, // Show sticky nav 100px before hero ends
     enableOnPageTypes = ['homepage', 'web-design', 'town'],
     currentPageType = 'homepage'

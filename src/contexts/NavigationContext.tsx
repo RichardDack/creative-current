@@ -7,12 +7,10 @@ import {
   NavigationContextType, 
   NavigationProviderProps, 
   PageContext, 
-  NavigationItem,
-  PageType 
+  NavigationItem
 } from '@/types/navigation';
 import { useScrollDetection } from '@/lib/hooks/useScrollDetection';
 import { 
-  detectPageContext, 
   generateNavigationLinks, 
   shouldShowStickyNav,
   markActiveNavigationItem,
@@ -40,11 +38,7 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
 
   // Use enhanced scroll detection hook with page-type awareness
   const { 
-    isScrolledPastHero, 
-    scrollDirection, 
-    scrollProgress,
-    heroHeight,
-    heroBottom 
+    isScrolledPastHero
   } = useScrollDetection({
     heroElementId: 'hero-section',
     fallbackThreshold: 800,

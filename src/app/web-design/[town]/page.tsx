@@ -135,7 +135,7 @@ export default async function TownPage({ params }: PageProps) {
                 name: industry,
                 type: industry
               })),
-              population: locationData.population.toString(),
+              population: locationData.population,
               postcode: locationData.postcodes[0]
             }}
             ctaPrimary={{

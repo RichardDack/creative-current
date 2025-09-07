@@ -229,20 +229,20 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
               </div>
             )}
             
-            {townData.postcode && (
+            {townData.postcodes?.[0] && (
               <div className={styles.infoItem}>
                 <span className={styles.infoLabel}>Postcode:</span>
-                <span className={styles.infoValue}>{townData.postcode}</span>
+                <span className={styles.infoValue}>{townData.postcodes[0]}</span>
               </div>
             )}
             
-            {townData.keyBusinesses && Array.isArray(townData.keyBusinesses) && townData.keyBusinesses.length > 0 && (
+            {townData.keyIndustries && Array.isArray(townData.keyIndustries) && townData.keyIndustries.length > 0 && (
               <div className={styles.infoItem}>
                 <span className={styles.infoLabel}>Key Industries:</span>
                 <div className={styles.industriesList}>
-                  {townData.keyBusinesses.slice(0, 3).map((business, index) => (
-                    <span key={`${townData.town}-business-${index}-${business.name}`} className={styles.industryTag}>
-                      {business.name}
+                  {townData.keyIndustries.slice(0, 3).map((industry, index) => (
+                    <span key={`${townData.town}-industry-${index}-${industry}`} className={styles.industryTag}>
+                      {industry}
                     </span>
                   ))}
                 </div>

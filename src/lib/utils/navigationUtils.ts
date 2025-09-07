@@ -433,3 +433,296 @@ export function detectCurrentSection(): string | undefined {
 
   return undefined;
 }
+
+/**
+ * Navigation configuration for the application
+ */
+export const NAVIGATION_CONFIG = {
+  stickyNavHeight: 60,
+  scrollOffset: 20,
+  animationDuration: 300,
+  breakpoints: {
+    mobile: 768,
+    tablet: 1024,
+    desktop: 1200
+  },
+  sections: {
+    homepage: [
+      { id: 'hero-section', name: 'Home', href: '#hero-section' },
+      { id: 'work-section', name: 'Work', href: '#work-section' },
+      { id: 'meet-our-team', name: 'About', href: '#meet-our-team' },
+      { id: 'footer-background', name: 'Contact', href: '#footer-background' }
+    ],
+    webDesign: [
+      { id: 'services-overview', name: 'Services', href: '#services-overview' },
+      { id: 'process', name: 'Process', href: '#process' },
+      { id: 'pricing', name: 'Pricing', href: '#pricing' },
+      { id: 'contact', name: 'Contact', href: '#contact' }
+    ]
+  },
+  routes: {
+    homepage: '/',
+    webDesign: '/web-design',
+    about: '/about',
+    contact: '/contact',
+    work: '/work',
+    services: '/services'
+  }
+} as const;
+
+/**
+ * Detect current page context for SEO and navigation optimization
+ * @param pathname - Current pathname
+ * @param searchParams - URL search parameters
+ * @returns Page context information
+ */
+export function detectPageContext(
+  pathname: string,
+  searchParams?: URLSearchParams
+): {
+  type: 'homepage' | 'web-design' | 'town' | 'service' | 'about' | 'contact' | 'work';
+  location?: string;
+  service?: string;
+  path: string;
+} {
+  // Normalize pathname
+  const normalizedPath = pathname.toLowerCase().replace(/\/$/, '') || '/';
+
+  // Homepage
+  if (normalizedPath === '/') {
+    return {
+      type: 'homepage',
+      path: pathname
+    };
+  }
+
+  // About page
+  if (normalizedPath === '/about') {
+    return {
+      type: 'about',
+      path: pathname
+    };
+  }
+
+  // Contact page
+  if (normalizedPath === '/contact') {
+    return {
+      type: 'contact',
+      path: pathname
+    };
+  }
+
+  // Work/Portfolio page
+  if (normalizedPath === '/work' || normalizedPath === '/portfolio') {
+    return {
+      type: 'work',
+      path: pathname
+    };
+  }
+
+  // Web design main page
+  if (normalizedPath === '/web-design') {
+    return {
+      type: 'web-design',
+      path: pathname
+    };
+  }
+
+  // Town-specific web design pages
+  const townMatch = normalizedPath.match(/^\/web-design\/([^\/]+)$/);
+  if (townMatch) {
+    return {
+      type: 'town',
+      location: townMatch[1],
+      path: pathname
+    };
+  }
+
+  // Service-specific pages
+  const serviceMatch = normalizedPath.match(/^\/services\/([^\/]+)$/);
+  if (serviceMatch) {
+    return {
+      type: 'service',
+      service: serviceMatch[1],
+      path: pathname
+    };
+  }
+
+  // Default fallback
+  return {
+    type: 'homepage',
+    path: pathname
+  };
+}
+
+/**
+ * Generate mobile-specific navigation links with optimized structure
+ * @param pageContext - Current page context
+ * @returns Array of mobile navigation items
+ */
+export function generateMobileNavigationLinks(
+  pageContext: {
+    type: 'homepage' | 'web-design' | 'town' | 'service' | 'about' | 'contact' | 'work';
+    location?: string;
+    service?: string;
+  }
+): Array<{
+  name: string;
+  href: string;
+  id: string;
+  type: 'anchor' | 'page';
+  isActive?: boolean;
+  children?: Array<{ name: string; href: string; id: string }>;
+}> {
+  const baseLinks = [
+    {
+      name: 'HOME',
+      href: '/',
+      id: 'home',
+      type: 'page' as const,
+      isActive: pageContext.type === 'homepage'
+    },
+    {
+      name: 'SERVICES',
+      href: '/web-design',
+      id: 'services',
+      type: 'page' as const,
+      isActive: pageContext.type === 'web-design' || pageContext.type === 'town',
+      children: [
+        { name: 'Web Design', href: '/web-design', id: 'web-design' },
+        { name: 'Responsive Design', href: '/services/responsive-design', id: 'responsive-design' },
+        { name: 'E-commerce', href: '/services/ecommerce', id: 'ecommerce' },
+        { name: 'WordPress', href: '/services/wordpress', id: 'wordpress' }
+      ]
+    },
+    {
+      name: 'WORK',
+      href: pageContext.type === 'homepage' ? '#work-section' : '/#work-section',
+      id: 'work',
+      type: pageContext.type === 'homepage' ? 'anchor' as const : 'page' as const,
+      isActive: pageContext.type === 'work'
+    },
+    {
+      name: 'ABOUT',
+      href: pageContext.type === 'homepage' ? '#meet-our-team' : '/#meet-our-team',
+      id: 'about',
+      type: pageContext.type === 'homepage' ? 'anchor' as const : 'page' as const,
+      isActive: pageContext.type === 'about'
+    },
+    {
+      name: 'CONTACT',
+      href: pageContext.type === 'homepage' ? '#footer-background' : '/#footer-background',
+      id: 'contact',
+      type: pageContext.type === 'homepage' ? 'anchor' as const : 'page' as const,
+      isActive: pageContext.type === 'contact'
+    }
+  ];
+
+  // Add location-specific links for town pages
+  if (pageContext.type === 'town' && pageContext.location) {
+    const locationFormatted = pageContext.location.charAt(0).toUpperCase() + pageContext.location.slice(1);
+    baseLinks.splice(1, 0, {
+      name: `${locationFormatted.toUpperCase()}`,
+      href: `/web-design/${pageContext.location}`,
+      id: `town-${pageContext.location}`,
+      type: 'page' as const,
+      isActive: true
+    });
+  }
+
+  return baseLinks;
+}
+
+/**
+ * Get contextual message based on page and navigation state
+ * @param pageContext - Current page context
+ * @param currentSection - Current section being viewed
+ * @param userAgent - User agent string for device detection
+ * @returns Contextual message for user guidance
+ */
+export function getContextualMessage(
+  pageContext: {
+    type: 'homepage' | 'web-design' | 'town' | 'service' | 'about' | 'contact' | 'work';
+    location?: string;
+    service?: string;
+  },
+  currentSection?: string,
+  userAgent?: string
+): {
+  message: string;
+  type: 'info' | 'success' | 'warning' | 'cta';
+  action?: {
+    text: string;
+    href: string;
+  };
+} | null {
+  const isMobile = userAgent ? /Mobile|Android|iPhone|iPad/.test(userAgent) : false;
+
+  // Homepage contextual messages
+  if (pageContext.type === 'homepage') {
+    if (currentSection === 'hero-section') {
+      return {
+        message: 'Scroll down to see our latest work and learn more about our services',
+        type: 'info'
+      };
+    }
+    
+    if (currentSection === 'work-section') {
+      return {
+        message: 'Like what you see? Get in touch for a free consultation',
+        type: 'cta',
+        action: {
+          text: 'Get Quote',
+          href: '#footer-background'
+        }
+      };
+    }
+    
+    if (currentSection === 'meet-our-team') {
+      return {
+        message: 'Ready to work with our team?',
+        type: 'cta',
+        action: {
+          text: 'Contact Us',
+          href: '#footer-background'
+        }
+      };
+    }
+  }
+
+  // Town page contextual messages
+  if (pageContext.type === 'town' && pageContext.location) {
+    const locationFormatted = pageContext.location.charAt(0).toUpperCase() + pageContext.location.slice(1);
+    return {
+      message: `Professional web design services in ${locationFormatted}. Local expertise, global standards.`,
+      type: 'info',
+      action: {
+        text: 'Get Local Quote',
+        href: '/#footer-background'
+      }
+    };
+  }
+
+  // Service page contextual messages
+  if (pageContext.type === 'service' && pageContext.service) {
+    const serviceFormatted = pageContext.service.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+    return {
+      message: `Expert ${serviceFormatted} services with proven results`,
+      type: 'info',
+      action: {
+        text: 'View Portfolio',
+        href: '/#work-section'
+      }
+    };
+  }
+
+  // Mobile-specific messages
+  if (isMobile) {
+    return {
+      message: 'Tap the menu icon to navigate between sections',
+      type: 'info'
+    };
+  }
+
+  return null;
+}

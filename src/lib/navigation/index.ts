@@ -15,7 +15,11 @@ export {
   handleNavigationClick,
   validateNavigationLink,
   shouldShowStickyNav,
-  markActiveNavigationItem
+  markActiveNavigationItem,
+  detectPageContext,
+  generateMobileNavigationLinks,
+  getContextualMessage,
+  NAVIGATION_CONFIG
 } from '@/lib/utils/navigationUtils';
 
 // Hooks

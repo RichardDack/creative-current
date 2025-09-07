@@ -537,7 +537,7 @@ export function generateLocationPageSchemas(
   schemas.push(generateWebPageSchema(locationData.name, townSlug, locationData.description));
 
   // Add Place schema for the location itself
-  schemas.push(generatePlaceSchema(locationData, townSlug));
+  schemas.push(generatePlaceSchema(locationData));
 
   return schemas;
 }

@@ -734,7 +734,7 @@ export function getServicePricingDisplay(slug: string): string {
   const service = getServiceBySlug(slug);
   if (!service) return 'Contact for quote';
 
-  const { starting, currency, unit } = service.pricing;
+  const { starting, unit } = service.pricing;
   
   if (unit === 'month') {
     return `From £${starting}/month`;

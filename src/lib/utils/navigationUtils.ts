@@ -112,7 +112,7 @@ function getAnchorLinkCorrections(targetId: string): string[] {
 export function handleNavigationClick(
   e: React.MouseEvent<HTMLAnchorElement>, 
   href: string,
-  currentPage: string = 'homepage'
+  _currentPage: string = 'homepage'
 ): void {
   const validation = validateNavigationLink(href);
   
@@ -192,7 +192,7 @@ export function scrollToElementWithOffset(targetId: string, additionalOffset: nu
  */
 export function generateContextualNavigationLinks(
   currentPage: string,
-  townSlug?: string
+  _townSlug?: string
 ): Array<{ name: string; href: string; id: string; type: 'anchor' | 'page' }> {
   const baseLinks = [
     { name: 'WORK', href: '#work-section', id: 'work', type: 'anchor' as const },
@@ -478,7 +478,7 @@ export const NAVIGATION_CONFIG = {
  */
 export function detectPageContext(
   pathname: string,
-  searchParams?: URLSearchParams
+  _searchParams?: URLSearchParams
 ): {
   type: 'homepage' | 'web-design' | 'town' | 'service' | 'about' | 'contact' | 'work';
   location?: string;
@@ -646,7 +646,7 @@ export function getContextualMessage(
     location?: string;
     service?: string;
   },
-  currentSection?: string,
+  _currentSection?: string,
   userAgent?: string
 ): {
   message: string;

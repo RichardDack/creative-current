@@ -55,7 +55,7 @@ export function normalizeUrl(url: string): string {
     urlObj.hostname = urlObj.hostname.toLowerCase();
     
     return urlObj.toString();
-  } catch (error) {
+  } catch {
     // If URL parsing fails, return the original URL
     return url;
   }
@@ -82,7 +82,7 @@ export function shouldBeCanonical(url: string): boolean {
     return !duplicatePatterns.some(pattern => 
       pattern.test(urlObj.pathname + urlObj.search)
     );
-  } catch (error) {
+  } catch {
     return true;
   }
 }

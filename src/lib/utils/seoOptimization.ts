@@ -156,7 +156,7 @@ function generateNavigationMetaTags(
  */
 function generateLinkAttributes(
   navigationItems: Array<{ name: string; href: string }>,
-  currentPage: string
+  _currentPage: string
 ): Array<{ href: string; attributes: Record<string, string> }> {
   return navigationItems.map(item => {
     const attributes: Record<string, string> = {};

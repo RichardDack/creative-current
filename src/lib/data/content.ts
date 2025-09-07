@@ -11,7 +11,7 @@ import { WebDesignService } from './services';
 export interface ContentTemplate {
   generateTitle(location?: string, service?: string): string;
   generateDescription(location?: string, service?: string): string;
-  generateContent(location?: string, service?: string, data?: any): string;
+  generateContent(location?: string, service?: string, data?: unknown): string;
   generateFAQ(location?: string, service?: string): FAQ[];
 }
 
@@ -91,7 +91,7 @@ export const HOMEPAGE_TEMPLATES: ContentTemplate = {
     return escapeContent(`${baseDesc}${locationDesc}${serviceDesc}. Custom websites, responsive design, and digital solutions for businesses.`);
   },
 
-  generateContent: (location?: string, service?: string, data?: any): string => {
+  generateContent: (location?: string, service?: string, data?: unknown): string => {
     const locationName = location ? location.charAt(0).toUpperCase() + location.slice(1) : 'Dorset';
     const serviceName = service || 'web design';
     
@@ -461,7 +461,7 @@ export function generateLocalTestimonials(location: string): LocalTestimonial[] 
 /**
  * Generate service highlights for location
  */
-export function generateServiceHighlights(location: string): ServiceHighlight[] {
+export function generateServiceHighlights(_location: string): ServiceHighlight[] {
   return [
     {
       name: 'Responsive Web Design',

@@ -760,7 +760,7 @@ export function generatePageSchema(
 /**
  * Generate schema for terms page
  */
-export function generateTermsSchema(): WebPage {
+export function generateTermsSchema(): object {
   return {
     '@type': 'WebPage',
     '@id': `${baseUrl}/terms#webpage`,
@@ -791,7 +791,7 @@ export function generateTermsSchema(): WebPage {
 /**
  * Generate schema for privacy page
  */
-export function generatePrivacySchema(): WebPage {
+export function generatePrivacySchema(): object {
   return {
     '@type': 'WebPage',
     '@id': `${baseUrl}/privacy#webpage`,

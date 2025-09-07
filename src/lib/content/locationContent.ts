@@ -134,7 +134,7 @@ export function generateEnhancedLocationContent(townSlug: string): LocationConte
       }
     },
 
-    testimonials: generateLocalTestimonials(location),
+    testimonials: generateLocalTestimonials(),
 
     faq: generateLocationFAQ(location),
 

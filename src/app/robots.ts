@@ -15,7 +15,7 @@ export default function robots(): MetadataRoute.Robots {
         '*.json',
       ],
     },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${baseUrl}/sitemap2.xml`,
     host: baseUrl,
   };
 }

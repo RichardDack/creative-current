@@ -29,7 +29,7 @@ export default function AboutPage() {
                 About Creative Current
               </h1>
               <p className="hero-description">
-                We're a passionate team of web designers and developers based in Dorset, 
+                We&apos;re a passionate team of web designers and developers based in Dorset, 
                 dedicated to creating exceptional digital experiences that drive business growth.
               </p>
             </div>
@@ -65,7 +65,7 @@ export default function AboutPage() {
                   marginBottom: '1.5rem',
                   lineHeight: 'var(--line-height-relaxed)'
                 }}>
-                  We've grown from a small team with big dreams to a trusted partner for businesses 
+                  We&apos;ve grown from a small team with big dreams to a trusted partner for businesses 
                   across Swanage, Dorchester, Weymouth, Poole, Bournemouth, and beyond. Our local 
                   roots give us unique insight into the Dorset business landscape.
                 </p>
@@ -143,7 +143,7 @@ export default function AboutPage() {
                 Our Approach
               </h2>
               <p className="section-description">
-                We believe great web design is more than just aesthetics. It's about creating 
+                We believe great web design is more than just aesthetics. It&apos;s about creating 
                 meaningful connections between businesses and their customers.
               </p>
             </div>
@@ -258,7 +258,7 @@ export default function AboutPage() {
               Ready to Work Together?
             </h2>
             <p className="section-description" style={{ marginBottom: '2rem' }}>
-              Let's discuss how we can help elevate your digital presence and grow your business.
+              Let&apos;s discuss how we can help elevate your digital presence and grow your business.
             </p>
             <a 
               href="/contact" 

@@ -165,7 +165,7 @@ export default function ContactPage() {
                 Get In Touch
               </h1>
               <p className="hero-description">
-                Ready to start your web design project? We'd love to hear from you. 
+                Ready to start your web design project? We&apos;d love to hear from you. 
                 Get in touch for a free consultation and quote.
               </p>
             </div>
@@ -390,7 +390,7 @@ export default function ContactPage() {
                     marginBottom: '1rem',
                     lineHeight: 'var(--line-height-relaxed)'
                   }}>
-                    We're proud to serve businesses throughout Dorset and the surrounding areas:
+                    We&apos;re proud to serve businesses throughout Dorset and the surrounding areas:
                   </p>
                   <div style={{ 
                     display: 'grid', 

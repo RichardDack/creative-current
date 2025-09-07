@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Layout } from '@/components/global/Layout';
 import { generateCanonicalUrl } from '@/lib/seo/canonical';
-import { workProjects, featuredProjects } from '@/lib/data/work-projects';
+import { featuredProjects } from '@/lib/data/work-projects';
 
 export const metadata: Metadata = {
   title: 'Our Work - Creative Current Web Design Portfolio',
@@ -64,7 +65,7 @@ export default function WorkPage() {
                 Our Work
               </h1>
               <p className="hero-description">
-                Discover the websites and digital experiences we've created for businesses 
+                Discover the websites and digital experiences we&apos;ve created for businesses 
                 across Dorset and beyond. Each project tells a unique story.
               </p>
             </div>
@@ -79,7 +80,7 @@ export default function WorkPage() {
               gap: '3rem',
               marginBottom: '4rem'
             }}>
-              {topFeaturedProjects.map((project, index) => (
+              {topFeaturedProjects.map((project) => (
                 <div key={project.id} style={{ display: 'flex', flexDirection: 'column' }}>
                   <div style={{ 
                     borderRadius: 'var(--radius-lg)', 
@@ -89,14 +90,12 @@ export default function WorkPage() {
                     position: 'relative',
                     background: 'var(--color-background-lighter)'
                   }}>
-                    <img 
+                    <Image 
                       src={project.image} 
                       alt={`${project.title} - ${project.category}`}
+                      fill
                       style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        display: 'block'
+                        objectFit: 'cover'
                       }}
                     />
                   </div>
@@ -173,7 +172,7 @@ export default function WorkPage() {
                 color: 'var(--color-text-muted)',
                 lineHeight: 'var(--line-height-relaxed)'
               }}>
-                A selection of websites and digital solutions we've created for our clients
+                A selection of websites and digital solutions we&apos;ve created for our clients
               </p>
             </div>
             
@@ -182,7 +181,7 @@ export default function WorkPage() {
               gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
               gap: '2rem' 
             }}>
-              {gridProjects.map((project, index) => (
+              {gridProjects.map((project) => (
                 <div key={project.id} className="project-card" style={{ 
                   background: 'var(--color-background-darker)', 
                   borderRadius: 'var(--radius-lg)', 
@@ -195,14 +194,12 @@ export default function WorkPage() {
                     position: 'relative',
                     background: 'var(--color-background-lighter)'
                   }}>
-                    <img 
+                    <Image 
                       src={project.image} 
                       alt={`${project.title} - ${project.category}`}
+                      fill
                       style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        display: 'block'
+                        objectFit: 'cover'
                       }}
                     />
                   </div>
@@ -372,7 +369,7 @@ export default function WorkPage() {
                     marginBottom: '1rem',
                     lineHeight: 'var(--line-height-relaxed)'
                   }}>
-                    "{testimonial.text}"
+                    "                    &ldquo;{testimonial.text}&rdquo;"
                   </p>
                   <div style={{ 
                     fontWeight: 'var(--font-weight-semibold)', 
@@ -411,7 +408,7 @@ export default function WorkPage() {
               marginBottom: '2rem',
               lineHeight: 'var(--line-height-relaxed)'
             }}>
-              Let's create something amazing together. Get in touch to discuss your project.
+              Let&apos;s create something amazing together. Get in touch to discuss your project.
             </p>
             <div style={{ 
               display: 'flex', 

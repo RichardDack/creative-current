@@ -250,7 +250,7 @@ export default function ServicesPage() {
                 Serving Dorset Businesses
               </h2>
               <p className="section-description">
-                We're proud to serve businesses across Dorset with our web design and development services.
+                We&apos;re proud to serve businesses across Dorset with our web design and development services.
               </p>
             </div>
             
@@ -284,7 +284,7 @@ export default function ServicesPage() {
               Ready to Get Started?
             </h2>
             <p className="section-description" style={{ marginBottom: '2rem' }}>
-              Let's discuss your project and how we can help bring your vision to life.
+              Let&apos;s discuss your project and how we can help bring your vision to life.
             </p>
             <div className="cta-buttons">
               <a 

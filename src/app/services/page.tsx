@@ -1,19 +1,54 @@
 import type { Metadata } from 'next';
 import { Layout } from '@/components/global/Layout';
-import { generateCanonicalUrl } from '@/lib/seo/canonical';
+import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
+import { generateServiceMetadata } from '@/lib/seo/metadata';
+import { generatePageSchema } from '@/lib/seo/schema';
 
+// Generate enhanced SEO metadata for services page
 export const metadata: Metadata = {
-  title: 'Web Design Services in Dorset - Creative Current',
-  description: 'Comprehensive web design and development services in Dorset. From responsive design to e-commerce solutions, we help businesses across Swanage, Dorchester, Weymouth, and Poole succeed online.',
-  keywords: 'web design services dorset, responsive web design, wordpress development, e-commerce websites, ui ux design, web development dorset',
+  title: 'Web Design Services Dorset | Creative Current - Professional Development',
+  description: 'Comprehensive web design and development services in Dorset. Responsive websites, e-commerce, WordPress, UI/UX design for businesses in Bournemouth, Poole, Weymouth & Dorchester.',
+  keywords: [
+    'web design services dorset',
+    'responsive web design dorset',
+    'wordpress development dorset',
+    'e-commerce websites dorset',
+    'ui ux design dorset',
+    'web development bournemouth',
+    'website design poole',
+    'professional web design'
+  ],
   alternates: {
-    canonical: generateCanonicalUrl('/services'),
+    canonical: 'https://creativecurrent.co.uk/services',
   },
   openGraph: {
-    title: 'Web Design Services in Dorset - Creative Current',
-    description: 'Comprehensive web design and development services in Dorset. From responsive design to e-commerce solutions, we help businesses across Swanage, Dorchester, Weymouth, and Poole succeed online.',
+    title: 'Web Design Services Dorset | Creative Current',
+    description: 'Comprehensive web design and development services in Dorset. Responsive websites, e-commerce, WordPress, UI/UX design for businesses across Dorset.',
     type: 'website',
-    url: generateCanonicalUrl('/services'),
+    url: 'https://creativecurrent.co.uk/services',
+    siteName: 'Creative Current',
+    images: [
+      {
+        url: 'https://creativecurrent.co.uk/images/creative-current-og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Creative Current Web Design Services'
+      }
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Web Design Services Dorset | Creative Current',
+    description: 'Comprehensive web design and development services in Dorset.',
+    images: ['https://creativecurrent.co.uk/images/creative-current-og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  other: {
+    'geo.region': 'GB-DOR',
+    'geo.placename': 'Dorset, England',
   },
 };
 
@@ -102,15 +137,40 @@ const towns = [
 ];
 
 export default function ServicesPage() {
+  // Generate structured data for services page
+  const schemaMarkup = generatePageSchema('service', {
+    service: 'web-design',
+    breadcrumbs: [
+      { name: 'Home', url: 'https://creativecurrent.co.uk' },
+      { name: 'Services', url: 'https://creativecurrent.co.uk/services' }
+    ],
+    faqs: [
+      {
+        question: 'What web design services do you offer in Dorset?',
+        answer: 'We offer comprehensive web design services including responsive web design, WordPress development, e-commerce solutions, UI/UX design, website maintenance, and SEO services for businesses across Dorset.'
+      },
+      {
+        question: 'How long does it take to build a website?',
+        answer: 'Website development typically takes 4-8 weeks depending on complexity. We follow a proven process: Discovery (1 week), Design (2-3 weeks), Development (2-3 weeks), and Launch (1 week).'
+      },
+      {
+        question: 'Do you provide ongoing website maintenance?',
+        answer: 'Yes, we offer comprehensive website maintenance services including security updates, backups, performance monitoring, and content updates to keep your website running smoothly.'
+      }
+    ]
+  });
+
   return (
-    <Layout>
+    <>
+      <SchemaMarkup schema={schemaMarkup} />
+      <Layout>
       <div className="page-container">
         {/* Hero Section */}
         <section className="hero-section">
           <div className="container">
             <div style={{ marginBottom: '4rem' }}>
               <h1 className="hero-title">
-                Our Services
+                Web Design Services Dorset
               </h1>
               <p className="hero-description">
                 Comprehensive web design and development services tailored for Dorset businesses. 
@@ -326,6 +386,7 @@ export default function ServicesPage() {
           </div>
         </section>
       </div>
-    </Layout>
+      </Layout>
+    </>
   );
 }

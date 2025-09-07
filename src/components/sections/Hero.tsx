@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import styles from '@/styles/components/Hero.module.css';
 import { LogoComponent } from '@/components/ui/LogoComponent';
 import { handleNavigationClick } from '@/lib/utils/scrollUtils';
+import { MobileNavigation } from '@/components/mobile/MobileNavigation';
 
 const navigationItems = [
   { name: 'WORK', href: '#work-section' },
@@ -16,6 +17,7 @@ const navigationItems = [
 
 export const Hero = () => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     handleNavigationClick(e, href);
@@ -104,6 +106,15 @@ export const Hero = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.98 }}
         />
+        
+        {/* Mobile Navigation */}
+        <div className={styles.mobileNavContainer}>
+          <MobileNavigation
+            isOpen={mobileMenuOpen}
+            onToggle={() => setMobileMenuOpen(!mobileMenuOpen)}
+            navigationItems={navigationItems}
+          />
+        </div>
       </motion.div>
 
       {/* Main Content Container */}
@@ -179,24 +190,29 @@ export const Hero = () => {
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.8, type: "spring", stiffness: 200 }}
         >
-          {/* Hero Content - WITH CTA BUTTON */}
+          {/* Hero Content - SEO Optimized with LCP Priority */}
           <div className={styles.heroContent}>
-            <motion.h1
-              className={styles.heroTitle}
+            {/* Load critical content immediately without animation delay for LCP */}
+            <h1 className={styles.heroTitle}>
+              Professional Web Design Dorset
+            </h1>
+
+            <motion.h2
+              className={styles.heroSubtitle}
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 1.0, duration: 0.6 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
             >
-              Where Ideas Take Shape.
-            </motion.h1>
+              Where Ideas Take Shape
+            </motion.h2>
 
             <motion.p
               className={styles.heroDescription}
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 1.2, duration: 0.6 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
             >
-              We navigate the digital realm to build stunning websites, intuitive interfaces, and memorable brand experiences that flow seamlessly with your business goals.
+              We create stunning, responsive websites and digital experiences for businesses across <a href="/web-design/bournemouth" className={styles.internalLink}>Bournemouth</a>, <a href="/web-design/poole" className={styles.internalLink}>Poole</a>, <a href="/web-design/weymouth" className={styles.internalLink}>Weymouth</a>, and <a href="/web-design/dorchester" className={styles.internalLink}>Dorchester</a>. Our expert team specializes in modern web design, UI/UX, and digital solutions that drive results.
             </motion.p>
 
             {/* Call-to-Action Buttons - Two Options */}
@@ -204,7 +220,7 @@ export const Hero = () => {
               className={styles.ctaContainer}
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 1.4, duration: 0.6 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
             >
               <motion.a
                 href="#footer-background"

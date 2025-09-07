@@ -2,6 +2,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { PerformanceOptimizer } from '@/components/performance/PerformanceOptimizer';
+import { MobileOptimizer } from '@/components/mobile/MobileOptimizer';
 
 // Configure Clash Display with all weights
 const clashDisplay = localFont({
@@ -67,21 +69,8 @@ const clashGrotesk = localFont({
   display: "swap",
 });
 
+// Base metadata - pages will override with specific metadata
 export const metadata: Metadata = {
-  title: "Creative Current - Elevating Digital Excellence",
-  description: "We specialize in web design, development, UI/UX, and product design. Transform your online presence with our creative expertise.",
-  keywords: "web design, web development, UI/UX, product design, digital agency",
-  authors: [{ name: "Creative Current" }],
-  viewport: "width=device-width, initial-scale=1",
-  alternates: {
-    canonical: "https://creativecurrent.co.uk",
-  },
-  openGraph: {
-    title: "Creative Current - Elevating Digital Excellence",
-    description: "We specialize in web design, development, UI/UX, and product design. Transform your online presence with our creative expertise.",
-    type: "website",
-    url: "https://creativecurrent.co.uk",
-  },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
@@ -96,8 +85,44 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Preload critical fonts for better LCP */}
+        <link
+          rel="preload"
+          href="/fonts/ClashDisplay-Bold.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/ClashGrotesk-Regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/ClashGrotesk-Medium.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        {/* DNS prefetch for external resources */}
+        <link rel="dns-prefetch" href="//framerusercontent.com" />
+        <link rel="dns-prefetch" href="//images.unsplash.com" />
+        {/* Mobile viewport optimization */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+        <meta name="theme-color" content="#0e1a24" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+      </head>
       <body className={`${clashDisplay.variable} ${clashGrotesk.variable} antialiased`}>
-        {children}
+        <PerformanceOptimizer />
+        <MobileOptimizer>
+          {children}
+        </MobileOptimizer>
       </body>
     </html>
   );

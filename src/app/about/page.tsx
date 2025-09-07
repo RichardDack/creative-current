@@ -1,32 +1,31 @@
 import type { Metadata } from 'next';
 import { Layout } from '@/components/global/Layout';
-import { generateCanonicalUrl } from '@/lib/seo/canonical';
+import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
+import { generateAboutMetadata } from '@/lib/seo/metadata';
+import { generatePageSchema } from '@/lib/seo/schema';
 
-export const metadata: Metadata = {
-  title: 'About Creative Current - Web Design Experts in Dorset',
-  description: 'Learn about Creative Current, a leading web design agency in Dorset. We specialize in creating exceptional digital experiences for businesses across Swanage, Dorchester, Weymouth, and beyond.',
-  keywords: 'about creative current, web design agency dorset, web design team, dorset web designers, creative agency',
-  alternates: {
-    canonical: generateCanonicalUrl('/about'),
-  },
-  openGraph: {
-    title: 'About Creative Current - Web Design Experts in Dorset',
-    description: 'Learn about Creative Current, a leading web design agency in Dorset. We specialize in creating exceptional digital experiences for businesses across Swanage, Dorchester, Weymouth, and beyond.',
-    type: 'website',
-    url: generateCanonicalUrl('/about'),
-  },
-};
+export const metadata: Metadata = generateAboutMetadata();
 
 export default function AboutPage() {
+  // Generate structured data for about page
+  const schemaMarkup = generatePageSchema('about', {
+    breadcrumbs: [
+      { name: 'Home', url: 'https://creativecurrent.co.uk' },
+      { name: 'About', url: 'https://creativecurrent.co.uk/about' }
+    ]
+  });
+
   return (
-    <Layout>
+    <>
+      <SchemaMarkup schema={schemaMarkup} />
+      <Layout>
       <div className="page-container">
         {/* Hero Section */}
         <section className="hero-section">
           <div className="container">
             <div style={{ marginBottom: '4rem' }}>
               <h1 className="hero-title">
-                About Creative Current
+                About Creative Current - Web Design Team Dorset
               </h1>
               <p className="hero-description">
                 We&apos;re a passionate team of web designers and developers based in Dorset, 
@@ -281,6 +280,7 @@ export default function AboutPage() {
           </div>
         </section>
       </div>
-    </Layout>
+      </Layout>
+    </>
   );
 }

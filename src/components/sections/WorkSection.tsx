@@ -2,8 +2,8 @@
 'use client';
 
 import { motion, useScroll, useTransform, Variants } from 'framer-motion';
-import Image from 'next/image';
 import { useRef, useState, useEffect } from 'react';
+import { OptimizedImage } from '@/components/ui/OptimizedImage';
 import { WorkProject } from '@/types/data';
 import { workProjects } from '@/lib/data/work-projects';
 import styles from '@/styles/components/WorkSection.module.css';
@@ -341,14 +341,16 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects: propProjects
                   }}
                 >
                   <div className={styles.workImageContainer}>
- <Image
-  src={project.image}
-  alt={`${project.title} - ${project.category} project`}
-fill
-  sizes="(max-width: 768px) 100vw, 50vw"
-  className={styles.projectImage}
-  priority={index < 2}
-/>
+                    <OptimizedImage
+                      src={project.image}
+                      alt={`${project.title} - ${project.category} project by Creative Current`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className={styles.projectImage}
+                      priority={index < 2}
+                      placeholder="blur"
+                      quality={85}
+                    />
                     
                     {/* Image overlay with project type */}
                     <motion.div 

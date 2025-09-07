@@ -1,23 +1,12 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Layout } from '@/components/global/Layout';
-import { generateCanonicalUrl } from '@/lib/seo/canonical';
+import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
+import { generateWorkMetadata } from '@/lib/seo/metadata';
+import { generatePageSchema } from '@/lib/seo/schema';
 import { featuredProjects } from '@/lib/data/work-projects';
 
-export const metadata: Metadata = {
-  title: 'Our Work - Creative Current Web Design Portfolio',
-  description: 'View our portfolio of web design and development projects for Dorset businesses. See examples of responsive websites, e-commerce solutions, and digital experiences we\'ve created.',
-  keywords: 'web design portfolio, creative current work, dorset web design examples, website portfolio, web development projects',
-  alternates: {
-    canonical: generateCanonicalUrl('/work'),
-  },
-  openGraph: {
-    title: 'Our Work - Creative Current Web Design Portfolio',
-    description: 'View our portfolio of web design and development projects for Dorset businesses. See examples of responsive websites, e-commerce solutions, and digital experiences we\'ve created.',
-    type: 'website',
-    url: generateCanonicalUrl('/work'),
-  },
-};
+export const metadata: Metadata = generateWorkMetadata();
 
 // Get the first 2 featured projects (excluding CTA)
 const topFeaturedProjects = featuredProjects.slice(0, 2);
@@ -54,15 +43,25 @@ const testimonials = [
 ];
 
 export default function WorkPage() {
+  // Generate structured data for work page
+  const schemaMarkup = generatePageSchema('work', {
+    breadcrumbs: [
+      { name: 'Home', url: 'https://creativecurrent.co.uk' },
+      { name: 'Our Work', url: 'https://creativecurrent.co.uk/work' }
+    ]
+  });
+
   return (
-    <Layout>
+    <>
+      <SchemaMarkup schema={schemaMarkup} />
+      <Layout>
       <div className="page-container">
         {/* Hero Section */}
         <section className="hero-section">
           <div className="container">
             <div style={{ marginBottom: '4rem' }}>
               <h1 className="hero-title">
-                Our Work
+                Our Work - Creative Current Portfolio
               </h1>
               <p className="hero-description">
                 Discover the websites and digital experiences we&apos;ve created for businesses 
@@ -453,6 +452,7 @@ export default function WorkPage() {
           </div>
         </section>
       </div>
-    </Layout>
+      </Layout>
+    </>
   );
 }

@@ -2,8 +2,8 @@
 'use client';
 
 import { motion, Variants } from 'framer-motion';
-import Image from 'next/image';
 import { WorkProject } from '@/types/data';
+import { OptimizedImage } from '@/components/ui/OptimizedImage';
 import styles from '@/styles/components/WorkCard.module.css';
 
 interface WorkCardProps {
@@ -60,12 +60,15 @@ export const WorkCard: React.FC<WorkCardProps> = ({ project, index }) => {
           className={styles.imageWrapper}
           variants={imageVariants}
         >
-          <Image 
+          <OptimizedImage 
             src={project.image}
-            alt={project.title}
+            alt={`${project.title} - ${project.category} project by Creative Current`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className={styles.image}
+            priority={false}
+            placeholder="blur"
+            quality={80}
           />
         </motion.div>
         <div className={styles.overlay}>

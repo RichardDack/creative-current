@@ -1,85 +1,8 @@
-// src/lib/seo/metadata.ts - Dynamic SEO metadata generation with strict TypeScript types
-
+// src/lib/seo/metadata.ts - Dynamic SEO metadata generation
 import type { Metadata } from 'next';
 
 /**
- * SEO metadata configuration and generation utilities
- * Provides dynamic metadata generation for all pages with proper string escaping
- */
-
-export interface SEOMetadata {
-  title: string;
-  description: string;
-  keywords: string[];
-  canonical: string;
-  openGraph: OpenGraphData;
-  twitterCard: TwitterCardData;
-  schema: SchemaMarkup[];
-}
-
-export interface OpenGraphData {
-  title: string;
-  description: string;
-  url: string;
-  siteName: string;
-  images: OpenGraphImage[];
-  type: 'website' | 'article';
-  locale: string;
-}
-
-export interface OpenGraphImage {
-  url: string;
-  width: number;
-  height: number;
-  alt: string;
-}
-
-export interface TwitterCardData {
-  card: 'summary' | 'summary_large_image';
-  site: string;
-  creator: string;
-  title: string;
-  description: string;
-  images: string[];
-}
-
-export interface SchemaMarkup {
-  '@context': string;
-  '@type': string;
-  [key: string]: unknown;
-}
-
-export interface PageContext {
-  type: 'homepage' | 'web-design' | 'town' | 'service' | 'about' | 'contact' | 'work';
-  location?: string;
-  service?: string;
-  path: string;
-}
-
-export interface MetadataTemplateConfig {
-  siteName: string;
-  siteUrl: string;
-  businessName: string;
-  defaultDescription: string;
-  twitterHandle: string;
-  defaultImage: string;
-  locale: string;
-}
-
-// Default configuration for Creative Current
-const DEFAULT_CONFIG: MetadataTemplateConfig = {
-  siteName: 'Creative Current',
-  siteUrl: 'https://creativecurrent.co.uk',
-  businessName: 'Creative Current',
-  defaultDescription: 'Professional web design services in Dorset. Custom websites, responsive design, and digital solutions for businesses across Dorset and beyond.',
-  twitterHandle: '@creativecurrent',
-  defaultImage: '/images/creative-current-og-image.jpg',
-  locale: 'en_GB'
-};
-
-/**
- * Escape strings for safe use in HTML attributes and JSON-LD
- * Handles quotes, apostrophes, and other special characters
+ * Utility functions for string handling
  */
 export function escapeString(str: string): string {
   return str
@@ -87,345 +10,87 @@ export function escapeString(str: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;')
-    .replace(/\//g, '&#x2F;');
+    .replace(/'/g, '&#39;');
 }
 
-/**
- * Safe string for display purposes - only escapes dangerous HTML
- * Use this for content that will be displayed to users
- */
-export function safeDisplayString(str: string): string {
-  return str
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
-
-/**
- * Clean string for safe display without any escaping
- * Use this for React component props and display content
- */
 export function cleanString(str: string): string {
   return str.trim();
 }
 
 /**
- * URL encode strings for safe use in URLs
+ * Page context interface for SEO metadata generation
  */
-export function urlEncode(str: string): string {
-  return encodeURIComponent(str);
+export interface PageContext {
+  type: 'homepage' | 'town' | 'service' | 'about' | 'contact' | 'work';
+  location?: string;
+  service?: string;
+  path: string;
 }
 
 /**
- * Generate SEO-optimized title with proper length and keyword placement
+ * SEO metadata interface
  */
-export function generateTitle(
-  pageTitle: string,
-  location?: string,
-  service?: string,
-  config: MetadataTemplateConfig = DEFAULT_CONFIG
-): string {
-  let title = pageTitle;
-
-  // Add location context
-  if (location) {
-    const locationFormatted = location.charAt(0).toUpperCase() + location.slice(1);
-    title = `${pageTitle} in ${locationFormatted}`;
-  }
-
-  // Add service context
-  if (service && !title.toLowerCase().includes(service.toLowerCase())) {
-    title = `${service} - ${title}`;
-  }
-
-  // Add brand name if not already included and there's room
-  if (!title.toLowerCase().includes(config.businessName.toLowerCase()) && title.length < 45) {
-    title = `${title} | ${config.businessName}`;
-  }
-
-  // Ensure title is under 60 characters for optimal SEO
-  if (title.length > 60) {
-    // Try to trim while keeping important keywords
-    const parts = title.split(' | ');
-    if (parts.length > 1) {
-      title = parts[0]; // Keep the main part
-      if (title.length <= 60) {
-        return escapeString(title);
-      }
-    }
-    
-    // If still too long, truncate intelligently
-    title = title.substring(0, 57) + '...';
-  }
-
-  return escapeString(title);
-}
-
-/**
- * Generate SEO-optimized meta description with proper length and keywords
- */
-export function generateDescription(
-  baseDescription: string,
-  location?: string,
-  service?: string,
-  keywords: string[] = []
-): string {
-  let description = baseDescription;
-
-  // Add location context
-  if (location) {
-    const locationFormatted = location.charAt(0).toUpperCase() + location.slice(1);
-    if (!description.toLowerCase().includes(location.toLowerCase())) {
-      description = description.replace('Dorset', `${locationFormatted}, Dorset`);
-    }
-  }
-
-  // Add service context
-  if (service && !description.toLowerCase().includes(service.toLowerCase())) {
-    description = `${service} services. ${description}`;
-  }
-
-  // Add relevant keywords naturally
-  if (keywords.length > 0) {
-    const keywordsToAdd = keywords.filter(keyword => 
-      !description.toLowerCase().includes(keyword.toLowerCase())
-    ).slice(0, 2); // Limit to 2 additional keywords
-
-    if (keywordsToAdd.length > 0) {
-      description = `${description} Specializing in ${keywordsToAdd.join(' and ')}.`;
-    }
-  }
-
-  // Ensure description is between 150-160 characters for optimal SEO
-  if (description.length > 160) {
-    // Find the last complete sentence or phrase within limit
-    const truncated = description.substring(0, 157);
-    const lastPeriod = truncated.lastIndexOf('.');
-    const lastSpace = truncated.lastIndexOf(' ');
-    
-    if (lastPeriod > 140) {
-      description = description.substring(0, lastPeriod + 1);
-    } else if (lastSpace > 140) {
-      description = description.substring(0, lastSpace) + '...';
-    } else {
-      description = truncated + '...';
-    }
-  }
-
-  return escapeString(description);
-}
-
-/**
- * Generate keyword array for SEO optimization
- */
-export function generateKeywords(
-  baseKeywords: string[],
-  location?: string,
-  service?: string
-): string[] {
-  const keywords = [...baseKeywords];
-
-  // Add location-based keywords
-  if (location) {
-    const locationFormatted = location.charAt(0).toUpperCase() + location.slice(1);
-    keywords.push(
-      `web design ${location}`,
-      `website design ${locationFormatted}`,
-      `${service || 'web design'} ${locationFormatted}`,
-      `${locationFormatted} web designer`,
-      `digital agency ${locationFormatted}`
-    );
-  }
-
-  // Add service-based keywords
-  if (service) {
-    keywords.push(
-      service,
-      `${service} services`,
-      `professional ${service}`,
-      `${service} Dorset`
-    );
-  }
-
-  // Remove duplicates and return
-  return [...new Set(keywords)];
-}
-
-/**
- * Generate Open Graph metadata
- */
-export function generateOpenGraph(
-  title: string,
-  description: string,
-  url: string,
-  config: MetadataTemplateConfig = DEFAULT_CONFIG
-): OpenGraphData {
-  return {
-    title: escapeString(title),
-    description: escapeString(description),
-    url: urlEncode(url),
-    siteName: escapeString(config.siteName),
-    images: [
-      {
-        url: `${config.siteUrl}${config.defaultImage}`,
-        width: 1200,
-        height: 630,
-        alt: escapeString(`${title} - ${config.businessName}`)
-      }
-    ],
-    type: 'website',
-    locale: config.locale
+export interface SEOMetadata {
+  title: string;
+  description: string;
+  keywords: string[];
+  canonical: string;
+  openGraph: {
+    title: string;
+    description: string;
+    type: string;
+    url: string;
+    images: Array<{
+      url: string;
+      width: number;
+      height: number;
+      alt: string;
+    }>;
+  };
+  twitter: {
+    card: string;
+    title: string;
+    description: string;
+    images: string[];
   };
 }
 
 /**
- * Generate Twitter Card metadata
- */
-export function generateTwitterCard(
-  title: string,
-  description: string,
-  config: MetadataTemplateConfig = DEFAULT_CONFIG
-): TwitterCardData {
-  return {
-    card: 'summary_large_image',
-    site: config.twitterHandle,
-    creator: config.twitterHandle,
-    title: escapeString(title),
-    description: escapeString(description),
-    images: [`${config.siteUrl}${config.defaultImage}`]
-  };
-}
-
-/**
- * Generate canonical URL with proper encoding
- */
-export function generateCanonicalUrl(
-  path: string,
-  config: MetadataTemplateConfig = DEFAULT_CONFIG
-): string {
-  // Ensure path starts with /
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  
-  // Remove trailing slash unless it's the root
-  const cleanPath = normalizedPath === '/' ? '/' : normalizedPath.replace(/\/$/, '');
-  
-  return `${config.siteUrl}${urlEncode(cleanPath)}`;
-}
-
-/**
- * Generate complete SEO metadata for a page
+ * Generate comprehensive SEO metadata
  */
 export function generateSEOMetadata(
-  pageContext: PageContext,
-  customTitle?: string,
-  customDescription?: string,
-  customKeywords: string[] = [],
-  config: MetadataTemplateConfig = DEFAULT_CONFIG
+  context: PageContext,
+  title: string,
+  description: string,
+  keywords: string[]
 ): SEOMetadata {
-  // Get base content based on page type
-  const { baseTitle, baseDescription, baseKeywords } = getBaseContent(pageContext);
+  const baseUrl = 'https://creativecurrent.co.uk';
+  const canonical = `${baseUrl}${context.path}`;
   
-  // Use custom content or fall back to base content
-  const title = generateTitle(
-    customTitle || baseTitle,
-    pageContext.location,
-    pageContext.service,
-    config
-  );
-  
-  const description = generateDescription(
-    customDescription || baseDescription,
-    pageContext.location,
-    pageContext.service,
-    [...baseKeywords, ...customKeywords]
-  );
-  
-  const keywords = generateKeywords(
-    [...baseKeywords, ...customKeywords],
-    pageContext.location,
-    pageContext.service
-  );
-  
-  const canonical = generateCanonicalUrl(pageContext.path, config);
-  const openGraph = generateOpenGraph(title, description, canonical, config);
-  const twitterCard = generateTwitterCard(title, description, config);
-
   return {
     title,
     description,
     keywords,
     canonical,
-    openGraph,
-    twitterCard,
-    schema: [] // Will be populated by schema utilities
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      url: canonical,
+      images: [{
+        url: `${baseUrl}/images/creative-current-og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: title
+      }]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${baseUrl}/images/creative-current-og-image.jpg`]
+    }
   };
-}
-
-/**
- * Get base content for different page types
- */
-function getBaseContent(pageContext: PageContext): {
-  baseTitle: string;
-  baseDescription: string;
-  baseKeywords: string[];
-} {
-  switch (pageContext.type) {
-    case 'homepage':
-      return {
-        baseTitle: 'Professional Web Design Services in Dorset',
-        baseDescription: 'Creative Current provides professional web design and development services across Dorset. Custom websites, responsive design, and digital solutions for businesses.',
-        baseKeywords: ['web design', 'website development', 'Dorset', 'responsive design', 'digital agency']
-      };
-    
-    case 'web-design':
-      return {
-        baseTitle: 'Web Design Services',
-        baseDescription: 'Professional web design services including responsive websites, e-commerce solutions, and custom development. Serving businesses across Dorset with modern, effective web solutions.',
-        baseKeywords: ['web design services', 'responsive websites', 'e-commerce', 'custom development', 'Dorset web design']
-      };
-    
-    case 'town':
-      return {
-        baseTitle: 'Web Design Services',
-        baseDescription: 'Professional web design and development services. Custom websites, responsive design, and digital solutions for local businesses.',
-        baseKeywords: ['web design', 'website development', 'local web designer', 'responsive design', 'digital solutions']
-      };
-    
-    case 'service':
-      return {
-        baseTitle: 'Professional Web Design Service',
-        baseDescription: 'Expert web design and development service with focus on modern, responsive websites that drive business results.',
-        baseKeywords: ['professional web design', 'web development', 'responsive websites', 'business websites']
-      };
-    
-    case 'about':
-      return {
-        baseTitle: 'About Creative Current - Web Design Experts',
-        baseDescription: 'Meet the Creative Current team. Experienced web designers and developers creating exceptional digital experiences for businesses across Dorset.',
-        baseKeywords: ['about creative current', 'web design team', 'Dorset web designers', 'digital agency team']
-      };
-    
-    case 'contact':
-      return {
-        baseTitle: 'Contact Creative Current - Get Your Quote',
-        baseDescription: 'Get in touch with Creative Current for professional web design services. Free consultations and competitive quotes for your web project.',
-        baseKeywords: ['contact web designer', 'web design quote', 'Dorset web design contact', 'free consultation']
-      };
-    
-    case 'work':
-      return {
-        baseTitle: 'Our Web Design Portfolio',
-        baseDescription: 'View our portfolio of professional websites and digital projects. See examples of our web design and development work for Dorset businesses.',
-        baseKeywords: ['web design portfolio', 'website examples', 'Dorset web design work', 'digital portfolio']
-      };
-    
-    default:
-      return {
-        baseTitle: 'Creative Current - Web Design Services',
-        baseDescription: DEFAULT_CONFIG.defaultDescription,
-        baseKeywords: ['web design', 'website development', 'Dorset', 'digital agency']
-      };
-  }
 }
 
 /**
@@ -442,319 +107,452 @@ export function toNextMetadata(seoMetadata: SEOMetadata): Metadata {
     openGraph: {
       title: seoMetadata.openGraph.title,
       description: seoMetadata.openGraph.description,
+      type: 'website',
       url: seoMetadata.openGraph.url,
-      siteName: seoMetadata.openGraph.siteName,
-      images: seoMetadata.openGraph.images,
-      type: seoMetadata.openGraph.type,
-      locale: seoMetadata.openGraph.locale
+      images: seoMetadata.openGraph.images
     },
     twitter: {
-      card: seoMetadata.twitterCard.card,
-      site: seoMetadata.twitterCard.site,
-      creator: seoMetadata.twitterCard.creator,
-      title: seoMetadata.twitterCard.title,
-      description: seoMetadata.twitterCard.description,
-      images: seoMetadata.twitterCard.images
+      card: 'summary_large_image',
+      title: seoMetadata.twitter.title,
+      description: seoMetadata.twitter.description,
+      images: seoMetadata.twitter.images
     }
   };
 }
 
-// Legacy exports for backward compatibility with existing code
-// These will be replaced in future tasks but are needed for the build to work
-
 /**
- * Legacy LocalSEOData interface for backward compatibility
+ * Local SEO data interface (legacy support)
  */
 export interface LocalSEOData {
   town: string;
   county: string;
+  population: number;
+  keyIndustries: string[];
   landmarks: string[];
-  keyBusinesses: Array<{
-    name: string;
-    type: string;
-  }>;
-  population?: string;
-  postcode?: string;
+  businessDistricts: string[];
+  postcodes: string[];
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
 }
 
 /**
- * Legacy town data structure for backward compatibility
+ * Legacy dorseyTowns data (for backward compatibility)
+ * Note: This is maintained for existing components, but new code should use the enhanced location data
  */
 export const dorseyTowns: Record<string, LocalSEOData> = {
-  'dorchester': {
-    town: 'Dorchester',
-    county: 'Dorset',
-    landmarks: ['Dorchester Town Centre', 'The Corn Exchange', 'Dorset County Museum'],
-    keyBusinesses: [
-      { name: 'Local Retail', type: 'Retail' },
-      { name: 'Professional Services', type: 'Services' },
-      { name: 'Tourism', type: 'Tourism' }
-    ],
-    population: '21,000',
-    postcode: 'DT1'
-  },
-  'weymouth': {
-    town: 'Weymouth',
-    county: 'Dorset',
-    landmarks: ['Weymouth Beach', 'Weymouth Harbour', 'The Esplanade'],
-    keyBusinesses: [
-      { name: 'Tourism & Hospitality', type: 'Tourism' },
-      { name: 'Marine Services', type: 'Marine' },
-      { name: 'Retail', type: 'Retail' }
-    ],
-    population: '65,000',
-    postcode: 'DT4'
-  },
-  'bournemouth': {
+  bournemouth: {
     town: 'Bournemouth',
     county: 'Dorset',
+    population: 200000,
+    keyIndustries: ['Technology', 'Finance', 'Tourism', 'Education'],
     landmarks: ['Bournemouth Beach', 'Bournemouth Pier', 'The Square'],
-    keyBusinesses: [
-      { name: 'Technology', type: 'Tech' },
-      { name: 'Finance', type: 'Finance' },
-      { name: 'Tourism', type: 'Tourism' }
-    ],
-    population: '200,000',
-    postcode: 'BH1'
+    businessDistricts: ['Town Centre', 'Lansdowne', 'Westbourne'],
+    postcodes: ['BH1', 'BH2', 'BH3', 'BH4', 'BH5'],
+    coordinates: { lat: 50.7192, lng: -1.8808 }
   },
-  'poole': {
+  poole: {
     town: 'Poole',
     county: 'Dorset',
+    population: 150000,
+    keyIndustries: ['Marine', 'Technology', 'Logistics', 'Tourism'],
     landmarks: ['Poole Harbour', 'Sandbanks Beach', 'Poole Quay'],
-    keyBusinesses: [
-      { name: 'Marine Industry', type: 'Marine' },
-      { name: 'Technology', type: 'Tech' },
-      { name: 'Logistics', type: 'Logistics' }
-    ],
-    population: '150,000',
-    postcode: 'BH15'
+    businessDistricts: ['Poole Town Centre', 'Poole Quay', 'Sandbanks'],
+    postcodes: ['BH12', 'BH13', 'BH14', 'BH15'],
+    coordinates: { lat: 50.7150, lng: -1.9872 }
   },
-  'bridport': {
-    town: 'Bridport',
+  weymouth: {
+    town: 'Weymouth',
     county: 'Dorset',
-    landmarks: ['Bridport Town Centre', 'West Bay', 'Bridport Arts Centre'],
-    keyBusinesses: [
-      { name: 'Arts & Crafts', type: 'Creative' },
-      { name: 'Tourism', type: 'Tourism' },
-      { name: 'Agriculture', type: 'Agriculture' }
-    ],
-    population: '14,000',
-    postcode: 'DT6'
+    population: 65000,
+    keyIndustries: ['Tourism', 'Marine', 'Retail', 'Hospitality'],
+    landmarks: ['Weymouth Beach', 'Weymouth Harbour', 'The Esplanade'],
+    businessDistricts: ['Town Centre', 'The Esplanade', 'Hope Square'],
+    postcodes: ['DT4', 'DT3'],
+    coordinates: { lat: 50.6139, lng: -2.4594 }
   },
-  'sherborne': {
-    town: 'Sherborne',
+  dorchester: {
+    town: 'Dorchester',
     county: 'Dorset',
-    landmarks: ['Sherborne Abbey', 'Sherborne Castle', 'Sherborne School'],
-    keyBusinesses: [
-      { name: 'Education', type: 'Education' },
-      { name: 'Tourism', type: 'Tourism' },
-      { name: 'Professional Services', type: 'Services' }
-    ],
-    population: '10,000',
-    postcode: 'DT9'
+    population: 21000,
+    keyIndustries: ['Agriculture', 'Tourism', 'Retail', 'Professional Services'],
+    landmarks: ['Dorchester Town Centre', 'The Corn Exchange', 'Dorset County Museum'],
+    businessDistricts: ['South Street', 'High West Street', 'Trinity Street'],
+    postcodes: ['DT1', 'DT2'],
+    coordinates: { lat: 50.7156, lng: -2.4397 }
   },
-  'swanage': {
+  swanage: {
     town: 'Swanage',
     county: 'Dorset',
+    population: 10000,
+    keyIndustries: ['Tourism', 'Marine', 'Retail', 'Hospitality'],
     landmarks: ['Swanage Beach', 'Swanage Pier', 'Durlston Country Park'],
-    keyBusinesses: [
-      { name: 'Tourism', type: 'Tourism' },
-      { name: 'Marine', type: 'Marine' },
-      { name: 'Retail', type: 'Retail' }
-    ],
-    population: '10,000',
-    postcode: 'BH19'
+    businessDistricts: ['High Street', 'Station Road', 'Shore Road'],
+    postcodes: ['BH19'],
+    coordinates: { lat: 50.6094, lng: -1.9594 }
+  },
+  bridport: {
+    town: 'Bridport',
+    county: 'Dorset',
+    population: 14000,
+    keyIndustries: ['Arts & Crafts', 'Tourism', 'Agriculture', 'Retail'],
+    landmarks: ['Bridport Town Centre', 'West Bay', 'Bridport Arts Centre'],
+    businessDistricts: ['South Street', 'East Street', 'West Street'],
+    postcodes: ['DT6'],
+    coordinates: { lat: 50.7342, lng: -2.7581 }
+  },
+  sherborne: {
+    town: 'Sherborne',
+    county: 'Dorset',
+    population: 10000,
+    keyIndustries: ['Education', 'Tourism', 'Professional Services', 'Retail'],
+    landmarks: ['Sherborne Abbey', 'Sherborne Castle', 'Sherborne School'],
+    businessDistricts: ['Cheap Street', 'Long Street', 'Half Moon Street'],
+    postcodes: ['DT9'],
+    coordinates: { lat: 50.9473, lng: -2.5169 }
   },
   'blandford-forum': {
     town: 'Blandford Forum',
     county: 'Dorset',
+    population: 12000,
+    keyIndustries: ['Agriculture', 'Manufacturing', 'Retail', 'Professional Services'],
     landmarks: ['Blandford Forum Market Place', 'The Crown Hotel', 'Blandford Fashion Museum'],
-    keyBusinesses: [
-      { name: 'Agriculture', type: 'Agriculture' },
-      { name: 'Manufacturing', type: 'Manufacturing' },
-      { name: 'Retail', type: 'Retail' }
-    ],
-    population: '12,000',
-    postcode: 'DT11'
+    businessDistricts: ['Market Place', 'East Street', 'West Street'],
+    postcodes: ['DT11'],
+    coordinates: { lat: 50.8558, lng: -2.1647 }
   }
 };
 
+export interface SEOConfig {
+  title: string;
+  description: string;
+  keywords: string[];
+  canonical?: string;
+  openGraph?: {
+    title?: string;
+    description?: string;
+    type?: string;
+    images?: Array<{
+      url: string;
+      width?: number;
+      height?: number;
+      alt?: string;
+    }>;
+  };
+  twitter?: {
+    card?: string;
+    title?: string;
+    description?: string;
+    images?: string[];
+  };
+  structuredData?: object[];
+}
+
+const baseUrl = 'https://creativecurrent.co.uk';
+const defaultImage = `${baseUrl}/images/creative-current-og-image.jpg`;
+
 /**
- * Legacy function to generate local metadata
+ * Generate optimized metadata for homepage
  */
-export function generateLocalMetadata(town: string): Metadata {
-  const townData = dorseyTowns[town];
-  if (!townData) {
-    return {
-      title: 'Page Not Found | Creative Current',
-      description: 'The requested page could not be found.'
-    };
-  }
+export function generateHomepageMetadata(): Metadata {
+  const title = "Web Design Dorset | Creative Current - Professional Web Development";
+  const description = "Award-winning web design agency in Dorset. Specializing in responsive websites, UI/UX design, and digital solutions for businesses across Bournemouth, Poole, Weymouth & Dorchester.";
+  
+  return {
+    title,
+    description,
+    keywords: [
+      'web design dorset',
+      'web development dorset',
+      'website design bournemouth',
+      'web design poole',
+      'responsive web design',
+      'ui ux design dorset',
+      'professional web design',
+      'creative current',
+      'dorset web agency'
+    ],
+    authors: [{ name: "Creative Current" }],
+    viewport: "width=device-width, initial-scale=1",
+    alternates: {
+      canonical: baseUrl,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: baseUrl,
+      siteName: "Creative Current",
+      images: [
+        {
+          url: defaultImage,
+          width: 1200,
+          height: 630,
+          alt: "Creative Current - Web Design Dorset"
+        }
+      ],
+      locale: "en_GB",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [defaultImage],
+      creator: "@creativecurrent",
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    icons: {
+      icon: "/favicon.svg",
+      shortcut: "/favicon.svg",
+      apple: "/favicon.svg",
+    },
+    other: {
+      'geo.region': 'GB-DOR',
+      'geo.placename': 'Dorset, England',
+      'geo.position': '50.7156;-2.4372',
+      'ICBM': '50.7156, -2.4372',
+    },
+  };
+}
 
-  const title = `Web Design ${townData.town} - Professional Website Design Services`;
-  const description = `Professional web design services in ${townData.town}, ${townData.county}. Custom websites, responsive design, and digital solutions for local businesses.`;
-
+/**
+ * Generate metadata for location-specific pages
+ */
+export function generateLocationMetadata(town: string): Metadata {
+  const townName = town.charAt(0).toUpperCase() + town.slice(1);
+  const title = `Web Design ${townName} | Creative Current - Local Web Development`;
+  const description = `Professional web design services in ${townName}, Dorset. Custom websites, responsive design, and digital solutions for local businesses. Contact us for a free consultation.`;
+  
   return {
     title,
     description,
     keywords: [
       `web design ${town}`,
-      `website design ${townData.town}`,
-      `${town} web designer`,
-      `web development ${townData.town}`,
-      `responsive design ${townData.town}`
+      `website design ${town}`,
+      `web development ${town}`,
+      `${town} web design`,
+      `responsive web design ${town}`,
+      'dorset web design',
+      'creative current'
     ],
+    alternates: {
+      canonical: `${baseUrl}/web-design/${town}`,
+    },
     openGraph: {
       title,
       description,
-      url: `https://creativecurrent.co.uk/web-design/${town}`,
-      siteName: 'Creative Current',
-      type: 'website',
-      locale: 'en_GB'
+      type: "website",
+      url: `${baseUrl}/web-design/${town}`,
+      siteName: "Creative Current",
+      images: [
+        {
+          url: defaultImage,
+          width: 1200,
+          height: 630,
+          alt: `Web Design ${townName} - Creative Current`
+        }
+      ],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
-      creator: '@creativecurrent'
+      images: [defaultImage],
     },
-    alternates: {
-      canonical: `https://creativecurrent.co.uk/web-design/${town}`
-    }
+    other: {
+      'geo.region': 'GB-DOR',
+      'geo.placename': `${townName}, Dorset, England`,
+    },
   };
 }
 
 /**
- * Legacy function to generate local content
+ * Generate metadata for service pages
  */
-export function generateLocalContent(town: string): {
-  breadcrumbs: Array<{ name: string; href: string; url: string }>;
-  heroTitle: string;
-  heroSubtitle: string;
-  heroDescription: string;
-  servicesSection: {
-    title: string;
-    services: Array<{
-      title: string;
-      name: string;
-      description: string;
-      icon: string;
-      link: string;
-    }>;
-  };
-  localBusinessSection: {
-    title: string;
-    content: string;
-    industries: string[];
-  };
-  faqSection: Array<{
-    question: string;
-    answer: string;
-  }>;
-} {
-  const townData = dorseyTowns[town];
-  if (!townData) {
-    throw new Error(`Town data not found for: ${town}`);
-  }
-
+export function generateServiceMetadata(service: string): Metadata {
+  const serviceName = service.split('-').map(word => 
+    word.charAt(0).toUpperCase() + word.slice(1)
+  ).join(' ');
+  
+  const title = `${serviceName} Services | Creative Current Dorset`;
+  const description = `Professional ${serviceName.toLowerCase()} services in Dorset. Expert solutions for businesses across Bournemouth, Poole, Weymouth, and Dorchester.`;
+  
   return {
-    breadcrumbs: [
-      { name: 'Home', href: '/', url: 'https://creativecurrent.co.uk/' },
-      { name: 'Web Design', href: '/web-design', url: 'https://creativecurrent.co.uk/web-design' },
-      { name: townData.town, href: `/web-design/${town}`, url: `https://creativecurrent.co.uk/web-design/${town}` }
+    title,
+    description,
+    keywords: [
+      `${service} dorset`,
+      `${service} services`,
+      `professional ${service}`,
+      'dorset digital agency',
+      'creative current'
     ],
-    heroTitle: `Web Design ${townData.town}`,
-    heroSubtitle: `Professional Website Design Services in ${townData.town}`,
-    heroDescription: `Creative Current provides expert web design and development services to businesses in ${townData.town} and throughout ${townData.county}. We create modern, responsive websites that drive results.`,
-    servicesSection: {
-      title: `Our Web Design Services in ${townData.town}`,
-      services: [
+    alternates: {
+      canonical: `${baseUrl}/services/${service}`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: `${baseUrl}/services/${service}`,
+      siteName: "Creative Current",
+      images: [
         {
-          title: 'Responsive Web Design',
-          name: 'Responsive Web Design',
-          description: 'Mobile-first websites that work perfectly on all devices',
-          icon: 'responsive',
-          link: '/services/responsive-web-design'
-        },
-        {
-          title: 'WordPress Development',
-          name: 'WordPress Development',
-          description: 'Custom WordPress websites with easy content management',
-          icon: 'wordpress',
-          link: '/services/wordpress-development'
-        },
-        {
-          title: 'E-commerce Solutions',
-          name: 'E-commerce Solutions',
-          description: 'Professional online stores that drive sales',
-          icon: 'ecommerce',
-          link: '/services/ecommerce-website'
-        },
-        {
-          title: 'SEO Optimization',
-          name: 'SEO Optimization',
-          description: 'Improve search rankings and attract more customers',
-          icon: 'seo',
-          link: '/services/seo-optimization'
+          url: defaultImage,
+          width: 1200,
+          height: 630,
+          alt: `${serviceName} Services - Creative Current`
         }
-      ]
+      ],
     },
-    localBusinessSection: {
-      title: `Supporting ${townData.town} Businesses Online`,
-      content: `${townData.town} is home to a diverse range of businesses, from traditional retailers to modern service providers. Our web design services help these businesses establish a strong online presence and compete effectively in the digital marketplace.`,
-      industries: ['Retail', 'Tourism', 'Professional Services', 'Hospitality', 'Healthcare']
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [defaultImage],
     },
-    faqSection: [
-      {
-        question: `How much does web design cost in ${townData.town}?`,
-        answer: `Web design costs in ${townData.town} vary depending on your requirements. We offer competitive pricing starting from £800 for basic websites, with most projects ranging from £1,500 to £5,000. Contact us for a free, tailored quote.`
-      },
-      {
-        question: `Do you provide ongoing support after the website is complete?`,
-        answer: `Yes, we provide comprehensive ongoing support for all our ${townData.town} clients, including website maintenance, security updates, content updates, and technical support.`
-      },
-      {
-        question: `Will my website be mobile-friendly?`,
-        answer: `Absolutely! All our websites are built with a mobile-first approach, ensuring they look and function perfectly on smartphones, tablets, and desktop computers.`
-      }
-    ]
   };
 }
 
 /**
- * Legacy function to generate local business schema
+ * Generate metadata for about page
  */
-export function generateLocalBusinessSchema(town: string): object {
-  const townData = dorseyTowns[town];
-  if (!townData) {
-    throw new Error(`Town data not found for: ${town}`);
-  }
-
+export function generateAboutMetadata(): Metadata {
+  const title = "About Creative Current | Web Design Team Dorset";
+  const description = "Meet the Creative Current team - passionate web designers and developers based in Dorset. Learn about our mission to create exceptional digital experiences for local businesses.";
+  
   return {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: 'Creative Current',
-    description: `Professional web design services in ${townData.town}, ${townData.county}`,
-    url: 'https://creativecurrent.co.uk',
-    telephone: '+44-1234-567890',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: townData.town,
-      addressRegion: townData.county,
-      addressCountry: 'GB'
+    title,
+    description,
+    keywords: [
+      'about creative current',
+      'web design team dorset',
+      'dorset web designers',
+      'creative current team',
+      'web development company dorset'
+    ],
+    alternates: {
+      canonical: `${baseUrl}/about`,
     },
-    areaServed: {
-      '@type': 'Place',
-      name: `${townData.town}, ${townData.county}`
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: `${baseUrl}/about`,
+      siteName: "Creative Current",
+      images: [
+        {
+          url: defaultImage,
+          width: 1200,
+          height: 630,
+          alt: "About Creative Current Team"
+        }
+      ],
     },
-    serviceArea: {
-      '@type': 'GeoCircle',
-      geoMidpoint: {
-        '@type': 'GeoCoordinates',
-        latitude: 50.7156,
-        longitude: -2.4397
-      },
-      geoRadius: '50 km'
-    }
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [defaultImage],
+    },
+  };
+}
+
+/**
+ * Generate metadata for contact page
+ */
+export function generateContactMetadata(): Metadata {
+  const title = "Contact Creative Current | Web Design Dorset - Get Your Quote";
+  const description = "Contact Creative Current for professional web design services in Dorset. Free consultations, competitive quotes, and exceptional customer service. Call us today!";
+  
+  return {
+    title,
+    description,
+    keywords: [
+      'contact creative current',
+      'web design quote dorset',
+      'web design consultation',
+      'dorset web design contact',
+      'get web design quote'
+    ],
+    alternates: {
+      canonical: `${baseUrl}/contact`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: `${baseUrl}/contact`,
+      siteName: "Creative Current",
+      images: [
+        {
+          url: defaultImage,
+          width: 1200,
+          height: 630,
+          alt: "Contact Creative Current"
+        }
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [defaultImage],
+    },
+  };
+}
+
+/**
+ * Generate metadata for work/portfolio page
+ */
+export function generateWorkMetadata(): Metadata {
+  const title = "Our Work | Creative Current Portfolio - Web Design Examples Dorset";
+  const description = "Explore Creative Current's portfolio of stunning websites and digital projects. See examples of our web design work for businesses across Dorset and beyond.";
+  
+  return {
+    title,
+    description,
+    keywords: [
+      'creative current portfolio',
+      'web design examples',
+      'dorset web design portfolio',
+      'website examples',
+      'creative current work'
+    ],
+    alternates: {
+      canonical: `${baseUrl}/work`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: `${baseUrl}/work`,
+      siteName: "Creative Current",
+      images: [
+        {
+          url: defaultImage,
+          width: 1200,
+          height: 630,
+          alt: "Creative Current Portfolio"
+        }
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [defaultImage],
+    },
   };
 }

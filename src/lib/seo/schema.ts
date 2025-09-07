@@ -1,560 +1,717 @@
-// src/lib/seo/schema.ts - Schema markup generation with strict TypeScript types
+// src/lib/seo/schema.ts - Structured data schema markup utilities
 
-import { DorsetLocation, getLocationBySlug } from '@/lib/data/locations';
-import { WebDesignService } from '@/lib/data/services';
-import { escapeString } from './metadata';
+export type SchemaMarkup = object;
 
-/**
- * Base schema markup interface
- */
-export interface SchemaMarkup {
-  '@context': string;
-  '@type': string;
-  [key: string]: unknown;
-}
-
-/**
- * Local Business schema interface
- */
-export interface LocalBusinessSchema extends SchemaMarkup {
-  '@type': 'LocalBusiness';
-  name: string;
-  description: string;
-  url: string;
-  telephone: string;
-  email?: string;
-  address: PostalAddressSchema;
-  geo: GeoCoordinatesSchema;
-  areaServed: PlaceSchema[];
-  serviceArea: GeoCircleSchema;
-  openingHours?: string[];
-  priceRange?: string;
-  paymentAccepted?: string[];
-  currenciesAccepted?: string[];
-  sameAs?: string[];
-  foundingDate?: string;
-  numberOfEmployees?: string;
-  knowsAbout?: string[];
-  makesOffer?: OfferSchema[];
-}
-
-/**
- * Postal Address schema interface
- */
-export interface PostalAddressSchema {
-  '@type': 'PostalAddress';
-  streetAddress?: string;
-  addressLocality: string;
-  addressRegion: string;
-  postalCode?: string;
-  addressCountry: string;
-}
-
-/**
- * Geo Coordinates schema interface
- */
-export interface GeoCoordinatesSchema {
-  '@type': 'GeoCoordinates';
-  latitude: number;
-  longitude: number;
-}
-
-/**
- * Place schema interface
- */
-export interface PlaceSchema {
-  '@type': 'Place';
-  name: string;
-  geo?: GeoCoordinatesSchema;
-}
-
-/**
- * Geo Circle schema interface
- */
-export interface GeoCircleSchema {
-  '@type': 'GeoCircle';
-  geoMidpoint: GeoCoordinatesSchema;
-  geoRadius: string;
-}
-
-/**
- * Service schema interface
- */
-export interface ServiceSchema extends SchemaMarkup {
-  '@type': 'Service';
-  name: string;
-  description: string;
-  provider: OrganizationSchema;
-  areaServed: PlaceSchema[];
-  offers?: OfferSchema[];
-  serviceType: string;
-  category?: string;
-}
-
-/**
- * Organization schema interface
- */
 export interface OrganizationSchema {
-  '@type': 'Organization';
+  "@context": string;
+  "@type": string;
   name: string;
+  description: string;
   url: string;
-  logo?: string;
-  contactPoint?: ContactPointSchema[];
-  address?: PostalAddressSchema;
-  sameAs?: string[];
-}
-
-/**
- * Contact Point schema interface
- */
-export interface ContactPointSchema {
-  '@type': 'ContactPoint';
+  logo: string;
+  image: string;
   telephone: string;
-  contactType: string;
-  areaServed?: string;
-  availableLanguage?: string;
+  email: string;
+  address: {
+    "@type": string;
+    addressLocality: string;
+    addressRegion: string;
+    addressCountry: string;
+  };
+  geo: {
+    "@type": string;
+    latitude: number;
+    longitude: number;
+  };
+  areaServed: Array<{
+    "@type": string;
+    name: string;
+  }>;
+  serviceArea: {
+    "@type": string;
+    name: string;
+  };
+  sameAs: string[];
 }
 
-/**
- * Offer schema interface
- */
-export interface OfferSchema {
-  '@type': 'Offer';
-  name: string;
-  description?: string;
-  price?: string;
-  priceCurrency?: string;
-  availability?: string;
-  validFrom?: string;
-  validThrough?: string;
-  areaServed?: PlaceSchema;
-}
-
-/**
- * FAQ Page schema interface
- */
-export interface FAQPageSchema extends SchemaMarkup {
-  '@type': 'FAQPage';
-  mainEntity: QuestionSchema[];
-}
-
-/**
- * Question schema interface
- */
-export interface QuestionSchema {
-  '@type': 'Question';
-  name: string;
-  acceptedAnswer: AnswerSchema;
-}
-
-/**
- * Answer schema interface
- */
-export interface AnswerSchema {
-  '@type': 'Answer';
-  text: string;
-}
-
-/**
- * Breadcrumb List schema interface
- */
-export interface BreadcrumbListSchema extends SchemaMarkup {
-  '@type': 'BreadcrumbList';
-  itemListElement: ListItemSchema[];
-}
-
-/**
- * List Item schema interface
- */
-export interface ListItemSchema {
-  '@type': 'ListItem';
-  position: number;
-  name: string;
-  item: string;
-}
-
-/**
- * Website schema interface
- */
-export interface WebsiteSchema extends SchemaMarkup {
-  '@type': 'WebSite';
+export interface WebsiteSchema {
+  "@context": string;
+  "@type": string;
   name: string;
   url: string;
-  description?: string;
-  publisher?: OrganizationSchema;
-  potentialAction?: SearchActionSchema;
-}
-
-/**
- * Search Action schema interface
- */
-export interface SearchActionSchema {
-  '@type': 'SearchAction';
-  target: string;
-  'query-input': string;
-}
-
-/**
- * Generate comprehensive Local Business schema for location pages
- */
-export function generateLocalBusinessSchema(
-  location: DorsetLocation,
-  _townSlug: string
-): LocalBusinessSchema {
-  const escapedName = escapeString(location.name);
-  const escapedCounty = escapeString(location.county);
-  
-  // Generate comprehensive area served including nearby locations with coordinates
-  const areaServed: PlaceSchema[] = [
-    {
-      '@type': 'Place',
-      name: `${escapedName}, ${escapedCounty}`,
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: location.coordinates.lat,
-        longitude: location.coordinates.lng
-      }
-    }
-  ];
-
-  // Add nearby towns with their coordinates if available
-  location.nearbyTowns.forEach(nearbySlug => {
-    const nearbyLocation = getLocationBySlug ? getLocationBySlug(nearbySlug) : null;
-    if (nearbyLocation) {
-      areaServed.push({
-        '@type': 'Place',
-        name: `${escapeString(nearbyLocation.name)}, ${escapedCounty}`,
-        geo: {
-          '@type': 'GeoCoordinates',
-          latitude: nearbyLocation.coordinates.lat,
-          longitude: nearbyLocation.coordinates.lng
-        }
-      });
-    } else {
-      // Fallback for towns without full data
-      areaServed.push({
-        '@type': 'Place',
-        name: nearbySlug.charAt(0).toUpperCase() + nearbySlug.slice(1).replace('-', ' ')
-      });
-    }
-  });
-
-  // Determine service radius based on location type
-  const serviceRadius = location.demographics.touristDestination ? '30 km' : '25 km';
-  
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: 'Creative Current',
-    description: `Professional web design services in ${escapedName}, ${escapedCounty}. Custom websites, responsive design, and digital solutions for local businesses. Serving ${escapedName} and surrounding areas with expert web development, SEO optimization, and digital marketing services.`,
-    url: 'https://creativecurrent.co.uk',
-    telephone: '+44-1234-567890',
-    email: 'hello@creativecurrent.co.uk',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: `Creative Current, Business Centre, ${escapedName}`,
-      addressLocality: escapedName,
-      addressRegion: escapedCounty,
-      postalCode: location.postcodes[0],
-      addressCountry: 'GB'
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: location.coordinates.lat,
-      longitude: location.coordinates.lng
-    },
-    areaServed,
-    serviceArea: {
-      '@type': 'GeoCircle',
-      geoMidpoint: {
-        '@type': 'GeoCoordinates',
-        latitude: location.coordinates.lat,
-        longitude: location.coordinates.lng
-      },
-      geoRadius: serviceRadius
-    },
-    openingHours: [
-      'Mo-Fr 09:00-17:30',
-      'Sa 10:00-16:00'
-    ],
-    priceRange: location.demographics.averageIncome > 30000 ? '£1200-£8000' : '£800-£5000',
-    paymentAccepted: ['Cash', 'Credit Card', 'Bank Transfer', 'PayPal'],
-    currenciesAccepted: ['GBP'],
-    sameAs: [
-      'https://www.facebook.com/creativecurrent',
-      'https://www.linkedin.com/company/creative-current',
-      'https://twitter.com/creativecurrent',
-      'https://www.instagram.com/creativecurrent'
-    ],
-    // Add business-specific properties
-    foundingDate: '2020-01-01',
-    numberOfEmployees: '2-10',
-    knowsAbout: [
-      'Web Design',
-      'Website Development',
-      'Responsive Design',
-      'WordPress Development',
-      'E-commerce Websites',
-      'SEO Optimization',
-      'Digital Marketing',
-      `${escapedName} Business Services`,
-      `${escapedCounty} Web Design`
-    ],
-    // Add service-specific offers
-    makesOffer: [
-      {
-        '@type': 'Offer',
-        name: 'Website Design Consultation',
-        description: `Free website design consultation for ${escapedName} businesses`,
-        price: '0',
-        priceCurrency: 'GBP',
-        availability: 'https://schema.org/InStock',
-        validFrom: new Date().toISOString().split('T')[0],
-        areaServed: {
-          '@type': 'Place',
-          name: `${escapedName}, ${escapedCounty}`
-        }
-      },
-      {
-        '@type': 'Offer',
-        name: 'Professional Website Design',
-        description: `Custom website design services for ${escapedName} businesses`,
-        price: location.demographics.averageIncome > 30000 ? '1200' : '800',
-        priceCurrency: 'GBP',
-        availability: 'https://schema.org/InStock',
-        areaServed: {
-          '@type': 'Place',
-          name: `${escapedName}, ${escapedCounty}`
-        }
-      }
-    ]
-  };
-}
-
-
-
-/**
- * Generate Service schema for service pages
- */
-export function generateServiceSchema(
-  service: WebDesignService,
-  location?: DorsetLocation
-): ServiceSchema {
-  const escapedServiceName = escapeString(service.name);
-  const escapedDescription = escapeString(service.longDescription);
-  
-  const areaServed: PlaceSchema[] = location ? [
-    {
-      '@type': 'Place',
-      name: `${escapeString(location.name)}, ${escapeString(location.county)}`,
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: location.coordinates.lat,
-        longitude: location.coordinates.lng
-      }
-    }
-  ] : [
-    {
-      '@type': 'Place',
-      name: 'Dorset, UK'
-    }
-  ];
-
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: escapedServiceName,
-    description: escapedDescription,
-    provider: {
-      '@type': 'Organization',
-      name: 'Creative Current',
-      url: 'https://creativecurrent.co.uk',
-      logo: 'https://creativecurrent.co.uk/images/creative-current-logo.svg',
-      contactPoint: [
-        {
-          '@type': 'ContactPoint',
-          telephone: '+44-1234-567890',
-          contactType: 'Customer Service',
-          areaServed: 'GB',
-          availableLanguage: 'English'
-        }
-      ]
-    },
-    areaServed,
-    offers: [
-      {
-        '@type': 'Offer',
-        name: escapedServiceName,
-        description: escapedDescription,
-        price: service.pricing.starting.toString(),
-        priceCurrency: service.pricing.currency,
-        availability: 'https://schema.org/InStock'
-      }
-    ],
-    serviceType: escapedServiceName,
-    category: service.category
-  };
-}
-
-/**
- * Generate FAQ Page schema
- */
-export function generateFAQPageSchema(
-  faqs: Array<{
-    question: string;
-    answer: string;
-  }>
-): FAQPageSchema {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map(faq => ({
-      '@type': 'Question',
-      name: escapeString(faq.question),
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: escapeString(faq.answer)
-      }
-    }))
-  };
-}
-
-/**
- * Generate Breadcrumb List schema
- */
-export function generateBreadcrumbSchema(
-  breadcrumbs: Array<{
+  description: string;
+  publisher: {
+    "@type": string;
     name: string;
-    url: string;
-  }>
-): BreadcrumbListSchema {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: breadcrumbs.map((breadcrumb, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: escapeString(breadcrumb.name),
-      item: breadcrumb.url
-    }))
+    logo: {
+      "@type": string;
+      url: string;
+    };
+  };
+  potentialAction: {
+    "@type": string;
+    target: string;
+    "query-input": string;
   };
 }
 
-/**
- * Generate Website schema
- */
-export function generateWebsiteSchema(): WebsiteSchema {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'Creative Current',
-    url: 'https://creativecurrent.co.uk',
-    description: 'Professional web design services in Dorset. Custom websites, responsive design, and digital solutions for businesses.',
-    publisher: {
-      '@type': 'Organization',
-      name: 'Creative Current',
-      url: 'https://creativecurrent.co.uk',
-      logo: 'https://creativecurrent.co.uk/images/creative-current-logo.svg'
-    },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: 'https://creativecurrent.co.uk/search?q={search_term_string}',
-      'query-input': 'required name=search_term_string'
-    }
+export interface LocalBusinessSchema {
+  "@context": string;
+  "@type": string;
+  name: string;
+  description: string;
+  url: string;
+  telephone: string;
+  email: string;
+  address: {
+    "@type": string;
+    streetAddress: string;
+    addressLocality: string;
+    addressRegion: string;
+    postalCode: string;
+    addressCountry: string;
   };
+  geo: {
+    "@type": string;
+    latitude: number;
+    longitude: number;
+  };
+  openingHours: string[];
+  contactPoint?: Array<{
+    "@type": string;
+    telephone?: string;
+    email?: string;
+    contactType: string;
+    areaServed: string;
+    availableLanguage?: string;
+  }>;
+  priceRange: string;
+  areaServed: Array<{
+    "@type": string;
+    name: string;
+  }>;
+  serviceArea: {
+    "@type": string;
+    name: string;
+  };
+  hasOfferCatalog: {
+    "@type": string;
+    name: string;
+    itemListElement: Array<{
+      "@type": string;
+      itemOffered: {
+        "@type": string;
+        name: string;
+        description: string;
+      };
+    }>;
+  };
+  aggregateRating?: {
+    "@type": string;
+    ratingValue: string;
+    reviewCount: string;
+    bestRating: string;
+    worstRating: string;
+  };
+  review?: Array<{
+    "@type": string;
+    reviewRating: {
+      "@type": string;
+      ratingValue: string;
+      bestRating: string;
+    };
+    author: {
+      "@type": string;
+      name: string;
+    };
+    reviewBody: string;
+  }>;
 }
 
+const baseUrl = 'https://creativecurrent.co.uk';
+
 /**
- * Generate Organization schema
+ * Generate Organization schema for homepage
  */
 export function generateOrganizationSchema(): OrganizationSchema {
   return {
-    '@type': 'Organization',
-    name: 'Creative Current',
-    url: 'https://creativecurrent.co.uk',
-    logo: 'https://creativecurrent.co.uk/images/creative-current-logo.svg',
-    contactPoint: [
-      {
-        '@type': 'ContactPoint',
-        telephone: '+44-1234-567890',
-        contactType: 'Customer Service',
-        areaServed: 'GB',
-        availableLanguage: 'English'
-      }
-    ],
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Creative Current",
+    description: "Professional web design and development agency specializing in responsive websites, UI/UX design, and digital solutions for businesses across Dorset.",
+    url: baseUrl,
+    logo: `${baseUrl}/creative-current-logo.svg`,
+    image: `${baseUrl}/images/creative-current-og-image.jpg`,
+    telephone: "+44-1234-567890", // Replace with actual phone
+    email: "hello@creativecurrent.co.uk", // Replace with actual email
     address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Dorset',
-      addressRegion: 'Dorset',
-      addressCountry: 'GB'
+      "@type": "PostalAddress",
+      addressLocality: "Dorset",
+      addressRegion: "England",
+      addressCountry: "GB"
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 50.7156,
+      longitude: -2.4372
+    },
+    areaServed: [
+      { "@type": "Place", name: "Dorset" },
+      { "@type": "Place", name: "Bournemouth" },
+      { "@type": "Place", name: "Poole" },
+      { "@type": "Place", name: "Weymouth" },
+      { "@type": "Place", name: "Dorchester" },
+      { "@type": "Place", name: "Swanage" }
+    ],
+    serviceArea: {
+      "@type": "Place",
+      name: "Dorset, England"
     },
     sameAs: [
-      'https://www.facebook.com/creativecurrent',
-      'https://www.linkedin.com/company/creative-current',
-      'https://twitter.com/creativecurrent'
+      "https://www.linkedin.com/company/creative-current",
+      "https://twitter.com/creativecurrent",
+      "https://www.instagram.com/creativecurrent"
     ]
   };
 }
 
 /**
- * Combine multiple schema markups into a single JSON-LD script
+ * Generate Website schema for homepage
  */
-export function combineSchemas(schemas: SchemaMarkup[]): string {
-  if (schemas.length === 0) return '';
-  
-  if (schemas.length === 1) {
-    return JSON.stringify(schemas[0], null, 2);
-  }
-  
-  // Multiple schemas - wrap in array
-  return JSON.stringify(schemas, null, 2);
-}
-
-/**
- * Validate schema markup (basic validation)
- */
-export function validateSchema(schema: SchemaMarkup): boolean {
-  try {
-    // Check required fields
-    if (!schema['@context'] || !schema['@type']) {
-      return false;
+export function generateWebsiteSchema(): WebsiteSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Creative Current",
+    url: baseUrl,
+    description: "Professional web design and development services in Dorset. Creating stunning, responsive websites for businesses across Bournemouth, Poole, Weymouth, and Dorchester.",
+    publisher: {
+      "@type": "Organization",
+      name: "Creative Current",
+      logo: {
+        "@type": "ImageObject",
+        url: `${baseUrl}/creative-current-logo.svg`
+      }
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${baseUrl}/search?q={search_term_string}`,
+      "query-input": "required name=search_term_string"
     }
-    
-    // Ensure JSON serializable
-    JSON.stringify(schema);
-    
-    return true;
-  } catch {
-    return false;
-  }
+  };
 }
 
 /**
- * Generate all schemas for a location page
+ * Generate enhanced LocalBusiness schema for location pages with comprehensive data
+ */
+export function generateLocalBusinessSchema(town: string, locationData?: any): LocalBusinessSchema {
+  const townName = town.charAt(0).toUpperCase() + town.slice(1);
+  
+  // Use location data if provided, otherwise fall back to basic coordinates
+  const coordinates = locationData?.coordinates || getTownCoordinates(town);
+  const postcodes = locationData?.postcodes || [getPostalCode(town)];
+  const nearbyTowns = locationData?.nearbyTowns || [];
+  const keyIndustries = locationData?.keyIndustries || [];
+  
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: `Creative Current - Web Design ${townName}`,
+    description: `Professional web design and development services in ${townName}, Dorset. Specializing in responsive websites, e-commerce solutions, and digital marketing for local businesses. ${locationData?.description || ''}`,
+    url: `${baseUrl}/web-design/${town}`,
+    telephone: "+44-1234-567890", // Replace with actual phone
+    email: "hello@creativecurrent.co.uk", // Replace with actual email
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Service Area", // Replace with actual address if applicable
+      addressLocality: townName,
+      addressRegion: "Dorset",
+      postalCode: postcodes[0],
+      addressCountry: "GB"
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: coordinates.lat,
+      longitude: coordinates.lng
+    },
+    openingHours: [
+      "Mo-Fr 09:00-17:00",
+      "Sa 10:00-16:00"
+    ],
+    // Add business contact information
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: "+44-1234-567890",
+        contactType: "customer service",
+        areaServed: "GB",
+        availableLanguage: "English"
+      },
+      {
+        "@type": "ContactPoint",
+        email: "hello@creativecurrent.co.uk",
+        contactType: "customer service",
+        areaServed: "GB"
+      }
+    ],
+    priceRange: "££",
+    // Enhanced areaServed with comprehensive coverage
+    areaServed: [
+      { "@type": "Place", name: townName },
+      { "@type": "Place", name: "Dorset" },
+      // Add nearby towns
+      ...nearbyTowns.slice(0, 3).map((nearbyTown: string) => ({
+        "@type": "Place",
+        name: nearbyTown.charAt(0).toUpperCase() + nearbyTown.slice(1)
+      })),
+      // Add postcode areas
+      ...postcodes.map((postcode: string) => ({
+        "@type": "Place",
+        name: `${postcode} postcode area`
+      }))
+    ],
+    serviceArea: {
+      "@type": "Place",
+      name: `${townName} and surrounding Dorset areas`
+    },
+    // Enhanced service catalog with industry-specific offerings
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Web Design Services",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Responsive Web Design",
+            description: `Custom responsive websites for ${townName} businesses that work perfectly on all devices`
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "E-commerce Development",
+            description: `Professional online stores and e-commerce solutions for ${townName} retailers`
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Local SEO Optimization",
+            description: `Search engine optimization to help ${townName} businesses rank higher in local searches`
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Website Maintenance",
+            description: `Ongoing support and maintenance for ${townName} business websites`
+          }
+        },
+        // Add industry-specific services if available
+        ...(keyIndustries.includes('Tourism') ? [{
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Tourism Website Design",
+            description: `Specialized websites for ${townName} tourism and hospitality businesses with booking systems`
+          }
+        }] : []),
+        ...(keyIndustries.includes('Marine') ? [{
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Marine Business Websites",
+            description: `Professional websites for ${townName} marine and maritime businesses`
+          }
+        }] : [])
+      ]
+    },
+    // Note: aggregateRating and review schemas removed to avoid fake reviews
+    // Real reviews should be added when available from actual clients
+  };
+}
+
+/**
+ * Generate Service schema
+ */
+export function generateServiceSchema(serviceName: string, description: string): object {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: serviceName,
+    description: description,
+    provider: {
+      "@type": "Organization",
+      name: "Creative Current",
+      url: baseUrl
+    },
+    areaServed: {
+      "@type": "Place",
+      name: "Dorset, England"
+    },
+    serviceType: "Web Design and Development",
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      priceRange: "££",
+      priceCurrency: "GBP"
+    }
+  };
+}
+
+/**
+ * Generate Breadcrumb schema
+ */
+export function generateBreadcrumbSchema(breadcrumbs: Array<{ name: string; url: string }>): object {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url
+    }))
+  };
+}
+
+/**
+ * Generate FAQ schema
+ */
+export function generateFAQSchema(faqs: Array<{ question: string; answer: string }>): object {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(faq => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer
+      }
+    }))
+  };
+}
+
+/**
+ * Get town coordinates (approximate)
+ */
+function getTownCoordinates(town: string): { lat: number; lng: number } {
+  const coordinates: Record<string, { lat: number; lng: number }> = {
+    bournemouth: { lat: 50.7192, lng: -1.8808 },
+    poole: { lat: 50.7150, lng: -1.9872 },
+    weymouth: { lat: 50.6139, lng: -2.4578 },
+    dorchester: { lat: 50.7156, lng: -2.4372 },
+    swanage: { lat: 50.6094, lng: -1.9594 },
+    bridport: { lat: 50.7342, lng: -2.7581 },
+    sherborne: { lat: 50.9486, lng: -2.5158 },
+    blandford: { lat: 50.8558, lng: -2.1647 }
+  };
+  
+  return coordinates[town] || { lat: 50.7156, lng: -2.4372 }; // Default to Dorchester
+}
+
+/**
+ * Get postal code for town (approximate)
+ */
+function getPostalCode(town: string): string {
+  const postalCodes: Record<string, string> = {
+    bournemouth: "BH1",
+    poole: "BH15",
+    weymouth: "DT4",
+    dorchester: "DT1",
+    swanage: "BH19",
+    bridport: "DT6",
+    sherborne: "DT9",
+    blandford: "DT11"
+  };
+  
+  return postalCodes[town] || "DT1";
+}
+
+/**
+ * Generate ImageObject schema for portfolio images
+ */
+export function generateImageSchema(
+  imageUrl: string,
+  title: string,
+  description: string,
+  width?: number,
+  height?: number
+): object {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    url: imageUrl,
+    name: title,
+    description: description,
+    ...(width && { width }),
+    ...(height && { height }),
+    creator: {
+      "@type": "Organization",
+      name: "Creative Current"
+    },
+    copyrightHolder: {
+      "@type": "Organization",
+      name: "Creative Current"
+    }
+  };
+}
+
+/**
+ * Generate CreativeWork schema for portfolio projects
+ */
+export function generateCreativeWorkSchema(
+  project: {
+    title: string;
+    description: string;
+    image: string;
+    category: string;
+    url?: string;
+  }
+): object {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.description,
+    image: project.image,
+    genre: project.category,
+    creator: {
+      "@type": "Organization",
+      name: "Creative Current",
+      url: baseUrl
+    },
+    ...(project.url && { url: project.url }),
+    dateCreated: new Date().getFullYear().toString(),
+    inLanguage: "en-GB"
+  };
+}
+
+/**
+ * Generate comprehensive location page schemas with enhanced data
  */
 export function generateLocationPageSchemas(
-  location: DorsetLocation,
+  locationData: any,
   townSlug: string,
   faqs: Array<{ question: string; answer: string }>,
-  breadcrumbs: Array<{ name: string; url: string }>
-): SchemaMarkup[] {
-  const schemas: SchemaMarkup[] = [];
-  
-  // Local Business schema
-  schemas.push(generateLocalBusinessSchema(location, townSlug));
-  
-  // FAQ schema if FAQs exist
-  if (faqs.length > 0) {
-    schemas.push(generateFAQPageSchema(faqs));
-  }
-  
+  breadcrumbs: Array<{ name: string; href: string; url: string }>
+): object[] {
+  const schemas: object[] = [];
+
+  // Enhanced LocalBusiness schema with full location data
+  schemas.push(generateLocalBusinessSchema(townSlug, locationData));
+
   // Breadcrumb schema
-  if (breadcrumbs.length > 0) {
-    schemas.push(generateBreadcrumbSchema(breadcrumbs));
+  if (breadcrumbs && breadcrumbs.length > 1) {
+    schemas.push(generateBreadcrumbSchema(
+      breadcrumbs.map(crumb => ({ name: crumb.name, url: crumb.url }))
+    ));
+  }
+
+  // FAQ schema with location-specific questions
+  if (faqs && faqs.length > 0) {
+    schemas.push(generateFAQSchema(faqs));
+  }
+
+  // Add WebPage schema for better page understanding
+  schemas.push(generateWebPageSchema(locationData.name, townSlug, locationData.description));
+
+  // Add Place schema for the location itself
+  schemas.push(generatePlaceSchema(locationData, townSlug));
+
+  return schemas;
+}
+
+/**
+ * Generate WebPage schema for location pages
+ */
+export function generateWebPageSchema(townName: string, townSlug: string, description: string): object {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `Web Design ${townName} - Creative Current`,
+    description: `Professional web design services in ${townName}, Dorset. ${description}`,
+    url: `${baseUrl}/web-design/${townSlug}`,
+    mainEntity: {
+      "@type": "LocalBusiness",
+      name: `Creative Current - Web Design ${townName}`
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: baseUrl
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Web Design",
+          item: `${baseUrl}/web-design`
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: townName,
+          item: `${baseUrl}/web-design/${townSlug}`
+        }
+      ]
+    },
+    inLanguage: "en-GB",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Creative Current",
+      url: baseUrl
+    }
+  };
+}
+
+/**
+ * Generate Place schema for the location
+ */
+export function generatePlaceSchema(locationData: any, townSlug: string): object {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Place",
+    name: locationData.name,
+    description: locationData.description,
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: locationData.coordinates.lat,
+      longitude: locationData.coordinates.lng
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: locationData.name,
+      addressRegion: locationData.county,
+      addressCountry: "GB",
+      postalCode: locationData.postcodes[0]
+    },
+    containedInPlace: {
+      "@type": "Place",
+      name: locationData.county
+    },
+    // Add local landmarks as points of interest
+    ...(locationData.seoData?.localLandmarks && {
+      hasMap: `https://www.google.com/maps/search/${encodeURIComponent(locationData.name + ', ' + locationData.county)}`,
+      additionalProperty: locationData.seoData.localLandmarks.slice(0, 3).map((landmark: string) => ({
+        "@type": "PropertyValue",
+        name: "Local Landmark",
+        value: landmark
+      }))
+    })
+  };
+}
+
+/**
+ * Generate enhanced FAQ schema with better structure
+ */
+export function generateEnhancedFAQSchema(faqs: Array<{ 
+  question: string; 
+  answer: string; 
+  schema?: any 
+}>): object {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(faq => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+        inLanguage: "en-GB"
+      }
+    })),
+    inLanguage: "en-GB",
+    about: {
+      "@type": "Service",
+      name: "Web Design Services",
+      provider: {
+        "@type": "Organization",
+        name: "Creative Current"
+      }
+    }
+  };
+}
+
+/**
+ * Generate combined schema markup for a page
+ */
+export function generatePageSchema(
+  pageType: 'homepage' | 'location' | 'service' | 'about' | 'contact' | 'work',
+  options?: {
+    town?: string;
+    service?: string;
+    breadcrumbs?: Array<{ name: string; url: string }>;
+    faqs?: Array<{ question: string; answer: string }>;
+    projects?: Array<{
+      title: string;
+      description: string;
+      image: string;
+      category: string;
+      url?: string;
+    }>;
+    locationData?: any;
+  }
+): object[] {
+  const schemas: object[] = [];
+  
+  switch (pageType) {
+    case 'homepage':
+      schemas.push(generateOrganizationSchema());
+      schemas.push(generateWebsiteSchema());
+      break;
+      
+    case 'location':
+      if (options?.town && options?.locationData) {
+        // Use the new comprehensive location schema generation
+        return generateLocationPageSchemas(
+          options.locationData,
+          options.town,
+          options.faqs || [],
+          options.breadcrumbs?.map(b => ({ name: b.name, href: b.url, url: b.url })) || []
+        );
+      } else if (options?.town) {
+        schemas.push(generateLocalBusinessSchema(options.town));
+      }
+      break;
+      
+    case 'service':
+      if (options?.service) {
+        const serviceName = options.service.split('-').map(word => 
+          word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
+        schemas.push(generateServiceSchema(serviceName, `Professional ${serviceName.toLowerCase()} services in Dorset`));
+      }
+      break;
+      
+    case 'work':
+      // Add portfolio/creative work schemas
+      if (options?.projects) {
+        options.projects.forEach(project => {
+          schemas.push(generateCreativeWorkSchema(project));
+        });
+      }
+      break;
   }
   
-  // Website schema
-  schemas.push(generateWebsiteSchema());
+  // Add breadcrumbs if provided
+  if (options?.breadcrumbs && options.breadcrumbs.length > 1) {
+    schemas.push(generateBreadcrumbSchema(options.breadcrumbs));
+  }
   
-  return schemas.filter(validateSchema);
+  // Add FAQs if provided
+  if (options?.faqs && options.faqs.length > 0) {
+    schemas.push(generateFAQSchema(options.faqs));
+  }
+  
+  return schemas;
 }

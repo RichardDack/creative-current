@@ -1,21 +1,10 @@
 import type { Metadata } from 'next';
 import { Layout } from '@/components/global/Layout';
-import { generateCanonicalUrl } from '@/lib/seo/canonical';
+import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
+import { generateContactMetadata } from '@/lib/seo/metadata';
+import { generatePageSchema } from '@/lib/seo/schema';
 
-export const metadata: Metadata = {
-  title: 'Contact Creative Current - Web Design Agency in Dorset',
-  description: 'Get in touch with Creative Current for your web design project. Based in Dorset, serving Swanage, Dorchester, Weymouth, Poole, Bournemouth and surrounding areas. Free consultations available.',
-  keywords: 'contact creative current, web design dorset, web design quote, dorset web designers contact, web design consultation',
-  alternates: {
-    canonical: generateCanonicalUrl('/contact'),
-  },
-  openGraph: {
-    title: 'Contact Creative Current - Web Design Agency in Dorset',
-    description: 'Get in touch with Creative Current for your web design project. Based in Dorset, serving Swanage, Dorchester, Weymouth, Poole, Bournemouth and surrounding areas.',
-    type: 'website',
-    url: generateCanonicalUrl('/contact'),
-  },
-};
+export const metadata: Metadata = generateContactMetadata();
 
 // Local Business Schema
 const localBusinessSchema = {
@@ -149,12 +138,22 @@ const faqs = [
 ];
 
 export default function ContactPage() {
+  // Generate structured data for contact page
+  const schemaMarkup = generatePageSchema('contact', {
+    breadcrumbs: [
+      { name: 'Home', url: 'https://creativecurrent.co.uk' },
+      { name: 'Contact', url: 'https://creativecurrent.co.uk/contact' }
+    ],
+    faqs: faqs.map(faq => ({
+      question: faq.question,
+      answer: faq.answer
+    }))
+  });
+
   return (
-    <Layout>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
+    <>
+      <SchemaMarkup schema={schemaMarkup} />
+      <Layout>
       
       <div className="page-container">
         {/* Hero Section */}
@@ -162,7 +161,7 @@ export default function ContactPage() {
           <div className="container">
             <div style={{ marginBottom: '4rem' }}>
               <h1 className="hero-title">
-                Get In Touch
+                Contact Creative Current - Web Design Dorset
               </h1>
               <p className="hero-description">
                 Ready to start your web design project? We&apos;d love to hear from you. 
@@ -556,6 +555,7 @@ export default function ContactPage() {
           </div>
         </section>
       </div>
-    </Layout>
+      </Layout>
+    </>
   );
 }

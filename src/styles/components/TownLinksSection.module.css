@@ -47,7 +47,7 @@
   margin-bottom: var(--space-responsive-xl);
   max-width: 100%;
   width: 100%;
-  overflow: hidden;
+  /* Removed overflow: hidden to prevent cutting off hover effects */
 }
 
 .townCard {
@@ -284,7 +284,8 @@
   }
   
   .townGrid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    /* Changed from 4 to 3 columns to give cards more breathing room */
   }
 }
 

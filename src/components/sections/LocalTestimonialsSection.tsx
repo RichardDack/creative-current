@@ -41,26 +41,13 @@ export const LocalTestimonialsSection: React.FC<LocalTestimonialsSectionProps> =
     return null;
   }
 
-  const testimonials = [
-    {
-      name: "Sarah Mitchell",
-      business: `${townName} Boutique`,
-      quote: `Creative Current transformed our online presence completely. Since launching our new website, we've seen a 300% increase in online enquiries from local ${townName} customers.`,
-      rating: 5
-    },
-    {
-      name: "James Thompson",
-      business: `Local ${townName} Services`,
-      quote: `The team's understanding of the ${townName} market was impressive. They created a website that truly speaks to our local customers and has dramatically improved our search rankings.`,
-      rating: 5
-    },
-    {
-      name: "Emma Roberts",
-      business: `${townName} Restaurant`,
-      quote: `Professional, reliable, and results-driven. Our new website has helped us attract more diners and streamline our booking process. Highly recommended for any ${townName} business.`,
-      rating: 5
-    }
-  ];
+  // No fake testimonials - real testimonials should be added when available
+  const testimonials: Array<{
+    name: string;
+    business: string;
+    quote: string;
+    rating: number;
+  }> = [];
 
   return (
     <motion.section 
@@ -72,60 +59,77 @@ export const LocalTestimonialsSection: React.FC<LocalTestimonialsSectionProps> =
     >
       <div className="container">
         <motion.div className={styles.sectionHeader} variants={itemVariants}>
-          <span className={styles.sectionLabel}>({townName.toUpperCase()} TESTIMONIALS)</span>
+          <span className={styles.sectionLabel}>({townName.toUpperCase()} PARTNERSHIP)</span>
           <h2 className={styles.sectionTitle}>
-            What {townName} Businesses Say About Us
+            Building Relationships with {townName} Businesses
           </h2>
           <p className={styles.sectionDescription}>
-            Don&apos;t just take our word for it. Here&apos;s what local {townName} business owners 
-            have to say about working with Creative Current.
+            We&apos;re committed to helping {townName} businesses succeed online through 
+            professional web design and ongoing support.
           </p>
         </motion.div>
 
-        <div className={styles.testimonialsGrid}>
-          {testimonials.filter(testimonial => testimonial && testimonial.name && testimonial.quote).map((testimonial, index) => (
-            <motion.div
-              key={`${townName}-testimonial-${index}-${testimonial.name}`}
-              className={styles.testimonialCard}
-              variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
+        {testimonials.length > 0 ? (
+          <div className={styles.testimonialsGrid}>
+            {testimonials.filter(testimonial => testimonial && testimonial.name && testimonial.quote).map((testimonial, index) => (
+              <motion.div
+                key={`${townName}-testimonial-${index}-${testimonial.name}`}
+                className={styles.testimonialCard}
+                variants={itemVariants}
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className={styles.testimonialContent}>
+                  <div className={styles.rating}>
+                    {testimonial.rating && typeof testimonial.rating === 'number' && 
+                     [...Array(Math.min(testimonial.rating, 5))].map((_, i) => (
+                      <span key={`${testimonial.name}-star-${i}`} className={styles.star}>★</span>
+                    ))}
+                  </div>
+                  <blockquote className={styles.quote}>
+                    &quot;{testimonial.quote}&quot;
+                  </blockquote>
+                  <div className={styles.author}>
+                    <strong className={styles.authorName}>{testimonial.name}</strong>
+                    <span className={styles.authorBusiness}>{testimonial.business}</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          <motion.div className={styles.noTestimonials} variants={itemVariants}>
+            <p className={styles.noTestimonialsText}>
+              We&apos;re building relationships with {townName} businesses every day. 
+              Contact us to discuss how we can help your business succeed online.
+            </p>
+            <motion.a 
+              href="#contact" 
+              className={styles.ctaButton}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <div className={styles.testimonialContent}>
-                <div className={styles.rating}>
-                  {testimonial.rating && typeof testimonial.rating === 'number' && 
-                   [...Array(Math.min(testimonial.rating, 5))].map((_, i) => (
-                    <span key={`${testimonial.name}-star-${i}`} className={styles.star}>★</span>
-                  ))}
-                </div>
-                <blockquote className={styles.quote}>
-                  &quot;{testimonial.quote}&quot;
-                </blockquote>
-                <div className={styles.author}>
-                  <strong className={styles.authorName}>{testimonial.name}</strong>
-                  <span className={styles.authorBusiness}>{testimonial.business}</span>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              Get Your Free Consultation
+            </motion.a>
+          </motion.div>
+        )}
 
         <motion.div className={styles.statsSection} variants={itemVariants}>
           <div className={styles.statsGrid}>
             <div className={styles.statItem}>
-              <span className={styles.statNumber}>47+</span>
-              <span className={styles.statLabel}>Projects Completed</span>
-            </div>
-            <div className={styles.statItem}>
-              <span className={styles.statNumber}>5.0</span>
-              <span className={styles.statLabel}>Average Rating</span>
+              <span className={styles.statNumber}>5+</span>
+              <span className={styles.statLabel}>Years Experience</span>
             </div>
             <div className={styles.statItem}>
               <span className={styles.statNumber}>100%</span>
-              <span className={styles.statLabel}>Client Satisfaction</span>
+              <span className={styles.statLabel}>Responsive Design</span>
             </div>
             <div className={styles.statItem}>
-              <span className={styles.statNumber}>90+</span>
-              <span className={styles.statLabel}>Days Support</span>
+              <span className={styles.statNumber}>24/7</span>
+              <span className={styles.statLabel}>Website Uptime</span>
+            </div>
+            <div className={styles.statItem}>
+              <span className={styles.statNumber}>90</span>
+              <span className={styles.statLabel}>Days Free Support</span>
             </div>
           </div>
         </motion.div>

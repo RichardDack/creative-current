@@ -37,8 +37,8 @@ const itemVariants: Variants = {
 export const TownLinksSection: React.FC<TownLinksSectionProps> = ({ towns }) => {
   // Sort towns by population (largest first)
   const sortedTowns = Object.entries(towns).sort((a, b) => {
-    const popA = parseInt(a[1].population?.replace(/,/g, '') || '0');
-    const popB = parseInt(b[1].population?.replace(/,/g, '') || '0');
+    const popA = typeof a[1].population === 'number' ? a[1].population : parseInt(String(a[1].population || '0').replace(/,/g, ''));
+    const popB = typeof b[1].population === 'number' ? b[1].population : parseInt(String(b[1].population || '0').replace(/,/g, ''));
     return popB - popA;
   });
 
@@ -79,22 +79,24 @@ export const TownLinksSection: React.FC<TownLinksSectionProps> = ({ towns }) => 
                     <h3 className={styles.townName}>{townData.town}</h3>
                     {townData.population && (
                       <span className={styles.townPopulation}>
-                        {townData.population} residents
+                        {typeof townData.population === 'number' 
+                          ? townData.population.toLocaleString() 
+                          : townData.population} residents
                       </span>
                     )}
                   </div>
                   
-                  {townData.postcode && (
-                    <div className={styles.townPostcode}>{townData.postcode}</div>
+                  {townData.postcodes && townData.postcodes.length > 0 && (
+                    <div className={styles.townPostcode}>{townData.postcodes[0]}</div>
                   )}
                   
-                  {townData.keyBusinesses && townData.keyBusinesses.length > 0 && (
+                  {townData.keyIndustries && townData.keyIndustries.length > 0 && (
                     <div className={styles.townIndustries}>
                       <span className={styles.industriesLabel}>Key Industries:</span>
                       <div className={styles.industriesTags}>
-                        {townData.keyBusinesses.slice(0, 2).map((business, idx) => (
+                        {townData.keyIndustries.slice(0, 2).map((industry, idx) => (
                           <span key={idx} className={styles.industryTag}>
-                            {business.name}
+                            {industry}
                           </span>
                         ))}
                       </div>

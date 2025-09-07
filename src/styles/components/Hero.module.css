@@ -364,18 +364,29 @@
   /* Bolder */
   line-height: 1.1;
   color: rgb(255, 255, 255);
-  margin-bottom: 28px;
-  /* Adjusted spacing */
+  margin-bottom: 16px;
+  /* Reduced spacing for subtitle */
   letter-spacing: -0.6px;
   /* Slightly less tight */
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
   /* Subtle depth */
 }
 
+.heroSubtitle {
+  font-family: var(--font-body);
+  font-size: clamp(24px, 3.5vw, 38px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 28px;
+  letter-spacing: -0.3px;
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+}
+
 .heroDescription {
   font-family: var(--font-body);
-  font-size: clamp(20px, 3vw, 32px);
-  /* BALANCED - scaled back 15-20% */
+  font-size: clamp(16px, 2.5vw, 24px);
+  /* REDUCED - smaller font size */
   font-weight: 400;
   /* Slightly bolder */
   line-height: 1.4;
@@ -387,6 +398,20 @@
   /* Subtle depth */
   margin-bottom: 32px;
   /* Space for CTA button */
+}
+
+.internalLink {
+  color: rgba(49, 175, 180, 1);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(49, 175, 180, 0.3);
+}
+
+.internalLink:hover {
+  color: rgba(49, 175, 180, 0.8);
+  border-bottom-color: rgba(49, 175, 180, 0.6);
+  text-shadow: 0 0 8px rgba(49, 175, 180, 0.3);
 }
 
 /* Call-to-Action Button Container */
@@ -1311,4 +1336,165 @@ mplified logo replacement */
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
+}/* Mobil
+e Navigation Container */
+.mobileNavContainer {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1002;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobileNavContainer {
+    display: block;
+  }
+  
+  /* Adjust header layout for mobile */
+  .headerTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+  
+  /* Ensure logo is visible on mobile */
+  .logoHeader {
+    position: relative;
+    z-index: 1001;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobileNavContainer {
+    top: 16px;
+    right: 16px;
+  }
+  
+  .headerTop {
+    padding: 0 16px;
+  }
+}
+
+/* Mobile-specific hero optimizations */
+@media (max-width: 768px) {
+  /* Optimize hero content for mobile */
+  .heroContent {
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+  
+  .heroTitle {
+    font-size: clamp(2rem, 8vw, 3.5rem) !important;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  
+  .heroSubtitle {
+    font-size: clamp(1.25rem, 5vw, 2rem);
+    margin-bottom: 1rem;
+  }
+  
+  .heroDescription {
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  
+  /* Optimize CTA buttons for mobile */
+  .ctaContainer {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .ctaButtonPrimary,
+  .ctaButtonSecondary {
+    width: 100%;
+    max-width: 280px;
+    min-height: 48px;
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+  
+  /* Hide desktop navigation on mobile */
+  .navigationMenu {
+    display: none;
+  }
+  
+  /* Adjust main content layout for mobile */
+  .mainContent {
+    flex-direction: column;
+    padding: 2rem 1rem;
+    gap: 2rem;
+  }
+  
+  .rightContent {
+    width: 100%;
+    max-width: none;
+  }
+  
+  /* Optimize decorative elements for mobile */
+  .redSquare {
+    position: relative;
+    margin: 2rem auto 0;
+    width: 60px;
+    height: 60px;
+  }
+  
+  /* Optimize brand text for mobile */
+  .brandContainer {
+    padding: 2rem 1rem;
+  }
+  
+  .brandText {
+    font-size: clamp(2rem, 10vw, 4rem);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .ctaButtonPrimary,
+  .ctaButtonSecondary {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  .ctaButtonPrimary:active,
+  .ctaButtonSecondary:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+  .heroSection {
+    min-height: auto;
+  }
+  
+  .heroContent {
+    padding: 1.5rem 1rem;
+  }
+  
+  .heroTitle {
+    font-size: clamp(1.75rem, 6vw, 2.5rem) !important;
+  }
+  
+  .heroSubtitle {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+  }
+  
+  .heroDescription {
+    font-size: clamp(0.85rem, 3vw, 1rem);
+  }
+  
+  .brandContainer {
+    padding: 1.5rem 1rem;
+  }
 }

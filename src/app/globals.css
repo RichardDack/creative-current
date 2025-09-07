@@ -2,11 +2,14 @@
 @import '../styles/tokens.css';
 @import '../styles/responsive.css';
 
+/* Optimized font loading with fallbacks to prevent layout shift */
 @font-face {
   font-family: 'ClashDisplay';
   src: url('/fonts/ClashDisplay-Regular.woff2') format('woff2');
   font-weight: 400;
   font-display: swap;
+  font-style: normal;
+  size-adjust: 100%;
 }
 
 @font-face {
@@ -14,6 +17,8 @@
   src: url('/fonts/ClashDisplay-Medium.woff2') format('woff2');
   font-weight: 500;
   font-display: swap;
+  font-style: normal;
+  size-adjust: 100%;
 }
 
 @font-face {
@@ -21,6 +26,8 @@
   src: url('/fonts/ClashDisplay-Semibold.woff2') format('woff2');
   font-weight: 600;
   font-display: swap;
+  font-style: normal;
+  size-adjust: 100%;
 }
 
 @font-face {
@@ -28,6 +35,8 @@
   src: url('/fonts/ClashDisplay-Bold.woff2') format('woff2');
   font-weight: 700;
   font-display: swap;
+  font-style: normal;
+  size-adjust: 100%;
 }
 
 @font-face {
@@ -35,6 +44,8 @@
   src: url('/fonts/ClashGrotesk-Regular.woff2') format('woff2');
   font-weight: 400;
   font-display: swap;
+  font-style: normal;
+  size-adjust: 100%;
 }
 
 @font-face {
@@ -42,6 +53,8 @@
   src: url('/fonts/ClashGrotesk-Medium.woff2') format('woff2');
   font-weight: 500;
   font-display: swap;
+  font-style: normal;
+  size-adjust: 100%;
 }
 
 @font-face {
@@ -49,6 +62,8 @@
   src: url('/fonts/ClashGrotesk-Semibold.woff2') format('woff2');
   font-weight: 600;
   font-display: swap;
+  font-style: normal;
+  size-adjust: 100%;
 }
 
 @font-face {
@@ -56,6 +71,8 @@
   src: url('/fonts/ClashGrotesk-Bold.woff2') format('woff2');
   font-weight: 700;
   font-display: swap;
+  font-style: normal;
+  size-adjust: 100%;
 }
 
 /* Force application */
@@ -79,6 +96,11 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Optimize rendering performance */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Prevent layout shift during font loading */
+  font-synthesis: none;
 }
 
 /* CSS custom properties for navigation system */
@@ -100,6 +122,14 @@ body {
   background-color: #0e1a24; /* Match the dark theme background */
   color: rgb(255, 255, 255); /* White text for dark background */
   line-height: 1.6;
+  /* Optimize rendering performance */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+  /* Prevent layout shift */
+  overflow-x: hidden;
+  /* Improve touch performance on mobile */
+  touch-action: manipulation;
 }
 
 /* Force apply fonts to all elements */
@@ -747,5 +777,211 @@ Force mobile responsiveness with higher specificity */
   .page-container .service-card,
   .page-container .project-card {
     padding: 1.25rem !important;
+  }
+}/
+* SEO Internal Link Styles */
+.location-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-primary, #31afb4) !important;
+}
+
+.location-link:hover h3 {
+  color: var(--color-primary, #31afb4);
+}
+
+.location-link:hover span {
+  color: var(--color-primary-dark, #2a9ca1);
+}
+/*
+ Core Web Vitals Optimizations */
+
+/* Prevent layout shift for images */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Optimize image containers to prevent CLS */
+[data-image-container] {
+  position: relative;
+  overflow: hidden;
+  background-color: #f3f4f6;
+}
+
+[data-image-container]::before {
+  content: '';
+  display: block;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio by default */
+}
+
+[data-image-container] img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Optimize button interactions for better FID */
+button, 
+input[type="button"], 
+input[type="submit"], 
+a[role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+button:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+a[role="button"]:active {
+  transform: scale(0.98);
+}
+
+/* Optimize scroll performance */
+.scroll-container {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Optimize animations for performance */
+.animate-optimized {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Remove will-change after animation completes */
+.animate-complete {
+  will-change: auto;
+}
+
+/* Optimize font rendering */
+.text-optimized {
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Critical above-the-fold content */
+.above-fold {
+  contain: layout style paint;
+}
+
+/* Below-the-fold content optimization */
+.below-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* Optimize hero section for LCP */
+.hero-optimized {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  contain: layout style;
+}
+
+.hero-optimized h1 {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 1.1;
+  margin: 0;
+  /* Ensure text is visible immediately */
+  font-display: block;
+}
+
+/* Optimize grid layouts to prevent CLS */
+.grid-optimized {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Reserve space to prevent layout shift */
+  min-height: 200px;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  /* Optimize touch targets */
+  button, 
+  a[role="button"],
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 16px;
+  }
+  
+  /* Optimize mobile scrolling */
+  body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+  
+  /* Prevent zoom on form inputs */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 16px;
+  }
+  
+  /* Optimize mobile images */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Prefers reduced motion optimizations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Remove will-change for reduced motion */
+  .animate-optimized {
+    will-change: auto;
+  }
+}
+
+/* Print optimizations */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+  
+  h1, h2, h3 {
+    page-break-after: avoid;
   }
 }

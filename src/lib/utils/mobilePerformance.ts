@@ -29,7 +29,7 @@ export const testMobileCoreWebVitals = () => {
       }
       
       if (entry.entryType === 'first-input') {
-        const fidEntry = entry as any; // Type assertion for first-input entries
+        const fidEntry = entry as PerformanceEntry & { processingStart: number };
         console.log('Mobile FID:', fidEntry.processingStart - fidEntry.startTime);
         const fid = fidEntry.processingStart - fidEntry.startTime;
         // Good: < 100ms, Needs Improvement: 100ms - 300ms, Poor: > 300ms

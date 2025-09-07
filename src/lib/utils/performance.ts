@@ -73,6 +73,8 @@ export const monitorCoreWebVitals = () => {
       getFCP(console.log);
       getLCP(console.log);
       getTTFB(console.log);
+    }).catch((error) => {
+      console.warn('Failed to load web-vitals:', error);
     });
   }
 };

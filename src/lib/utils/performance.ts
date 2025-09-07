@@ -65,27 +65,15 @@ export const preventLayoutShift = () => {
 export const monitorCoreWebVitals = () => {
   if (typeof window === 'undefined') return;
 
-  // Only load web-vitals in production
+  // Only load web-vitals in production with proper typing
   if (process.env.NODE_ENV === 'production') {
-    import('web-vitals').then((webVitals) => {
-      // Use type assertion to avoid TypeScript errors with dynamic imports
-      const vitals = webVitals as any;
-      
-      // Try modern API first (onXXX functions)
-      if (vitals.onCLS) vitals.onCLS(console.log);
-      else if (vitals.getCLS) vitals.getCLS(console.log);
-      
-      if (vitals.onFID) vitals.onFID(console.log);
-      else if (vitals.getFID) vitals.getFID(console.log);
-      
-      if (vitals.onFCP) vitals.onFCP(console.log);
-      else if (vitals.getFCP) vitals.getFCP(console.log);
-      
-      if (vitals.onLCP) vitals.onLCP(console.log);
-      else if (vitals.getLCP) vitals.getLCP(console.log);
-      
-      if (vitals.onTTFB) vitals.onTTFB(console.log);
-      else if (vitals.getTTFB) vitals.getTTFB(console.log);
+    import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB, onINP }) => {
+      // Use the correct modern web-vitals v3+ API
+      onCLS(console.log);
+      onFCP(console.log);
+      onLCP(console.log);
+      onTTFB(console.log);
+      onINP(console.log); // INP replaced FID in web-vitals v3
     }).catch((error) => {
       console.warn('Failed to load web-vitals:', error);
     });
@@ -109,7 +97,7 @@ export const initializePerformanceOptimizations = () => {
 
   // Run immediately
   preloadCriticalResources();
-  
+
   // Run after DOM is loaded
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {

@@ -129,11 +129,14 @@ const processSteps = [
 ];
 
 const towns = [
-  { name: 'Swanage', href: '/web-design/swanage' },
-  { name: 'Dorchester', href: '/web-design/dorchester' },
-  { name: 'Weymouth', href: '/web-design/weymouth' },
+  { name: 'Bournemouth', href: '/web-design/bournemouth' },
   { name: 'Poole', href: '/web-design/poole' },
-  { name: 'Bournemouth', href: '/web-design/bournemouth' }
+  { name: 'Weymouth', href: '/web-design/weymouth' },
+  { name: 'Dorchester', href: '/web-design/dorchester' },
+  { name: 'Bridport', href: '/web-design/bridport' },
+  { name: 'Sherborne', href: '/web-design/sherborne' },
+  { name: 'Swanage', href: '/web-design/swanage' },
+  { name: 'Blandford Forum', href: '/web-design/blandford-forum' }
 ];
 
 export default function ServicesPage() {

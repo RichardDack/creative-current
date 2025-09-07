@@ -23,7 +23,7 @@ export interface OpenGraphData {
   url: string;
   siteName: string;
   images: OpenGraphImage[];
-  type: 'website' | 'article' | 'business.business';
+  type: 'website' | 'article';
   locale: string;
 }
 
@@ -255,7 +255,7 @@ export function generateOpenGraph(
         alt: escapeString(`${title} - ${config.businessName}`)
       }
     ],
-    type: 'business.business',
+    type: 'website',
     locale: config.locale
   };
 }

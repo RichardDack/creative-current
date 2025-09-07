@@ -76,7 +76,7 @@ export const TeamMember: React.FC<TeamMemberProps> = ({ member, index = 0 }) => 
           >
             <OptimizedImage 
               src={member.image}
-              alt={`${member.name} - ${member.role} at Creative Current`}
+              alt={`${member.name} - ${member.title} at Creative Current`}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={styles.memberImage}

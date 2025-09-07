@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "critters": "^0.0.25",
     "framer-motion": "^12.23.12",
     "next": "^15.4.7",
     "react": "^19.1.1",

@@ -112,7 +112,7 @@ function getAnchorLinkCorrections(targetId: string): string[] {
 export function handleNavigationClick(
   e: React.MouseEvent<HTMLAnchorElement>, 
   href: string,
-  _currentPage: string = 'homepage'
+  _currentPage?: string
 ): void {
   const validation = validateNavigationLink(href);
   
@@ -374,7 +374,7 @@ export function generateNavigationLinks(
 export function shouldShowStickyNav(
   currentPage: string,
   isScrolledPastHero: boolean,
-  currentSection?: string
+  _currentSection?: string
 ): boolean {
   // Always show on non-homepage pages
   if (currentPage !== 'homepage') {

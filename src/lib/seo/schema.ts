@@ -1,5 +1,9 @@
 // src/lib/seo/schema.ts - Structured data schema markup utilities
 
+import page from "@/app/page";
+
+import page from "@/app/page";
+
 export type SchemaMarkup = object;
 
 export interface OrganizationSchema {
@@ -204,7 +208,13 @@ export function generateWebsiteSchema(): WebsiteSchema {
 /**
  * Generate enhanced LocalBusiness schema for location pages with comprehensive data
  */
-export function generateLocalBusinessSchema(town: string, locationData?: Record<string, unknown>): LocalBusinessSchema {
+export function generateLocalBusinessSchema(town: string, locationData?: {
+  coordinates?: { lat: number; lng: number };
+  postcodes?: string[];
+  nearbyTowns?: string[];
+  keyIndustries?: string[];
+  description?: string;
+}): LocalBusinessSchema {
   const townName = town.charAt(0).toUpperCase() + town.slice(1);
   
   // Use location data if provided, otherwise fall back to basic coordinates
@@ -496,7 +506,16 @@ export function generateCreativeWorkSchema(
  * Generate comprehensive location page schemas with enhanced data
  */
 export function generateLocationPageSchemas(
-  locationData: any,
+  locationData: {
+    name: string;
+    description: string;
+    coordinates: { lat: number; lng: number };
+    postcodes: string[];
+    county: string;
+    seoData?: {
+      localLandmarks?: string[];
+    };
+  },
   townSlug: string,
   faqs: Array<{ question: string; answer: string }>,
   breadcrumbs: Array<{ name: string; href: string; url: string }>
@@ -576,7 +595,16 @@ export function generateWebPageSchema(townName: string, townSlug: string, descri
 /**
  * Generate Place schema for the location
  */
-export function generatePlaceSchema(locationData: any, townSlug: string): object {
+export function generatePlaceSchema(locationData: {
+  name: string;
+  description: string;
+  coordinates: { lat: number; lng: number };
+  postcodes: string[];
+  county: string;
+  seoData?: {
+    localLandmarks?: string[];
+  };
+}, _townSlug: string): object {
   return {
     "@context": "https://schema.org",
     "@type": "Place",
@@ -616,7 +644,7 @@ export function generatePlaceSchema(locationData: any, townSlug: string): object
 export function generateEnhancedFAQSchema(faqs: Array<{ 
   question: string; 
   answer: string; 
-  schema?: any 
+  schema?: Record<string, unknown> 
 }>): object {
   return {
     "@context": "https://schema.org",
@@ -646,7 +674,7 @@ export function generateEnhancedFAQSchema(faqs: Array<{
  * Generate combined schema markup for a page
  */
 export function generatePageSchema(
-  pageType: 'homepage' | 'location' | 'service' | 'about' | 'contact' | 'work',
+  pageType: 'homepage' | 'location' | 'service' | 'about' | 'contact' | 'work' | 'terms' | 'privacy',
   options?: {
     town?: string;
     service?: string;
@@ -659,7 +687,16 @@ export function generatePageSchema(
       category: string;
       url?: string;
     }>;
-    locationData?: any;
+    locationData?: {
+      name: string;
+      description: string;
+      coordinates: { lat: number; lng: number };
+      postcodes: string[];
+      county: string;
+      seoData?: {
+        localLandmarks?: string[];
+      };
+    };
   }
 ): object[] {
   const schemas: object[] = [];
@@ -701,6 +738,14 @@ export function generatePageSchema(
         });
       }
       break;
+      
+    case 'terms':
+      schemas.push(generateTermsSchema());
+      break;
+      
+    case 'privacy':
+      schemas.push(generatePrivacySchema());
+      break;
   }
   
   // Add breadcrumbs if provided
@@ -714,4 +759,66 @@ export function generatePageSchema(
   }
   
   return schemas;
+}
+
+/**
+ * Generate schema for terms page
+ */
+export function generateTermsSchema(): WebPage {
+  return {
+    '@type': 'WebPage',
+    '@id': `${baseUrl}/terms#webpage`,
+    url: `${baseUrl}/terms`,
+    name: 'Terms of Service - Creative Current',
+    description: 'Terms of service and conditions for Creative Current web design services in Dorset.',
+    isPartOf: {
+      '@id': `${baseUrl}#website`
+    },
+    about: {
+      '@id': `${baseUrl}#organization`
+    },
+    datePublished: '2024-01-01T00:00:00+00:00',
+    dateModified: new Date().toISOString(),
+    breadcrumb: {
+      '@id': `${baseUrl}/terms#breadcrumb`
+    },
+    inLanguage: 'en-GB',
+    potentialAction: [
+      {
+        '@type': 'ReadAction',
+        target: [`${baseUrl}/terms`]
+      }
+    ]
+  };
+}
+
+/**
+ * Generate schema for privacy page
+ */
+export function generatePrivacySchema(): WebPage {
+  return {
+    '@type': 'WebPage',
+    '@id': `${baseUrl}/privacy#webpage`,
+    url: `${baseUrl}/privacy`,
+    name: 'Privacy Policy - Creative Current',
+    description: 'Privacy policy and data protection information for Creative Current web design services.',
+    isPartOf: {
+      '@id': `${baseUrl}#website`
+    },
+    about: {
+      '@id': `${baseUrl}#organization`
+    },
+    datePublished: '2024-01-01T00:00:00+00:00',
+    dateModified: new Date().toISOString(),
+    breadcrumb: {
+      '@id': `${baseUrl}/privacy#breadcrumb`
+    },
+    inLanguage: 'en-GB',
+    potentialAction: [
+      {
+        '@type': 'ReadAction',
+        target: [`${baseUrl}/privacy`]
+      }
+    ]
+  };
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Layout } from '@/components/global/Layout';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
-import { generateServiceMetadata } from '@/lib/seo/metadata';
+
 import { generatePageSchema } from '@/lib/seo/schema';
 
 // Generate enhanced SEO metadata for services page

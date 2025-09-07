@@ -1,24 +1,16 @@
+// src/app/sitemap.ts
 import { MetadataRoute } from 'next';
-import { dorseyTowns } from '@/lib/seo/metadata';
-
-const baseUrl = 'https://creativecurrent.co.uk';
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://creativecurrent.co.uk';
   const currentDate = new Date().toISOString();
-  
-  // Core static pages
-  const staticPages: MetadataRoute.Sitemap = [
+
+  return [
     {
       url: baseUrl,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 1,
     },
     {
       url: `${baseUrl}/services`,
@@ -27,33 +19,58 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/work`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/contact`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/work`,
+      url: `${baseUrl}/web-design/bournemouth`,
       lastModified: currentDate,
-      changeFrequency: 'weekly',
+      changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/web-design`,
+      url: `${baseUrl}/web-design/poole`,
       lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/web-design/weymouth`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/web-design/dorchester`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
   ];
-
-  // Generate town pages from the dorseyTowns data
-  const townPages: MetadataRoute.Sitemap = Object.keys(dorseyTowns).map((townSlug) => ({
-    url: `${baseUrl}/web-design/${townSlug}`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
-
-  // Combine all pages
-  return [...staticPages, ...townPages];
 }

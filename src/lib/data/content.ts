@@ -91,7 +91,7 @@ export const HOMEPAGE_TEMPLATES: ContentTemplate = {
     return escapeContent(`${baseDesc}${locationDesc}${serviceDesc}. Custom websites, responsive design, and digital solutions for businesses.`);
   },
 
-  generateContent: (location?: string, service?: string, data?: unknown): string => {
+  generateContent: (location?: string, service?: string, _data?: unknown): string => {
     const locationName = location ? location.charAt(0).toUpperCase() + location.slice(1) : 'Dorset';
     const serviceName = service || 'web design';
     

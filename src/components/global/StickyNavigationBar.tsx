@@ -42,7 +42,7 @@ export const StickyNavigationBar: React.FC<StickyNavigationBarProps> = ({
   /**
    * Render navigation item with appropriate link handling and enhanced styling
    */
-  const renderNavigationItem = (item: NavigationItem, isSubItem = false, _index = 0) => {
+  const renderNavigationItem = (item: NavigationItem, isSubItem = false) => {
     const itemClasses = `
       ${styles.navigationItem} 
       ${item.isActive ? styles.active : ''} 

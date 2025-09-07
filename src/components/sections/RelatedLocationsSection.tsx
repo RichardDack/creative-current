@@ -69,7 +69,7 @@ export const RelatedLocationsSection: React.FC<RelatedLocationsSectionProps> = (
         </motion.div>
 
         <div className={styles.locationsGrid}>
-          {relatedLocations.map((location, index) => (
+          {relatedLocations.map((location) => (
             <motion.div
               key={`related-location-${location.slug}`}
               className={styles.locationCard}

@@ -1,18 +1,21 @@
+// src/app/robots.ts
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
+  const baseUrl = 'https://creativecurrent.co.uk';
+
   return {
     rules: {
       userAgent: '*',
       allow: '/',
       disallow: [
-        '/private/',
-        '/admin/',
-        '/_next/',
         '/api/',
-        '*.json'
+        '/_next/',
+        '/admin/',
+        '*.json',
       ],
     },
-    sitemap: 'https://creativecurrent.co.uk/sitemap.xml',
+    sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl,
   };
 }

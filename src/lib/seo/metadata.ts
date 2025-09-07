@@ -555,4 +555,147 @@ export function generateWorkMetadata(): Metadata {
       images: [defaultImage],
     },
   };
+}/*
+*
+ * Generate metadata for terms page
+ */
+export function generateTermsMetadata(): Metadata {
+  const title = "Terms of Service | Creative Current - Web Design Terms & Conditions";
+  const description = "Terms of service and conditions for Creative Current web design services in Dorset. Read our terms before engaging our services.";
+  
+  return {
+    title,
+    description,
+    keywords: [
+      'terms of service',
+      'web design terms',
+      'creative current terms',
+      'web design conditions',
+      'service agreement'
+    ],
+    alternates: {
+      canonical: `${baseUrl}/terms`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: `${baseUrl}/terms`,
+      siteName: "Creative Current",
+      images: [
+        {
+          url: defaultImage,
+          width: 1200,
+          height: 630,
+          alt: "Creative Current Terms of Service"
+        }
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [defaultImage],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
+
+/**
+ * Generate metadata for privacy page
+ */
+export function generatePrivacyMetadata(): Metadata {
+  const title = "Privacy Policy | Creative Current - Data Protection & GDPR Compliance";
+  const description = "Privacy policy and data protection information for Creative Current. Learn how we protect your personal information in compliance with GDPR and UK data protection laws.";
+  
+  return {
+    title,
+    description,
+    keywords: [
+      'privacy policy',
+      'data protection',
+      'gdpr compliance',
+      'creative current privacy',
+      'data security',
+      'personal information'
+    ],
+    alternates: {
+      canonical: `${baseUrl}/privacy`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: `${baseUrl}/privacy`,
+      siteName: "Creative Current",
+      images: [
+        {
+          url: defaultImage,
+          width: 1200,
+          height: 630,
+          alt: "Creative Current Privacy Policy"
+        }
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [defaultImage],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
+
+/**
+ * Generate metadata for any page with custom parameters
+ */
+export function generatePageMetadata(config: {
+  title: string;
+  description: string;
+  path: string;
+  keywords?: string[];
+  noIndex?: boolean;
+}): Metadata {
+  const { title, description, path, keywords = [], noIndex = false } = config;
+  
+  return {
+    title,
+    description,
+    keywords,
+    alternates: {
+      canonical: `${baseUrl}${path}`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: `${baseUrl}${path}`,
+      siteName: "Creative Current",
+      images: [
+        {
+          url: defaultImage,
+          width: 1200,
+          height: 630,
+          alt: title
+        }
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [defaultImage],
+    },
+    robots: {
+      index: !noIndex,
+      follow: !noIndex,
+    },
+  };
 }

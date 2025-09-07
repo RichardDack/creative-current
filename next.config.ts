@@ -15,6 +15,18 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['framer-motion'],
     optimizeCss: true,
   },
+  // ESLint configuration
+  eslint: {
+    // Only run ESLint on these directories during production builds
+    dirs: ['src'],
+    // Allow production builds to successfully complete even if there are ESLint errors
+    ignoreDuringBuilds: false,
+  },
+  // TypeScript configuration
+  typescript: {
+    // Allow production builds to successfully complete even if there are type errors
+    ignoreBuildErrors: false,
+  },
   // Enable compression
   compress: true,
   // Configure redirects
@@ -23,6 +35,24 @@ const nextConfig: NextConfig = {
       {
         source: '/portfolio',
         destination: '/work',
+        permanent: true,
+      },
+      // Redirect www to non-www
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.creativecurrent.co.uk',
+          },
+        ],
+        destination: 'https://creativecurrent.co.uk/:path*',
+        permanent: true,
+      },
+      // Redirect lander pages to home
+      {
+        source: '/lander',
+        destination: '/',
         permanent: true,
       },
     ];

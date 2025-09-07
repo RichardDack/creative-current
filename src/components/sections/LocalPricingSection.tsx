@@ -2,7 +2,7 @@
 'use client';
 
 import { motion, Variants } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { DorsetLocation } from '@/lib/data/locations';
 import styles from '@/styles/components/LocalPricingCalculator.module.css';
 
@@ -56,13 +56,13 @@ export const LocalPricingCalculator: React.FC<LocalPricingCalculatorProps> = ({ 
   const isHigherIncome = location.demographics.averageIncome > 30000;
   const isTouristArea = location.demographics.touristDestination;
   
-  const basePrices = {
+  const basePrices = useMemo(() => ({
     basic: isHigherIncome ? 800 : 600,
     standard: isHigherIncome ? 1500 : 1200,
     premium: isHigherIncome ? 3000 : 2500
-  };
+  }), [isHigherIncome]);
 
-  const availableFeatures = [
+  const availableFeatures = useMemo(() => [
     { id: 'cms', name: 'Content Management System', price: 300 },
     { id: 'ecommerce', name: 'E-commerce Functionality', price: 800 },
     { id: 'booking', name: isTouristArea ? 'Online Booking System' : 'Appointment Booking', price: 500 },
@@ -71,7 +71,7 @@ export const LocalPricingCalculator: React.FC<LocalPricingCalculatorProps> = ({ 
     { id: 'social', name: 'Social Media Integration', price: 150 },
     { id: 'forms', name: 'Custom Forms & Automation', price: 250 },
     { id: 'multilingual', name: 'Multi-language Support', price: 600 }
-  ];
+  ], [isTouristArea]);
 
   // Calculate price based on selections
   useEffect(() => {

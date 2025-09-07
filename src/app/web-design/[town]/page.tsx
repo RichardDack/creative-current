@@ -131,12 +131,14 @@ export default async function TownPage({ params }: PageProps) {
               town: locationData.name,
               county: locationData.county,
               landmarks: locationData.seoData.localLandmarks,
-              keyBusinesses: locationData.keyIndustries.map(industry => ({
-                name: industry,
-                type: industry
-              })),
+              keyIndustries: locationData.keyIndustries,
+              businessDistricts: [],
               population: locationData.population,
-              postcode: locationData.postcodes[0]
+              postcodes: locationData.postcodes,
+              coordinates: {
+                lat: 0,
+                lng: 0
+              }
             }}
             ctaPrimary={{
               text: `Get Your ${locationData.name} Quote`,

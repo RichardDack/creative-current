@@ -87,8 +87,7 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
 
   // Generate navigation items based on current context
   const baseNavigationItems = generateNavigationLinks(
-    pageContext.pageType,
-    pageContext.townSlug
+    pageContext.pageType
   );
 
   // Generate sub-navigation items (town links for web-design page)

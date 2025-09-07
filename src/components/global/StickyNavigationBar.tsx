@@ -155,14 +155,14 @@ export const StickyNavigationBar: React.FC<StickyNavigationBarProps> = ({
 
             {/* Main navigation items */}
             <div className={styles.mainNavigation}>
-              {navigationItems.map((item, index) => renderNavigationItem(item, false, index))}
+              {navigationItems.map((item) => renderNavigationItem(item, false))}
             </div>
 
             {/* Sub-navigation items (for town pages, etc.) */}
             {subNavigationItems.length > 0 && (
               <div className={styles.subNavigation}>
                 <div className={styles.subNavigationDivider} />
-                {subNavigationItems.map((item, index) => renderNavigationItem(item, true, index))}
+                {subNavigationItems.map((item) => renderNavigationItem(item, true))}
               </div>
             )}
           </div>

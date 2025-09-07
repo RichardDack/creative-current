@@ -1,4 +1,4 @@
-// src/components/sections/LocalHero.tsx - Local Hero Component
+﻿// src/components/sections/LocalHero.tsx - Local Hero Component
 'use client';
 
 import { motion } from 'framer-motion';
@@ -65,7 +65,7 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
       <div className="container">
         <div className={styles.heroContent}>
           <div className={styles.locationBadge}>
-            <span className={styles.locationIcon}>📍</span>
+            <span className={styles.locationIcon}>ðŸ“</span>
             <span>Serving {townData.town}, {townData.county}</span>
             {townData.postcode && <span className={styles.postcode}>{townData.postcode}</span>}
           </div>
@@ -82,7 +82,7 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
               </div>
             )}
             <div className={styles.statItem}>
-              <span className={styles.statNumber}>5★</span>
+              <span className={styles.statNumber}>5â˜…</span>
               <span className={styles.statLabel}>Rating</span>
             </div>
             <div className={styles.statItem}>
@@ -110,9 +110,9 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
           </div>
 
           <div className={styles.trustIndicators}>
-            <span className={styles.trustItem}>✓ Free Consultation</span>
-            <span className={styles.trustItem}>✓ Local {townData.county} Team</span>
-            <span className={styles.trustItem}>✓ 90 Day Support</span>
+            <span className={styles.trustItem}>âœ“ Free Consultation</span>
+            <span className={styles.trustItem}>âœ“ Local {townData.county} Team</span>
+            <span className={styles.trustItem}>âœ“ 90 Day Support</span>
           </div>
         </div>
 
@@ -144,8 +144,8 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
                 <span className={styles.infoLabel}>Key Industries:</span>
                 <div className={styles.industriesList}>
                   {townData.keyBusinesses.slice(0, 3).map((business, index) => (
-                    <span key={`${townData.town}-business-${index}-${business}`} className={styles.industryTag}>
-                      {business}
+                    <span key={`${townData.town}-business-${index}-${business.name}`} className={styles.industryTag}>
+                      {business.name}
                     </span>
                   ))}
                 </div>
@@ -202,7 +202,7 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            <span className={styles.locationIcon}>📍</span>
+            <span className={styles.locationIcon}>ðŸ“</span>
             <span>Serving {townData.town}, {townData.county}</span>
             {townData.postcode && <span className={styles.postcode}>{townData.postcode}</span>}
           </motion.div>
@@ -251,7 +251,7 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
               </div>
             )}
             <div className={styles.statItem}>
-              <span className={styles.statNumber}>5★</span>
+              <span className={styles.statNumber}>5â˜…</span>
               <span className={styles.statLabel}>Rating</span>
             </div>
             <div className={styles.statItem}>
@@ -295,9 +295,9 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
             animate={{ opacity: 1 }}
             transition={{ delay: 1.4, duration: 0.6 }}
           >
-            <span className={styles.trustItem}>✓ Free Consultation</span>
-            <span className={styles.trustItem}>✓ Local {townData.county} Team</span>
-            <span className={styles.trustItem}>✓ 90 Day Support</span>
+            <span className={styles.trustItem}>âœ“ Free Consultation</span>
+            <span className={styles.trustItem}>âœ“ Local {townData.county} Team</span>
+            <span className={styles.trustItem}>âœ“ 90 Day Support</span>
           </motion.div>
         </div>
 
@@ -335,8 +335,8 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
                 <span className={styles.infoLabel}>Key Industries:</span>
                 <div className={styles.industriesList}>
                   {townData.keyBusinesses.slice(0, 3).map((business, index) => (
-                    <span key={`${townData.town}-business-${index}-${business}`} className={styles.industryTag}>
-                      {business}
+                    <span key={`${townData.town}-business-${index}-${business.name}`} className={styles.industryTag}>
+                      {business.name}
                     </span>
                   ))}
                 </div>

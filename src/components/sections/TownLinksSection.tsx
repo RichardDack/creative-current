@@ -94,7 +94,7 @@ export const TownLinksSection: React.FC<TownLinksSectionProps> = ({ towns }) => 
                       <div className={styles.industriesTags}>
                         {townData.keyBusinesses.slice(0, 2).map((business, idx) => (
                           <span key={idx} className={styles.industryTag}>
-                            {business}
+                            {business.name}
                           </span>
                         ))}
                       </div>

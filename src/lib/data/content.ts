@@ -404,7 +404,7 @@ export function generateLocationServiceContent(
 } {
   const title = SERVICE_TEMPLATES.generateTitle(location, service);
   const description = SERVICE_TEMPLATES.generateDescription(location, service);
-  const content = SERVICE_TEMPLATES.generateContent(location, service, serviceData);
+  const content = SERVICE_TEMPLATES.generateContent(location, service);
   const faq = SERVICE_TEMPLATES.generateFAQ(location, service);
   
   // Get keywords from mapping or generate them

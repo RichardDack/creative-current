@@ -35,7 +35,7 @@ export function generateNavigationSEO(
   const metaTags = generateNavigationMetaTags(currentPage, townSlug);
   
   // Generate link attributes for better SEO
-  const linkAttributes = generateLinkAttributes(navigationItems, currentPage);
+  const linkAttributes = generateLinkAttributes(navigationItems);
   
   return {
     breadcrumbs,

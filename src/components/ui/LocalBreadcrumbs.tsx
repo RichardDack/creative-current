@@ -17,19 +17,19 @@ interface LocalBreadcrumbsProps {
 }
 
 export const LocalBreadcrumbs: React.FC<LocalBreadcrumbsProps> = ({ items }) => {
-  // Add null checks for required props
-  if (!items || !Array.isArray(items) || items.length === 0) {
-    console.error('LocalBreadcrumbs: Missing or invalid items prop', { items });
-    return null;
-  }
-
-  // Debug navigation spacing in development
+  // Debug navigation spacing in development - MUST be called before any early returns
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
       const timer = setTimeout(debugNavigationSpacing, 500);
       return () => clearTimeout(timer);
     }
   }, []);
+
+  // Add null checks for required props
+  if (!items || !Array.isArray(items) || items.length === 0) {
+    console.error('LocalBreadcrumbs: Missing or invalid items prop', { items });
+    return null;
+  }
 
   return (
     <motion.nav 

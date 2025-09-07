@@ -484,6 +484,7 @@ export function generateOrganizationSchema(): OrganizationSchema {
     ],
     address: {
       '@type': 'PostalAddress',
+      addressLocality: 'Dorset',
       addressRegion: 'Dorset',
       addressCountry: 'GB'
     },

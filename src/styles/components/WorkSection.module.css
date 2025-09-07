@@ -46,13 +46,13 @@
   margin: 0;
 }
 
-/* Work Items - Desktop/Tablet - REDUCED HEIGHT FOR STICKY NAV */
+/* Work Items - Desktop/Tablet - PROPER SPACING */
 .workItem {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 70vh; /* Reduced from 100vh */
-  padding: var(--space-xl);
+  min-height: 100vh; /* Full viewport for consistent gaps */
+  padding: var(--space-xl) var(--space-xl) var(--space-2xl) var(--space-xl); /* Extra bottom padding for spacing */
   position: sticky;
   top: 80px; /* Account for sticky nav height */
   width: 100%;
@@ -64,8 +64,9 @@
 .workItemContainer {
   width: 100%;
   max-width: 1200px;
-  height: 100%;
-  min-height: 60vh; /* Reduced from 80vh */
+  height: auto; /* Let content determine height */
+  min-height: 70vh; /* Reasonable minimum */
+  max-height: 80vh; /* Prevent oversized cards */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,8 +83,9 @@
     0 0 0 1px rgba(49, 175, 180, 0.1);
   display: flex;
   flex: 1;
-  min-height: 50vh; /* Reduced from 60vh */
-  height: calc(70vh - var(--space-2xl)); /* Reduced overall height */
+  min-height: 500px; /* Fixed minimum for content */
+  height: auto; /* Let content determine height */
+  max-height: 70vh; /* Reasonable maximum */
   overflow: hidden;
   position: relative;
   will-change: transform;
@@ -114,6 +116,8 @@
 /* Work Content */
 .workContent {
   flex: 1;
+  flex-basis: 50%; /* Ensure exactly 50% width */
+  min-width: 0; /* Allow flex shrinking */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,7 +126,7 @@
 }
 
 .workMeta {
-  max-width: 400px;
+  max-width: 100%; /* Use full available width */
   width: 100%;
 }
 
@@ -219,6 +223,8 @@
 /* Work Image */
 .workImage {
   flex: 1;
+  flex-basis: 50%; /* Ensure exactly 50% width */
+  min-width: 0; /* Allow flex shrinking */
   position: relative;
   height: 100%;
 }
@@ -435,20 +441,22 @@
 /* Tablet Media Query */
 @media (max-width: 1199px) {
   .workItem {
-    padding: var(--space-lg);
-    min-height: 60vh; /* Reduced for tablet */
+    padding: var(--space-lg) var(--space-lg) var(--space-xl) var(--space-lg);
+    min-height: 100vh; /* Full viewport for spacing */
     top: 70px; /* Account for sticky nav on tablet */
   }
   
   .workItemContainer {
-    min-height: 50vh; /* Reduced from 70vh */
-    height: 100%;
+    min-height: 60vh; /* Reasonable minimum */
+    max-height: 75vh; /* Reasonable maximum */
+    height: auto; /* Let content determine height */
   }
   
   .workCard {
     border-radius: 40px;
-    min-height: 40vh; /* Reduced from 50vh */
-    height: calc(60vh - var(--space-xl)); /* Reduced overall height */
+    min-height: 450px; /* Fixed minimum for content */
+    height: auto; /* Let content determine height */
+    max-height: 65vh; /* Reasonable maximum */
   }
   
   .workImageContainer {

@@ -136,7 +136,7 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
   );
 
   // Determine if sticky navigation should be shown
-  const showStickyNav = shouldShowStickyNav(pageContext.pageType, pageContext.isScrolledPastHero, currentSection);
+  const showStickyNav = shouldShowStickyNav(pageContext.pageType, pageContext.isScrolledPastHero);
 
   // Mobile menu handlers
   const toggleMobileMenu = useCallback(() => {

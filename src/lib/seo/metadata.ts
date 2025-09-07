@@ -418,7 +418,9 @@ export function toNextMetadata(seoMetadata: SEOMetadata): Metadata {
     title: seoMetadata.title,
     description: seoMetadata.description,
     keywords: seoMetadata.keywords,
-    canonical: seoMetadata.canonical,
+    alternates: {
+      canonical: seoMetadata.canonical
+    },
     openGraph: {
       title: seoMetadata.openGraph.title,
       description: seoMetadata.openGraph.description,

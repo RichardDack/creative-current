@@ -108,7 +108,7 @@ export const WebDesignServicesSection = () => {
             Contact us today for a free consultation about your Dorset web design project.
           </p>
           <motion.a
-            href="#contact"
+            href="#footer-background"
             className={styles.ctaButton}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}

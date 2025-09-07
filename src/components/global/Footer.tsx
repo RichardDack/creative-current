@@ -104,7 +104,7 @@ export const Footer = () => {
             <h4 className={styles.sectionTitle}>Quick Links</h4>
             <nav className={styles.linksList}>
               <Link href="#work-section" className={styles.footerLink}>Work</Link>
-              <Link href="#contact" className={styles.footerLink}>Contact</Link>
+              <Link href="#footer-background" className={styles.footerLink}>Contact</Link>
               <Link href="/privacy" className={styles.footerLink}>Privacy Policy</Link>
               <Link href="/terms" className={styles.footerLink}>Terms of Service</Link>
             </nav>

@@ -9,8 +9,8 @@ import { handleNavigationClick } from '@/lib/utils/scrollUtils';
 
 const navigationItems = [
   { name: 'WORK', href: '#work-section' },
-  { name: 'ABOUT', href: '#about-section' },
-  { name: 'SERVICES', href: '#services' },
+  { name: 'ABOUT', href: '#meet-our-team' },
+  { name: 'SERVICES', href: '/web-design' },
   { name: 'CONTACT', href: '#footer-background' },
 ];
 

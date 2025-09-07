@@ -275,7 +275,7 @@
 @media (min-width: 768px) {
   .localHero {
     min-height: 70vh;
-    padding: var(--space-responsive-2xl) 0; /* Normal padding - no navbar on desktop */
+    padding: 0 0 var(--space-responsive-2xl) 0; /* No top padding - breadcrumbs handle sticky nav spacing */
   }
   
   .container {

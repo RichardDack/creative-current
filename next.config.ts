@@ -11,6 +11,16 @@ const nextConfig: NextConfig = {
   },
   // Enable compression
   compress: true,
+  // Configure redirects
+  async redirects() {
+    return [
+      {
+        source: '/portfolio',
+        destination: '/work',
+        permanent: true,
+      },
+    ];
+  },
   // Configure headers for better caching
   async headers() {
     return [

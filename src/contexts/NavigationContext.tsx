@@ -3,18 +3,19 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { 
-  NavigationContextType, 
-  NavigationProviderProps, 
-  PageContext, 
+import {
+  NavigationContextType,
+  NavigationProviderProps,
+  PageContext,
   NavigationItem
 } from '@/types/navigation';
 import { useScrollDetection } from '@/lib/hooks/useScrollDetection';
-import { 
-  generateNavigationLinks, 
+import {
+  generateNavigationLinks,
   shouldShowStickyNav,
   markActiveNavigationItem,
-  detectCurrentSection
+  detectCurrentSection,
+  generateTownNavigationLinks
 } from '@/lib/utils/navigationUtils';
 
 const NavigationContext = createContext<NavigationContextType | undefined>(undefined);
@@ -37,7 +38,7 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
   }));
 
   // Use enhanced scroll detection hook with page-type awareness
-  const { 
+  const {
     isScrolledPastHero
   } = useScrollDetection({
     heroElementId: 'hero-section',
@@ -63,10 +64,10 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
     if (typeof window === 'undefined') return;
 
     const updateViewportSize = () => {
-      const viewportSize = 
+      const viewportSize =
         window.innerWidth < 768 ? 'mobile' :
-        window.innerWidth < 1024 ? 'tablet' : 'desktop';
-      
+          window.innerWidth < 1024 ? 'tablet' : 'desktop';
+
       setPageContext(prev => ({
         ...prev,
         viewportSize
@@ -85,10 +86,18 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
   }, [isMobileMenuOpen]);
 
   // Generate navigation items based on current context
-  const { navigationItems: baseNavigationItems, subNavigationItems: baseSubNavigationItems } = generateNavigationLinks(
-    pageContext.pageType, 
+  const baseNavigationItems = generateNavigationLinks(
+    pageContext.pageType,
     pageContext.townSlug
   );
+
+  // Generate sub-navigation items (town links for web-design page)
+  const baseSubNavigationItems: NavigationItem[] = (() => {
+    if (pageContext.pageType === 'web-design') {
+      return generateTownNavigationLinks();
+    }
+    return [];
+  })();
 
   // Detect current section for active state (in a real implementation, this could use Intersection Observer)
   const [currentSection, setCurrentSection] = useState<string | undefined>();
@@ -116,22 +125,18 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
 
   // Mark active navigation items with current section context
   const navigationItems = markActiveNavigationItem(
-    baseNavigationItems, 
-    pageContext.pageType, 
-    currentSection,
-    typeof window !== 'undefined' ? window.location.pathname : '/'
+    baseNavigationItems,
+    currentSection
   );
 
   // Mark active sub-navigation items
   const subNavigationItems = markActiveNavigationItem(
     baseSubNavigationItems,
-    pageContext.pageType,
-    currentSection,
-    typeof window !== 'undefined' ? window.location.pathname : '/'
+    currentSection
   );
 
   // Determine if sticky navigation should be shown
-  const showStickyNav = shouldShowStickyNav(pageContext.pageType, pageContext.isScrolledPastHero);
+  const showStickyNav = shouldShowStickyNav(pageContext.pageType, pageContext.isScrolledPastHero, currentSection);
 
   // Mobile menu handlers
   const toggleMobileMenu = useCallback(() => {
@@ -181,11 +186,11 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
  */
 export const useNavigation = (): NavigationContextType => {
   const context = useContext(NavigationContext);
-  
+
   if (context === undefined) {
     throw new Error('useNavigation must be used within a NavigationProvider');
   }
-  
+
   return context;
 };
 

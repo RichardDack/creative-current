@@ -73,6 +73,15 @@ export const metadata: Metadata = {
   keywords: "web design, web development, UI/UX, product design, digital agency",
   authors: [{ name: "Creative Current" }],
   viewport: "width=device-width, initial-scale=1",
+  alternates: {
+    canonical: "https://creativecurrent.co.uk",
+  },
+  openGraph: {
+    title: "Creative Current - Elevating Digital Excellence",
+    description: "We specialize in web design, development, UI/UX, and product design. Transform your online presence with our creative expertise.",
+    type: "website",
+    url: "https://creativecurrent.co.uk",
+  },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

@@ -10,14 +10,22 @@
   width: 100%;
   pointer-events: auto; /* Ensure it can be interacted with */
   
-  /* Glass morphism effect */
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  /* Enhanced glass morphism effect with proper transparency */
+  background: rgba(20, 33, 45, 0.4);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(49, 175, 180, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(20, 33, 45, 0.15),
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.15) inset;
   
-  /* Smooth transitions */
-  transition: all var(--duration-normal) var(--ease-out);
+  /* Smooth transitions with enhanced easing */
+  transition: 
+    backdrop-filter var(--duration-normal) var(--ease-out),
+    background-color var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
   
   /* Hidden on mobile by default */
   display: none;
@@ -95,7 +103,7 @@
   margin: 0 var(--space-sm);
 }
 
-/* Navigation items */
+/* Navigation items with enhanced visual feedback */
 .navigationItem {
   font-family: var(--font-ui);
   font-size: var(--font-size-sm);
@@ -106,32 +114,65 @@
   letter-spacing: 0.05em;
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-md);
-  transition: all var(--duration-fast) var(--ease-out);
+  transition: 
+    all var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow var(--duration-fast) var(--ease-out);
   position: relative;
   display: flex;
   align-items: center;
   min-height: 36px;
   white-space: nowrap;
+  overflow: hidden;
 }
 
-/* Hover state */
+/* Enhanced hover state with glass morphism and smooth animations */
 .navigationItem:hover {
-  background: rgba(49, 175, 180, 0.2);
+  background: rgba(49, 175, 180, 0.15);
   color: var(--color-primary);
-  transform: translateY(-1px);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 4px 20px rgba(49, 175, 180, 0.2),
+    0 1px 0 rgba(255, 255, 255, 0.1) inset;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-/* Focus state for accessibility */
+/* Subtle glow effect on hover */
+.navigationItem:hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    rgba(49, 175, 180, 0.1) 0%, 
+    rgba(49, 175, 180, 0.05) 50%, 
+    rgba(49, 175, 180, 0.1) 100%);
+  border-radius: inherit;
+  opacity: 0;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Enhanced focus state for accessibility */
 .navigationItem:focus {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
   color: var(--color-primary);
+  background: rgba(49, 175, 180, 0.1);
+  transform: translateY(-1px);
 }
 
-/* Active state */
+/* Enhanced active state with better visual hierarchy */
 .navigationItem.active {
-  background: rgba(49, 175, 180, 0.3);
+  background: rgba(49, 175, 180, 0.25);
   color: var(--color-primary);
+  box-shadow: 
+    0 2px 12px rgba(49, 175, 180, 0.3),
+    0 1px 0 rgba(255, 255, 255, 0.1) inset;
 }
 
 .navigationItem.active::after {
@@ -140,10 +181,15 @@
   bottom: -2px;
   left: 50%;
   transform: translateX(-50%);
-  width: 20px;
+  width: 24px;
   height: 2px;
-  background: var(--color-primary);
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--color-primary) 20%, 
+    var(--color-primary) 80%, 
+    transparent 100%);
   border-radius: 1px;
+  box-shadow: 0 0 8px rgba(49, 175, 180, 0.6);
 }
 
 /* Sub-navigation items (smaller) */
@@ -247,17 +293,18 @@
   --nav-height: 60px;
 }
 
-/* Dark theme variant (default) */
-.stickyNavigationBar {
-  /* Glass morphism with dark tint */
-  background: rgba(20, 33, 45, 0.8);
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-}
+/* Dark theme is the default - styling defined above */
 
-/* Light theme variant */
+/* Enhanced light theme variant with improved glass morphism */
 .stickyNavigationBar.light {
   background: rgba(255, 255, 255, 0.9);
-  border-bottom-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(49, 175, 180, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.05) inset;
 }
 
 .stickyNavigationBar.light .navigationItem {
@@ -267,6 +314,17 @@
 .stickyNavigationBar.light .navigationItem:hover {
   background: rgba(49, 175, 180, 0.1);
   color: var(--color-primary);
+  box-shadow: 
+    0 4px 20px rgba(49, 175, 180, 0.15),
+    0 1px 0 rgba(255, 255, 255, 0.8) inset;
+}
+
+.stickyNavigationBar.light .navigationItem.active {
+  background: rgba(49, 175, 180, 0.15);
+  color: var(--color-primary);
+  box-shadow: 
+    0 2px 12px rgba(49, 175, 180, 0.2),
+    0 1px 0 rgba(255, 255, 255, 0.8) inset;
 }
 
 .stickyNavigationBar.light .navigationItem.subItem {
@@ -276,10 +334,11 @@
 .stickyNavigationBar.light .navigationItem.subItem:hover {
   color: rgba(20, 33, 45, 0.9);
   background: rgba(20, 33, 45, 0.05);
+  box-shadow: 0 2px 8px rgba(20, 33, 45, 0.1);
 }
 
 .stickyNavigationBar.light .subNavigationDivider {
-  background: rgba(20, 33, 45, 0.2);
+  background: rgba(20, 33, 45, 0.15);
 }
 
 /* Enhanced animation performance optimizations */
@@ -294,37 +353,66 @@
   transition: backdrop-filter var(--duration-normal) var(--ease-out);
 }
 
-/* Enhanced navigation item animations */
+/* Enhanced navigation item animations with hardware acceleration */
 .navigationItem {
-  will-change: transform, background-color, color;
+  will-change: transform, background-color, color, box-shadow;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   
   /* Staggered animation support */
   animation-fill-mode: both;
 }
 
-/* Staggered animation for navigation items */
-.navigationItem:nth-child(1) { animation-delay: 0.1s; }
-.navigationItem:nth-child(2) { animation-delay: 0.15s; }
-.navigationItem:nth-child(3) { animation-delay: 0.2s; }
-.navigationItem:nth-child(4) { animation-delay: 0.25s; }
-.navigationItem:nth-child(5) { animation-delay: 0.3s; }
+/* Staggered animation for navigation items with enhanced timing */
+.navigationItem:nth-child(1) { animation-delay: 0.05s; }
+.navigationItem:nth-child(2) { animation-delay: 0.1s; }
+.navigationItem:nth-child(3) { animation-delay: 0.15s; }
+.navigationItem:nth-child(4) { animation-delay: 0.2s; }
+.navigationItem:nth-child(5) { animation-delay: 0.25s; }
+.navigationItem:nth-child(6) { animation-delay: 0.3s; }
 
-/* Smooth appearance animation for navigation items */
+/* Enhanced appearance animation for navigation items */
 @keyframes slideInFromTop {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-12px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 .stickyNavigationBar.visible .navigationItem {
-  animation: slideInFromTop 0.3s var(--ease-out) forwards;
+  animation: slideInFromTop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Loading state animations */
+@keyframes pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.stickyNavigationBar.loading .navigationItem {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Context change transition animations */
+@keyframes contextFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.navigationItem.contextChange {
+  animation: contextFadeIn 0.3s var(--ease-out) forwards;
 }
 
 /* Ensure proper stacking context */

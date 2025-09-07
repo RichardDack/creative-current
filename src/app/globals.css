@@ -86,10 +86,19 @@ html {
   --sticky-nav-height: 60px;
 }
 
+/* Ensure sticky navigation height is available for all components */
+body {
+  --nav-height: var(--sticky-nav-height);
+}
+
+html {
+  background-color: #0e1a24; /* Dark background for entire page */
+}
+
 body {
   font-family: var(--font-clash-grotesk), var(--font-body), system-ui, sans-serif;
-  background-color: rgb(255, 255, 255);
-  color: rgb(20, 33, 45);
+  background-color: #0e1a24; /* Match the dark theme background */
+  color: rgb(255, 255, 255); /* White text for dark background */
   line-height: 1.6;
 }
 
@@ -118,9 +127,15 @@ body {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 767px) {
   .container {
     padding: 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
   }
 }
 
@@ -188,8 +203,9 @@ input:focus-visible {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}/* Error
- Boundary Styles */
+}
+
+/* Error Boundary Styles */
 .error-boundary-fallback {
   display: flex;
   align-items: center;
@@ -262,8 +278,9 @@ input:focus-visible {
   word-break: break-word;
   color: var(--color-text-secondary);
   margin: var(--space-sm) 0;
-}/* 
-Section Error Fallback */
+}
+
+/* Section Error Fallback */
 .section-error {
   display: flex;
   align-items: center;
@@ -278,4 +295,457 @@ Section Error Fallback */
   font-family: var(--font-body);
   font-size: var(--font-size-sm);
   text-align: center;
+}
+/
+* Button hover effects for new pages */
+.cta-button-primary:hover {
+  background: rgba(49, 175, 180, 0.8) !important;
+}
+
+.cta-button-secondary:hover {
+  background: var(--color-primary) !important;
+  color: white !important;
+}
+
+.service-card {
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(49, 175, 180, 0.1);
+}
+
+.project-card {
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(49, 175, 180, 0.1);
+}
+
+.link-hover {
+  transition: opacity 0.3s ease;
+}
+
+.link-hover:hover {
+  opacity: 0.8;
+}
+
+/* Mobile responsive styles for new pages */
+.page-container {
+  min-height: 100vh;
+  background: var(--color-background-darker);
+  color: var(--color-text-primary);
+}
+
+.page-section {
+  padding: 4rem var(--space-lg);
+}
+
+.page-section-alt {
+  padding: 4rem var(--space-lg);
+  background: var(--color-background-lighter);
+}
+
+.hero-section {
+  padding: 8rem var(--space-lg) 4rem;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.hero-description {
+  font-size: clamp(1rem, 4vw, 1.25rem);
+  color: var(--color-text-muted);
+  max-width: 48rem;
+  margin: 0 auto;
+  line-height: var(--line-height-relaxed);
+  text-align: center;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.875rem, 6vw, 3rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.section-description {
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  color: var(--color-text-muted);
+  max-width: 48rem;
+  margin: 0 auto 3rem;
+  line-height: var(--line-height-relaxed);
+  text-align: center;
+}
+
+.grid-responsive {
+  display: grid;
+  gap: 2rem;
+}
+
+.grid-2-col {
+  grid-template-columns: 1fr;
+}
+
+.grid-3-col {
+  grid-template-columns: 1fr;
+}
+
+.grid-4-col {
+  grid-template-columns: 1fr;
+}
+
+.grid-auto-fit {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-auto-fit-large {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.cta-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) {
+  .page-section {
+    padding: 4rem var(--space-xl);
+  }
+  
+  .page-section-alt {
+    padding: 4rem var(--space-xl);
+  }
+  
+  .hero-section {
+    padding: 8rem var(--space-xl) 4rem;
+  }
+  
+  .grid-2-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid-3-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid-4-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .cta-buttons {
+    flex-direction: row;
+  }
+  
+  .form-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+  .grid-3-col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .grid-4-col {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Large desktop styles */
+@media (min-width: 1200px) {
+  .page-section {
+    padding: 4rem var(--space-2xl);
+  }
+  
+  .page-section-alt {
+    padding: 4rem var(--space-2xl);
+  }
+  
+  .hero-section {
+    padding: 8rem var(--space-2xl) 4rem;
+  }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 767px) {
+  .hero-section {
+    padding: 6rem 1.5rem 3rem;
+  }
+  
+  .page-section {
+    padding: 3rem 1.5rem;
+  }
+  
+  .page-section-alt {
+    padding: 3rem 1.5rem;
+  }
+  
+  .grid-responsive {
+    gap: 1.5rem;
+  }
+  
+  .hero-title {
+    padding: 0 0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .hero-description {
+    padding: 0 0.5rem;
+  }
+  
+  .section-title {
+    padding: 0 0.5rem;
+  }
+  
+  .section-description {
+    padding: 0 0.5rem;
+  }
+  
+  .service-card,
+  .project-card {
+    margin: 0;
+    padding: 1.5rem;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 5rem 1rem 2.5rem;
+  }
+  
+  .page-section {
+    padding: 2.5rem 1rem;
+  }
+  
+  .page-section-alt {
+    padding: 2.5rem 1rem;
+  }
+  
+  .hero-title {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+    padding: 0 0.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-description {
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
+    padding: 0 0.25rem;
+  }
+  
+  .section-title {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+    padding: 0 0.25rem;
+  }
+  
+  .section-description {
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
+    padding: 0 0.25rem;
+  }
+  
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .service-card,
+  .project-card {
+    padding: 1.25rem;
+  }
+}
+
+/* Mobile image and content improvements */
+@media (max-width: 767px) {
+  /* Ensure images don't overflow on mobile */
+  .project-card img,
+  .service-card img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Better spacing for mobile cards */
+  .project-card,
+  .service-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-lg);
+  }
+  
+  /* Mobile-friendly form styling */
+  .form-grid input,
+  .form-grid textarea,
+  .form-grid select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.875rem 1rem;
+  }
+  
+  /* Better mobile button spacing */
+  .cta-buttons {
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .cta-button-primary,
+  .cta-button-secondary {
+    min-width: 200px;
+    text-align: center;
+  }
+  
+  /* Mobile text improvements */
+  p, li {
+    font-size: clamp(0.9rem, 4vw, 1rem);
+    line-height: 1.6;
+  }
+  
+  /* Mobile grid improvements */
+  .grid-auto-fit {
+    grid-template-columns: 1fr;
+  }
+  
+  .grid-auto-fit-large {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Landscape mobile adjustments */
+@media (max-width: 767px) and (orientation: landscape) {
+  .hero-section {
+    padding: 4rem 1.5rem 2rem;
+  }
+  
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+}
+/* 
+Force mobile responsiveness with higher specificity */
+@media screen and (max-width: 767px) {
+  .page-container .hero-section {
+    padding: 5rem 1rem 3rem !important;
+  }
+  
+  .page-container .page-section {
+    padding: 3rem 1rem !important;
+  }
+  
+  .page-container .page-section-alt {
+    padding: 3rem 1rem !important;
+  }
+  
+  .page-container .hero-title {
+    font-size: clamp(2rem, 10vw, 3.5rem) !important;
+    padding: 0 0.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .page-container .hero-description {
+    font-size: clamp(0.9rem, 4vw, 1.1rem) !important;
+    padding: 0 0.5rem !important;
+  }
+  
+  .page-container .section-title {
+    font-size: clamp(1.5rem, 8vw, 2.5rem) !important;
+    padding: 0 0.5rem !important;
+  }
+  
+  .page-container .section-description {
+    font-size: clamp(0.9rem, 4vw, 1.1rem) !important;
+    padding: 0 0.5rem !important;
+  }
+  
+  .page-container .container {
+    padding: 0 1rem !important;
+    max-width: 100% !important;
+  }
+  
+  .page-container .grid-responsive {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+  
+  .page-container .service-card,
+  .page-container .project-card {
+    padding: 1.5rem !important;
+    margin: 0 !important;
+  }
+  
+  .page-container .cta-buttons {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    padding: 0 1rem !important;
+  }
+  
+  .page-container .form-grid {
+    gap: 1.5rem !important;
+  }
+  
+  .page-container .form-row {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .page-container .hero-section {
+    padding: 4rem 0.75rem 2.5rem !important;
+  }
+  
+  .page-container .page-section {
+    padding: 2.5rem 0.75rem !important;
+  }
+  
+  .page-container .page-section-alt {
+    padding: 2.5rem 0.75rem !important;
+  }
+  
+  .page-container .hero-title {
+    font-size: clamp(1.75rem, 12vw, 3rem) !important;
+    padding: 0 0.25rem !important;
+  }
+  
+  .page-container .hero-description {
+    font-size: clamp(0.85rem, 4vw, 1rem) !important;
+    padding: 0 0.25rem !important;
+  }
+  
+  .page-container .container {
+    padding: 0 0.75rem !important;
+  }
+  
+  .page-container .service-card,
+  .page-container .project-card {
+    padding: 1.25rem !important;
+  }
 }

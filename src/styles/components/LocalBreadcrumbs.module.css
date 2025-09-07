@@ -103,9 +103,12 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(49, 175, 180, 0.2);
-    padding: var(--space-lg) 0;
     position: relative;
     z-index: 5;
+    
+    /* FIXED: Add top margin to push breadcrumbs below sticky nav */
+    margin-top: 60px; /* Height of sticky navigation */
+    padding: var(--space-lg) 0;
   }
   
   .breadcrumbList {

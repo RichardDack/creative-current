@@ -3,7 +3,9 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 import styles from '@/styles/components/LocalBreadcrumbs.module.css';
+import { debugNavigationSpacing } from '@/lib/utils/navigationSpacing';
 
 interface BreadcrumbItem {
   name: string;
@@ -20,6 +22,14 @@ export const LocalBreadcrumbs: React.FC<LocalBreadcrumbsProps> = ({ items }) => 
     console.error('LocalBreadcrumbs: Missing or invalid items prop', { items });
     return null;
   }
+
+  // Debug navigation spacing in development
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      const timer = setTimeout(debugNavigationSpacing, 500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   return (
     <motion.nav 

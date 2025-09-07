@@ -52,8 +52,14 @@ export function handleNavigationClick(
     return;
   }
   
-  // Handle same-page anchor scrolling
+  // Handle same-page anchor scrolling with URL history update
   scrollToElement(targetId);
+  
+  // Update URL hash for proper history management
+  if (window.history && window.history.pushState) {
+    const newUrl = `${window.location.pathname}#${targetId}`;
+    window.history.pushState(null, '', newUrl);
+  }
 }
 
 /**

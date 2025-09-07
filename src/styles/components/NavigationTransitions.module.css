@@ -1,0 +1,206 @@
+/* Navigation Context Transitions and Loading States */
+
+/* Loading state for navigation context changes */
+.navigationLoading {
+  position: relative;
+  pointer-events: none;
+}
+
+.navigationLoading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(20, 33, 45, 0.1);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border-radius: inherit;
+  z-index: 1;
+  animation: loadingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes loadingPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+/* Context change transition animations */
+.contextTransition {
+  animation: contextChange 0.4s var(--ease-out) forwards;
+}
+
+@keyframes contextChange {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translateX(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Staggered context transition for multiple items */
+.contextTransition:nth-child(1) { animation-delay: 0s; }
+.contextTransition:nth-child(2) { animation-delay: 0.05s; }
+.contextTransition:nth-child(3) { animation-delay: 0.1s; }
+.contextTransition:nth-child(4) { animation-delay: 0.15s; }
+.contextTransition:nth-child(5) { animation-delay: 0.2s; }
+
+/* Page transition loading indicator */
+.pageTransitionIndicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--color-primary) 50%, 
+    transparent 100%);
+  z-index: 1001;
+  transform: translateX(-100%);
+  animation: pageTransition 1s ease-in-out;
+}
+
+@keyframes pageTransition {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Navigation item entrance animations */
+.navigationEnter {
+  animation: navigationItemEnter 0.3s var(--ease-out) forwards;
+}
+
+@keyframes navigationItemEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Navigation item exit animations */
+.navigationExit {
+  animation: navigationItemExit 0.2s var(--ease-out) forwards;
+}
+
+@keyframes navigationItemExit {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+}
+
+/* Smooth background color transitions for different contexts */
+.backgroundTransition {
+  transition: 
+    background-color var(--duration-normal) var(--ease-out),
+    backdrop-filter var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out);
+}
+
+/* Enhanced focus ring animations */
+.focusRing {
+  position: relative;
+}
+
+.focusRing:focus::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 2px solid var(--color-primary);
+  border-radius: calc(var(--radius-md) + 2px);
+  animation: focusRingPulse 0.3s ease-out;
+}
+
+@keyframes focusRingPulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Hover state micro-interactions */
+.hoverMicroInteraction {
+  position: relative;
+  overflow: hidden;
+}
+
+.hoverMicroInteraction::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(49, 175, 180, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease-out, height 0.3s ease-out;
+  pointer-events: none;
+}
+
+.hoverMicroInteraction:hover::before {
+  width: 200px;
+  height: 200px;
+}
+
+/* Accessibility: Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .navigationLoading::before,
+  .contextTransition,
+  .pageTransitionIndicator,
+  .navigationEnter,
+  .navigationExit,
+  .focusRing:focus::after,
+  .hoverMicroInteraction::before {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .navigationLoading::before {
+    opacity: 0.5;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .navigationLoading::before {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  
+  .pageTransitionIndicator {
+    background: var(--color-primary);
+    height: 4px;
+  }
+  
+  .focusRing:focus::after {
+    border-width: 3px;
+  }
+}

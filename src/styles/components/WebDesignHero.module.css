@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-responsive-xl) 0;
+  padding: 120px 0 var(--space-responsive-xl) 0; /* Extra top padding for mobile header */
   overflow: hidden;
 }
 

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { StickyNavigationBarProps, NavigationItem } from '@/types/navigation';
 import styles from '@/styles/components/StickyNavigationBar.module.css';
+import transitionStyles from '@/styles/components/NavigationTransitions.module.css';
 import { NavbarLogo } from '@/components/ui/NavbarLogo';
 import { handleNavigationClick } from '@/lib/utils/scrollUtils';
 
@@ -26,7 +27,9 @@ export const StickyNavigationBar: React.FC<StickyNavigationBarProps> = ({
   isVisible,
   navigationItems,
   subNavigationItems = [],
-  className = ''
+  className = '',
+  isLoading = false,
+  isContextChanging = false
 }) => {
   
   /**
@@ -37,13 +40,16 @@ export const StickyNavigationBar: React.FC<StickyNavigationBarProps> = ({
   };
 
   /**
-   * Render navigation item with appropriate link handling
+   * Render navigation item with appropriate link handling and enhanced styling
    */
-  const renderNavigationItem = (item: NavigationItem, isSubItem = false) => {
+  const renderNavigationItem = (item: NavigationItem, isSubItem = false, index = 0) => {
     const itemClasses = `
       ${styles.navigationItem} 
       ${item.isActive ? styles.active : ''} 
       ${isSubItem ? styles.subItem : ''}
+      ${isContextChanging ? transitionStyles.contextTransition : ''}
+      ${transitionStyles.focusRing}
+      ${transitionStyles.hoverMicroInteraction}
     `.trim();
 
     const content = (
@@ -111,7 +117,12 @@ export const StickyNavigationBar: React.FC<StickyNavigationBarProps> = ({
     <AnimatePresence>
       {isVisible && (
         <motion.nav
-          className={`${styles.stickyNavigationBar} ${className}`}
+          className={`
+            ${styles.stickyNavigationBar} 
+            ${className}
+            ${isLoading ? transitionStyles.navigationLoading : ''}
+            ${transitionStyles.backgroundTransition}
+          `.trim()}
           variants={stickyNavVariants}
           initial="hidden"
           animate="visible"
@@ -144,14 +155,14 @@ export const StickyNavigationBar: React.FC<StickyNavigationBarProps> = ({
 
             {/* Main navigation items */}
             <div className={styles.mainNavigation}>
-              {navigationItems.map((item) => renderNavigationItem(item))}
+              {navigationItems.map((item, index) => renderNavigationItem(item, false, index))}
             </div>
 
             {/* Sub-navigation items (for town pages, etc.) */}
             {subNavigationItems.length > 0 && (
               <div className={styles.subNavigation}>
                 <div className={styles.subNavigationDivider} />
-                {subNavigationItems.map((item) => renderNavigationItem(item, true))}
+                {subNavigationItems.map((item, index) => renderNavigationItem(item, true, index))}
               </div>
             )}
           </div>

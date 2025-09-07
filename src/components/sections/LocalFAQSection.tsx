@@ -129,7 +129,7 @@ export const LocalFAQSection: React.FC<LocalFAQSectionProps> = ({
             Get in touch with our team for a free consultation about your {townName} web design project.
           </p>
           <motion.a
-            href="#contact"
+            href="#footer-background"
             className={styles.ctaButton}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}

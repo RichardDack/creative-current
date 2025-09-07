@@ -105,7 +105,7 @@ export const LocalIndustriesSection: React.FC<LocalIndustriesSectionProps> = ({
                 Ready to elevate your {townName} business online?
               </p>
               <motion.a
-                href="#contact"
+                href="#footer-background"
                 className={styles.ctaButton}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}

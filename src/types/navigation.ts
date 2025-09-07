@@ -46,6 +46,8 @@ export interface StickyNavigationBarProps {
   navigationItems: NavigationItem[];
   subNavigationItems?: NavigationItem[];
   className?: string;
+  isLoading?: boolean;
+  isContextChanging?: boolean;
 }
 
 export interface NavigationConfig {

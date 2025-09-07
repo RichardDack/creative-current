@@ -60,7 +60,7 @@ export const WebDesignHero = () => {
             transition={{ delay: 1.0, duration: 0.6 }}
           >
             <motion.a
-              href="#contact"
+              href="#footer-background"
               className={styles.ctaButtonPrimary}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}

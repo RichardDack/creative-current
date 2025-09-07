@@ -4,6 +4,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect } from 'react';
 import styles from '@/styles/components/MobileNavOverlay.module.css';
+import transitionStyles from '@/styles/components/NavigationTransitions.module.css';
 
 interface NavigationItem {
   name: string;
@@ -15,39 +16,86 @@ interface MobileNavOverlayProps {
   isOpen: boolean;
   onClose: () => void;
   variant?: 'light' | 'dark';
+  currentPage?: string;
+  navigationItems?: NavigationItem[];
+  contextualMessage?: string;
 }
-
-const navigationItems: NavigationItem[] = [
-  { name: 'WORK', href: '#work-section', id: 'work' },
-  { name: 'ABOUT', href: '#about-section', id: 'about' },
-  { name: 'SERVICES', href: '#services', id: 'services' },
-  { name: 'CONTACT', href: '#footer-background', id: 'contact' },
-];
 
 export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
   isOpen,
   onClose,
-  variant = 'dark'
+  variant = 'dark',
+  currentPage = 'homepage',
+  navigationItems: propNavigationItems,
+  contextualMessage
 }) => {
-  // Handle smooth scrolling functionality for navigation links
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  // Default navigation items for homepage
+  const defaultNavigationItems: NavigationItem[] = [
+    { name: 'WORK', href: '#work-section', id: 'work' },
+    { name: 'ABOUT', href: '#meet-our-team', id: 'about' },
+    { name: 'SERVICES', href: '/web-design', id: 'services' },
+    { name: 'CONTACT', href: '#footer-background', id: 'contact' },
+  ];
 
-    // Close menu before scrolling with enhanced timing
+  // Use provided navigation items or generate contextual ones
+  const navigationItems = propNavigationItems || (() => {
+    if (currentPage === 'web-design') {
+      return [
+        { name: 'HOME', href: '/', id: 'home' },
+        { name: 'WORK', href: '/#work-section', id: 'work' },
+        { name: 'ABOUT', href: '/#meet-our-team', id: 'about' },
+        { name: 'CONTACT', href: '/#footer-background', id: 'contact' },
+      ];
+    } else if (currentPage === 'town') {
+      return [
+        { name: 'HOME', href: '/', id: 'home' },
+        { name: 'WEB-DESIGN', href: '/web-design', id: 'web-design' },
+        { name: 'WORK', href: '/#work-section', id: 'work' },
+        { name: 'ABOUT', href: '/#meet-our-team', id: 'about' },
+        { name: 'CONTACT', href: '/#footer-background', id: 'contact' },
+      ];
+    }
+    return defaultNavigationItems;
+  })();
+
+  // Handle navigation with proper cross-page support
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Close menu first
     onClose();
 
-    // Delay to allow menu close animation to complete before scrolling
-    setTimeout(() => {
-      const targetId = href.replace('#', '');
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+    // Handle different types of links
+    if (href.startsWith('/')) {
+      // Page navigation - let the browser handle it
+      return;
+    } else if (href.startsWith('#')) {
+      e.preventDefault();
+      
+      // Check if we're on the homepage
+      if (window.location.pathname === '/') {
+        // Same page anchor scrolling
+        setTimeout(() => {
+          const targetId = href.substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            const stickyNavHeight = 60; // Match CSS constant
+            const elementPosition = targetElement.offsetTop;
+            const offsetPosition = elementPosition - stickyNavHeight - 20;
+            
+            window.scrollTo({
+              top: Math.max(0, offsetPosition),
+              behavior: 'smooth'
+            });
+          }
+        }, 200);
+      } else {
+        // Cross-page navigation to homepage anchor
+        window.location.href = `/${href}`;
       }
-    }, 200); // Increased delay to match exit animation timing
+    } else if (href.startsWith('/#')) {
+      e.preventDefault();
+      // Cross-page navigation to homepage anchor
+      window.location.href = href;
+    }
   };
 
   // Handle click outside to close menu
@@ -167,6 +215,17 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
             role="navigation"
             aria-label="Main navigation"
           >
+            {contextualMessage && (
+              <motion.div
+                className={styles.contextualMessage}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                {contextualMessage}
+              </motion.div>
+            )}
+            
             <motion.ul
               className={styles.navigationList}
               initial="hidden"
@@ -177,7 +236,7 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
                 delayChildren: 0.15,
               }}
             >
-              {navigationItems.map((item) => (
+              {navigationItems.map((item: NavigationItem) => (
                 <motion.li
                   key={item.id}
                   variants={itemVariants}
@@ -196,8 +255,12 @@ export const MobileNavOverlay: React.FC<MobileNavOverlayProps> = ({
                 >
                   <a
                     href={item.href}
-                    className={styles.navItem}
-                    onClick={(e) => handleSmoothScroll(e, item.href)}
+                    className={`
+                      ${styles.navItem} 
+                      ${transitionStyles.focusRing}
+                      ${transitionStyles.hoverMicroInteraction}
+                    `.trim()}
+                    onClick={(e) => handleNavigation(e, item.href)}
                     tabIndex={0}
                     role="menuitem"
                   >

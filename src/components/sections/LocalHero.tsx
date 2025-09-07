@@ -102,7 +102,7 @@ export const LocalHero: React.FC<LocalHeroProps> = ({
           >
             <LocationIcon size={16} className={styles.locationIcon} />
             <span>Serving {townData.town}, {townData.county}</span>
-            {townData.postcode && <span className={styles.postcode}>{townData.postcode}</span>}
+            {townData.postcodes?.[0] && <span className={styles.postcode}>{townData.postcodes[0]}</span>}
           </motion.div>
 
           {/* Main Heading */}

@@ -353,7 +353,7 @@ export function generateNavigationLinks(
   currentPage: string,
   townSlug?: string
 ): Array<{ name: string; href: string; id: string; type: 'anchor' | 'page'; isActive?: boolean }> {
-  return generateContextualNavigationLinks(currentPage, townSlug).map(item => ({
+  return generateContextualNavigationLinks(currentPage).map(item => ({
     name: item.name,
     href: item.href,
     id: item.id,

@@ -38,17 +38,23 @@
   - _Requirements: 1.3_
 
 - [ ] 2. Create SEO Infrastructure and Utilities
+  - **IMPORTANT**: First read `.kiro/specs/comprehensive-seo-optimization/task-1-cleanup-notes.md` to understand what navigation functions were removed and need to be implemented
   - Build centralized SEO management system
   - Create metadata generation utilities
   - Implement schema markup components
   - Set up SEO data structures
+  - Restore missing navigation functions identified in cleanup notes
   - _Requirements: 3.1, 3.2, 3.3, 4.2_
 
 - [ ] 2.1 Build SEO metadata management system
+  - **FIRST**: Read `task-1-cleanup-notes.md` to understand missing navigation functions
   - Create `src/lib/seo/metadata.ts` for dynamic metadata generation with strict TypeScript types
+  - Implement missing `detectPageContext` function in `src/lib/utils/navigationUtils.ts`
+  - Create `NAVIGATION_CONFIG` constant for navigation system configuration
   - Implement title and description templates with proper string escaping for quotes and apostrophes
   - Create keyword management utilities with strict typing (no `any` types)
   - Build Open Graph and Twitter Card generation with proper URL encoding
+  - Update `src/lib/navigation/index.ts` exports to include newly implemented functions
   - _Requirements: 3.1, 3.2_
 
 - [ ] 2.2 Create schema markup components

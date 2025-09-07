@@ -3,6 +3,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import styles from '@/styles/components/Hero.module.css';
 import { LogoComponent } from '@/components/ui/LogoComponent';
 import { handleNavigationClick } from '@/lib/utils/scrollUtils';
@@ -212,7 +213,7 @@ export const Hero = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.6 }}
             >
-              We create stunning, responsive websites and digital experiences for businesses across <a href="/web-design/bournemouth" className={styles.internalLink}>Bournemouth</a>, <a href="/web-design/poole" className={styles.internalLink}>Poole</a>, <a href="/web-design/weymouth" className={styles.internalLink}>Weymouth</a>, and <a href="/web-design/dorchester" className={styles.internalLink}>Dorchester</a>. Our expert team specializes in modern web design, UI/UX, and digital solutions that drive results.
+              We create stunning, responsive websites and digital experiences for businesses across <Link href="/web-design/bournemouth" className={styles.internalLink}>Bournemouth</Link>, <Link href="/web-design/poole" className={styles.internalLink}>Poole</Link>, <Link href="/web-design/weymouth" className={styles.internalLink}>Weymouth</Link>, and <Link href="/web-design/dorchester" className={styles.internalLink}>Dorchester</Link>. Our expert team specializes in modern web design, UI/UX, and digital solutions that drive results.
             </motion.p>
 
             {/* Call-to-Action Buttons - Two Options */}

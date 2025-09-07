@@ -164,7 +164,7 @@ export const optimizeMobileImages = () => {
 export const monitorMobileNetwork = () => {
   if (typeof window === 'undefined' || !('navigator' in window)) return;
 
-  // @ts-ignore - NetworkInformation is experimental
+  // @ts-expect-error - NetworkInformation is experimental
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   
   if (connection) {

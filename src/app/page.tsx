@@ -1,4 +1,5 @@
 ﻿// src/app/page.tsx - SEO Optimized Homepage
+import Link from 'next/link';
 import { Layout } from '@/components/global/Layout';
 import { Hero } from '@/components/sections/Hero';
 import { WorkSection } from '@/components/sections/WorkSection';
@@ -48,7 +49,7 @@ export default function Home() {
               gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
               gap: '1.5rem' 
             }}>
-              <a 
+              <Link 
                 href="/web-design/bournemouth" 
                 style={{ 
                   display: 'block',
@@ -81,9 +82,9 @@ export default function Home() {
                 }}>
                   View Services →
                 </span>
-              </a>
+              </Link>
               
-              <a 
+              <Link 
                 href="/web-design/poole" 
                 style={{ 
                   display: 'block',
@@ -116,9 +117,9 @@ export default function Home() {
                 }}>
                   View Services →
                 </span>
-              </a>
+              </Link>
               
-              <a 
+              <Link 
                 href="/web-design/weymouth" 
                 style={{ 
                   display: 'block',
@@ -151,9 +152,9 @@ export default function Home() {
                 }}>
                   View Services →
                 </span>
-              </a>
+              </Link>
               
-              <a 
+              <Link 
                 href="/web-design/dorchester" 
                 style={{ 
                   display: 'block',
@@ -186,7 +187,7 @@ export default function Home() {
                 }}>
                   View Services →
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
         </section>

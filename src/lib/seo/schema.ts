@@ -204,7 +204,7 @@ export function generateWebsiteSchema(): WebsiteSchema {
 /**
  * Generate enhanced LocalBusiness schema for location pages with comprehensive data
  */
-export function generateLocalBusinessSchema(town: string, locationData?: any): LocalBusinessSchema {
+export function generateLocalBusinessSchema(town: string, locationData?: Record<string, unknown>): LocalBusinessSchema {
   const townName = town.charAt(0).toUpperCase() + town.slice(1);
   
   // Use location data if provided, otherwise fall back to basic coordinates

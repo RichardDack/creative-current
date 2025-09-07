@@ -92,8 +92,8 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   };
 
   if (fill) {
-    return <Image {...imageProps} fill />;
+    return <Image {...imageProps} fill alt={alt} />;
   }
 
-  return <Image {...imageProps} width={width} height={height} />;
+  return <Image {...imageProps} width={width} height={height} alt={alt} />;
 };

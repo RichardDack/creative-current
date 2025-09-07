@@ -1,0 +1,201 @@
+/* src/styles/components/RelatedLocationsSection.module.css */
+
+.relatedLocationsSection {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f8fffe 0%, #f0fffe 100%);
+  position: relative;
+}
+
+.relatedLocationsSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #31afb4 50%, transparent 100%);
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.sectionLabel {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #31afb4;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.sectionTitle {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.sectionDescription {
+  font-size: 18px;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.locationsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.locationCard {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(49, 175, 180, 0.1);
+}
+
+.locationCard:hover {
+  box-shadow: 0 8px 30px rgba(49, 175, 180, 0.15);
+  border-color: rgba(49, 175, 180, 0.2);
+}
+
+.locationLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+}
+
+.locationContent {
+  padding: 30px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.locationName {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.locationDistance {
+  font-size: 14px;
+  color: #31afb4;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.locationDescription {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+.locationCTA {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #31afb4;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.locationCard:hover .locationCTA {
+  color: #2a9ca1;
+  transform: translateX(4px);
+}
+
+.ctaIcon {
+  transition: transform 0.3s ease;
+}
+
+.locationCard:hover .ctaIcon {
+  transform: translateX(4px);
+}
+
+.allLocationsLink {
+  text-align: center;
+}
+
+.viewAllButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #31afb4 0%, #2a9ca1 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(49, 175, 180, 0.3);
+}
+
+.viewAllButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(49, 175, 180, 0.4);
+  background: linear-gradient(135deg, #2a9ca1 0%, #258a8f 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .relatedLocationsSection {
+    padding: 60px 0;
+  }
+  
+  .sectionHeader {
+    margin-bottom: 40px;
+  }
+  
+  .locationsGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  
+  .locationContent {
+    padding: 24px;
+  }
+  
+  .locationName {
+    font-size: 20px;
+  }
+  
+  .sectionTitle {
+    font-size: 28px;
+  }
+  
+  .sectionDescription {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .relatedLocationsSection {
+    padding: 50px 0;
+  }
+  
+  .locationContent {
+    padding: 20px;
+  }
+  
+  .viewAllButton {
+    padding: 14px 24px;
+    font-size: 15px;
+  }
+}

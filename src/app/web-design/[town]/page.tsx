@@ -1,4 +1,4 @@
-// src/app/web-design/[town]/page.tsx - Dynamic Town Page (Next.js 15 Fixed)
+// src/app/web-design/[town]/page.tsx - Enhanced Dynamic Town Page with SEO Optimization
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Layout } from '@/components/global/Layout';
@@ -11,12 +11,22 @@ import { ContactSection } from '@/components/sections/ContactSection';
 import { LocalBreadcrumbs } from '@/components/ui/LocalBreadcrumbs';
 import { LocalStructuredData } from '@/components/seo/LocalStructuredData';
 import { TownPageErrorBoundary } from '@/components/ui/TownPageErrorBoundary';
+
 import { 
-  dorseyTowns, 
-  generateLocalMetadata, 
-  generateLocalContent, 
-  generateLocalBusinessSchema 
+  getLocationBySlug,
+  getLocationSEOData,
+  getAllLocationSlugs,
+  generateLocationKeywords
+} from '@/lib/data/locations';
+import { 
+  generateSEOMetadata,
+  toNextMetadata,
+  escapeString,
+  cleanString,
+  type PageContext
 } from '@/lib/seo/metadata';
+import { generateLocationPageSchemas } from '@/lib/seo/schema';
+import { generateEnhancedLocationContent } from '@/lib/content/locationContent';
 
 // FIXED: Updated PageProps for Next.js 15 - params is now a Promise
 interface PageProps {
@@ -27,53 +37,70 @@ interface PageProps {
 
 // Generate static params for all Dorset towns
 export async function generateStaticParams() {
-  return Object.keys(dorseyTowns).map((townKey) => ({
-    town: townKey,
+  return getAllLocationSlugs().map((townSlug) => ({
+    town: townSlug,
   }));
 }
 
-// FIXED: Generate metadata for each town - now async to handle Promise params
+// Generate enhanced SEO metadata for each town
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { town } = await params; // FIXED: await the params promise
+  const { town } = await params;
   
-  if (!dorseyTowns[town]) {
+  // Get location data
+  const locationData = getLocationBySlug(town);
+  if (!locationData) {
     return {
       title: 'Page Not Found | Creative Current',
       description: 'The requested page could not be found.'
     };
   }
 
-  return generateLocalMetadata(town);
+  // Create page context for SEO metadata generation
+  const pageContext: PageContext = {
+    type: 'town',
+    location: town,
+    path: `/web-design/${town}`
+  };
+
+  // Generate comprehensive SEO metadata (escapeString is used internally by generateSEOMetadata)
+  const seoMetadata = generateSEOMetadata(
+    pageContext,
+    `Web Design ${locationData.name} - Professional Website Design Services`,
+    `Professional web design services in ${locationData.name}, ${locationData.county}. ${locationData.description} Custom websites, responsive design, and digital solutions for local businesses.`,
+    generateLocationKeywords(town, 'web design')
+  );
+
+  return toNextMetadata(seoMetadata);
 }
 
-// FIXED: Main component is now async to handle Promise params
+// Enhanced main component with improved content generation
 export default async function TownPage({ params }: PageProps) {
-  const { town } = await params; // FIXED: await the params promise
+  const { town } = await params;
   
-  // Check if town exists and is valid
-  if (!town || typeof town !== 'string' || !dorseyTowns[town]) {
+  // Get location data using new data structure
+  const locationData = getLocationBySlug(town);
+  if (!locationData) {
     notFound();
   }
 
-  const townData = dorseyTowns[town];
-  
-  // Add null checks for data generation
-  if (!townData) {
+  // Generate enhanced location content with proper escaping
+  const enhancedContent = generateEnhancedLocationContent(town);
+  if (!enhancedContent) {
+    console.error(`Failed to generate enhanced content for town: ${town}`);
     notFound();
   }
 
-  const localContent = generateLocalContent(town);
-  const schemaData = generateLocalBusinessSchema(town);
-
-  // Validate that required content was generated
-  if (!localContent || !schemaData) {
-    console.error(`Failed to generate content for town: ${town}`);
-    notFound();
-  }
+  // Generate comprehensive schema markup
+  const schemaMarkups = generateLocationPageSchemas(
+    locationData,
+    town,
+    enhancedContent.faq,
+    enhancedContent.breadcrumbs
+  );
 
   return (
     <Layout>
-      <LocalStructuredData schema={schemaData} />
+      <LocalStructuredData schema={schemaMarkups} />
       
       <TownPageErrorBoundary 
         town={town}
@@ -82,93 +109,76 @@ export default async function TownPage({ params }: PageProps) {
           <div className="error-boundary-fallback">
             <div className="error-content">
               <h2>Unable to load page content</h2>
-              <p>We&apos;re having trouble loading the content for {townData.town}. Please try refreshing the page.</p>
+              <p>We&apos;re having trouble loading the content for {locationData.name}. Please try refreshing the page.</p>
             </div>
           </div>
         }
       >
         {/* Breadcrumbs */}
-        {localContent.breadcrumbs && localContent.breadcrumbs.length > 0 && (
-          <LocalBreadcrumbs items={localContent.breadcrumbs} />
+        {enhancedContent.breadcrumbs && enhancedContent.breadcrumbs.length > 0 && (
+          <LocalBreadcrumbs items={enhancedContent.breadcrumbs} />
         )}
         
         {/* Hero Section */}
-        {localContent.heroTitle && localContent.heroSubtitle && localContent.heroDescription && (
-          <TownPageErrorBoundary 
-            key={`hero-${town}`}
-            town={town}
-            sectionName="hero"
-            fallback={<div className="section-error">Unable to load hero section</div>}
-          >
-            <LocalHero
-              title={localContent.heroTitle}
-              subtitle={localContent.heroSubtitle}
-              description={localContent.heroDescription}
-              townData={townData}
-              ctaPrimary={{
-                text: `Get Your ${townData.town} Quote`,
-                href: '#contact'
-              }}
-              ctaSecondary={{
-                text: 'View Our Work',
-                href: '/#work-section'
-              }}
-            />
-          </TownPageErrorBoundary>
-        )}
+        <TownPageErrorBoundary 
+          key={`hero-${town}`}
+          town={town}
+          sectionName="hero"
+          fallback={<div className="section-error">Unable to load hero section</div>}
+        >
+          <LocalHero
+            title={enhancedContent.hero.title}
+            subtitle={enhancedContent.hero.subtitle}
+            description={enhancedContent.hero.description}
+            townData={{
+              town: locationData.name,
+              county: locationData.county,
+              landmarks: locationData.seoData.localLandmarks,
+              keyBusinesses: locationData.keyIndustries.map(industry => ({
+                name: industry,
+                type: industry
+              })),
+              population: locationData.population.toString(),
+              postcode: locationData.postcodes[0]
+            }}
+            ctaPrimary={{
+              text: `Get Your ${locationData.name} Quote`,
+              href: '#contact'
+            }}
+            ctaSecondary={{
+              text: 'View Our Work',
+              href: '/#work-section'
+            }}
+          />
+        </TownPageErrorBoundary>
 
         {/* Services Section */}
-        {localContent.servicesSection && localContent.servicesSection.title && localContent.servicesSection.services && (
-          <TownPageErrorBoundary 
-            key={`services-${town}`}
-            town={town}
-            sectionName="services"
-            fallback={<div className="section-error">Unable to load services section</div>}
-          >
-            <LocalServicesSection
-              title={localContent.servicesSection.title}
-              services={localContent.servicesSection.services}
-              townName={townData.town}
-              county={townData.county}
-            />
-          </TownPageErrorBoundary>
-        )}
+        <TownPageErrorBoundary 
+          key={`services-${town}`}
+          town={town}
+          sectionName="services"
+          fallback={<div className="section-error">Unable to load services section</div>}
+        >
+          <LocalServicesSection
+            title={enhancedContent.services.title}
+            services={enhancedContent.services.services}
+            townName={locationData.name}
+            county={locationData.county}
+          />
+        </TownPageErrorBoundary>
 
-        {/* Industries Section */}
-        {localContent.localBusinessSection && 
-         localContent.localBusinessSection.title && 
-         localContent.localBusinessSection.content && 
-         localContent.localBusinessSection.industries && (
-          <TownPageErrorBoundary 
-            key={`industries-${town}`}
-            town={town}
-            sectionName="industries"
-            fallback={<div className="section-error">Unable to load industries section</div>}
-          >
-            <LocalIndustriesSection
-              title={localContent.localBusinessSection.title}
-              content={localContent.localBusinessSection.content}
-              industries={localContent.localBusinessSection.industries}
-              townName={townData.town}
-              landmarks={townData.landmarks}
-            />
-          </TownPageErrorBoundary>
-        )}
+        {/* Enhanced Testimonials Section */}
+        <TownPageErrorBoundary 
+          key={`testimonials-${town}`}
+          town={town}
+          sectionName="testimonials"
+          fallback={<div className="section-error">Unable to load testimonials section</div>}
+        >
+          <LocalTestimonialsSection townName={locationData.name} />
+        </TownPageErrorBoundary>
 
-        {/* Testimonials Section */}
-        {townData.town && (
-          <TownPageErrorBoundary 
-            key={`testimonials-${town}`}
-            town={town}
-            sectionName="testimonials"
-            fallback={<div className="section-error">Unable to load testimonials section</div>}
-          >
-            <LocalTestimonialsSection townName={townData.town} />
-          </TownPageErrorBoundary>
-        )}
-
-        {/* FAQ Section */}
-        {localContent.faqSection && Array.isArray(localContent.faqSection) && localContent.faqSection.length > 0 && (
+        {/* Enhanced FAQ Section with Schema */}
+        {enhancedContent.faq && enhancedContent.faq.length > 0 && (
           <TownPageErrorBoundary 
             key={`faq-${town}`}
             town={town}
@@ -176,8 +186,8 @@ export default async function TownPage({ params }: PageProps) {
             fallback={<div className="section-error">Unable to load FAQ section</div>}
           >
             <LocalFAQSection 
-              faqs={localContent.faqSection}
-              townName={townData.town}
+              faqs={enhancedContent.faq}
+              townName={locationData.name}
             />
           </TownPageErrorBoundary>
         )}

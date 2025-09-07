@@ -1,189 +1,172 @@
-// src/lib/seo/schema.ts - Schema markup components with strict TypeScript interfaces
+// src/lib/seo/schema.ts - Schema markup generation with strict TypeScript types
+
+import { DorsetLocation, getLocationBySlug } from '@/lib/data/locations';
+import { WebDesignService } from '@/lib/data/services';
+import { escapeString } from './metadata';
 
 /**
- * Schema.org structured data components for SEO optimization
- * Provides type-safe JSON-LD generation for various schema types
+ * Base schema markup interface
  */
-
-// Base schema interfaces
-export interface BaseSchema {
-  '@context': 'https://schema.org';
+export interface SchemaMarkup {
+  '@context': string;
   '@type': string;
+  [key: string]: unknown;
 }
 
-export interface PostalAddress extends BaseSchema {
-  '@type': 'PostalAddress';
-  streetAddress: string;
-  addressLocality: string;
-  addressRegion: string;
-  postalCode: string;
-  addressCountry: string;
-}
-
-export interface GeoCoordinates extends BaseSchema {
-  '@type': 'GeoCoordinates';
-  latitude: number;
-  longitude: number;
-}
-
-export interface ContactPoint extends BaseSchema {
-  '@type': 'ContactPoint';
-  telephone: string;
-  contactType: string;
-  availableLanguage: string[];
-}
-
-export interface OpeningHoursSpecification extends BaseSchema {
-  '@type': 'OpeningHoursSpecification';
-  dayOfWeek: string[];
-  opens: string;
-  closes: string;
-}
-
-// Business schema interfaces
-export interface LocalBusinessSchema extends BaseSchema {
+/**
+ * Local Business schema interface
+ */
+export interface LocalBusinessSchema extends SchemaMarkup {
   '@type': 'LocalBusiness';
   name: string;
   description: string;
   url: string;
   telephone: string;
-  email: string;
-  address: PostalAddress;
-  geo: GeoCoordinates;
-  contactPoint: ContactPoint[];
-  openingHoursSpecification: OpeningHoursSpecification[];
-  areaServed: Place[];
-  serviceArea: GeoCircle;
-  priceRange: string;
-  paymentAccepted: string[];
-  currenciesAccepted: string[];
-  foundingDate: string;
-  founder: Person;
-  employee: Person[];
-  sameAs: string[];
+  email?: string;
+  address: PostalAddressSchema;
+  geo: GeoCoordinatesSchema;
+  areaServed: PlaceSchema[];
+  serviceArea: GeoCircleSchema;
+  openingHours?: string[];
+  priceRange?: string;
+  paymentAccepted?: string[];
+  currenciesAccepted?: string[];
+  sameAs?: string[];
+  foundingDate?: string;
+  numberOfEmployees?: string;
+  knowsAbout?: string[];
+  makesOffer?: OfferSchema[];
 }
 
-export interface OrganizationSchema extends BaseSchema {
-  '@type': 'Organization';
-  name: string;
-  description: string;
-  url: string;
-  logo: ImageObject;
-  contactPoint: ContactPoint[];
-  address: PostalAddress;
-  sameAs: string[];
-  foundingDate: string;
-  founder: Person;
-  numberOfEmployees: string;
+/**
+ * Postal Address schema interface
+ */
+export interface PostalAddressSchema {
+  '@type': 'PostalAddress';
+  streetAddress?: string;
+  addressLocality: string;
+  addressRegion: string;
+  postalCode?: string;
+  addressCountry: string;
 }
 
-export interface WebSiteSchema extends BaseSchema {
-  '@type': 'WebSite';
-  name: string;
-  description: string;
-  url: string;
-  potentialAction: SearchAction;
-  publisher: Organization;
-  copyrightYear: number;
-  inLanguage: string;
+/**
+ * Geo Coordinates schema interface
+ */
+export interface GeoCoordinatesSchema {
+  '@type': 'GeoCoordinates';
+  latitude: number;
+  longitude: number;
 }
 
-// Service schema interfaces
-export interface ServiceSchema extends BaseSchema {
-  '@type': 'Service';
-  name: string;
-  description: string;
-  provider: Organization;
-  areaServed: Place[];
-  serviceType: string;
-  offers: Offer[];
-  category: string;
-  hasOfferCatalog: OfferCatalog;
-}
-
-export interface ProfessionalServiceSchema extends BaseSchema {
-  '@type': 'ProfessionalService';
-  name: string;
-  description: string;
-  provider: Organization;
-  areaServed: Place[];
-  serviceType: string;
-  offers: Offer[];
-  category: string;
-  priceRange: string;
-}
-
-// Supporting interfaces
-export interface Place extends BaseSchema {
+/**
+ * Place schema interface
+ */
+export interface PlaceSchema {
   '@type': 'Place';
   name: string;
-  address?: PostalAddress;
-  geo?: GeoCoordinates;
+  geo?: GeoCoordinatesSchema;
 }
 
-export interface GeoCircle extends BaseSchema {
+/**
+ * Geo Circle schema interface
+ */
+export interface GeoCircleSchema {
   '@type': 'GeoCircle';
-  geoMidpoint: GeoCoordinates;
+  geoMidpoint: GeoCoordinatesSchema;
   geoRadius: string;
 }
 
-export interface Person extends BaseSchema {
-  '@type': 'Person';
+/**
+ * Service schema interface
+ */
+export interface ServiceSchema extends SchemaMarkup {
+  '@type': 'Service';
   name: string;
-  jobTitle?: string;
-  email?: string;
-  telephone?: string;
-  url?: string;
+  description: string;
+  provider: OrganizationSchema;
+  areaServed: PlaceSchema[];
+  offers?: OfferSchema[];
+  serviceType: string;
+  category?: string;
 }
 
-export interface Organization extends BaseSchema {
+/**
+ * Organization schema interface
+ */
+export interface OrganizationSchema {
   '@type': 'Organization';
   name: string;
   url: string;
-  logo?: ImageObject;
-  contactPoint?: ContactPoint[];
-  address?: PostalAddress;
+  logo?: string;
+  contactPoint?: ContactPointSchema[];
+  address?: PostalAddressSchema;
+  sameAs?: string[];
 }
 
-export interface ImageObject extends BaseSchema {
-  '@type': 'ImageObject';
-  url: string;
-  width?: number;
-  height?: number;
-  caption?: string;
+/**
+ * Contact Point schema interface
+ */
+export interface ContactPointSchema {
+  '@type': 'ContactPoint';
+  telephone: string;
+  contactType: string;
+  areaServed?: string;
+  availableLanguage?: string;
 }
 
-export interface SearchAction extends BaseSchema {
-  '@type': 'SearchAction';
-  target: string;
-  'query-input': string;
-}
-
-export interface Offer extends BaseSchema {
+/**
+ * Offer schema interface
+ */
+export interface OfferSchema {
   '@type': 'Offer';
   name: string;
-  description: string;
-  price: string;
-  priceCurrency: string;
-  availability: string;
-  validFrom: string;
+  description?: string;
+  price?: string;
+  priceCurrency?: string;
+  availability?: string;
+  validFrom?: string;
   validThrough?: string;
-  seller: Organization;
-  category: string;
+  areaServed?: PlaceSchema;
 }
 
-export interface OfferCatalog extends BaseSchema {
-  '@type': 'OfferCatalog';
+/**
+ * FAQ Page schema interface
+ */
+export interface FAQPageSchema extends SchemaMarkup {
+  '@type': 'FAQPage';
+  mainEntity: QuestionSchema[];
+}
+
+/**
+ * Question schema interface
+ */
+export interface QuestionSchema {
+  '@type': 'Question';
   name: string;
-  itemListElement: Offer[];
+  acceptedAnswer: AnswerSchema;
 }
 
-export interface BreadcrumbList extends BaseSchema {
+/**
+ * Answer schema interface
+ */
+export interface AnswerSchema {
+  '@type': 'Answer';
+  text: string;
+}
+
+/**
+ * Breadcrumb List schema interface
+ */
+export interface BreadcrumbListSchema extends SchemaMarkup {
   '@type': 'BreadcrumbList';
-  itemListElement: ListItem[];
+  itemListElement: ListItemSchema[];
 }
 
-export interface ListItem extends BaseSchema {
+/**
+ * List Item schema interface
+ */
+export interface ListItemSchema {
   '@type': 'ListItem';
   position: number;
   name: string;
@@ -191,447 +174,386 @@ export interface ListItem extends BaseSchema {
 }
 
 /**
- * Escape strings for safe use in JSON-LD schema markup
+ * Website schema interface
  */
-function escapeSchemaString(str: string): string {
-  return str
-    .replace(/\\/g, '\\\\')
-    .replace(/"/g, '\\"')
-    .replace(/\n/g, '\\n')
-    .replace(/\r/g, '\\r')
-    .replace(/\t/g, '\\t');
+export interface WebsiteSchema extends SchemaMarkup {
+  '@type': 'WebSite';
+  name: string;
+  url: string;
+  description?: string;
+  publisher?: OrganizationSchema;
+  potentialAction?: SearchActionSchema;
 }
 
 /**
- * URL encode for schema URLs
+ * Search Action schema interface
  */
-function encodeSchemaUrl(url: string): string {
-  try {
-    return new URL(url).toString();
-  } catch {
-    return encodeURI(url);
-  }
+export interface SearchActionSchema {
+  '@type': 'SearchAction';
+  target: string;
+  'query-input': string;
 }
 
 /**
- * Generate LocalBusiness schema for Creative Current
+ * Generate comprehensive Local Business schema for location pages
  */
 export function generateLocalBusinessSchema(
-  location?: string,
-  customData?: Partial<LocalBusinessSchema>
+  location: DorsetLocation,
+  townSlug: string
 ): LocalBusinessSchema {
-  const businessName = 'Creative Current';
-  const baseUrl = 'https://creativecurrent.co.uk';
+  const escapedName = escapeString(location.name);
+  const escapedCounty = escapeString(location.county);
   
-  // Default Dorset location (can be overridden)
-  const defaultAddress: PostalAddress = {
-    '@context': 'https://schema.org',
-    '@type': 'PostalAddress',
-    streetAddress: 'Dorset Business Centre',
-    addressLocality: location || 'Dorchester',
-    addressRegion: 'Dorset',
-    postalCode: 'DT1 1XX',
-    addressCountry: 'GB'
-  };
-
-  const defaultGeo: GeoCoordinates = {
-    '@context': 'https://schema.org',
-    '@type': 'GeoCoordinates',
-    latitude: 50.7156,
-    longitude: -2.4397
-  };
-
-  const contactPoint: ContactPoint = {
-    '@context': 'https://schema.org',
-    '@type': 'ContactPoint',
-    telephone: '+44-1234-567890',
-    contactType: 'customer service',
-    availableLanguage: ['English']
-  };
-
-  const openingHours: OpeningHoursSpecification = {
-    '@context': 'https://schema.org',
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    opens: '09:00',
-    closes: '17:00'
-  };
-
-  const areaServed: Place[] = [
+  // Generate comprehensive area served including nearby locations with coordinates
+  const areaServed: PlaceSchema[] = [
     {
-      '@context': 'https://schema.org',
       '@type': 'Place',
-      name: 'Dorset, England'
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Place',
-      name: 'Bournemouth'
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Place',
-      name: 'Poole'
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Place',
-      name: 'Weymouth'
+      name: `${escapedName}, ${escapedCounty}`,
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: location.coordinates.lat,
+        longitude: location.coordinates.lng
+      }
     }
   ];
 
-  const serviceArea: GeoCircle = {
-    '@context': 'https://schema.org',
-    '@type': 'GeoCircle',
-    geoMidpoint: defaultGeo,
-    geoRadius: '50 km'
-  };
+  // Add nearby towns with their coordinates if available
+  location.nearbyTowns.forEach(nearbySlug => {
+    const nearbyLocation = getLocationBySlug ? getLocationBySlug(nearbySlug) : null;
+    if (nearbyLocation) {
+      areaServed.push({
+        '@type': 'Place',
+        name: `${escapeString(nearbyLocation.name)}, ${escapedCounty}`,
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: nearbyLocation.coordinates.lat,
+          longitude: nearbyLocation.coordinates.lng
+        }
+      });
+    } else {
+      // Fallback for towns without full data
+      areaServed.push({
+        '@type': 'Place',
+        name: nearbySlug.charAt(0).toUpperCase() + nearbySlug.slice(1).replace('-', ' ')
+      });
+    }
+  });
 
-  const founder: Person = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Creative Current Team',
-    jobTitle: 'Web Design Specialists'
-  };
-
-  const schema: LocalBusinessSchema = {
+  // Determine service radius based on location type
+  const serviceRadius = location.demographics.touristDestination ? '30 km' : '25 km';
+  
+  return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    name: escapeSchemaString(businessName),
-    description: escapeSchemaString('Professional web design and development services in Dorset. Custom websites, responsive design, and digital solutions for businesses.'),
-    url: encodeSchemaUrl(baseUrl),
+    name: 'Creative Current',
+    description: `Professional web design services in ${escapedName}, ${escapedCounty}. Custom websites, responsive design, and digital solutions for local businesses. Serving ${escapedName} and surrounding areas with expert web development, SEO optimization, and digital marketing services.`,
+    url: 'https://creativecurrent.co.uk',
     telephone: '+44-1234-567890',
     email: 'hello@creativecurrent.co.uk',
-    address: defaultAddress,
-    geo: defaultGeo,
-    contactPoint: [contactPoint],
-    openingHoursSpecification: [openingHours],
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: `Creative Current, Business Centre, ${escapedName}`,
+      addressLocality: escapedName,
+      addressRegion: escapedCounty,
+      postalCode: location.postcodes[0],
+      addressCountry: 'GB'
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: location.coordinates.lat,
+      longitude: location.coordinates.lng
+    },
     areaServed,
-    serviceArea,
-    priceRange: '££',
-    paymentAccepted: ['Cash', 'Credit Card', 'Bank Transfer'],
+    serviceArea: {
+      '@type': 'GeoCircle',
+      geoMidpoint: {
+        '@type': 'GeoCoordinates',
+        latitude: location.coordinates.lat,
+        longitude: location.coordinates.lng
+      },
+      geoRadius: serviceRadius
+    },
+    openingHours: [
+      'Mo-Fr 09:00-17:30',
+      'Sa 10:00-16:00'
+    ],
+    priceRange: location.demographics.averageIncome > 30000 ? '£1200-£8000' : '£800-£5000',
+    paymentAccepted: ['Cash', 'Credit Card', 'Bank Transfer', 'PayPal'],
     currenciesAccepted: ['GBP'],
-    foundingDate: '2020-01-01',
-    founder,
-    employee: [founder],
     sameAs: [
       'https://www.facebook.com/creativecurrent',
-      'https://www.linkedin.com/company/creativecurrent',
-      'https://twitter.com/creativecurrent'
+      'https://www.linkedin.com/company/creative-current',
+      'https://twitter.com/creativecurrent',
+      'https://www.instagram.com/creativecurrent'
     ],
-    ...customData
+    // Add business-specific properties
+    foundingDate: '2020-01-01',
+    numberOfEmployees: '2-10',
+    knowsAbout: [
+      'Web Design',
+      'Website Development',
+      'Responsive Design',
+      'WordPress Development',
+      'E-commerce Websites',
+      'SEO Optimization',
+      'Digital Marketing',
+      `${escapedName} Business Services`,
+      `${escapedCounty} Web Design`
+    ],
+    // Add service-specific offers
+    makesOffer: [
+      {
+        '@type': 'Offer',
+        name: 'Website Design Consultation',
+        description: `Free website design consultation for ${escapedName} businesses`,
+        price: '0',
+        priceCurrency: 'GBP',
+        availability: 'https://schema.org/InStock',
+        validFrom: new Date().toISOString().split('T')[0],
+        areaServed: {
+          '@type': 'Place',
+          name: `${escapedName}, ${escapedCounty}`
+        }
+      },
+      {
+        '@type': 'Offer',
+        name: 'Professional Website Design',
+        description: `Custom website design services for ${escapedName} businesses`,
+        price: location.demographics.averageIncome > 30000 ? '1200' : '800',
+        priceCurrency: 'GBP',
+        availability: 'https://schema.org/InStock',
+        areaServed: {
+          '@type': 'Place',
+          name: `${escapedName}, ${escapedCounty}`
+        }
+      }
+    ]
   };
-
-  return schema;
 }
 
+
+
 /**
- * Generate Service schema for web design services
+ * Generate Service schema for service pages
  */
 export function generateServiceSchema(
-  serviceName: string,
-  serviceDescription: string,
-  location?: string,
-  customData?: Partial<ServiceSchema>
+  service: WebDesignService,
+  location?: DorsetLocation
 ): ServiceSchema {
-  const provider: Organization = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: escapeSchemaString('Creative Current'),
-    url: encodeSchemaUrl('https://creativecurrent.co.uk')
-  };
-
-  const areaServed: Place[] = [
+  const escapedServiceName = escapeString(service.name);
+  const escapedDescription = escapeString(service.longDescription);
+  
+  const areaServed: PlaceSchema[] = location ? [
     {
-      '@context': 'https://schema.org',
       '@type': 'Place',
-      name: location ? escapeSchemaString(location) : 'Dorset, England'
+      name: `${escapeString(location.name)}, ${escapeString(location.county)}`,
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: location.coordinates.lat,
+        longitude: location.coordinates.lng
+      }
     }
-  ];
-
-  const offers: Offer[] = [
+  ] : [
     {
-      '@context': 'https://schema.org',
-      '@type': 'Offer',
-      name: escapeSchemaString(`${serviceName} Service`),
-      description: escapeSchemaString(serviceDescription),
-      price: 'Contact for Quote',
-      priceCurrency: 'GBP',
-      availability: 'https://schema.org/InStock',
-      validFrom: new Date().toISOString().split('T')[0],
-      seller: provider,
-      category: escapeSchemaString('Web Design Services')
+      '@type': 'Place',
+      name: 'Dorset, UK'
     }
   ];
-
-  const schema: ServiceSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: escapeSchemaString(serviceName),
-    description: escapeSchemaString(serviceDescription),
-    provider,
-    areaServed,
-    serviceType: escapeSchemaString('Web Design'),
-    offers,
-    category: escapeSchemaString('Professional Services'),
-    hasOfferCatalog: {
-      '@context': 'https://schema.org',
-      '@type': 'OfferCatalog',
-      name: escapeSchemaString(`${serviceName} Packages`),
-      itemListElement: offers
-    },
-    ...customData
-  };
-
-  return schema;
-}
-
-/**
- * Generate Organization schema for Creative Current
- */
-export function generateOrganizationSchema(
-  customData?: Partial<OrganizationSchema>
-): OrganizationSchema {
-  const logo: ImageObject = {
-    '@context': 'https://schema.org',
-    '@type': 'ImageObject',
-    url: encodeSchemaUrl('https://creativecurrent.co.uk/images/creative-current-logo.png'),
-    width: 300,
-    height: 100,
-    caption: escapeSchemaString('Creative Current Logo')
-  };
-
-  const contactPoint: ContactPoint = {
-    '@context': 'https://schema.org',
-    '@type': 'ContactPoint',
-    telephone: '+44-1234-567890',
-    contactType: 'customer service',
-    availableLanguage: ['English']
-  };
-
-  const address: PostalAddress = {
-    '@context': 'https://schema.org',
-    '@type': 'PostalAddress',
-    streetAddress: 'Dorset Business Centre',
-    addressLocality: 'Dorchester',
-    addressRegion: 'Dorset',
-    postalCode: 'DT1 1XX',
-    addressCountry: 'GB'
-  };
-
-  const founder: Person = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Creative Current Team',
-    jobTitle: 'Web Design Specialists'
-  };
-
-  const schema: OrganizationSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: escapeSchemaString('Creative Current'),
-    description: escapeSchemaString('Professional web design and development agency specializing in custom websites, responsive design, and digital solutions for businesses across Dorset.'),
-    url: encodeSchemaUrl('https://creativecurrent.co.uk'),
-    logo,
-    contactPoint: [contactPoint],
-    address,
-    sameAs: [
-      'https://www.facebook.com/creativecurrent',
-      'https://www.linkedin.com/company/creativecurrent',
-      'https://twitter.com/creativecurrent'
-    ],
-    foundingDate: '2020-01-01',
-    founder,
-    numberOfEmployees: '2-10',
-    ...customData
-  };
-
-  return schema;
-}
-
-/**
- * Generate WebSite schema with search functionality
- */
-export function generateWebSiteSchema(
-  customData?: Partial<WebSiteSchema>
-): WebSiteSchema {
-  const searchAction: SearchAction = {
-    '@context': 'https://schema.org',
-    '@type': 'SearchAction',
-    target: encodeSchemaUrl('https://creativecurrent.co.uk/search?q={search_term_string}'),
-    'query-input': 'required name=search_term_string'
-  };
-
-  const publisher: Organization = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: escapeSchemaString('Creative Current'),
-    url: encodeSchemaUrl('https://creativecurrent.co.uk')
-  };
-
-  const schema: WebSiteSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: escapeSchemaString('Creative Current - Professional Web Design Services'),
-    description: escapeSchemaString('Professional web design and development services in Dorset. Custom websites, responsive design, and digital solutions for businesses.'),
-    url: encodeSchemaUrl('https://creativecurrent.co.uk'),
-    potentialAction: searchAction,
-    publisher,
-    copyrightYear: new Date().getFullYear(),
-    inLanguage: 'en-GB',
-    ...customData
-  };
-
-  return schema;
-}
-
-/**
- * Generate BreadcrumbList schema for navigation
- */
-export function generateBreadcrumbSchema(
-  breadcrumbs: Array<{ name: string; href: string }>,
-  baseUrl: string = 'https://creativecurrent.co.uk'
-): BreadcrumbList {
-  const itemListElement: ListItem[] = breadcrumbs.map((crumb, index) => ({
-    '@context': 'https://schema.org',
-    '@type': 'ListItem',
-    position: index + 1,
-    name: escapeSchemaString(crumb.name),
-    item: encodeSchemaUrl(crumb.href.startsWith('http') ? crumb.href : `${baseUrl}${crumb.href}`)
-  }));
 
   return {
     '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement
-  };
-}
-
-/**
- * Generate ProfessionalService schema for specific services
- */
-export function generateProfessionalServiceSchema(
-  serviceName: string,
-  serviceDescription: string,
-  priceRange: string = '££',
-  location?: string,
-  customData?: Partial<ProfessionalServiceSchema>
-): ProfessionalServiceSchema {
-  const provider: Organization = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: escapeSchemaString('Creative Current'),
-    url: encodeSchemaUrl('https://creativecurrent.co.uk')
-  };
-
-  const areaServed: Place[] = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Place',
-      name: location ? escapeSchemaString(`${location}, Dorset`) : 'Dorset, England'
-    }
-  ];
-
-  const offers: Offer[] = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Offer',
-      name: escapeSchemaString(`Professional ${serviceName}`),
-      description: escapeSchemaString(serviceDescription),
-      price: 'Contact for Quote',
-      priceCurrency: 'GBP',
-      availability: 'https://schema.org/InStock',
-      validFrom: new Date().toISOString().split('T')[0],
-      seller: provider,
-      category: escapeSchemaString('Web Design Services')
-    }
-  ];
-
-  const schema: ProfessionalServiceSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    name: escapeSchemaString(serviceName),
-    description: escapeSchemaString(serviceDescription),
-    provider,
+    '@type': 'Service',
+    name: escapedServiceName,
+    description: escapedDescription,
+    provider: {
+      '@type': 'Organization',
+      name: 'Creative Current',
+      url: 'https://creativecurrent.co.uk',
+      logo: 'https://creativecurrent.co.uk/images/creative-current-logo.svg',
+      contactPoint: [
+        {
+          '@type': 'ContactPoint',
+          telephone: '+44-1234-567890',
+          contactType: 'Customer Service',
+          areaServed: 'GB',
+          availableLanguage: 'English'
+        }
+      ]
+    },
     areaServed,
-    serviceType: escapeSchemaString('Web Design & Development'),
-    offers,
-    category: escapeSchemaString('Digital Services'),
-    priceRange,
-    ...customData
+    offers: [
+      {
+        '@type': 'Offer',
+        name: escapedServiceName,
+        description: escapedDescription,
+        price: service.pricing.starting.toString(),
+        priceCurrency: service.pricing.currency,
+        availability: 'https://schema.org/InStock'
+      }
+    ],
+    serviceType: escapedServiceName,
+    category: service.category
   };
-
-  return schema;
 }
 
 /**
- * Convert schema object to JSON-LD script tag content
+ * Generate FAQ Page schema
  */
-export function schemaToJsonLd(schema: BaseSchema): string {
-  return JSON.stringify(schema, null, 0);
+export function generateFAQPageSchema(
+  faqs: Array<{
+    question: string;
+    answer: string;
+  }>
+): FAQPageSchema {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: escapeString(faq.question),
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: escapeString(faq.answer)
+      }
+    }))
+  };
 }
 
 /**
- * Generate multiple schema types for a page
+ * Generate Breadcrumb List schema
  */
-export function generatePageSchemas(
-  pageType: 'homepage' | 'service' | 'location' | 'about' | 'contact',
-  options: {
-    serviceName?: string;
-    serviceDescription?: string;
-    location?: string;
-    breadcrumbs?: Array<{ name: string; href: string }>;
-  } = {}
-): BaseSchema[] {
-  const schemas: BaseSchema[] = [];
+export function generateBreadcrumbSchema(
+  breadcrumbs: Array<{
+    name: string;
+    url: string;
+  }>
+): BreadcrumbListSchema {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((breadcrumb, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: escapeString(breadcrumb.name),
+      item: breadcrumb.url
+    }))
+  };
+}
 
-  // Always include Organization and WebSite schemas
-  schemas.push(generateOrganizationSchema());
-  schemas.push(generateWebSiteSchema());
+/**
+ * Generate Website schema
+ */
+export function generateWebsiteSchema(): WebsiteSchema {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Creative Current',
+    url: 'https://creativecurrent.co.uk',
+    description: 'Professional web design services in Dorset. Custom websites, responsive design, and digital solutions for businesses.',
+    publisher: {
+      '@type': 'Organization',
+      name: 'Creative Current',
+      url: 'https://creativecurrent.co.uk',
+      logo: 'https://creativecurrent.co.uk/images/creative-current-logo.svg'
+    },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://creativecurrent.co.uk/search?q={search_term_string}',
+      'query-input': 'required name=search_term_string'
+    }
+  };
+}
 
-  // Add page-specific schemas
-  switch (pageType) {
-    case 'homepage':
-      schemas.push(generateLocalBusinessSchema());
-      break;
-    
-    case 'service':
-      if (options.serviceName && options.serviceDescription) {
-        schemas.push(generateServiceSchema(
-          options.serviceName,
-          options.serviceDescription,
-          options.location
-        ));
-        schemas.push(generateProfessionalServiceSchema(
-          options.serviceName,
-          options.serviceDescription,
-          '££',
-          options.location
-        ));
+/**
+ * Generate Organization schema
+ */
+export function generateOrganizationSchema(): OrganizationSchema {
+  return {
+    '@type': 'Organization',
+    name: 'Creative Current',
+    url: 'https://creativecurrent.co.uk',
+    logo: 'https://creativecurrent.co.uk/images/creative-current-logo.svg',
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: '+44-1234-567890',
+        contactType: 'Customer Service',
+        areaServed: 'GB',
+        availableLanguage: 'English'
       }
-      break;
-    
-    case 'location':
-      schemas.push(generateLocalBusinessSchema(options.location));
-      if (options.serviceName && options.serviceDescription) {
-        schemas.push(generateServiceSchema(
-          options.serviceName,
-          options.serviceDescription,
-          options.location
-        ));
-      }
-      break;
-    
-    case 'about':
-    case 'contact':
-      schemas.push(generateLocalBusinessSchema());
-      break;
-  }
+    ],
+    address: {
+      '@type': 'PostalAddress',
+      addressRegion: 'Dorset',
+      addressCountry: 'GB'
+    },
+    sameAs: [
+      'https://www.facebook.com/creativecurrent',
+      'https://www.linkedin.com/company/creative-current',
+      'https://twitter.com/creativecurrent'
+    ]
+  };
+}
 
-  // Add breadcrumb schema if provided
-  if (options.breadcrumbs && options.breadcrumbs.length > 1) {
-    schemas.push(generateBreadcrumbSchema(options.breadcrumbs));
+/**
+ * Combine multiple schema markups into a single JSON-LD script
+ */
+export function combineSchemas(schemas: SchemaMarkup[]): string {
+  if (schemas.length === 0) return '';
+  
+  if (schemas.length === 1) {
+    return JSON.stringify(schemas[0], null, 2);
   }
+  
+  // Multiple schemas - wrap in array
+  return JSON.stringify(schemas, null, 2);
+}
 
-  return schemas;
+/**
+ * Validate schema markup (basic validation)
+ */
+export function validateSchema(schema: SchemaMarkup): boolean {
+  try {
+    // Check required fields
+    if (!schema['@context'] || !schema['@type']) {
+      return false;
+    }
+    
+    // Ensure JSON serializable
+    JSON.stringify(schema);
+    
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Generate all schemas for a location page
+ */
+export function generateLocationPageSchemas(
+  location: DorsetLocation,
+  townSlug: string,
+  faqs: Array<{ question: string; answer: string }>,
+  breadcrumbs: Array<{ name: string; url: string }>
+): SchemaMarkup[] {
+  const schemas: SchemaMarkup[] = [];
+  
+  // Local Business schema
+  schemas.push(generateLocalBusinessSchema(location, townSlug));
+  
+  // FAQ schema if FAQs exist
+  if (faqs.length > 0) {
+    schemas.push(generateFAQPageSchema(faqs));
+  }
+  
+  // Breadcrumb schema
+  if (breadcrumbs.length > 0) {
+    schemas.push(generateBreadcrumbSchema(breadcrumbs));
+  }
+  
+  // Website schema
+  schemas.push(generateWebsiteSchema());
+  
+  return schemas.filter(validateSchema);
 }

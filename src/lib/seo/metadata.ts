@@ -92,6 +92,24 @@ export function escapeString(str: string): string {
 }
 
 /**
+ * Safe string for display purposes - only escapes dangerous HTML
+ * Use this for content that will be displayed to users
+ */
+export function safeDisplayString(str: string): string {
+  return str
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+/**
+ * Clean string for safe display without any escaping
+ * Use this for React component props and display content
+ */
+export function cleanString(str: string): string {
+  return str.trim();
+}
+
+/**
  * URL encode strings for safe use in URLs
  */
 export function urlEncode(str: string): string {

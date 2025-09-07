@@ -46,7 +46,7 @@
   gap: var(--space-responsive-lg);
   margin-bottom: var(--space-responsive-2xl);
   max-width: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .serviceCard {

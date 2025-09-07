@@ -8,6 +8,8 @@ export { MegaphoneIcon } from './MegaphoneIcon';
 export { WindowIcon } from './WindowIcon';
 export { QuestionIcon } from './QuestionIcon';
 export { CartIcon } from './CartIcon';
+export { LocationIcon } from './LocationIcon';
+export { StarIcon } from './StarIcon';
 
 // Re-export all icons as a collection for convenience
 import { BrowserIcon } from './BrowserIcon';
@@ -19,6 +21,8 @@ import { MegaphoneIcon } from './MegaphoneIcon';
 import { WindowIcon } from './WindowIcon';
 import { QuestionIcon } from './QuestionIcon';
 import { CartIcon } from './CartIcon';
+import { LocationIcon } from './LocationIcon';
+import { StarIcon } from './StarIcon';
 
 export const Icons = {
   Browser: BrowserIcon,
@@ -30,4 +34,6 @@ export const Icons = {
   Window: WindowIcon,
   Question: QuestionIcon,
   Cart: CartIcon,
+  Location: LocationIcon,
+  Star: StarIcon,
 } as const;

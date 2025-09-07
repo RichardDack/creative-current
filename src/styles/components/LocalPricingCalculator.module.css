@@ -1,0 +1,420 @@
+/* src/styles/components/LocalPricingCalculator.module.css */
+
+.calculatorSection {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fffe 100%);
+  position: relative;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.sectionLabel {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #31afb4;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.sectionTitle {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+.sectionDescription {
+  font-size: 18px;
+  color: #666;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.calculatorContainer {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.calculatorPanel {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(49, 175, 180, 0.1);
+}
+
+.pricePanel {
+  background: linear-gradient(135deg, #31afb4 0%, #2a9ca1 100%);
+  border-radius: 16px;
+  padding: 40px;
+  color: white;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+}
+
+.optionGroup {
+  margin-bottom: 32px;
+}
+
+.optionGroup:last-child {
+  margin-bottom: 0;
+}
+
+.optionLabel {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+}
+
+.optionValue {
+  color: #31afb4;
+  font-weight: 700;
+}
+
+/* Slider Styles */
+.slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #e0e0e0;
+  outline: none;
+  -webkit-appearance: none;
+  margin-bottom: 8px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #31afb4;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(49, 175, 180, 0.3);
+  transition: all 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: #2a9ca1;
+  transform: scale(1.1);
+}
+
+.slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #31afb4;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(49, 175, 180, 0.3);
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Button Group Styles */
+.buttonGroup {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.optionButton {
+  padding: 12px 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  color: #666;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 120px;
+}
+
+.optionButton:hover {
+  border-color: #31afb4;
+  color: #31afb4;
+}
+
+.optionButton.active {
+  border-color: #31afb4;
+  background: #31afb4;
+  color: white;
+}
+
+/* Features Grid */
+.featuresGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.featureOption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 2px solid #f0f0f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.featureOption:hover {
+  border-color: #31afb4;
+  background: rgba(49, 175, 180, 0.05);
+}
+
+.featureCheckbox {
+  width: 20px;
+  height: 20px;
+  accent-color: #31afb4;
+}
+
+.featureName {
+  flex: 1;
+  font-size: 16px;
+  color: #333;
+}
+
+.featurePrice {
+  font-size: 14px;
+  font-weight: 600;
+  color: #31afb4;
+}
+
+/* Price Display */
+.priceDisplay {
+  text-align: center;
+}
+
+.estimatedPrice {
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.priceLabel {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+.mainPrice {
+  display: block;
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.priceRange {
+  display: block;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.priceIncludes {
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.priceIncludes h4 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.priceIncludes ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.priceIncludes li {
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.priceIncludes li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.getQuoteButton {
+  width: 100%;
+  padding: 16px 24px;
+  background: white;
+  color: #31afb4;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.getQuoteButton:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+.calculatorFooter {
+  text-align: center;
+}
+
+.footerText {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.guarantees {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.guarantee {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+}
+
+.guaranteeIcon {
+  color: #31afb4;
+  font-weight: 700;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 1024px) {
+  .calculatorContainer {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .pricePanel {
+    position: static;
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .calculatorSection {
+    padding: 80px 0;
+  }
+  
+  .sectionHeader {
+    margin-bottom: 50px;
+  }
+  
+  .calculatorPanel,
+  .pricePanel {
+    padding: 30px;
+  }
+  
+  .buttonGroup {
+    flex-direction: column;
+  }
+  
+  .optionButton {
+    min-width: auto;
+  }
+  
+  .mainPrice {
+    font-size: 36px;
+  }
+  
+  .guarantees {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .calculatorSection {
+    padding: 60px 0;
+  }
+  
+  .calculatorPanel,
+  .pricePanel {
+    padding: 24px;
+  }
+  
+  .sectionTitle {
+    font-size: 24px;
+  }
+  
+  .sectionDescription {
+    font-size: 16px;
+  }
+  
+  .optionLabel {
+    font-size: 16px;
+  }
+  
+  .guarantees {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .mainPrice {
+    font-size: 32px;
+  }
+}
+
+/* Touch-friendly improvements for mobile */
+@media (max-width: 768px) {
+  .slider {
+    height: 12px;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .optionButton {
+    padding: 16px 20px;
+    font-size: 16px;
+  }
+  
+  .featureOption {
+    padding: 20px 16px;
+  }
+  
+  .featureCheckbox {
+    width: 24px;
+    height: 24px;
+  }
+}

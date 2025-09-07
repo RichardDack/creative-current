@@ -23,6 +23,7 @@ export interface DorsetLocation {
     businessCount: number;
     averageIncome: number;
     touristDestination: boolean;
+    isCoastal: boolean;
   };
   seoData: {
     primaryKeywords: string[];
@@ -58,7 +59,8 @@ export const DORSET_LOCATIONS: Record<string, DorsetLocation> = {
     demographics: {
       businessCount: 850,
       averageIncome: 28000,
-      touristDestination: true
+      touristDestination: true,
+      isCoastal: false
     },
     seoData: {
       primaryKeywords: [
@@ -111,7 +113,8 @@ export const DORSET_LOCATIONS: Record<string, DorsetLocation> = {
     demographics: {
       businessCount: 1200,
       averageIncome: 26000,
-      touristDestination: true
+      touristDestination: true,
+      isCoastal: true
     },
     seoData: {
       primaryKeywords: [
@@ -164,7 +167,8 @@ export const DORSET_LOCATIONS: Record<string, DorsetLocation> = {
     demographics: {
       businessCount: 3500,
       averageIncome: 32000,
-      touristDestination: true
+      touristDestination: true,
+      isCoastal: true
     },
     seoData: {
       primaryKeywords: [
@@ -218,7 +222,8 @@ export const DORSET_LOCATIONS: Record<string, DorsetLocation> = {
     demographics: {
       businessCount: 2800,
       averageIncome: 35000,
-      touristDestination: true
+      touristDestination: true,
+      isCoastal: true
     },
     seoData: {
       primaryKeywords: [
@@ -272,7 +277,8 @@ export const DORSET_LOCATIONS: Record<string, DorsetLocation> = {
     demographics: {
       businessCount: 450,
       averageIncome: 27000,
-      touristDestination: true
+      touristDestination: true,
+      isCoastal: false
     },
     seoData: {
       primaryKeywords: [
@@ -325,7 +331,8 @@ export const DORSET_LOCATIONS: Record<string, DorsetLocation> = {
     demographics: {
       businessCount: 380,
       averageIncome: 31000,
-      touristDestination: true
+      touristDestination: true,
+      isCoastal: false
     },
     seoData: {
       primaryKeywords: [
@@ -378,7 +385,8 @@ export const DORSET_LOCATIONS: Record<string, DorsetLocation> = {
     demographics: {
       businessCount: 320,
       averageIncome: 25000,
-      touristDestination: true
+      touristDestination: true,
+      isCoastal: true
     },
     seoData: {
       primaryKeywords: [
@@ -431,7 +439,8 @@ export const DORSET_LOCATIONS: Record<string, DorsetLocation> = {
     demographics: {
       businessCount: 420,
       averageIncome: 29000,
-      touristDestination: false
+      touristDestination: false,
+      isCoastal: false
     },
     seoData: {
       primaryKeywords: [

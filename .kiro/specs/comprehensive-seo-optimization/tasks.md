@@ -82,28 +82,39 @@
   - Add keyword mapping for location-service combinations
   - _Requirements: 2.1, 2.2, 4.1_
 
-- [ ] 3. Optimize Location-Based Pages
+- [x] 3. Optimize Location-Based Pages
+
+
+
+
+
   - Enhance existing location pages with better SEO
   - Create comprehensive location-specific content
   - Implement local business schema markup
   - Add location-specific keywords and content
   - _Requirements: 2.1, 2.2, 2.3, 2.4_
 
-- [ ] 3.1 Enhance location page templates
+- [x] 3.1 Enhance location page templates
+
+
   - Update `src/app/web-design/[town]/page.tsx` with dynamic metadata using strict Next.js Metadata type
   - Create location-specific content generation with proper string escaping for town names with apostrophes
   - Add local testimonials and case studies sections with escaped quotes in content
   - Implement FAQ sections for each location with proper JSON-LD schema typing
   - _Requirements: 2.1, 2.2_
 
-- [ ] 3.2 Implement local business schema for locations
+- [x] 3.2 Implement local business schema for locations
+
+
   - Add LocalBusiness schema to each location page
   - Include proper address, phone, and service area data
   - Add geo-coordinates for each Dorset location
   - Implement areaServed markup for service coverage
   - _Requirements: 2.3_
 
-- [ ] 3.3 Create location-specific content optimization
+- [x] 3.3 Create location-specific content optimization
+
+
   - Generate unique, valuable content for each town page
   - Include local landmarks, business districts, and demographics
   - Add location-specific service offerings and pricing

@@ -646,7 +646,7 @@ export function getContextualMessage(
     location?: string;
     service?: string;
   },
-  _currentSection?: string,
+  currentSection?: string,
   userAgent?: string
 ): {
   message: string;

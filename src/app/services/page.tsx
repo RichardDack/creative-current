@@ -114,7 +114,7 @@ export default function ServicesPage() {
               </h1>
               <p className="hero-description">
                 Comprehensive web design and development services tailored for Dorset businesses. 
-                From concept to launch, we've got you covered.
+                From concept to launch, we&apos;ve got you covered.
               </p>
             </div>
           </div>

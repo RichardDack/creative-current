@@ -369,7 +369,7 @@ export default function WorkPage() {
                     marginBottom: '1rem',
                     lineHeight: 'var(--line-height-relaxed)'
                   }}>
-                    "                    &ldquo;{testimonial.text}&rdquo;"
+                    &ldquo;{testimonial.text}&rdquo;
                   </p>
                   <div style={{ 
                     fontWeight: 'var(--font-weight-semibold)', 

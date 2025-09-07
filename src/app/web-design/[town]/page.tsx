@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { Layout } from '@/components/global/Layout';
 import { LocalHero } from '@/components/sections/LocalHero';
 import { LocalServicesSection } from '@/components/sections/LocalServicesSection';
-import { LocalIndustriesSection } from '@/components/sections/LocalIndustriesSection';
+
 import { LocalTestimonialsSection } from '@/components/sections/LocalTestimonialsSection';
 import { LocalFAQSection } from '@/components/sections/LocalFAQSection';
 import { ContactSection } from '@/components/sections/ContactSection';
@@ -14,15 +14,12 @@ import { TownPageErrorBoundary } from '@/components/ui/TownPageErrorBoundary';
 
 import { 
   getLocationBySlug,
-  getLocationSEOData,
   getAllLocationSlugs,
   generateLocationKeywords
 } from '@/lib/data/locations';
 import { 
   generateSEOMetadata,
   toNextMetadata,
-  escapeString,
-  cleanString,
   type PageContext
 } from '@/lib/seo/metadata';
 import { generateLocationPageSchemas } from '@/lib/seo/schema';

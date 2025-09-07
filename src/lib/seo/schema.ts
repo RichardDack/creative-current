@@ -199,7 +199,7 @@ export interface SearchActionSchema {
  */
 export function generateLocalBusinessSchema(
   location: DorsetLocation,
-  townSlug: string
+  _townSlug: string
 ): LocalBusinessSchema {
   const escapedName = escapeString(location.name);
   const escapedCounty = escapeString(location.county);

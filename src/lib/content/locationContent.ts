@@ -286,7 +286,7 @@ function generateLocationFAQ(location: DorsetLocation): LocationContent['faq'] {
 /**
  * Generate localized service descriptions based on location characteristics
  */
-function generateLocalizedServiceDescription(service: any, location: DorsetLocation): string {
+function generateLocalizedServiceDescription(service: { description: string; slug: string }, location: DorsetLocation): string {
   const cleanName = cleanString(location.name);
   const isTourist = location.demographics.touristDestination;
   const primaryIndustry = location.keyIndustries[0]?.toLowerCase() || 'business';
@@ -312,20 +312,7 @@ function generateLocalizedServiceDescription(service: any, location: DorsetLocat
   return localizedDescriptions[service.slug] || `${service.description} Tailored for ${cleanName} businesses looking to grow their online presence.`;
 }
 
-/**
- * Get service benefit for localized descriptions
- */
-function getServiceBenefit(serviceSlug: string): string {
-  const benefits: Record<string, string> = {
-    'responsive-web-design': 'reach customers on all devices',
-    'wordpress-development': 'easily manage their own content',
-    'ecommerce-website': 'sell products online 24/7',
-    'website-redesign': 'modernize their online presence',
-    'seo-optimization': 'attract more local customers'
-  };
 
-  return benefits[serviceSlug] || 'grow their business online';
-}
 
 /**
  * Calculate approximate distance between locations (simplified)

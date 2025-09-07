@@ -111,8 +111,7 @@ function getAnchorLinkCorrections(targetId: string): string[] {
  */
 export function handleNavigationClick(
   e: React.MouseEvent<HTMLAnchorElement>, 
-  href: string,
-  _currentPage?: string
+  href: string
 ): void {
   const validation = validateNavigationLink(href);
   
@@ -191,8 +190,7 @@ export function scrollToElementWithOffset(targetId: string, additionalOffset: nu
  * @returns Array of navigation items
  */
 export function generateContextualNavigationLinks(
-  currentPage: string,
-  _townSlug?: string
+  currentPage: string
 ): Array<{ name: string; href: string; id: string; type: 'anchor' | 'page' }> {
   const baseLinks = [
     { name: 'WORK', href: '#work-section', id: 'work', type: 'anchor' as const },
@@ -373,8 +371,7 @@ export function generateNavigationLinks(
  */
 export function shouldShowStickyNav(
   currentPage: string,
-  isScrolledPastHero: boolean,
-  _currentSection?: string
+  isScrolledPastHero: boolean
 ): boolean {
   // Always show on non-homepage pages
   if (currentPage !== 'homepage') {
@@ -477,8 +474,7 @@ export const NAVIGATION_CONFIG = {
  * @returns Page context information
  */
 export function detectPageContext(
-  pathname: string,
-  _searchParams?: URLSearchParams
+  pathname: string
 ): {
   type: 'homepage' | 'web-design' | 'town' | 'service' | 'about' | 'contact' | 'work';
   location?: string;

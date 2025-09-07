@@ -91,7 +91,7 @@ export const HOMEPAGE_TEMPLATES: ContentTemplate = {
     return escapeContent(`${baseDesc}${locationDesc}${serviceDesc}. Custom websites, responsive design, and digital solutions for businesses.`);
   },
 
-  generateContent: (location?: string, service?: string, _data?: unknown): string => {
+  generateContent: (location?: string, service?: string): string => {
     const locationName = location ? location.charAt(0).toUpperCase() + location.slice(1) : 'Dorset';
     const serviceName = service || 'web design';
     
@@ -461,7 +461,7 @@ export function generateLocalTestimonials(location: string): LocalTestimonial[] 
 /**
  * Generate service highlights for location
  */
-export function generateServiceHighlights(_location: string): ServiceHighlight[] {
+export function generateServiceHighlights(): ServiceHighlight[] {
   return [
     {
       name: 'Responsive Web Design',

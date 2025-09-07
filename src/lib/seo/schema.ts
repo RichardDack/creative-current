@@ -1,9 +1,5 @@
 // src/lib/seo/schema.ts - Structured data schema markup utilities
 
-import page from "@/app/page";
-
-import page from "@/app/page";
-
 export type SchemaMarkup = object;
 
 export interface OrganizationSchema {
@@ -604,7 +600,7 @@ export function generatePlaceSchema(locationData: {
   seoData?: {
     localLandmarks?: string[];
   };
-}, _townSlug: string): object {
+}): object {
   return {
     "@context": "https://schema.org",
     "@type": "Place",

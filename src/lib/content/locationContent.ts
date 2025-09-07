@@ -284,7 +284,7 @@ function generateIndustryExamples(industries: string[], townName: string): strin
  * Generate location-specific testimonials - returning empty array to avoid fake testimonials
  * Real testimonials should be added manually when available
  */
-function generateLocalTestimonials(_location: DorsetLocation): LocationContent['testimonials'] {
+function generateLocalTestimonials(): LocationContent['testimonials'] {
   // Return empty array - fake testimonials are not ethical and can harm SEO
   // Real testimonials should be collected from actual clients and added manually
   return [];

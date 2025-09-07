@@ -39,7 +39,7 @@ export default function TermsPage() {
                     1. Agreement to Terms
                   </h2>
                   <p style={{ marginBottom: '1rem', lineHeight: '1.7' }}>
-                    By accessing and using Creative Current's services, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+                    By accessing and using Creative Current&apos;s services, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
                   </p>
                 </div>
 
@@ -103,7 +103,7 @@ export default function TermsPage() {
                     6. Limitation of Liability
                   </h2>
                   <p style={{ marginBottom: '1rem', lineHeight: '1.7' }}>
-                    Creative Current's liability is limited to the amount paid for services. We are not liable for any indirect, incidental, or consequential damages.
+                    Creative Current&apos;s liability is limited to the amount paid for services. We are not liable for any indirect, incidental, or consequential damages.
                   </p>
                   <p style={{ marginBottom: '1rem', lineHeight: '1.7' }}>
                     While we strive for 100% uptime, we cannot guarantee uninterrupted service and are not liable for temporary outages or technical issues beyond our control.

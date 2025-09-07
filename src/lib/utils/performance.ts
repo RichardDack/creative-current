@@ -67,12 +67,25 @@ export const monitorCoreWebVitals = () => {
 
   // Only load web-vitals in production
   if (process.env.NODE_ENV === 'production') {
-    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-      getCLS(console.log);
-      getFID(console.log);
-      getFCP(console.log);
-      getLCP(console.log);
-      getTTFB(console.log);
+    import('web-vitals').then((webVitals) => {
+      // Use type assertion to avoid TypeScript errors with dynamic imports
+      const vitals = webVitals as any;
+      
+      // Try modern API first (onXXX functions)
+      if (vitals.onCLS) vitals.onCLS(console.log);
+      else if (vitals.getCLS) vitals.getCLS(console.log);
+      
+      if (vitals.onFID) vitals.onFID(console.log);
+      else if (vitals.getFID) vitals.getFID(console.log);
+      
+      if (vitals.onFCP) vitals.onFCP(console.log);
+      else if (vitals.getFCP) vitals.getFCP(console.log);
+      
+      if (vitals.onLCP) vitals.onLCP(console.log);
+      else if (vitals.getLCP) vitals.getLCP(console.log);
+      
+      if (vitals.onTTFB) vitals.onTTFB(console.log);
+      else if (vitals.getTTFB) vitals.getTTFB(console.log);
     }).catch((error) => {
       console.warn('Failed to load web-vitals:', error);
     });

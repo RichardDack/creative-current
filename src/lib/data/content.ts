@@ -392,9 +392,7 @@ export const KEYWORD_MAPPING: Record<string, Record<string, string[]>> = {
  */
 export function generateLocationServiceContent(
   location: string,
-  service: string,
-  locationData?: DorsetLocation,
-  serviceData?: WebDesignService
+  service: string
 ): {
   title: string;
   description: string;

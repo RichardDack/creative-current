@@ -350,8 +350,7 @@ export function generateBreadcrumbs(
  * @returns Array of navigation items
  */
 export function generateNavigationLinks(
-  currentPage: string,
-  townSlug?: string
+  currentPage: string
 ): Array<{ name: string; href: string; id: string; type: 'anchor' | 'page'; isActive?: boolean }> {
   return generateContextualNavigationLinks(currentPage).map(item => ({
     name: item.name,
